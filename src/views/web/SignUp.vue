@@ -1,5 +1,5 @@
 <template>
-    <div class="logon-column-wrapper flx column ai-c jc-c br-16 bg-white flx-grow-1">
+    <div class="logon-column-wrapper flx column ai-c br-16 bg-white flx-grow-1">
         <div class="flx column column-inner ai-c gap-24">
             <div class="ff-2">CLIMB ONSIGHT</div>
             <div class="w-100 flx column gap-24">
@@ -47,11 +47,8 @@
                             <span class="input-error" v-if="validation.error && validation.errors.password">
                                 {{ validation.errors.password[0] }}
                             </span>
-                            <div class="forgot-pass">
-                                <a class="a-link" href="#">Forgot your password?</a>
-                            </div>
                         </div>
-                        <button class="button-primary gap-8 w-100 btn-lg ai-c">
+                        <button class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                             <spinner v-if="submiting" />
                             <span>{{ submiting ? 'Please wait...' : 'Sign up'}}</span>
                         </button>
@@ -63,7 +60,7 @@
                         <router-link :to="{ name: 'SignIn'}" class="a-link" href="#">Log in</router-link>
                     </div>
                     <div class="flx gap-8">
-                        <span>Or</span><a href="#" class="a-link">Apply as a Guide</a>
+                        <span>Or</span><router-link :to="{ name: 'ApplyAsGuide' }" class="a-link">Apply as a Guide</router-link>
                     </div>
                 </div>
             </div>
@@ -73,11 +70,17 @@
 
 <script>
 import { postApi } from '@/api'
+import { mapState } from 'vuex'
 import inputValidationMixin from '@/mixins/inputValidation'
 import Spinner from '@/components/includes/Spinner.vue'
 export default {
   components: { Spinner },
     name: 'SignUp',
+    computed: {
+        ...mapState({
+            hostname: (state) => state.hostname
+        })
+    },
     mixins: [inputValidationMixin],
     data() {
         return {
@@ -85,17 +88,19 @@ export default {
                 email: '',
                 password: '',
                 full_name: '',
-                phone_number: ''
+                phone_number: '',
+                password_confirmation: ''
             }
         }
     },
     methods: {
         async signUp() {
+            this.form.password_confirmation = this.form.password
             this.validation.error ? this.clearErrs() : ''
             this.startSpinner()
             try {
-                const res = await postApi('https://climbonsightbackend.cevonbeauty.com/api/register/climber', this.form)
-                // this.signupSuccess(res.data)
+                const res = await postApi(this.hostname+'/api/register/climber', this.form)
+                this.signupSuccess()
                 console.log(res.data)
             } catch (e) {
                 console.error(e.response)
@@ -103,10 +108,24 @@ export default {
                 this.stopSpinner()
             }
         },
-        async signupSuccess(res) {
+        async signupSuccess() {
+            this.signInUser()
+        },
+        async signInUser() {
+            try {
+                const res = await postApi(this.hostname+'/api/login', this.form)
+                this.signinSuccess(res.data)
+            } catch (e) {
+                this.errorResponse(e)
+                this.stopSpinner()
+                console.error(e.response)
+
+            }
+        },
+        async signinSuccess(res) {
             this.stopSpinner()
             await this.$store.commit('signUpSuccess', res)
-            // this.$router.push({ name: 'Dashboard' })
+            this.$router.push({ name: 'ClimberPersonalInfo' })
         }
     }
 }

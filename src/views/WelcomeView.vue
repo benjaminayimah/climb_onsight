@@ -21,7 +21,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 section {
-    padding: 32px;
     min-height: 100dvh;
     background-color: var(--bg-color);
 }

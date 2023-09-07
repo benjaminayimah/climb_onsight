@@ -15,6 +15,7 @@
     --input-btn-transition: 0.2s all ease;
     --input-btn-line-height: 2;
     --border-radius: 14px;
+    --logon-padding: 32px;
 }
 body{
     margin: 0;
@@ -40,7 +41,7 @@ body{
 .bg-white {
     background-color: var(--white);
 }
-button{
+button, .a-button{
     border-style: none;
     display: flex;
     justify-content: center;
@@ -56,6 +57,13 @@ button{
         transition: var(--input-btn-transition);
     }
 }
+.button-disabled{
+    // background-color: var(--button-disabled);
+    &:hover {
+        // background-color: var(--button-disabled);
+        cursor: not-allowed
+    }
+}
 .btn-lg {
     height: 58px;
     padding: 12px 24px;
@@ -66,6 +74,12 @@ button{
     &:hover {
         background-color: var(--primary-hover);
     }
+    &:active {
+        background-color: var(--primary-color);
+    }
+}
+.button-outline {
+    border: 1px solid #D9D9D9;
 }
 .a-link {
     &:hover {
@@ -144,8 +158,18 @@ button{
 }
 .gap-50 {
     gap: 50px;
-}.gap-60 {
+}
+.gap-60 {
     gap: 60px;
+}
+.gap-70 {
+    gap: 70px;
+}
+.gap-80 {
+    gap: 80px;
+}
+.gap-100 {
+    gap: 100px;
 }
 .absolute{
     position: absolute;
@@ -320,7 +344,7 @@ form {
 }
 .input-wrapper{
     position: relative;
-    input {
+    input, select, textarea {
         line-height: var(--input-btn-line-height);
         padding: 12px 20px;
     }
@@ -358,18 +382,82 @@ input:not([type=checkbox]), select, textarea {
 .error-border {
     border-color: var(--danger);
 }
-
+.hide{
+    display: none !important;
+}
 #welcome_main{
     display: grid;
     grid-template-columns: .7fr 1fr;
     gap: 32px;
+    padding: var(--logon-padding);
 }
 .logon-column-wrapper {
-    padding: 24px 32px;
+    padding: 32px;
+    height: calc(100dvh - var(--logon-padding) * 2);
+    overflow-y: auto;
     .column-inner{
         max-width: 440px;
         min-width: 230px;
         width: 70%;
+    }
+}
+.stepper-title {
+    text-align: center;
+    font-size: 1.3rem;
+}
+.logon-stepper {
+    .hide-mark {
+        visibility: hidden;
+    }
+    .show-mark {
+        visibility: visible;
+    }
+    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        position: relative;
+    }
+    a {
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        height: 46px;
+        width: 46px;
+        border-radius: 25px;
+        cursor: default;
+        path {
+            fill: #000;
+        }
+    }
+    span {
+        text-align: center;
+        max-width: 90px;
+        line-height: 1.3;
+        font-size: 0.9rem;
+        color: #888888;
+    }
+    .active {
+        a {
+            background: #000;
+            path {
+                fill: #fff;
+            }
+        }
+        span {
+            color: #000;
+        } 
+    }
+    li::after{
+        position: absolute;
+        content: "";
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        width: 40%;
+        top: 28%;
+        left: 84%;
+        z-index: 2;
+    }
+    li:last-child:after{
+        border-bottom: none;
     }
 }
 @media screen and (max-width: 989px){
@@ -385,6 +473,8 @@ input:not([type=checkbox]), select, textarea {
     }
     .logon-column-wrapper {
         border-radius: unset;
+        overflow-y: unset;
+        height: 100%;
         .column-inner {
             width: 82%;
         }

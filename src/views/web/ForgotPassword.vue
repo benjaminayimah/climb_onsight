@@ -2,12 +2,12 @@
     <div class="logon-column-wrapper flx column ai-c br-16 bg-white flx-grow-1">
         <div class="flx column column-inner ai-c gap-60">
             <div class="ff-2">CLIMB ONSIGHT</div>
-            <div class="w-100 flx column gap-40">
+            <div class="w-100 flx column gap-100">
                 <div class="text-center">
-                    <div class="fw-700 fs-5rem">Welcome</div>
-                    <div>Log in to climb on sight</div>
+                    <div class="fw-700 fs-2rem">{{ emailSent ? 'Check your email' : 'Forgot password' }}</div>
+                    <div v-if="!emailSent">Enter your email to continue</div>
                 </div>
-                <form @submit.prevent="signIn">
+                <form v-if="!emailSent" @submit.prevent="submit">
                     <!-- <div v-if="userError.error" class="invalid-credentials response-message text-center mb-32">
                         <span>{{ userError.message }}</span>
                     </div> -->
@@ -21,31 +21,18 @@
                                 {{ validation.errors.email[0] }}
                             </span>
                         </div>
-                        <div class="form-row column">
-                            <label for="password">Password</label>
-                            <div class="input-wrapper">
-                                <input v-model="form.password" class="form-control" :class="{ 'error-border': validation.errors.password }" type="password" name="password" id="password" placeholder="Enter password">
-                            </div>
-                            <span class="input-error" v-if="validation.error && validation.errors.password">
-                                {{ validation.errors.password[0] }}
-                            </span>
-                            <div class="forgot-pass">
-                                <router-link :to="{ name: 'ForgotPassword' }" class="a-link">Forgot your password?</router-link>
-                            </div>
-                        </div>
                         <button class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                             <spinner v-if="submiting" />
-                            <span>{{ submiting ? 'Please wait...' : 'Log in'}}</span>
+                            <span>{{ submiting ? 'Please wait...' : 'Continue'}}</span>
                         </button>
                     </div>
                 </form>
+                <div v-else class="text-center email-sent br-16">
+                    {{ successMsg }}
+                </div>
                 <div class="flx column gap-4 ai-c acc-footer">
                     <div class="text-center">
-                        <span>Don't have an account? </span>
-                        <router-link :to="{ name: 'SignUp'}" class="a-link" href="#">Sign up</router-link>
-                    </div>
-                    <div class="flx gap-8">
-                        <span>Or</span><router-link :to="{ name: 'ApplyAsGuide' }" class="a-link">Apply as a Guide</router-link>
+                        <router-link :to="{ name: 'SignIn'}" class="a-link" href="#">Back to login page</router-link>
                     </div>
                 </div>
             </div>
@@ -54,13 +41,13 @@
 </template>
 
 <script>
-import { postApi } from '@/api'
-import { mapState } from 'vuex'
-import inputValidationMixin from '@/mixins/inputValidation'
+import axios from 'axios'
+import { mapState } from 'vuex';
+import inputValidationMixin from '@/mixins/inputValidation';
 import Spinner from '@/components/includes/Spinner.vue'
 export default {
     components: { Spinner },
-    name: 'SignIn',
+    name: 'ForgotPassword',
     mixins: [inputValidationMixin],
     computed: {
         ...mapState({
@@ -69,18 +56,20 @@ export default {
     },
     data() {
         return {
-            form : {
-                email: '',
-                password: ''
-            }
+            form: {
+                email: ''
+            },
+            emailSent: false,
+            successMsg: ''
+
         }
     },
     methods: {
-        async signIn() {
+        async submit() {
             this.validation.error ? this.clearErrs() : ''
             this.startSpinner()
             try {
-                const res = await postApi(this.hostname+'/api/login', this.form)
+                const res = await axios.post(this.hostname+'/api/forgot-password', this.form)
                 this.signinSuccess(res.data)
             } catch (e) {
                 this.errorResponse(e)
@@ -89,13 +78,18 @@ export default {
         },
         async signinSuccess(res) {
             this.stopSpinner()
-            await this.$store.commit('signInSuccess', res)
-            this.$router.push({ name: 'Dashboard' })
+            this.emailSent = true
+            this.successMsg = res.message
+            console.log(res)
         }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.email-sent {
+    padding: 20px;
+    background-color: #cef7e9;
+    border: 1px solid #32D49D;
+}
 </style>

@@ -4,11 +4,19 @@ import store from '@/store'
 import WelcomeView from '@/views/WelcomeView.vue'
 import SignIn from '../views/web/SignIn.vue'
 import SignUp from '../views/web/SignUp.vue'
+import ForgotPassword from '../views/web/ForgotPassword.vue'
 import SignUpClimberView from '../views/web/SignUpClimberView.vue'
 import ClimberPersonalInfo from '../views/web/ClimberPersonalInfo.vue'
 import ClimberClimbingExp from '../views/web/ClimberClimbingExp.vue'
 import ClimberFunFacts from '../views/web/ClimberFunFacts.vue'
 import ClimberInterestedSkills from '../views/web/ClimberInterestedSkills.vue'
+import ApplyAsGuide from '../views/web/ApplyAsGuide.vue'
+import SignUpGuideView from '../views/web/SignUpGuideView.vue'
+import GuideCompanyInfo from '../views/web/GuideCompanyInfo.vue'
+import GuideDocuments from '../views/web/GuideDocuments.vue'
+import GuideReviews from '../views/web/GuideReviews.vue'
+import GuideExperience from '../views/web/GuideExperience.vue'
+import GuideReference from '../views/web/GuideReference.vue'
 
 import Dashboard from '../views/Dashboard.vue'
 
@@ -26,6 +34,19 @@ const routes = [
     children: [
       { path: '/signin', name: 'SignIn', component: SignIn, meta: {requiresVisitor: true} },
       { path: '/signup', name: 'SignUp', component: SignUp, meta: {requiresVisitor: true} },
+      { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword, meta: {requiresVisitor: true} },
+      { path: '/apply-as-guide', name: 'ApplyAsGuide', component: ApplyAsGuide, meta: {requiresVisitor: true} },
+      { path: '/company-info', component: SignUpGuideView, meta: {requiresVisitor: true},
+        children: [
+          { path: '/company-info', component: GuideCompanyInfo, name: 'GuideCompanyInfo' },
+          { path: '/guide-documents', component: GuideDocuments, name: 'GuideDocuments' },
+          { path: '/guide-reviews', component: GuideReviews, name: 'GuideReviews' },
+          { path: '/guide-experience', component: GuideExperience, name: 'GuideExperience' },
+          { path: '/guide-reference', component: GuideReference, name: 'GuideReference' },
+          
+        ]
+       },
+
       { path: '/signup-personal-info', component: SignUpClimberView,
         meta: {requiresNewUser: true},
         children: [
@@ -33,10 +54,6 @@ const routes = [
           { path: '/signup-climbing-experience', name: 'ClimberClimbingExp', component: ClimberClimbingExp },
           { path: '/signup-fun-facts', name: 'ClimberFunFacts', component: ClimberFunFacts },
           { path: '/signup-interested-new-skills', name: 'ClimberInterestedSkills', component: ClimberInterestedSkills },
-
-          
-
-          
         ]
       },
     ]
