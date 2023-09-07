@@ -1,7 +1,9 @@
 <template>
     <div class="logon-column-wrapper flx column ai-c br-16 bg-white">
         <div class="flx column column-inner ai-c gap-24">
-            <div class="ff-2 mb-32">CLIMB ONSIGHT</div>
+            <div class="mb-32">
+                <logo />
+            </div>
             <div class="w-100 flx column gap-24 ai-c">
                 <ul class="flx gap-8 logon-stepper mb-24">
                     <li :class="{ 'active' : $route.path === '/company-info'}">
@@ -59,7 +61,6 @@
                         </a>
                         <span>Guide References</span>
                     </li>
-                    
                 </ul>
                 <router-view></router-view>
             </div>
@@ -68,7 +69,9 @@
 </template>
 
 <script>
+import Logo from '@/components/includes/Logo.vue'
 export default {
+    components: { Logo },
     name: 'SignUpGuideView'
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="logon-column-wrapper flx column ai-c br-16 bg-white flx-grow-1">
-        <div class="flx column column-inner ai-c gap-60">
-            <div class="ff-2">CLIMB ONSIGHT</div>
+        <div class="flx column column-inner ai-c gap-80">
+            <logo />
             <div class="w-100 flx column gap-100">
                 <div class="text-center">
                     <div class="fw-700 fs-2rem">{{ emailSent ? 'Check your email' : 'Forgot password' }}</div>
@@ -45,8 +45,9 @@ import axios from 'axios'
 import { mapState } from 'vuex';
 import inputValidationMixin from '@/mixins/inputValidation';
 import Spinner from '@/components/includes/Spinner.vue'
+import Logo from '@/components/includes/Logo.vue';
 export default {
-    components: { Spinner },
+    components: { Spinner, Logo },
     name: 'ForgotPassword',
     mixins: [inputValidationMixin],
     computed: {

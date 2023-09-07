@@ -10,6 +10,7 @@ export default createStore({
     newUser: localStorage.getItem('newUser') || null,
     hostname: 'https://climbonsightbackend.cevonbeauty.com',
     windowWidth: '',
+    menu: false,
   },
   mutations: {
     computeWindow(state) {
@@ -38,6 +39,9 @@ export default createStore({
       localStorage.setItem('newUser', JSON.stringify(data))
       state.newUser = data
     },
+    toggleMenu(state) {
+      state.menu = !state.menu
+    },
     destroyToken(){
       localStorage.removeItem('auth')
       localStorage.removeItem('user')
@@ -55,8 +59,9 @@ export default createStore({
               'Content-Type': 'application/json'
           },
       })
-      .then(() => {
+      .then((res) => {
         state.commit('destroyToken')
+        console.log(res.data)
       })
       .catch(e => {
           console.error(e.response)
@@ -72,7 +77,7 @@ export default createStore({
     },
     getHostname: (state) => state.hostname,
     getToken: (state) => state.token,
-    getWindowWidth(state) {
+    getDevice(state) {
       let appWidth = 1344
       if(state.windowWidth < 600){
         return 'mobile'

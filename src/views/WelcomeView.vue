@@ -6,11 +6,10 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import { mapState } from 'vuex';
 export default {
     name: 'WelcomeView',
     computed: {
-        ...mapGetters(['getWindowWidth']),
         ...mapState({
             banner: (state) => state.data.bannerImage,
             window: (state) => state.windowWidth

@@ -1,7 +1,7 @@
 <template>
     <div class="logon-column-wrapper flx column ai-c br-16 bg-white flx-grow-1">
         <div class="flx column column-inner ai-c gap-60">
-            <div class="ff-2">CLIMB ONSIGHT</div>
+            <logo />
             <div class="w-100 flx column gap-40">
                 <div class="text-center">
                     <div class="fw-700 fs-5rem">Welcome</div>
@@ -58,8 +58,9 @@ import { postApi } from '@/api'
 import { mapState } from 'vuex'
 import inputValidationMixin from '@/mixins/inputValidation'
 import Spinner from '@/components/includes/Spinner.vue'
+import Logo from '@/components/includes/Logo.vue'
 export default {
-    components: { Spinner },
+    components: { Spinner, Logo },
     name: 'SignIn',
     mixins: [inputValidationMixin],
     computed: {
@@ -90,7 +91,7 @@ export default {
         async signinSuccess(res) {
             this.stopSpinner()
             await this.$store.commit('signInSuccess', res)
-            this.$router.push({ name: 'Dashboard' })
+            this.$router.push({ name: 'Home' })
         }
     }
 }
