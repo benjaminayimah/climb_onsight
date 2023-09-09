@@ -59,12 +59,11 @@ export default createStore({
               'Content-Type': 'application/json'
           },
       })
-      .then((res) => {
+      .then(() => {
         state.commit('destroyToken')
-        console.log(res.data)
       })
-      .catch(e => {
-          console.error(e.response)
+      .catch(() => {
+          state.commit('destroyToken')
       })
     },
   },
