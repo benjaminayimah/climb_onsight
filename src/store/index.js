@@ -51,6 +51,23 @@ export default createStore({
     
   },
   actions: {
+    getAuthUser(state) {
+      const url = this.getters.getHostname + '/api/user'
+      const headers = {
+          'Content-Type' : 'application/json',
+          'Authorization' : `Bearer ${this.getters.getToken}`
+      }
+      axios.get(url, { headers })
+      .then((res) => {
+        console.log(res.data)
+        state.commit('setAuthUser', res.data)
+      })
+      .catch(e => {
+        if(e.response.status == 400 || e.response.status == 404) {
+          state.commit('destroyToken')
+        }
+      })
+    },
     logOut(state, payload) {
       const url = this.getters.getHostname + '/api/logout'
       axios.post(url, payload, {

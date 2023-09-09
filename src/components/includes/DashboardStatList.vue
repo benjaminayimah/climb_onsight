@@ -1,9 +1,10 @@
 <template>
     <div class="stats br-16 flx column ai-c relative jc-sb">
         <a href="" class="absolute">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 20.325 20.325">
-                <path d="M15.791,11.51a.919.919,0,0,0-.007,1.294l4.268,4.282H8.789a.914.914,0,0,0,0,1.828H20.052L15.777,23.2a.925.925,0,0,0,.007,1.294.91.91,0,0,0,1.287-.007l5.794-5.836h0a1.026,1.026,0,0,0,.19-.288.872.872,0,0,0,.07-.352.916.916,0,0,0-.26-.64l-5.794-5.836A.9.9,0,0,0,15.791,11.51Z" transform="translate(-13.53 8.396) rotate(-45)"/>
+            <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 15 15">
+                <path d="M1.4,15,0,13.6,11.6,2H5V0H15V10H13V3.4Z"/>
             </svg>
+
         </a>
         <h1>26</h1>
         <div>Featured deals</div>
@@ -31,8 +32,8 @@ export default {
         color: var(--gray);
     }
     a {
-        top: 16px;
-        right: 16px;
+        top: 20px;
+        right: 20px;
     }
 }
 </style>

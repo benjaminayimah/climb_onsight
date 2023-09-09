@@ -27,7 +27,7 @@
                     <div v-if="getDevice !== 'mobile'" class="flx-b-60 gap-8 flx column">
                         <dash-message-card />
                     </div>
-                    <div v-if="getDevice !== 'mobile'" class="flx-grow-1 flx column merch-card">
+                    <div v-if="getDevice !== 'mobile'" class="flx-grow-1 flx column merch-card gap-8">
                         <h3 class="title">Climbing Merchandise</h3>
                         <div class="bg-white flx-1 br-16 centered">
                             <a href="" target="_blank" class="gray a-link">Explore merchandise</a>

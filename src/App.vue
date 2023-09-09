@@ -7,6 +7,7 @@ export default {
   created() {
     this.$store.commit('computeWindow')
     window.addEventListener('resize', this.windowSize)
+    localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser') : ''
   },
   methods: {
     windowSize() {
