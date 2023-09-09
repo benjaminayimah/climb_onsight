@@ -55,7 +55,7 @@ nav {
     padding: 32px 0 16px 0;
     z-index: 90;
     background-color: var(--bg-color);
-    background-color: rgba(251, 247, 244, 0.8);
+    background-color: rgba(251, 247, 244, 0.6);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
 }
