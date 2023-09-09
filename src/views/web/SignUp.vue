@@ -8,9 +8,9 @@
                     <div>Sign up to climb on sight</div>
                 </div>
                 <form @submit.prevent="signUp">
-                    <!-- <div v-if="userError.error" class="invalid-credentials response-message text-center mb-32">
-                        <span>{{ userError.message }}</span>
-                    </div> -->
+                    <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
+                        <span>{{ systemErr.message }}</span>
+                    </div>
                     <div class="form-wrapper flx column gap-24">
                         <div class="form-row column">
                             <label for="email">Email</label>
@@ -97,7 +97,7 @@ export default {
     methods: {
         async signUp() {
             this.form.password_confirmation = this.form.password
-            this.validation.error ? this.clearErrs() : ''
+            this.validation.error || this.systemErr.error ? this.clearErrs() : ''
             this.startSpinner()
             try {
                 const res = await postApi(this.hostname+'/api/register/climber', this.form)

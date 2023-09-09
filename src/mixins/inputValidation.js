@@ -5,6 +5,10 @@ export default {
                 error: false,
                 errors: '',
             },
+            systemErr: {
+                error: false,
+                message: ''
+            },
             submiting: false
         }
     },
@@ -13,6 +17,10 @@ export default {
             if (this.validation.error === true)
             this.validation.error = false
             this.validation.errors = ''
+            if (this.systemErr.error === true)
+            this.systemErr.error = false
+            this.validation.message = ''
+
         },
         errorResponse(e) {
             // if (e.response.status == 401) {
@@ -22,12 +30,12 @@ export default {
             // }
             if(e.response.status == 422){
                 this.validation.error = true
-                this.validation.errors = e.response.data.errors || e.response.data.error || e
+                this.validation.errors = e.response.data.errors || e.response.data.error
             }
-            // if (e.response.status == 503) {
-            //     this.userError.error = true
-            //     this.userError.message = 'Our system is currently down for upgrade. Please try again later. Sorry for the inconvenience.'
-            // }
+            else {
+                this.systemErr.error = true
+                this.systemErr.message = e.message || 'An unknown error has occured. Please check your credentials or network connection.'
+            }
         },
         startSpinner() {
             this.submiting = true

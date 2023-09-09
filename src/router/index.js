@@ -5,6 +5,7 @@ import WelcomeView from '@/views/WelcomeView.vue'
 import SignIn from '../views/web/SignIn.vue'
 import SignUp from '../views/web/SignUp.vue'
 import ForgotPassword from '../views/web/ForgotPassword.vue'
+import ResetPassword from '../views/web/ResetPassword.vue'
 import SignUpClimberView from '../views/web/SignUpClimberView.vue'
 import ClimberPersonalInfo from '../views/web/ClimberPersonalInfo.vue'
 import ClimberClimbingExp from '../views/web/ClimberClimbingExp.vue'
@@ -36,6 +37,7 @@ const routes = [
       { path: '/signin', name: 'SignIn', component: SignIn, meta: {requiresVisitor: true} },
       { path: '/signup', name: 'SignUp', component: SignUp, meta: {requiresVisitor: true} },
       { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword, meta: {requiresVisitor: true} },
+      { path: '/reset-password/:payload', name: 'ResetPassword', component: ResetPassword, meta: {requiresVisitor: true} },
       { path: '/apply-as-guide', name: 'ApplyAsGuide', component: ApplyAsGuide, meta: {requiresVisitor: true} },
       { path: '/company-info', component: SignUpGuideView, meta: {requiresVisitor: true},
         children: [

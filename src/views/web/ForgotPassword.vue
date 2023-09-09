@@ -88,9 +88,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.email-sent {
-    padding: 20px;
-    background-color: #cef7e9;
-    border: 1px solid #32D49D;
-}
+
 </style>

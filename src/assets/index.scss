@@ -5,7 +5,7 @@
     --secondary-color: #C69776;
     --secondary-light: #F4E8DF;
     --primary-hover: #212135;
-    --bg-color: #FBF7F4;
+    --bg-color: #fbf7f4;
     --black: #000000;
     --white: #ffffff;
     --danger: #FF5151;
@@ -125,6 +125,12 @@ button:not(.button-disabled) {
     a {
         color: var(--secondary-color);
     }
+}
+.email-sent {
+    padding: 20px;
+    background-color: #cef7e9;
+    border: 1px solid #32D49D;
+    border-radius: 16px;
 }
 //flex-box
 
