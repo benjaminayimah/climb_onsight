@@ -3,7 +3,7 @@
         <div>
             {{ activity.name }}
         </div>
-        <div>
+        <!-- <div>
             <div class="flx jc-sb">
                 <span>Grade level</span>
                 <strong>{{ activity.limit }}</strong>
@@ -15,7 +15,7 @@
                     <span>100%</span>
                 </div>
             </div>
-        </div>
+        </div> -->
     </li>
 </template>
 

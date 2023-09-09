@@ -18,12 +18,13 @@ import GuideReviews from '../views/web/GuideReviews.vue'
 import GuideExperience from '../views/web/GuideExperience.vue'
 import GuideReference from '../views/web/GuideReference.vue'
 
-import Home from '../views/Home.vue'
+import AdminDashboard from '../views/AdminDashboard.vue'
+import Home from '../views/app/Home.vue'
 
 const routes = [
   {
     path: '/home',
-    component: Home,
+    component: AdminDashboard,
     meta: { requiresAuth: true },
     children: [
       { path: '/', component: Home, name: 'Home' }

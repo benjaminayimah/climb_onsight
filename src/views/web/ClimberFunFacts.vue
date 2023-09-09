@@ -4,7 +4,10 @@
         <div>
             <div class="mb-8">Tell us fun facts about your climbing experience</div>
             <div class="input-wrapper mb-16">
-                <textarea v-model="form.bio" class="w-100 form-control" name="funfact" rows="4" placeholder="Type here..."></textarea>
+                <textarea v-model="form.bio" class="w-100 form-control" name="funfact" rows="4" placeholder="Type here..." :class="{ 'error-border': validation.errors.bio }"></textarea>
+                <span class="input-error" v-if="validation.error && validation.errors.bio">
+                    {{ validation.errors.bio[0] }}
+                </span>
             </div>
             <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c">
                 <span>Continue</span>
@@ -14,8 +17,10 @@
 </template>
 
 <script>
+import inputValidation from '@/mixins/inputValidation'
 export default {
     name: 'ClimberFunFacts',
+    mixins: [inputValidation],
     data() {
         return {
             form: {
@@ -25,10 +30,20 @@ export default {
     },
     methods: {
         updateNewUser() {
-            let stored = JSON.parse(localStorage.getItem('newUser'))
-            stored.form.bio = this.form.bio
-            localStorage.setItem('newUser', JSON.stringify(stored))
-            this.$router.push({ name: 'ClimberInterestedSkills' })
+            let errors = { bio: ''}
+            if(this.form.bio == '') {
+                errors.bio = ['This field is required']
+                this.showErr(errors)
+            }else {
+                let stored = JSON.parse(localStorage.getItem('newUser'))
+                stored.form.bio = this.form.bio
+                localStorage.setItem('newUser', JSON.stringify(stored))
+                this.$router.push({ name: 'ClimberInterestedSkills' })
+            }
+        },
+        showErr(payload) {
+            this.validation.error = true
+            this.validation.errors = payload
         }
     }
 }

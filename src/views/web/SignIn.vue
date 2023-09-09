@@ -86,6 +86,7 @@ export default {
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()
+                console.error(e.response)
             }
         },
         async signinSuccess(res) {

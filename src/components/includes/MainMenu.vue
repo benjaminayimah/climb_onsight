@@ -1,4 +1,9 @@
 <template>
+    <teleport v-if="logingOut" to="body">
+        <div class="overlay centered">
+            <spinner />
+        </div>
+    </teleport>
     <aside id="menus" class="flx" :class="{ 'expanded' : menu }">
         <nav class="flx column gap-32 jc-sb">
             <div v-if="device !== 'mobile'" id="logo_wrapper">
@@ -15,13 +20,13 @@
                     </button>
                     <div class="flx gap-8">
                         <button class="br-50">
-                            <svg id="settings" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 22 24">
+                            <svg id="settings" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 22 24">
                                 <path d="M9,12a2,2,0,1,0,2-2A2,2,0,0,0,9,12Z" fill="#595959"/>
                                 <path d="M13.972,2.426a3.034,3.034,0,0,0-5.945,0A3.028,3.028,0,0,1,4.049,4.684,2.98,2.98,0,0,0,1.077,9.743a2.938,2.938,0,0,1,0,4.514,2.98,2.98,0,0,0,2.972,5.059,3.028,3.028,0,0,1,3.978,2.257,3.034,3.034,0,0,0,5.945,0,3.028,3.028,0,0,1,3.978-2.257,2.98,2.98,0,0,0,2.972-5.059,2.938,2.938,0,0,1,0-4.514,2.98,2.98,0,0,0-2.972-5.059A3.028,3.028,0,0,1,13.972,2.426ZM7,12a4,4,0,1,0,4-4A4,4,0,0,0,7,12Z" fill="#595959" fill-rule="evenodd"/>
                             </svg>
                         </button>
                         <button class="br-50">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="23" viewBox="0 0 20 23.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 20 23.5">
                                 <path d="M-3271.98-1027.9a1,1,0,0,1,.2-1.4,1,1,0,0,1,1.4.2,2.751,2.751,0,0,0,4.4,0,1,1,0,0,1,1.4-.2,1,1,0,0,1,.2,1.4,4.723,4.723,0,0,1-3.8,1.9A4.721,4.721,0,0,1-3271.98-1027.9Zm-3.759-3.628a3.138,3.138,0,0,1-2.468-3.18,3.335,3.335,0,0,1,1.6-2.617c.844-.709,1.653-1.39,1.4-2.676-.5-4.2,2.654-7.965,6-8.448,0-.017,0-.035,0-.052a1,1,0,0,1,1-1,1,1,0,0,1,1,1,.465.465,0,0,1,0,.052c3.348.482,6.5,4.247,6,8.448-.257,1.287.544,1.961,1.382,2.667a3.394,3.394,0,0,1,1.617,2.625,3.177,3.177,0,0,1-2.468,3.18,23.019,23.019,0,0,1-7.532,1.028A23.018,23.018,0,0,1-3275.739-1031.528Z" transform="translate(3278.207 1049.5)" fill="#595959"/>
                             </svg>
                         </button>
@@ -33,12 +38,12 @@
             </div>
             <div class="flx column nav-wrapper">
                 <li>
-                    <a href="">
+                    <router-link :to="{ name: 'Home' }">
                         <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 22.664 22.664">
                             <path d="M-1981.058,22.6a.469.469,0,0,1-.443-.47V15.216a.945.945,0,0,1,.944-.946h3.777a.945.945,0,0,1,.944.946v6.915a.469.469,0,0,1-.443.47q-1.193.063-2.376.063Q-1979.858,22.664-1981.058,22.6Zm7.112-.7V15.216a2.836,2.836,0,0,0-2.833-2.839h-3.777a2.835,2.835,0,0,0-2.832,2.839v6.673a.469.469,0,0,1-.521.468c-.18-.021-.361-.043-.541-.066-2.93-.374-4.319-1.5-4.855-3.943a29.608,29.608,0,0,1-.485-9.857c.159-1.057,5.785-5.379,8.988-7.764a3.652,3.652,0,0,1,4.36-.01c3.23,2.383,8.911,6.718,8.981,7.774,0,.033,0,.068.006.1a37.322,37.322,0,0,1-.492,9.753c-.485,2.464-1.923,3.577-4.855,3.943q-.313.039-.625.074a.469.469,0,0,1-.053,0A.47.47,0,0,1-1973.947,21.9Z" transform="translate(1990)" fill="#b5a28f"/>
                         </svg>
                         <span>Home</span>
-                    </a>
+                    </router-link>
                 </li>
                 <li>
                     <a href="">
@@ -74,9 +79,9 @@
                 </li>
             </div>
             <li>
-                <a href="#" @click.prevent="$store.dispatch('logOut', user)">
+                <a href="#" @click.prevent="logOut">
                     <div class="centered br-50">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="17" viewBox="0 0 16.661 18.176">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 16.661 18.176">
                             <path id="Subtract" d="M.169,9.467c0,6.627.633,6.819,5.451,8.281.336.1.692.21,1.069.327,3.177.983,4.83.432,5.676-1.436a8.562,8.562,0,0,0,2.267-.244,2.55,2.55,0,0,0,1.613-1.244,5.535,5.535,0,0,0,.521-2.248c.064-.9.064-2.026.064-3.414V9.435c0-1.388,0-2.518-.064-3.413a5.516,5.516,0,0,0-.522-2.245,2.546,2.546,0,0,0-1.614-1.24,8.6,8.6,0,0,0-2.266-.243C11.519.427,9.866-.124,6.689.859c-.377.117-.733.225-1.069.327C.8,2.648.169,2.84.169,9.467Zm14.05,5.553a5.864,5.864,0,0,1-1.4.175,29.343,29.343,0,0,0,.391-5.728,29.351,29.351,0,0,0-.391-5.728,5.9,5.9,0,0,1,1.4.174,1.111,1.111,0,0,1,.752.549,4.221,4.221,0,0,1,.35,1.661c.06.838.06,1.917.06,3.338s0,2.5-.06,3.34a4.24,4.24,0,0,1-.35,1.665A1.114,1.114,0,0,1,14.219,15.019ZM9.586,10.184a.717.717,0,1,1,.724-.717A.721.721,0,0,1,9.586,10.184Z" transform="translate(-0.169 -0.379)" fill="#fff" fill-rule="evenodd"/>
                         </svg>
                     </div>
@@ -89,13 +94,26 @@
 
 <script>
 import { mapState } from 'vuex';
+import Spinner from './Spinner.vue';
 export default {
+    components: { Spinner },
     name: 'MainMenu',
     props: ['user', 'device', 'avatar'],
     computed: {
         ...mapState({
             menu: (state) => state.menu
         })
+    },
+    data() {
+        return {
+            logingOut: false
+        }
+    },
+    methods: {
+        logOut() {
+            this.logingOut = true
+            this.$store.dispatch('logOut', this.user)
+        }
     }
 }
 </script>
@@ -138,8 +156,8 @@ aside{
         }
         div {
             background-color: #212020;
-            height: 38px;
-            width: 38px;
+            height: 40px;
+            width: 40px;
         }
     }
 }
@@ -212,7 +230,7 @@ aside{
             gap: 16px;
             a {
                 justify-content: flex-start;
-                gap: 8px;
+                gap: 12px;
                 span {
                     display: block;
                     animation: fadeInSlide 0.6s;
@@ -270,9 +288,7 @@ aside{
                 transform: translateX(-50px);
                 transition: 0.6s ease;
             }
-            svg {
-                height: 24px;
-            }
+            
             .logout{
                 margin-top: 20px;
             }
@@ -308,7 +324,9 @@ aside{
 }
 .desktop, .tablet {
     .router-link-active{
-        background-color: var(--primary-color);
+        path {
+            fill: #000;
+        }
         i {
             background-color: var(--white);
             color: var(--primary-color);
@@ -333,5 +351,15 @@ aside{
     width: 75px;
     height: 75px;
     transition: 0.3s ease;
+}
+.overlay{
+    --opacity: 0.7;
+    background-color: rgba($color: #000000, $alpha: var(--opacity));
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
 }
 </style>

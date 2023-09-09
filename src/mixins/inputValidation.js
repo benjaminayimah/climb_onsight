@@ -22,7 +22,7 @@ export default {
             // }
             if(e.response.status == 422){
                 this.validation.error = true
-                this.validation.errors = e.response.data.errors || e.response.data.error
+                this.validation.errors = e.response.data.errors || e.response.data.error || e
             }
             // if (e.response.status == 503) {
             //     this.userError.error = true
