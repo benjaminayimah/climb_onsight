@@ -19,6 +19,9 @@
     --dash-padding: 24px;
     --aside-padding: 20px;
 }
+a, button {
+    -webkit-tap-highlight-color: transparent;
+}
 body{
     margin: 0;
     overflow-x: hidden;
