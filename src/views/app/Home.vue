@@ -4,9 +4,9 @@
             <h3 class="show-tab-mob title">Latest</h3>
             <div class="grid gap-24 grid-col-4 dash-stats">
                 <dashboard-stat-list :color="'#E8E2FF'" />
-                <dashboard-stat-list :color="'#EFFCEF'" />
-                <dashboard-stat-list :color="'#E6F5F9'" />
-                <dashboard-stat-list :color="'#FFEEE2'" />
+                <dashboard-stat-list :color="'#d6ffd6'" />
+                <dashboard-stat-list :color="'#e0f2fe'" />
+                <dashboard-stat-list :color="'#ffe4e6'" />
             </div>
             <div class="flx column flx-grow-1 gap-16">
                 <div class="flx md-top gap-24">
