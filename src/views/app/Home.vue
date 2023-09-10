@@ -4,7 +4,7 @@
             <h3 class="show-tab-mob title">Latest</h3>
             <div class="grid gap-24 grid-col-4 dash-stats">
                 <dashboard-stat-list :color="'#E8E2FF'" />
-                <dashboard-stat-list :color="'#d6ffd6'" />
+                <dashboard-stat-list :color="'#d5ffd5'" />
                 <dashboard-stat-list :color="'#e0f2fe'" />
                 <dashboard-stat-list :color="'#ffe4e6'" />
             </div>

@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import data from './modules/data'
-
+import dropdown from './modules/dropdown'
 
 export default createStore({
   state: {
@@ -105,6 +105,7 @@ export default createStore({
     }
   },
   modules: {
-    data
+    data,
+    dropdown
   }
 })

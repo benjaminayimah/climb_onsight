@@ -16,6 +16,7 @@
     --border-radius: 14px;
     --logon-padding: 32px;
     --nav-width: 40px;
+    --main-padding: 3%;
     --dash-padding: 24px;
     --aside-padding: 20px;
 }
@@ -220,6 +221,9 @@ button:not(.button-disabled) {
 }
 .fixed {
     position: fixed;
+}
+.fixed-body{
+    overflow: hidden; overscroll-behavior-y: none;
 }
 //grid
 .grid {
@@ -568,6 +572,23 @@ h3.title {
     font-weight: normal;
 
 }
+.nav-dropdown-toggle {
+    height: 52px;
+    width: 52px;
+    background-color: #fff;
+    &:hover {
+        path {
+            fill: #000
+        }
+    }
+    i{
+        position: absolute;
+        height: 8px;
+        width: 8px;
+        top: 16px;
+        right: 17px;
+    }
+}
 @media screen and (max-width: 1344px){
     .show-tab-mob {
         display: block;
@@ -611,7 +632,7 @@ h3.title {
     padding: 0;
     margin: 0;
     #top_nav {
-        padding: 20px 20px 8px 20px;
+        padding: 12px 20px 8px 20px;
     }
     .gap-24 {
         gap: 16px;

@@ -47,6 +47,6 @@ export default {
 main {
   position: relative;
   margin-left: calc(var(--nav-width) + var(--dash-padding)*2 + var(--aside-padding));
-  padding: 0 3%;
+  padding: 0 var(--main-padding);
 }
 </style>

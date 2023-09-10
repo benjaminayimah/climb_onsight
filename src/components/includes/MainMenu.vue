@@ -126,7 +126,6 @@ aside{
     position: fixed;
     bottom: 0;
     top: 0;
-    padding: 32px var(--aside-padding);
     z-index: 92;
     *{
         transition: 0.3s ease-out width;
@@ -162,6 +161,7 @@ aside{
     }
 }
 .tablet aside, .desktop aside {
+    padding: 32px var(--aside-padding);
     left: 0;
     margin: var(--dash-padding);
     border-radius: 40px;
@@ -253,7 +253,9 @@ aside{
     }
 }
 .mobile {
+    --aside-padding: 20px;
     aside {
+        padding: 12px var(--aside-padding);
         left: calc((-100vw - 120px));
         width: 100vw;
         min-width: 270px;
