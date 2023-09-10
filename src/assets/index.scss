@@ -609,6 +609,7 @@ h3.title {
         flex-direction: column;
     }
 }
+//mobile
 @media screen and (max-width: 599px){
     #welcome_main{
         padding: 0;
@@ -621,6 +622,11 @@ h3.title {
         .column-inner {
             width: 100%;
         }
+    }
+    .dropdown {
+        width: calc(100% - 40px) !important;
+        right: 20px;
+        left: 20px;
     }
 }
 .stack-cards {
