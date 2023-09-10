@@ -19,6 +19,8 @@
     --main-padding: 3%;
     --dash-padding: 24px;
     --aside-padding: 20px;
+    --list-hover: #fbf8f7;
+    
 }
 a, button {
     -webkit-tap-highlight-color: transparent;
@@ -588,6 +590,13 @@ h3.title {
         top: 16px;
         right: 17px;
     }
+}
+.dropdown {
+    position: fixed;
+    background-color: #ffffff;
+    z-index: 101;
+    padding: 24px;
+    border-radius: 16px;
 }
 @media screen and (max-width: 1344px){
     .show-tab-mob {

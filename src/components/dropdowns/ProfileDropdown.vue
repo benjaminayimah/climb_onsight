@@ -1,5 +1,5 @@
 <template>
-    <a href="#" :id="id" @click="openDropdown(id)" class="u-a">
+    <a href="#" :id="id" @click.prevent="openDropdown(id)" class="u-a">
         <div class="bg-img br-50" :style="{ backgroundImage: 'url('+avatar+')'}"></div>
     </a>
     <teleport to="body">
@@ -31,11 +31,6 @@ export default {
 <style lang="scss" scoped>
 .dropdown{
     width: 200px;
-    position: fixed;
-    background-color: #ffffff;
-    z-index: 101;
-    padding: 20px 0;
-    box-shadow: 0 1px 15px 0 rgb(14 20 44 / 12%);
     border-radius: 16px;
 }
 .bg-img{

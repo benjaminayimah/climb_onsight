@@ -29,7 +29,7 @@ a {
     padding: 8px;
     border-radius: 16px;
     &:hover {
-        background-color: #fbf8f7;
+        background-color: var(--list-hover);
     }
 }
 </style>

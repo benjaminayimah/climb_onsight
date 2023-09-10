@@ -8,8 +8,20 @@
     <teleport to="body">
         <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.5" />
         <div v-if="toggleMenu" class="dropdown" :style="{ top: dynamicFloatingDiv.top+60 + 'px'}">
-            <div>Notifications</div>
-            {{dynamicFloatingDiv.left}}
+            <div class="flx jc-sb ai-c mb-8">
+                <strong>Notifications</strong>
+                <button @click="closeDropdown(id)" class="btn-close bg-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 13.587 13.587">
+                        <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
+                    </svg>
+                </button>
+            </div>
+            <ul>
+                <notification-list v-for="notifiction in notifications.slice(0, 5)" :key="notifiction.id" />
+                <div class="text-center mt-16">
+                    <a href="#" class="a-link">See all</a>
+                </div>
+            </ul>
         </div>
     </teleport>
 </template>
@@ -18,8 +30,9 @@
 import { mapState } from 'vuex';
 import dropdownToggleMixin from '@/mixins/dropdownToggleMixin'
 import Backdrop from '../includes/Backdrop.vue'
+import NotificationList from '../includes/NotificationList.vue';
 export default {
-    components: { Backdrop },
+    components: { Backdrop, NotificationList },
     name: 'NotificationDropdown',
     props: ['id', 'new_notification'],
     mixins: [dropdownToggleMixin],
@@ -27,19 +40,32 @@ export default {
         ...mapState({
             dynamicFloatingDiv: (state) => state.dropdown.dynamicFloatingDiv
         })
+    },
+    data() {
+        return {
+            notifications: [
+                {id: 1},
+                {id: 2},
+                {id: 3},
+                {id: 4},
+                {id: 5},
+                {id: 6},
+                {id: 7},
+                {id: 8},
+                {id: 9},
+                {id: 0}
+            ]
+        }
     }
 }
 </script>
 
 <style lang="scss" scoped>
 .dropdown{
-    width: 200px;
-    position: fixed;
-    background-color: #ffffff;
-    z-index: 101;
-    padding: 20px 0;
-    box-shadow: 0 1px 15px 0 rgb(14 20 44 / 12%);
-    border-radius: 16px;
+    width: 350px;
     right: calc(68px + var(--main-padding));
+}
+ul {
+    margin: 0 -12px;
 }
 </style>
