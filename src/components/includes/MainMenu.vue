@@ -255,7 +255,7 @@ aside{
 .mobile {
     --aside-padding: 20px;
     aside {
-        padding: 12px var(--aside-padding);
+        padding: 16px var(--aside-padding);
         left: calc((-100vw - 120px));
         width: 100vw;
         min-width: 270px;

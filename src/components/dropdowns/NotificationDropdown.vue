@@ -8,7 +8,7 @@
     <teleport to="body">
         <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.5" />
         <div v-if="toggleMenu" class="dropdown" :style="{ top: dynamicFloatingDiv.top+60 + 'px'}">
-            <div>Notification</div>
+            <div>Notifications</div>
             {{dynamicFloatingDiv.left}}
         </div>
     </teleport>
