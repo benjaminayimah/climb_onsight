@@ -6,7 +6,7 @@
         </svg>
     </button>
     <teleport to="body">
-        <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.5" />
+        <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.4" />
         <div v-if="toggleMenu" class="dropdown" :style="{ top: dynamicFloatingDiv.top+60 + 'px'}">
             <div class="flx jc-sb ai-c mb-8">
                 <strong>Settings</strong>

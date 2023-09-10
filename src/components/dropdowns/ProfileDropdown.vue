@@ -3,7 +3,7 @@
         <div class="bg-img br-50" :style="{ backgroundImage: 'url('+avatar+')'}"></div>
     </a>
     <teleport to="body">
-        <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.5" />
+        <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.4" />
         <div v-if="toggleMenu" class="dropdown" :style="{ right: '3%', top: dynamicFloatingDiv.top+60 + 'px'}">
             <div>Profile</div>
             {{dynamicFloatingDiv.left}}

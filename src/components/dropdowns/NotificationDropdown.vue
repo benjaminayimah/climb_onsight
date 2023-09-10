@@ -6,7 +6,7 @@
         <i v-if="new_notification" class="bg-primary br-50"></i>
     </button>
     <teleport to="body">
-        <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.5" />
+        <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.4" />
         <div v-if="toggleMenu" class="dropdown" :style="{ top: dynamicFloatingDiv.top+60 + 'px'}">
             <div class="flx jc-sb ai-c mb-8">
                 <strong>Notifications</strong>
@@ -17,7 +17,7 @@
                 </button>
             </div>
             <ul>
-                <notification-list v-for="notifiction in notifications.slice(0, 5)" :key="notifiction.id" />
+                <notification-list v-for="notifiction in notifications.slice(0, 8)" :key="notifiction.id" />
                 <div class="text-center mt-16">
                     <a href="#" class="a-link">See all</a>
                 </div>
