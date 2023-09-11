@@ -49,10 +49,10 @@ export default {
             form: {
                 skills: JSON.parse(localStorage.getItem('newUser')).form.skills || [],
                 activities: JSON.parse(localStorage.getItem('newUser')).form.activities || [
-                    { name: 'Bouldering', limit: '0' },
-                    { name: 'Ice climbing', limit: '0' },
-                    { name: 'Outdoor climbing', limit: '0' },
-                    { name: 'Trad', limit: '0' }
+                    { name: 'Bouldering', level: '0' },
+                    { name: 'Ice climbing', level: '0' },
+                    { name: 'Outdoor climbing', level: '0' },
+                    { name: 'Trad', level: '0' }
                 ]
             },
         }
@@ -76,7 +76,7 @@ export default {
         },
         changeVal(payload) {
             let activity = this.form.activities.find(data => data.name === payload.name)
-            activity.limit = payload.limit
+            activity.level = payload.level
         }
     }
 }

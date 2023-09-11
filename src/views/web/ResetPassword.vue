@@ -40,7 +40,7 @@
                     <p>The password for the account <strong>{{ form.email }}</strong> has been changed.</p>
                     <p><span>You can now sign into your account with your new password. </span><router-link :to="{ name: 'SignIn' }" >Sign in now</router-link></p>
                 </div>
-                <div v-if="!successful" class="flx column gap-4 ai-c acc-footer">
+                <div v-if="successful" class="flx column gap-4 ai-c acc-footer">
                     <div class="text-center">
                         <router-link :to="{ name: 'SignIn'}" class="a-link" href="#">Back to login page</router-link>
                     </div>

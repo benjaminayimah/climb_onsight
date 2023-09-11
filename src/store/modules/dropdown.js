@@ -7,8 +7,6 @@ export default {
         const rect = payload.getBoundingClientRect()
         let top = rect.top
         let left = rect.left
-
-        console.log(payload)
         if(state.mobile) {
           state.dynamicFloatingDiv.left = '0'
           state.dynamicFloatingDiv.bottom = '0'
