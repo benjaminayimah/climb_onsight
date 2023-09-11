@@ -13,7 +13,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="grid grid-col-2 gap-32 overflow-y-scroll scroll-hidden h-100 profile-body-wrapper">
+            <div class="grid grid-col-2 gap-32 overflow-y-scroll scroll-hidden profile-body-wrapper">
                 <profile-body :user="computedUser"/>
             </div>
         </div>
@@ -50,6 +50,7 @@ export default {
 .dropdown{
     width: 60%;
     border-radius: 16px;
+    height: 80dvh;
 }
 .bg-img{
     width: 52px;

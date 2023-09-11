@@ -23,7 +23,7 @@
                     </svg>
                 </button>
             </div>
-            <div class="grid grid-col-2 gap-32 overflow-y-scroll scroll-hidden h-100 profile-body-wrapper">
+            <div class="grid grid-col-2 gap-32 overflow-y-scroll scroll-hidden profile-body-wrapper">
                 <profile-body :user="computedUser" />
                 <div class="absolute flx jc-c botton-bar">
                     <button @click="logIn" class="button-primary gap-8 btn-md login-btn" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
