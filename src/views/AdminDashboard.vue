@@ -4,7 +4,7 @@
         <top-nav-bar :user="user" :device="getDevice" :avatar="avatar" />
         <router-view />
         <!-- {{ user.id }} -->
-    <button @click="delUser">Delete</button>
+    <!-- <button @click="delUser">Delete</button> -->
     </main>
 </template>
 <script>
@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         delUser() {
-            const url = this.hostname + '/api/users/122'
+            const url = this.hostname + '/api/users/123'
             const headers = {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${this.token}`

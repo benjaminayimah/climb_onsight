@@ -1,0 +1,1398 @@
+{
+	"info": {
+		"_postman_id": "d0d7f5c9-fb8b-490a-8067-828355f80f6c",
+		"name": "Climb-on-sight",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28807493"
+	},
+	"item": [
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "update event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_name\": \"Rock Climbing Adventure2\",\r\n    \"event_description\": \"Join us for an exciting rock climbing adventure!\",\r\n    \"event_start_date\": \"2023-09-01\",\r\n    \"event_end_date\": \"2023-09-03\",\r\n    \"event_location\": \"Mountain Peak\",\r\n    \"gps_coordinates\": \"123.456, -78.901\",\r\n    \"event_price\": 50.00,\r\n    \"attendance_page\": \"https://example.com/attendance\",\r\n    \"images\": [\"picture1.jpg\", \"picture2.jpg\", \"picture3.jpg\"],\r\n    \"gear_provided\": \"Climbing shoes, harness\",\r\n    \"skill_needed\": \"Intermediate\",\r\n    \"gear_needed\": \"Helmet, chalk bag\",\r\n    \"itinerary\": \"Day 1: Arrival and orientation...\",\r\n    \"question\": \"Have you climbed before?\",\r\n    \"answer\": \"Yes\",\r\n    \"status\": \"completed\",\r\n    \"event_type\": \"Outdoor\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/events/1",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/events/1",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\": \"cancelled\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/events/1",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_name\": \"Testy Rock Climbing Adventure\",\r\n    \"event_description\": \"Join us for an exciting rock climbing adventure!\",\r\n    \"event_start_date\": \"2023-09-01\",\r\n    \"event_end_date\": \"2023-09-03\",\r\n    \"event_location\": \"Mountain Peak\",\r\n    \"gps_coordinates\": \"123.456, -78.901\",\r\n    \"event_price\": 120.00,\r\n    \"attendance_page\": \"https://example.com/attendance\",\r\n    \"images\": [\"picture1.jpg\", \"picture2.jpg\", \"picture3.jpg\"],\r\n    \"gear_provided\": \"Climbing shoes, harness\",\r\n    \"skill_needed\": \"Intermediate\",\r\n    \"gear_needed\": \"Helmet, chalk bag\",\r\n    \"itinerary\": \"Day 1: Arrival and orientation...\",\r\n    \"question\": \"Have you climbed before?\",\r\n    \"answer\": \"Yes\",\r\n    \"event_type\": \"Outdoor\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/events",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event Filtering",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/events/report?event_name=testy",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"events",
+								"report"
+							],
+							"query": [
+								{
+									"key": "event_name",
+									"value": "testy"
+								},
+								{
+									"key": "event_description",
+									"value": "adventure!",
+									"disabled": true
+								},
+								{
+									"key": "event_start_date",
+									"value": "2023-09-01",
+									"disabled": true
+								},
+								{
+									"key": "event_end_date",
+									"value": "2023-09-03",
+									"disabled": true
+								},
+								{
+									"key": "event_location",
+									"value": "mountain",
+									"disabled": true
+								},
+								{
+									"key": "gps_coordinates",
+									"value": "-78.901",
+									"disabled": true
+								},
+								{
+									"key": "event_price",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "attendance_page",
+									"value": "https://example.com/attendance",
+									"disabled": true
+								},
+								{
+									"key": "gear_provided",
+									"value": "harness",
+									"disabled": true
+								},
+								{
+									"key": "skill_needed",
+									"value": "intermediate",
+									"disabled": true
+								},
+								{
+									"key": "gear_needed",
+									"value": "bag",
+									"disabled": true
+								},
+								{
+									"key": "itinerary",
+									"value": "Day 1",
+									"disabled": true
+								},
+								{
+									"key": "question",
+									"value": "Have you climbed before?",
+									"disabled": true
+								},
+								{
+									"key": "answer",
+									"value": "yes",
+									"disabled": true
+								},
+								{
+									"key": "event_type",
+									"value": "outdoor",
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": "created",
+									"disabled": true
+								},
+								{
+									"key": "created_by_user_id",
+									"value": "120",
+									"disabled": true
+								},
+								{
+									"key": "attendance_user_id",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "attendance_stars",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event Attendance",
+			"item": [
+				{
+					"name": "Event Attendance",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"event_id\": 102\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/event_attendance",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"event_attendance"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update event review",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"stars\": 4,\r\n    \"comments\": \"Great event!\",\r\n    \"status\": \"attended\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/event_attendance/1",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"event_attendance",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event Attendance",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/event_attendance/1",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"event_attendance",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin features",
+			"item": [
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"John poe\",\r\n    \"email\": \"pearlsilver35@gmail.com\",\r\n    \"phone_number\": \"1234567890\",\r\n    \"password\": \"1234567890\",\r\n    \"profile_picture\": \"profile_picture.jpg\",\r\n    \"permission\": [\r\n        \"events\",\r\n        \"climbers\",\r\n        \"guides\",\r\n        \"locations\",\r\n        \"payments\",\r\n        \"merchandise\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/admin/create",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approve Guide",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/admin/approve-guide/2",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"approve-guide",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ayodeleabigailofficial@gmail.com\", \r\n    \"password\": \"password\"\r\n    //superadmin: superadmin@example.com\r\n    //guide:  8|f1PLDpitYMPq5YFvtGQ5MVpW2JuxoZnLEskwkxZu\r\n    //climber: 9|7mos46RtAWEqg7A67vJ5FVskuLGVq7f2jTU2TyAR\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/login",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/logout",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"current_password\": \"password\",\r\n    \"new_password\": \"password2\",\r\n    \"new_password_confirmation\": \"password2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/change-password",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password (Send Reset Link)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"estherayodeleng@gmail.com\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/forgot-password",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"3|n0jFP9rxCUmOOwQtPqA6iPrNb1ghHcFjuTR1MCNl\",\r\n    \"email\": \"estherayodeleng@gmail.com\",\r\n    \"password\": \"password2\",\r\n    \"password_confirmation\": \"password2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/reset-password",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Climber",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"line jumper\",\r\n    \"email\": \"ayodeleabigailofficial@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"phone_number\": \"1234567890\",\r\n    \"DOB\": \"1990-01-01\",\r\n    \"gender\": \"male\",\r\n    \"bio\": \"Passionate climber and adventurer.\",\r\n    \"activities\": [\r\n        {\r\n            \"name\": \"climbing\",\r\n            \"level\": \"10\"\r\n        },\r\n        {\r\n            \"name\": \"hiking\",\r\n            \"level\": \"70\"\r\n        }\r\n    ],\r\n    \"skills\": [\"bouldering\", \"rock climbing\"],\r\n    \"new_skills\": [\"ice climbing\"],\r\n    \"profile_picture\": \"profile_picture.jpg\",\r\n    \"more_pictures\": [\"picture1.jpg\", \"picture2.jpg\", \"picture3.jpg\"]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/register/climber",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"register",
+								"climber"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register Guide",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"John Doe\",\r\n    \"email\": \"estherayodeleng@gmail.com\",\r\n    \"phone_number\": \"1234567890\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"proof_of_guiding_insurance\": \"proof_of_insurance.pdf\",\r\n    \"proof_of_guiding_certificate\": \"proof_of_certificate.pdf\",\r\n    \"customer_reviews\": \"Some positive customer reviews.\",\r\n    \"years_of_experience_rock_climbing\": 5,\r\n    \"years_of_experience_ice_climbing\": 3,\r\n    \"profile_picture\": \"profile_picture.jpg\",\r\n    \"more_pictures\": [\"picture1.jpg\", \"picture2.jpg\", \"picture3.jpg\"],\r\n    \"references\": [\r\n    {\r\n      \"referee_name\": \"Reference 1\",\r\n      \"referee_email\": \"reference1@example.com\",\r\n      \"referee_phone_number\": \"987-654-3210\"\r\n    },\r\n    {\r\n      \"referee_name\": \"Reference 2\",\r\n      \"referee_email\": \"reference2@example.com\",\r\n      \"referee_phone_number\": \"555-555-5555\"\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/register/guide",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"register",
+								"guide"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/user",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Email",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/email/verify/3/9acfe77848633cbe1f29fda34e70629a9781c756",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"email",
+								"verify",
+								"3",
+								"9acfe77848633cbe1f29fda34e70629a9781c756"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Users By Role",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/users/climber?page=1&limit=10",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"climber"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"full_name\": \"peter obi\",\r\n    \"email\": \"johnqqr@example.com\",\r\n    \"phone_number\": \"1234567890\",\r\n    \"password\": \"password\",\r\n    \"password_confirmation\": \"password\",\r\n    \"proof_of_guiding_insurance\": \"proof_of_insurance.pdf\",\r\n    \"proof_of_guiding_certificate\": \"proof_of_certificate.pdf\",\r\n    \"customer_reviews\": \"Some positive customer reviews.\",\r\n    \"years_of_experience_rock_climbing\": 5,\r\n    \"years_of_experience_ice_climbing\": 3,\r\n    \"references\": [\r\n        {\r\n            \"referee_name\": \"Reference 4\",\r\n            \"referee_email\": \"reference1@example.com\",\r\n            \"referee_phone_number\": \"987-654-3210\"\r\n        },\r\n        {\r\n            \"referee_name\": \"Reference 1\",\r\n            \"referee_email\": \"reference2@example.com\",\r\n            \"referee_phone_number\": \"555-555-5555\"\r\n        }\r\n    ],\r\n    \"profile_picture\": \"profile_picture.jpg\",\r\n    \"permission\": [],\r\n    \"more_pictures\": [\r\n        \"picture1.jpg\",\r\n        \"picture2.jpg\",\r\n        \"picture3.jpg\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/user",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/users/3",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notification",
+			"item": [
+				{
+					"name": "Mark Notifications asRead",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/mark-notifications/779ee427-ea19-46ea-b99d-984076c6b953",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"mark-notifications",
+								"779ee427-ea19-46ea-b99d-984076c6b953"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/notifications",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"notifications"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dashboard",
+			"item": [
+				{
+					"name": "filterDetails",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/dashboard/filter-details",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"dashboard",
+								"filter-details"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Bank Account",
+			"item": [
+				{
+					"name": "Create Bank Account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name_of_bank\": \"ABC Bank\",\r\n    \"account_number\": \"1234567890\",\r\n    \"bank_name\": \"Bank Name\",\r\n    \"sort_code\": \"12-34-56\",\r\n    \"address\": \"123 Main Street, City, Country\",\r\n    \"callbackUrl\": \"http://localhost:5500/paymenttest.html\",\r\n    \"is_default\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/user/bank-accounts",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"bank-accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bank Account",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name_of_bank\": \"Dashe Bank\",\r\n    \"account_number\": \"1234567890\",\r\n    \"bank_name\": \"Bank Name\",\r\n    \"sort_code\": \"12-34-56\",\r\n    \"address\": \"123 Main Street, City, Country\",\r\n    \"is_default\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/user/120/bank-accounts/3",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"120",
+								"bank-accounts",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list bank account",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/user/123/bank-accounts",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"123",
+								"bank-accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete bank account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/user/120/bank-accounts/2",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"120",
+								"bank-accounts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "stripe callback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"code\": \"ac_Oc4jY4tp6QnfvF3UdFszYFRF8P3qXlvi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/stripe/connect/callback",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"stripe",
+								"connect",
+								"callback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"item": [
+				{
+					"name": "requery transaction status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/transactions/1/status",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"transactions",
+								"1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list transactions",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 122, //climber id\r\n    \"event_owner_id\": 123, //guide id\r\n    \"payment_status\": \"succeeded\",\r\n    \"event_id\": 101,\r\n    \"start_date\": \"2022-12-07\",\r\n    \"end_date\": \"2023-12-30\",\r\n    \"limit\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/transactions/",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"transactions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 800,\r\n    \"token\": \"tok_1NopGbLxjPapRnPMeaCRWQ0f\",\r\n    \"event_id\": 102\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/transactions",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"transactions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payouts",
+			"item": [
+				{
+					"name": "requery payouts status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/payouts/8/status",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"payouts",
+								"8",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel payouts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/payouts/8/cancel",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"payouts",
+								"8",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list payouts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\": 102, //guide id\r\n    \"bank_account_id\": 1,\r\n    \"status\": \"completed\",\r\n    \"min_amount\": 0.0,\r\n    \"max_amount\": 100000.00,\r\n    \"start_date\": \"2022-09-07\",\r\n    \"end_date\": \"2023-09-30\",\r\n    \"limit\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/payouts/",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"payouts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "payouts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 105,\r\n    \"bank_account_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/payouts",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"payouts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "Upload file",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/ASFemi/Downloads/skill.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/files/upload",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get presigned url",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"file_name\": \"uploads/FMq1NlWMXIwljWEwFpzgWJrh781ul46qIu1I1WLq.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/files/presigned-url/",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"presigned-url",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete file",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"file_name\": \"uploads/FMq1NlWMXIwljWEwFpzgWJrh781ul46qIu1I1WLq.png\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{TestLiveUrl}}/api/files/delete",
+							"host": [
+								"{{TestLiveUrl}}"
+							],
+							"path": [
+								"api",
+								"files",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "1|m5X43Co3rus8JEJL42xBCDCi5Rmfgp29FEuW9qqJ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "TestLiveUrl",
+			"value": "https://climbonsightbackend.cevonbeauty.com",
+			"type": "string"
+		},
+		{
+			"key": "LocalUrl",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
