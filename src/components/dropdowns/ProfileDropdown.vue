@@ -58,4 +58,9 @@ export default {
     border: 1.5px solid #e1dedb;
     background-color: #ffffff;
 }
+@media screen and (max-width: 799px){
+    .grid-col-2 {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
