@@ -43,8 +43,8 @@ export default {
                 }else {
                     if (this.checksize(file.size)) {
                         let formData = new FormData()
-                        formData.append('image', file);
-                        axios.post(this.hostname + "/api/temp-upload", formData, {
+                        formData.append('file', file);
+                        axios.post(this.hostname + "/api/files/uplssoad", formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data',
                                 'Authorization' : `Bearer ${this.token}`
@@ -52,11 +52,13 @@ export default {
                         }).then((res) => {
                             this.stopLoader()
                             this.afterTempUpload(res.data.image)
+                            console.log(res.data)
                         }).catch((e) => {
                             this.stopLoader()
                             if(e.response.status == 400) {
                                 // this.$store.commit('setExpSession')
                             }
+                            console.error(e.response)
                         })
                     }else {
                         return this.showError('This file is too large. The file size must be less than 300KB');
@@ -84,12 +86,14 @@ export default {
             this.form.tempImage = null
             this.status.tempImage = null
         },
-        deltmp() {
+        deltmp(file) {
             this.startLoader()
-            axios.delete(this.hostname + "/api/del-temp-upload/" + this.id + '?token=' + this.token)
-            .then(() => {
-                this.afterDeletion()
+            axios.delete(this.hostname + "/api/files/delete/", {file_name: file})
+            .then((res) => {
+                console.log(res.data)
+                // this.afterDeletion()
             }).catch((e) => {
+                console.error(e.response)
                 this.stopLoader()
                 if(e.response.status == 400) {
                     // this.$store.commit('setExpSession')

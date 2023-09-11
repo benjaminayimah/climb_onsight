@@ -81,7 +81,6 @@ export default {
             this.stopSpinner()
             this.emailSent = true
             this.successMsg = res.message
-            console.log(res)
         }
     }
 }

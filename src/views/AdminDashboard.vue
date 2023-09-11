@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         delUser() {
-            const url = this.hostname + '/api/users/123'
+            const url = this.hostname + '/api/users/125'
             const headers = {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${this.token}`

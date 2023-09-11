@@ -6,6 +6,7 @@
             <div>Add profile image</div>
             <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
         </div>
+        <!-- <button @click="deltmp('f3M2P63h1JqO5xPLbSz8cRTBEpaYXchfvOYWidMe.jpg')">delete</button> -->
         <form @submit.prevent="">
             <input class="hide" @change="uploadTemp" name="image" id="avatar_img" type="file" ref="img"> 
             <div class="form-wrapper flx column gap-24">

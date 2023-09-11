@@ -100,11 +100,9 @@ export default {
             this.validation.error || this.systemErr.error ? this.clearErrs() : ''
             this.startSpinner()
             try {
-                const res = await postApi(this.hostname+'/api/register/climber', this.form)
+                await postApi(this.hostname+'/api/register/climber', this.form)
                 this.signupSuccess()
-                console.log(res.data)
             } catch (e) {
-                console.error(e.response)
                 this.errorResponse(e)
                 this.stopSpinner()
             }
