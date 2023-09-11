@@ -59,7 +59,6 @@ export default createStore({
       }
       axios.get(url, { headers })
       .then((res) => {
-        console.log(res.data)
         state.commit('setAuthUser', res.data)
       })
       .catch(e => {
