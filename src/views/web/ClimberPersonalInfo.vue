@@ -2,20 +2,20 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Personal information</div>
         <div class="centered">
-            <avatar :status="status" @deleteTemp="deltmp" @upload-click="uploadClick" />
+            <avatar-uploader :status="status" :hostname="hostname" @deleteTemp="deltmp" @upload-click="uploadClick" />
             <div>Add profile image</div>
             <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
         </div>
         <!-- <button @click="deltmp('f3M2P63h1JqO5xPLbSz8cRTBEpaYXchfvOYWidMe.jpg')">delete</button> -->
         <form @submit.prevent="">
-            <input class="hide" @change="uploadTemp" name="image" id="avatar_img" type="file" ref="img"> 
+            <input class="hide" @change="uploadTemp('avatar_img')" name="image" id="avatar_img" type="file" ref="img"> 
             <div class="form-wrapper flx column gap-24">
                 <div class="form-row column">
                     <div class="input-wrapper">
-                        <input v-model="form.DOB" type="date" name="dob" id="dob" class="form-control" :class="{ 'error-border': validation.errors.DOB }">
+                        <input v-model="form.dob" type="date" name="dob" id="dob" class="form-control" :class="{ 'error-border': validation.errors.dob }">
                     </div>
-                    <span class="input-error" v-if="validation.error && validation.errors.DOB">
-                        {{ validation.errors.DOB[0] }}
+                    <span class="input-error" v-if="validation.error && validation.errors.dob">
+                        {{ validation.errors.dob[0] }}
                     </span>
                 </div>
                 <div class="form-row column">
@@ -42,48 +42,58 @@
 import imageUploadMixin from '@/mixins/imageUpload'
 import { mapState } from 'vuex'
 import inputValidation from "@/mixins/inputValidation";
-import Avatar from '@/components/includes/Avatar.vue';
+import AvatarUploader from '@/components/includes/AvatarUploader.vue';
 export default {
-    components: { Avatar },
+    components: { AvatarUploader },
     name: 'ClimberPersonalInfo',
     mixins: [inputValidation, imageUploadMixin],
     computed: {
         ...mapState({
-            hostname: (state) => state.hostname
+            hostname: (state) => state.hostname,
+            newUser: (state) => state.newUser.form
         })
     },
     data() {
         return {
             form: {
-                DOB: JSON.parse(localStorage.getItem('newUser')).form.DOB || '',
-                gender: JSON.parse(localStorage.getItem('newUser')).form.gender || ''
+                dob: '',
+                gender: '',
+                tempImage: ''
             },
+            token: JSON.parse(localStorage.getItem('newUser')).token
         }
     },
     methods: {
-        updateNewUser() {
-            let errors = { DOB: '', gender: ''}
-            if(this.form.DOB == '' || this.form.gender == '') {
-                if(this.form.DOB == '') {
-                    errors.DOB = ['The Date of Birth field is required']
+        async updateNewUser() {
+            let errors = { dob: '', gender: ''}
+            if(this.form.dob == '' || this.form.gender == '') {
+                if(this.form.dob == '') {
+                    errors.dob = ['The Date of Birth field is required']
                 }
                 if(this.form.gender == '') {
                     errors.gender = ['The gender field is required']
                 }
                 this.showErr(errors)
             }else {
-                let stored = JSON.parse(localStorage.getItem('newUser'))
-                stored.form.DOB = this.form.DOB
-                stored.form.gender = this.form.gender
-                localStorage.setItem('newUser', JSON.stringify(stored))
+                await this.$store.commit('updatePersonalInfo', this.form)
                 this.$router.push({ name: 'ClimberClimbingExp' })
             }
-            
         },
         showErr(payload) {
             this.validation.error = true
             this.validation.errors = payload
+        },
+        presetForm() {
+            this.newUser && this.newUser.dob ? this.form.dob = this.newUser.dob : ''
+            this.newUser && this.newUser.gender ? this.form.gender = this.newUser.gender : ''
+            if(this.newUser && this.newUser.tempImage) {
+                this.form.tempImage = this.newUser.tempImage
+                this.status.tempImage = this.newUser.tempImage
+            }
         }
+    },
+    mounted() {
+        this.presetForm()
     }
 }
 </script>

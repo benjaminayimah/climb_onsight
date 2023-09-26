@@ -8,9 +8,9 @@
                     <div v-if="!emailSent">Enter your email to continue</div>
                 </div>
                 <form v-if="!emailSent" @submit.prevent="submit">
-                    <!-- <div v-if="userError.error" class="invalid-credentials response-message text-center mb-32">
-                        <span>{{ userError.message }}</span>
-                    </div> -->
+                    <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
+                        <span>{{ systemErr.message }}</span>
+                    </div>
                     <div class="form-wrapper flx column gap-24">
                         <div class="form-row column">
                             <label for="email">Email</label>
@@ -22,13 +22,17 @@
                             </span>
                         </div>
                         <button class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                            <spinner v-if="submiting" />
+                            <spinner v-if="submiting" :size="18" />
                             <span>{{ submiting ? 'Please wait...' : 'Continue'}}</span>
                         </button>
                     </div>
                 </form>
-                <div v-else class="text-center email-sent br-16">
-                    {{ successMsg }}
+                <div v-else class="email-sent br-16">
+                    <p>An email has been sent to <strong>{{ form.email }}</strong>, open the mail and follow the link to reset your password.</p>
+                    <p>
+                        <span>Haven't received the email?</span>
+                        <a href="#" @click.prevent="toggleBack">Resend it</a>
+                    </p>
                 </div>
                 <div class="flx column gap-4 ai-c acc-footer">
                     <div class="text-center">
@@ -62,16 +66,16 @@ export default {
             },
             emailSent: false,
             successMsg: ''
-
         }
     },
     methods: {
         async submit() {
-            this.validation.error ? this.clearErrs() : ''
+            this.validation.error || this.systemErr.error ? this.clearErrs() : ''
             this.startSpinner()
             try {
                 const res = await axios.post(this.hostname+'/api/forgot-password', this.form)
                 this.signinSuccess(res.data)
+                console.log(res.data)
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()
@@ -81,6 +85,9 @@ export default {
             this.stopSpinner()
             this.emailSent = true
             this.successMsg = res.message
+        },
+        toggleBack () {
+            this.emailSent = !this.emailSent
         }
     }
 }

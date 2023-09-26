@@ -11,14 +11,14 @@
             <div class="flx column flx-grow-1 gap-16">
                 <div class="flx md-top gap-24">
                     <div class="flx-b-60 flx column gap-8">
-                        <h3 class="title">Confirmed Events</h3>
+                        <h3 class="title flx jc-sb ai-c">
+                            <div>
+                                Confirmed Events
+                            </div>
+                            <a href="#" class="fs-1rem a-link">See all</a>
+                        </h3>
                         <div class="flx flx-1 gap-16 flx-wrap">
-                            <dash-event-list />
-                            <dash-event-list />
-                            <dash-event-list />
-                            <dash-event-list />
-                            <dash-event-list />
-                            <dash-event-list />
+                            <event-list v-for="event in events.slice(0, 6)" :key="event.id" :event="event" />
                         </div>
                     </div>
                     <notification-card v-if="getDevice !== 'mobile'" />
@@ -41,23 +41,26 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import DashboardStatList from '@/components/includes/DashboardStatList.vue'
-import DashEventList from '@/components/includes/DashEventList.vue'
+import EventList from '@/components/includes/EventList.vue'
 import NotificationCard from '@/components/includes/DashNotificationCard.vue'
 import DashMessageCard from '@/components/includes/DashMessageCard.vue'
 import DashTodaySection from '@/components/includes/DashTodaySection.vue'
 export default {
-    components: { DashboardStatList, DashEventList, NotificationCard, DashMessageCard, DashTodaySection },
+    components: { DashboardStatList, EventList, NotificationCard, DashMessageCard, DashTodaySection },
     name: 'HomeView',
     computed: {
-        ...mapGetters(['getDevice'])
+        ...mapGetters(['getDevice']),
+        ...mapState({
+            events: (state) => state.events
+        })
     }
 }
 </script>
 
 <style lang="scss" scoped>
-section {
+section.main {
     height: calc(100dvh - 128px);
 }
 .left {
@@ -67,12 +70,16 @@ section {
     min-height: 350px;
 }
 .flx-b-60 {
-    flex-basis: 60%;
+    flex-basis: 65%;
+    min-width: 65%;
 }
 .gray {
     &:hover {
         color: #000;
     }
+}
+.evt-card {
+    flex-basis: calc(33.33% - 16px);
 }
 
 </style>

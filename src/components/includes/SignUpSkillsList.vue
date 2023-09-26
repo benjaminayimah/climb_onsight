@@ -6,7 +6,10 @@
 
 <script>
 export default {
-    props: ['skill', 'selectedSkills'],
+    props: {
+        skill: String,
+        selectedSkills: Array
+    },
     computed: {
         compputedSelected() {
             if(this.selectedSkills.find(data => data === this.skill)) 

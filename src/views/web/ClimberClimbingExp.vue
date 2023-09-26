@@ -10,7 +10,7 @@
         <div>
             <div class="mb-8">Skills i know</div>
             <ul class="mb-16 pill flx gap-16">
-                <skills-list v-for="skill in computedSkills" :key="skill" :skill="skill" :selectedSkills="form.skills" @select-skill="selectSkill"/>
+                <sign-up-skills-list v-for="skill in computedSkills" :key="skill" :skill="skill" :selectedSkills="form.skills" @select-skill="selectSkill"/>
             </ul>
             <div class="input-wrapper">
                 <input v-model="typeYours" type="text" name="skills" id="skills" placeholder="Enter yours" class="form-control">
@@ -24,15 +24,16 @@
 
 <script>
 import { mapState } from 'vuex'
-import SkillsList from '@/components/includes/SignUpSkillsList.vue'
+import SignUpSkillsList from '@/components/includes/SignUpSkillsList.vue'
 import SignUpActivitiesList from '@/components/includes/SignUpActivitiesList.vue'
 export default {
-    components: { SkillsList, SignUpActivitiesList },
+    components: { SignUpSkillsList, SignUpActivitiesList },
     name: 'ClimberClimbingExperience',
     computed: {
         ...mapState({
             hostname: (state) => state.hostname,
-            skills: (state) => state.data.climberSkills
+            skills: (state) => state.data.climberSkills,
+            newUser: (state) => state.newUser.form
         }),
         computedSkills() {
             const totalSkils = this.skills
@@ -41,29 +42,21 @@ export default {
             return [...new Set([...totalSkils, ...mySkills])];
             else
             return totalSkils
-        }
+        },
     },
     data() {
         return {
             typeYours: '',
             form: {
-                skills: JSON.parse(localStorage.getItem('newUser')).form.skills || [],
-                activities: JSON.parse(localStorage.getItem('newUser')).form.activities || [
-                    { name: 'Bouldering', level: '0' },
-                    { name: 'Ice climbing', level: '0' },
-                    { name: 'Outdoor climbing', level: '0' },
-                    { name: 'Trad', level: '0' }
-                ]
+                skills: [],
+                activities: []
             },
         }
     },
     methods: {
-        updateNewUser() {
+        async updateNewUser() {
             this.typeYours ? this.form.skills.push(this.typeYours) : ''
-            let stored = JSON.parse(localStorage.getItem('newUser'))
-            stored.form.skills = this.form.skills
-            stored.form.activities = this.form.activities
-            localStorage.setItem('newUser', JSON.stringify(stored))
+            await this.$store.commit('updateClimbingExp', this.form)
             this.$router.push({ name: 'ClimberFunFacts' })
         },
         selectSkill(payload) {
@@ -77,7 +70,22 @@ export default {
         changeVal(payload) {
             let activity = this.form.activities.find(data => data.name === payload.name)
             activity.level = payload.level
+        },
+        presetForm() {
+            this.newUser && this.newUser.skills ? this.form.skills = this.newUser.skills : ''
+            this.newUser.activities ? this.form.activities = this.newUser.activities : ''
+            if(!this.newUser.activities) {
+                this.form.activities = [
+                    { name: 'Bouldering', level: 0 },
+                    { name: 'Ice climbing', level: 0 },
+                    { name: 'Outdoor climbing', level: 0 },
+                    { name: 'Trad', level: 0 }
+                ]
+            }
         }
+    },
+    mounted() {
+        this.presetForm()
     }
 }
 </script>
@@ -89,6 +97,9 @@ ul.list {
 }
 ul.pill {
     flex-wrap: wrap;
+    margin-right: -12px;
+    margin-left: -12px;
+
     li {
         cursor: pointer;
         padding: 12px 32px;

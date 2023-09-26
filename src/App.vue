@@ -2,12 +2,18 @@
   <router-view/>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'App',
+  computed: {
+    ...mapState({
+      token: (state) => state.token
+    })
+  },
   created() {
     this.$store.commit('computeWindow')
     window.addEventListener('resize', this.windowSize)
-    localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser') : ''
+    localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', this.token) : ''
   },
   methods: {
     windowSize() {

@@ -21,6 +21,20 @@ import GuideReference from '../views/web/GuideReference.vue'
 
 import AdminDashboard from '../views/AdminDashboard.vue'
 import Home from '../views/app/Home.vue'
+import Events from '../views/climbers/EventsView.vue'
+import Chats from '../views/app/ChatsView.vue'
+import Calendar from '../views/app/Calendar.vue'
+import Payout from '../views/admin/Payout.vue'
+import Guides from '../views/app/GuidesView.vue'
+import Statistics from '../views/admin/Statistics.vue'
+import SubAdmins from '../views/admin/SubAdmins.vue'
+import Climbers from '../views/app/ClimbersView.vue'
+
+import VerifyEmail from '@/views/web/VerifyEmail.vue'
+import GuideRegistrationComplete from '@/views/web/GuideRegistrationComplete.vue'
+
+
+
 
 const routes = [
   {
@@ -28,7 +42,16 @@ const routes = [
     component: AdminDashboard,
     meta: { requiresAuth: true },
     children: [
-      { path: '/', component: Home, name: 'Home' }
+      { path: '/', component: Home, name: 'Home' },
+      { path: '/events', component: Events, name: 'Events'},
+      { path: '/chats', component: Chats, name: 'Chats'},
+      { path: '/calendar', component: Calendar, name: 'Calendar'},
+      { path: '/payout', component: Payout, name: 'Payout'},
+      { path: '/guides', component: Guides, name: 'Guides'},
+      { path: '/statistics', component: Statistics, name: 'Statistics'},
+      { path: '/sub-admins', component: SubAdmins, name: 'SubAdmins'},
+      { path: '/climbers', component: Climbers, name: 'Climbers'}
+
     ]
   },
   { 
@@ -61,6 +84,10 @@ const routes = [
       },
     ]
   },
+  { path: '/verify-account-email/:token', name: 'VerifyEmail', component: VerifyEmail},
+  { path: '/guide-registration-completed/:token', name: 'GuideRegistrationComplete', component: GuideRegistrationComplete},
+
+
 ]
 
 const router = createRouter({

@@ -9,8 +9,9 @@
     --black: #000000;
     --white: #ffffff;
     --danger: #FF5151;
+    --danger-hover: #f23838;
     --success: #32D49D;
-    --gray: #747474;
+    --gray: #7f7f7f;
     --input-btn-transition: 0.2s all ease;
     --input-btn-line-height: 2;
     --border-radius: 14px;
@@ -21,6 +22,13 @@
     --aside-padding: 20px;
     --list-hover: #fbf8f7;
     
+}
+img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    height: 100%;
 }
 a, button {
     -webkit-tap-highlight-color: transparent;
@@ -35,6 +43,7 @@ body{
     color: var(--black);
     line-height: 1.5;
     background-color: var(--bg-color);
+    text-rendering: optimizeSpeed;
 }
 .bg-img{
     background-repeat: no-repeat;
@@ -46,6 +55,9 @@ body{
 .bg-white {
     background-color: var(--white);
 }
+.bg-black {
+    background-color: var(--black);
+}
 .bg-transparent {
     background-color: transparent;
 }
@@ -54,6 +66,12 @@ body{
 }
 .ft-secondary {
     color: var(--secondary-color);
+}
+.scale-in {
+    transition: var(--input-btn-transition);
+    &:active {
+        transform: scale(0.9);
+    }
 }
 button, .a-button{
     border-style: none;
@@ -83,6 +101,26 @@ button:not(.button-disabled) {
         cursor: not-allowed
     }
 }
+.hide-show-pass{
+    right: 12px;
+    height: 38px;
+    width: 38px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--bg-color);
+    }
+}
+.hide-pass-active{
+    background-color: var(--bg-color);
+    path{
+        fill: var(--secondary-color);
+    }
+}
 .btn-lg {
     height: 58px;
     padding: 12px 24px;
@@ -92,6 +130,9 @@ button:not(.button-disabled) {
     padding: 12px 24px;
 }
 .btn-sm {
+    padding: 10px 20px;
+}
+.btn-sm-lng {
     padding: 10px 32px;
 }
 .btn-rounded {
@@ -105,6 +146,13 @@ button:not(.button-disabled) {
     }
     &:active {
         background-color: var(--primary-color);
+    }
+}
+.button-danger {
+    background-color: var(--danger);
+    color: var(--white);
+    &:hover {
+        background-color: var(--danger-hover);
     }
 }
 .button-outline {
@@ -122,18 +170,48 @@ button:not(.button-disabled) {
 .a-link {
     &:hover {
         text-decoration: underline;
+        background-color: unset;
     }
+}
+.list-is-active {
+    border: 1px solid var(--black);
 }
 .acc-footer{
     a {
         color: var(--secondary-color);
     }
 }
-.email-sent {
-    padding: 20px;
-    background-color: #cef7e9;
-    border: 1px solid #32D49D;
-    border-radius: 16px;
+.email-sent{
+    p {
+        font-weight: 500;
+    }
+    a{
+        margin-left: 5px;
+        color: var(--secondary-color);
+        font-weight: 600;
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+.shadow-sm {
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);
+    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+}
+.pill {
+    padding: 4px 20px;
+    border-radius: 30px;
+}
+.pill-neutral {
+    background-color: #F6F6F6;
+}
+.pill-black {
+    background-color: var(--black);
+    color: var(--white);
 }
 //flex-box
 
@@ -271,12 +349,19 @@ button:not(.button-disabled) {
     overflow-y: auto;
     overscroll-behavior-inline: contain;
 }
+.overflow-x-scroll {
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+}
 .scroll-hidden {
     &::-webkit-scrollbar {
         display: none;
         -ms-overflow-style: none; 
         scrollbar-width: none; 
     }
+}
+.ov-hidden {
+    overflow: hidden;
 }
 ul {
     padding: 0;
@@ -285,14 +370,10 @@ ul {
 }
 li {
     list-style-type: none;
-    a {
-        text-decoration: none;
-        color: unset;
-    }
 }
 a {
     text-decoration: none;
-    color: var(--black);
+    color: unset;
 }
 
 h1, h2, h3, h4 {
@@ -347,7 +428,39 @@ h1, h2, h3, h4 {
 .mb-60 {
     margin-bottom: 60px;
 }
-
+.pd-8 {
+    padding: 8px;
+}
+.pd-16 {
+    padding: 16px;
+}
+.pd-24 {
+    padding: 24px;
+}
+.pd-32 {
+    padding: 32px;
+}
+.pd-40 {
+    padding: 40px;
+}
+.pd-50 {
+    padding: 50px;
+}
+.pd-60 {
+    padding: 60px;
+}
+.pd-l-24 {
+    padding-left: 24px;
+}
+.pd-r-24 {
+    padding-right: 24px;
+}
+.bd-r-1 {
+    border-right: 1px solid #e4e4e4;
+}
+.bd-l-1 {
+    border-left: 1px solid #e4e4e4;
+}
 //border-radius
 
 .br-0{
@@ -377,6 +490,12 @@ h1, h2, h3, h4 {
 .text-right{
     text-align: right;
 }
+.w-70 {
+    width: 70%;
+}
+.w-80 {
+    width: 80%;
+}
 .w-100 {
     width: 100%;
 }
@@ -393,8 +512,14 @@ h1, h2, h3, h4 {
 .fw-700{
     font-weight: 700;
 }
+.fs-08 {
+    font-size: 0.8rem;
+}
 .fs-09 {
     font-size: 0.9rem;
+}
+.fs-1rem {
+    font-size: 1rem;
 }
 .fs-2rem {
     font-size: 2rem;
@@ -407,6 +532,32 @@ h1, h2, h3, h4 {
 }
 .fs-5rem {
     font-size: clamp(2rem, 1vw + 3rem, 5rem);
+}
+
+//details-card
+.main-details-wrapper {
+    padding: 32px 24px;
+    .absolute {
+        inset: -8px 0 auto auto;
+    }
+    .profile-img {
+        height: 200px;
+    }
+    
+    label {
+        color: var(--gray);
+    }
+    #guide {
+        width: 250px;
+        height: 290px;
+    }
+    #status{
+        i {
+            height: 25px;
+            width: 25px;
+        }
+    }
+    
 }
 .invalid-credentials{
     border: 1px solid var(--danger);
@@ -434,6 +585,9 @@ form {
         line-height: var(--input-btn-line-height);
         padding: 12px 20px;
     }
+    .div-input {
+        padding: 12px 20px;
+    }
 }
 input:not([type=checkbox]), select, textarea {
     appearance: none;
@@ -442,7 +596,7 @@ input:not([type=checkbox]), select, textarea {
     font-size: 1rem;
     transition: var(--input-btn-transition);
 }
-.form-control {
+.form-control,.div-input {
     width: 100%;
     border: 1px solid #D9D9D9;
     border-radius: var(--border-radius);
@@ -468,13 +622,27 @@ input:not([type=checkbox]), select, textarea {
 .error-border {
     border-color: var(--danger);
 }
+.visible {
+    visibility: visible;
+}
+.hidden {
+    visibility: hidden;
+}
+.completed {
+    .completed-check {
+        visibility: visible !important;
+    }
+    &::after {
+        border-bottom-color: rgb(0, 0, 0) !important;
+    }
+}
+.completed-check {
+    visibility: hidden;
+}
 .hide{
     display: none !important;
 }
-.pill {
-    border-radius: 30px;
-    padding: 4px 12px;
-}
+
 .sticky{
     position: sticky;
     -webkit-position: sticky;
@@ -512,6 +680,7 @@ input:not([type=checkbox]), select, textarea {
         align-items: center;
         gap: 6px;
         position: relative;
+        width: 90px;
     }
     a {
         border: 1px solid rgba(0, 0, 0, 0.04);
@@ -530,7 +699,7 @@ input:not([type=checkbox]), select, textarea {
         font-size: 0.9rem;
         color: #888888;
     }
-    .active {
+    .active, .completed {
         a {
             background: #000;
             path {
@@ -544,10 +713,10 @@ input:not([type=checkbox]), select, textarea {
     li::after{
         position: absolute;
         content: "";
-        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-        width: 40%;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.04);
+        width: 60%;
         top: 28%;
-        left: 84%;
+        left: 74%;
         z-index: 2;
     }
     li:last-child:after{
@@ -602,6 +771,22 @@ h3.title {
     padding: 30px 0;
     height: calc(100% - 17px);
 }
+.md-top {
+    .evt-card-wrapper {
+        padding: 8px ;
+    }
+    .foot {
+        justify-content: center;
+    }
+}
+.body-content {
+    .evt-card-wrapper {
+        padding: 16px ;
+    }
+    .foot {
+        justify-content: space-evenly;
+    }
+}
 @media screen and (max-width: 1344px){
     .show-tab-mob {
         display: block;
@@ -631,6 +816,21 @@ h3.title {
         width: calc(100% - 40px) !important;
         right: 20px;
         left: 20px;
+    }
+    .logon-stepper {
+        li {
+            width: 65px;
+        }
+        li::after{
+            width: 50%;
+            left: 80%;
+        }
+    }
+    .guide-completed-container {
+        background-color: var(--white);
+        .bg-white {
+            width: 100%;
+        }
     }
 }
 .stack-cards {

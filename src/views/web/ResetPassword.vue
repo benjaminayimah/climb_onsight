@@ -31,16 +31,16 @@
                             </span>
                         </div>
                         <button class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                            <spinner v-if="submiting" />
+                            <spinner v-if="submiting" :size="18" />
                             <span>{{ submiting ? 'Please wait...' : 'Continue'}}</span>
                         </button>
                     </div>
                 </form>
                 <div v-else class="email-sent">
-                    <p>The password for the account <strong>{{ form.email }}</strong> has been changed.</p>
-                    <p><span>You can now sign into your account with your new password. </span><router-link :to="{ name: 'SignIn' }" >Sign in now</router-link></p>
+                    <p>The password for your account has been changed.</p>
+                    <p><span>You can now sign in with your new password. </span><router-link :to="{ name: 'SignIn' }" >Sign in now</router-link></p>
                 </div>
-                <div v-if="successful" class="flx column gap-4 ai-c acc-footer">
+                <div v-if="!successful" class="flx column gap-4 ai-c acc-footer">
                     <div class="text-center">
                         <router-link :to="{ name: 'SignIn'}" class="a-link" href="#">Back to login page</router-link>
                     </div>
@@ -70,7 +70,6 @@ export default {
             form: {
                 password: '',
                 password_confirmation: '',
-                email: '',
                 token: ''
             },
             successful: false  
@@ -81,11 +80,7 @@ export default {
             this.validation.error || this.systemErr.error ? this.clearErrs() : ''
             this.startSpinner()
             const url = this.hostname + '/api/reset-password'
-            const headers = {
-                'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${this.form.token}`
-            }
-            axios.post(url, this.form, { headers })
+            axios.post(url, this.form)
             .then(() => {
                 this.successful = true
                 this.stopSpinner()
@@ -98,7 +93,6 @@ export default {
     },
     mounted() {
         this.form.token = this.$route.params.payload
-        this.form.email = this.$route.query.email
     }
 }
 </script>

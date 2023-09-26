@@ -4,7 +4,10 @@
 <script>
 export default {
     name: 'BackdropOverlay',
-    props: ['index', 'opacity'],
+    props: {
+        index: Number,
+        opacity: Number
+    },
     computed: {
         computedIndex() {
             return this.index

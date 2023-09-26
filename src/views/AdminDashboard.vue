@@ -1,7 +1,7 @@
 <template>
     <main class="home" :class="getDevice">
-        <main-menu :user="user.id" :device="getDevice" :avatar="avatar" />
-        <top-nav-bar :user="user" :device="getDevice" :avatar="avatar" />
+        <main-menu :user="user.id" :device="getDevice"/>
+        <top-nav-bar :user="user" :device="getDevice"/>
         <router-view />
         <!-- {{ user.id }} -->
     <!-- <button @click="delUser">Delete</button> -->
@@ -19,14 +19,13 @@ export default {
         ...mapState({
             user: (state) => state.user,
             hostname: (state) => state.hostname,
-            token: (state) => state.token,
-            avatar: (state) => state.data.default_avatar
+            token: (state) => state.token
         }),
         ...mapGetters(['getDevice'])
     },
     methods: {
         delUser() {
-            const url = this.hostname + '/api/users/125'
+            const url = this.hostname + '/api/users/132'
             const headers = {
                 'Content-Type' : 'application/json',
                 'Authorization' : `Bearer ${this.token}`

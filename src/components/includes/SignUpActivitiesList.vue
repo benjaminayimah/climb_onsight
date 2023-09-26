@@ -1,31 +1,43 @@
 <template>
     <li>
-        <div>
+        <div class="name">
             {{ activity.name }}
         </div>
-        <!-- <div>
-            <div class="flx jc-sb">
+        <div class="slider">
+            <div class="flx gap-8 ai-c">
                 <span>Grade level</span>
-                <strong>{{ activity.limit }}</strong>
+                <strong>{{ level }}</strong>
             </div>
             <div>
-                <input v-model="value" @change="$emit('change-val', { name: activity.name, limit: value })" type="range" min="0" max="100" step="1" class="w-100" />
+                <input v-model="level" @change="$emit('change-val', { name: activity.name, level: level })" type="range" min="0" max="100" step="1" class="w-100" />
                 <div class="flx jc-sb">
                     <span>0%</span>
                     <span>100%</span>
                 </div>
             </div>
-        </div> -->
+        </div>
     </li>
 </template>
 
 <script>
 export default {
-    props: ['activity'],
+    props: {
+        activity: Object
+    },
     data() {
         return {
-            value: 0
+            level: 0
         }
+    },
+    methods: {
+        presetForm() {
+            if(this.activity) {
+                this.level = this.activity.level
+            }
+        }
+    },
+    mounted() {
+        this.presetForm()
     }
 }
 </script>
@@ -49,5 +61,13 @@ li {
         border-radius: 20px;
         height: 6px;
     }
+    &:hover {
+        .slider {
+            display: block;
+        }
+    }
+}
+.slider {
+    display: none;
 }
 </style>

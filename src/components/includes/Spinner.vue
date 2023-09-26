@@ -5,12 +5,20 @@
 <script>
 export default {
     name: 'SpinnerLoader',
+    props: {
+        size: Number
+    },
+    computed: {
+        dimension() {
+            return this.size+'px'
+        }
+    }
 }
 </script>
 
 <style scoped>
 .loader {
-    --dimension: 18px;
+    --dimension: v-bind(dimension);
     width: var(--dimension);
     height: var(--dimension);
     border: 2px solid #FFF;

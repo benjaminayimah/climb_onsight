@@ -1,40 +1,90 @@
 <template>
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Guide insurance, Certificates, and Awards</div>
-        <form>
+        <form @submit.prevent="">
             <div class="form-wrapper flx column gap-24">
                 <div class="form-row column">
-                    <label for="companyName">Company name</label>
-                    <div class="input-wrapper">
-                        <input type="text" name="companyName" id="companyName" class="form-control" placeholder="Company Name">
-                    </div>
+                    <span class="gray fs-09">Optional</span>
+                    <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile"  :id="'guide_insurance'" :formInput="form.guide_insurance" :label="'Proof of guiding insurance'"/>
                 </div>
                 <div class="form-row column">
-                    <label for="email">Email</label>
-                    <div class="input-wrapper">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Company Email">
-                    </div>
+                    <span class="gray fs-09">Optional</span>
+                    <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile" :id="'guide_certificate'" :formInput="form.guide_certificate" :label="'Guide certifications (i.e certificates from  PCGI, CMGE etc.)'" />
                 </div>
                 <div class="form-row column">
-                    <label for="phone">Phone</label>
+                    <label for="award">Awards</label>
                     <div class="input-wrapper">
-                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="Company Phone">
+                        <input v-model="form.guide_awards" type="text" name="award" id="award" class="form-control" placeholder="List Awards (Add a comma to differentiate)">
                     </div>
                 </div>
-                <router-link :to="{ name: 'GuideReviews'}" class="button-primary a-button gap-8 w-100 btn-lg ai-c">
+                <button @click="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
-                </router-link>
+                </button>
             </div>
         </form>
     </div>
 </template>
 
 <script>
+import DocUploadInput from '@/components/includes/DocUploadInput.vue';
+import { mapState } from 'vuex';
 export default {
-    name: 'GuideDocuments'
+  components: { DocUploadInput },
+    name: 'GuideDocuments',
+    computed: {
+        ...mapState({
+            newGUide: (state) => state.data.newGuide
+        })
+    },
+    data() {
+        return {
+            form: {
+                guide_insurance: [],
+                guide_certificate: [],
+                guide_awards: ''
+            }
+        }
+    },
+    methods: {
+        async updateNewGuide() {
+            await this.$store.commit('updateGuideDoc', this.form)
+            this.$router.push({ name: 'GuideReviews' })
+        },
+        presetForm() {
+            this.newGUide.guide_insurance ? this.form.guide_insurance = this.newGUide.guide_insurance : ''
+            this.newGUide.guide_certificate ? this.form.guide_certificate = this.newGUide.guide_certificate : ''
+            if(this.newGUide.guide_awards) {
+                this.form.guide_awards = this.newGUide.guide_awards.join(',')
+            }
+        },
+        addToFormArr(payload) {
+            if(payload.key === 'guide_insurance') {
+                this.form.guide_insurance.push(payload)
+            }else {
+                this.form.guide_certificate.push(payload)
+            }
+            this.$store.commit('updateGuideDoc', this.form)
+        },
+        delFile(payload) {
+            if(payload.key === 'guide_insurance') {
+                this.form.guide_insurance = this.form.guide_insurance.filter(data => data.url != payload.file)
+            }else {
+                this.form.guide_certificate = this.form.guide_certificate.filter(data => data.url != payload.file)
+            }
+            this.$store.commit('updateGuideDoc', this.form)
+        }
+    },
+    mounted() {
+        this.presetForm()
+    }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.upload {
+    color: #e27a30;
+}
+.div-input {
+    cursor: pointer;
+}
 </style>

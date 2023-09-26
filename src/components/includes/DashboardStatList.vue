@@ -14,7 +14,9 @@
 <script>
 export default {
     name: 'DashboardStatList',
-    props: ['color']
+    props: {
+        color: String
+    }
 }
 </script>
 

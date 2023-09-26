@@ -1,12 +1,15 @@
 <template>
-    <h3 class="title">New Messages</h3>
+    <h3 class="title flx jc-sb ai-c">
+        <div>New Messages({{ messages.length }})</div>
+        <a href="#" class="fs-1rem a-link">See all</a>
+    </h3>
     <div class="grid grid-col-2 bg-white br-16">
-        <a v-for="message in messages" :key="message.id" href="" class="flx jc-sb msg-list gap-4">
+        <a v-for="message in messages.slice(0, 4)" :key="message.id" href="" class="flx jc-sb msg-list gap-4">
             <div class="flx gap-8">
                 <div class="bg-img br-50"></div>
                 <div>
                     <div class="name">Andrey Finn</div>
-                    <div class="wrap-text wrap-line-2 gray fs-09">Hello, Good day i would love to make an enquiry as regards your timing</div>
+                    <div class="wrap-text wrap-line-1 gray fs-09">Hello, Good day i would love to make an enquiry as regards your timing</div>
                 </div>
             </div>
             <div>
@@ -24,7 +27,10 @@ export default {
                 {id: 1},
                 {id: 1},
                 {id: 1},
+                {id: 1},
+                {id: 1},
                 {id: 1}
+
             ]
         }
     }

@@ -8,14 +8,14 @@
                     </svg>
                 </button>
                 <div v-else>
-                    <div>Hello <strong>{{ computedFirstName(user.full_name) }}!</strong></div>
+                    <div>Hello <strong>{{ computedFirstName(user.name) }}!</strong></div>
                 </div>
             </div>
             <div class="flx gap-70">
                 <ul class="flx gap-16 ai-c">
                     <settings-dropdown :id="'settins_dropdown'"/>
                     <notification-dropdown :id="'notification_dropdown'" :new_notification="computedNotifications" />
-                    <profile-dropdown :id="'profile_dropdown'" :avatar="avatar" />
+                    <profile-dropdown :id="'profile_dropdown'" :avatar="user.profile_picture" />
                 </ul>
             </div>
         </div>
@@ -30,7 +30,10 @@ import ProfileDropdown from '../dropdowns/ProfileDropdown.vue'
 export default {
   components: { SettingsDropdown, NotificationDropdown, ProfileDropdown },
     name: 'TopNavBar',
-    props: ['device', 'user', 'avatar'],
+    props: {
+        device: String,
+        user: Object
+    },
     mixins: [userNameMixin],
     data() {
         return {

@@ -1,21 +1,19 @@
 <template>
     <a href="#" :id="id" @click.prevent="openDropdown(id)" class="u-a">
-        <div class="bg-img br-50" :style="{ backgroundImage: 'url('+avatar+')'}"></div>
+        <profile-avatar :avatar="avatar" />
     </a>
     <teleport to="body">
         <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.4" />
         <div v-if="toggleMenu" class="dropdown" :style="{ right: '3%', top: dynamicFloatingDiv.top+60 + 'px'}">
             <div class="flx jc-sb ai-c mb-8">
                 <strong>Your profile</strong>
-                <button @click="closeDropdown(id)" class="btn-close bg-transparent">
+                <button @click="closeDropdown(id)" class="btn-close scale-in bg-transparent">
                     <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 13.587 13.587">
                         <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
                     </svg>
                 </button>
             </div>
-            <div class="grid grid-col-2 gap-32 overflow-y-scroll scroll-hidden profile-body-wrapper">
-                <profile-body :user="computedUser"/>
-            </div>
+            <profile-body :user="computedUser"/>
         </div>
     </teleport>
 </template>
@@ -25,10 +23,14 @@ import dropdownToggleMixin from '@/mixins/dropdownToggleMixin'
 import Backdrop from '../includes/Backdrop.vue'
 import { mapState } from 'vuex'
 import ProfileBody from '../layouts/ProfileBody.vue'
+import ProfileAvatar from '../includes/ProfileAvatar.vue'
 export default {
-    components: { Backdrop, ProfileBody },
+    components: { Backdrop, ProfileBody, ProfileAvatar },
     name: 'ProfileDropdown',
-    props: ['id', 'avatar'],
+    props: {
+        id: String,
+        avatar: String
+    },
     mixins: [dropdownToggleMixin],
     computed: {
         ...mapState({
@@ -52,16 +54,8 @@ export default {
     border-radius: 16px;
     height: 80dvh;
 }
-.bg-img{
+a{
     width: 52px;
     height: 52px;
-    transition: 0.3s ease;
-    border: 1.5px solid #e1dedb;
-    background-color: #ffffff;
-}
-@media screen and (max-width: 799px){
-    .grid-col-2 {
-        grid-template-columns: 1fr;
-    }
 }
 </style>

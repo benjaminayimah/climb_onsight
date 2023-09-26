@@ -3,8 +3,7 @@ import { mapState } from 'vuex';
 export default {
     computed: {
         ...mapState({
-            hostname: (state) => state.hostname,
-            token: (state) => state.token
+            hostname: (state) => state.hostname
         })
     },
     data() {
@@ -18,20 +17,20 @@ export default {
             document.querySelector(`#${id}`).click()
         },
         //check img
-        showError(msg) {
+        showError(msg, id) {
             this.imageStatus.active = true;
             this.imageStatus.msg = msg;
             this.status.spin = false
-            this.clrOldfile()
+            this.clrOldfile(id)
         },
-        clrOldfile() {
-            document.querySelector('#avatar_img').value = null;
+        clrOldfile(id) {
+            document.querySelector(`#${id}`).value = null
         },
         clrError() {
             this.imageStatus.active = false;
             this.imageStatus.msg = '';
         },
-        uploadTemp() {
+        uploadTemp(id) {
             this.startLoader()
             if (this.imageStatus.active) {
                 this.clrError();
@@ -39,29 +38,27 @@ export default {
             let file = this.$refs.img.files[0];
             if(file) {
                 if (!(file.type == "image/png" || file.type == "image/jpg" || file.type == "image/jpeg")) {
-                    return this.showError("Unsupported file. The file type must be \"png, jpg or jpeg\"");
+                    return this.showError("Unsupported file. The file type must be \"png, jpg or jpeg\"", id);
                 }else {
                     if (this.checksize(file.size)) {
                         let formData = new FormData()
-                        formData.append('file', file);
-                        axios.post(this.hostname + "/api/files/uplssoad", formData, {
+                        formData.append('file', file)
+                        axios.post(this.hostname + '/api/temp-image-upload?token='+this.token, formData, {
                             headers: {
-                                'Content-Type': 'multipart/form-data',
-                                'Authorization' : `Bearer ${this.token}`
+                                'Content-Type': 'multipart/form-data'
                             }
                         }).then((res) => {
                             this.stopLoader()
-                            this.afterTempUpload(res.data.image)
-                            console.log(res.data)
+                            this.afterTempUpload(res.data)
+                            this.clrOldfile(id)
                         }).catch((e) => {
                             this.stopLoader()
                             if(e.response.status == 400) {
                                 // this.$store.commit('setExpSession')
                             }
-                            console.error(e.response)
                         })
                     }else {
-                        return this.showError('This file is too large. The file size must be less than 300KB');
+                        return this.showError('This file is too large. The file size must be less than 300KB', id);
                     }
                 }
             }
@@ -79,26 +76,63 @@ export default {
             this.stopLoader()
             this.form.tempImage = res
             this.status.tempImage = res
-            this.clrOldfile()
         },
         afterDeletion() {
             this.stopLoader()
             this.form.tempImage = null
             this.status.tempImage = null
+            let stored = JSON.parse(localStorage.getItem('newUser'))
+            stored.form.tempImage = ''
+            localStorage.setItem('newUser', JSON.stringify(stored))
         },
-        deltmp(file) {
+        deltmp() {
             this.startLoader()
-            axios.delete(this.hostname + "/api/files/delete/", {file_name: file})
-            .then((res) => {
-                console.log(res.data)
-                // this.afterDeletion()
+            axios.delete(this.hostname + '/api/delete-temp-image?token='+ this.token)
+            .then(() => {
+                this.afterDeletion()
             }).catch((e) => {
-                console.error(e.response)
                 this.stopLoader()
                 if(e.response.status == 400) {
                     // this.$store.commit('setExpSession')
                 }
             });
         },
+        uploadPDF(id) {
+            if(this.validation.error || this.systemErr.error) {
+                this.clearErrs()
+            }
+            this.startLoader()
+            document.querySelector(`#${id}`).click()
+            const file = document.querySelector(`#${id}`).files[0]
+            if(file) {
+                let formData = new FormData()
+                formData.append('file', file)
+                axios.post(this.hostname + '/api/temp-pdf-upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((res) => {
+                    const data = {
+                        key: id,
+                        name: file.name,
+                        url: res.data
+                    }
+                    this.$emit('add-to-formArr', data)
+                    this.stopLoader()
+                    this.clrOldfile(id)
+
+                    // this.afterTempUpload(res.data)
+                }).catch((e) => {
+                    this.stopLoader()
+                    this.errorResponse(e)
+                    this.clrOldfile(id)
+                    if(e.response.status == 400) {
+                        // this.$store.commit('setExpSession')
+                    }
+                })
+
+            }
+
+        }
     }
 }

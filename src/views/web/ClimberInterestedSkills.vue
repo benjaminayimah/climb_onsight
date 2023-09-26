@@ -7,7 +7,7 @@
                 <textarea v-model="form.new_skills" class="w-100 form-control" name="newskill" rows="4" placeholder="Type here..."></textarea>
             </div>
             <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" />
+                <spinner v-if="submiting" :size="18" />
                 <span>{{ submiting ? 'Please wait...' : 'Finish'}}</span>
             </button>
         </div>
@@ -17,17 +17,17 @@
         <div class="fixed profile-summary bg-white br-16">
             <div class="flx jc-sb">
                 <h3>Review your profile</h3>
-                <button @click="close" class="btn-close bg-transparent">
+                <button @click="close" class="btn-close scale-in bg-transparent">
                     <svg xmlns="http://www.w3.org/2000/svg" height="13" viewBox="0 0 13.587 13.587">
                         <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
                     </svg>
                 </button>
             </div>
-            <div class="grid grid-col-2 gap-32 overflow-y-scroll scroll-hidden profile-body-wrapper">
-                <profile-body :user="computedUser" />
+            <div>
+                <profile-body :user="user" />
                 <div class="absolute flx jc-c botton-bar">
-                    <button @click="logIn" class="button-primary gap-8 btn-md login-btn" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                        <spinner v-if="submiting" />
+                    <button @click="fetchUser" class="button-primary gap-8 btn-md login-btn" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+                        <spinner v-if="submiting" :size="18" />
                         <span>{{ submiting ? 'Loging in...' : 'Log in'}}</span>
                     </button>
                 </div>
@@ -50,18 +50,9 @@ export default {
     computed: {
         ...mapState({
             hostname: (state) => state.hostname,
-        }),
-        computedUser() {
-            let user = this.user
-            let newUser = this.newUser
-            user.skills = newUser.skills,
-            user.activities = newUser.activities,
-            user.new_skills = newUser.new_skills,
-            user.bio = newUser.bio
-            user.DOB = newUser.DOB
-            user.gender = newUser.gender
-            return user
-        }
+            newUser: (state) => state.newUser.form,
+            user: (state) => state.user
+        })
     },
     data() {
         return {
@@ -70,74 +61,48 @@ export default {
             },
             token: JSON.parse(localStorage.getItem('newUser')).token,
             completed: false,
-            user: JSON.parse(localStorage.getItem('user')),
-            newUser: JSON.parse(localStorage.getItem('newUser')).form
         }
     },
     methods: {
-        updateNewUser() {
+        async updateNewUser() {
             this.startSpinner()
-            let inputString = this.form.new_skills
-            let dataArray = inputString.split(',')
-            let stored = JSON.parse(localStorage.getItem('newUser'))
-            stored.form.new_skills = dataArray
-            localStorage.setItem('newUser', JSON.stringify(stored))
+            await this.$store.commit('updateNewSkills', this.form)
             this.submitUpdates()
         },
         submitUpdates() {
-            const form = JSON.parse(localStorage.getItem('newUser')).form
-            const url = this.hostname + '/api/user'
-            const headers = {
-                'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${this.token}`
-            }
-            axios.put(url, form, { headers })
+            const form = this.newUser
+            const url = this.hostname + '/api/user/'+this.user.id +'?token=' + this.token
+            axios.put(url, form)
             .then((res) => {
-                console.log(res.data)
-                this.signUpSuccessful()        
+                this.signUpSuccessful(res.data)    
             })
-            .catch(e => {
-                console.error(e.response)
+            .catch(() => {
                 this.stopSpinner()
             })
         },
-        signUpSuccessful() {
+        signUpSuccessful(res) {
+            this.$store.commit('updateClimber', res)
             this.stopSpinner()
             this.completed = true
         },
         close() {
             this.completed = false
         },
-        logIn() {
+        async fetchUser() {
             this.startSpinner()
-            const url = this.hostname + '/api/user'
-            const headers = {
-                'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${this.token}`
-            }
-            axios.get(url, { headers })
-            .then((res) => {
-                this.siginSuccess(res.data)
-            })
-            .catch(() => {
-                this.stopSpinner()
-            })
-        },
-        async siginSuccess(res) {
-            this.stopSpinner()
-            let stored = JSON.parse(localStorage.getItem('user'))
-            stored = res
-            localStorage.setItem('user', JSON.stringify(stored))
+            await this.$store.dispatch('getAuthUser', this.token)
             await this.$store.commit('setToken', this.token)
             this.$router.push({ name: 'Home' })
+            this.stopSpinner()
+        },
+        presetForm() {
+            if(this.newUser.new_skills) {
+                this.form.new_skills = this.newUser.new_skills.join(',')
+            }
         }
     },
     mounted() {
-        let arr = JSON.parse(localStorage.getItem('newUser')).form.new_skills
-        if(arr && arr.length) {
-            let dataArray = arr
-            this.form.new_skills = dataArray.join(',')
-        }
+        this.presetForm()
     }
 }
 </script>
@@ -179,9 +144,6 @@ export default {
 @media screen and (max-width: 799px){
     .profile-summary {
         width: 95%;
-    }
-    .grid-col-2 {
-        grid-template-columns: 1fr;
     }
 }
 </style>

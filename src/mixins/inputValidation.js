@@ -20,21 +20,20 @@ export default {
             if (this.systemErr.error === true)
             this.systemErr.error = false
             this.validation.message = ''
-
         },
         errorResponse(e) {
-            // if (e.response.status == 401) {
-            //     this.userError.error = true
-            //     this.userError.message = 'Invalid email or password. Please try again or try resetting your password.'
-            //     this.form.password = ''
-            // }
-            if(e.response.status == 422){
+            if (e.response.status == 401) {
+                this.systemErr.error = true
+                this.systemErr.message = e.response.data
+                this.form.password = ''
+            }
+            else if(e.response.status == 422){
                 this.validation.error = true
                 this.validation.errors = e.response.data.errors || e.response.data.error
             }
             else {
                 this.systemErr.error = true
-                this.systemErr.message = e.message || 'An unknown error has occured. Please check your credentials or network connection.'
+                this.systemErr.message = e.response.data || 'An unknown error has occured. Please check your credentials or network connection.'
             }
         },
         startSpinner() {

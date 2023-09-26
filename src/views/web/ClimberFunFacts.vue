@@ -17,34 +17,44 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import inputValidation from '@/mixins/inputValidation'
 export default {
     name: 'ClimberFunFacts',
     mixins: [inputValidation],
+    computed: {
+        ...mapState({
+            newUser: (state) => state.newUser.form
+        })
+    },
     data() {
         return {
             form: {
-                bio: JSON.parse(localStorage.getItem('newUser')).form.bio || '',
+                bio: '',
             }
         }
     },
     methods: {
-        updateNewUser() {
+        async updateNewUser() {
             let errors = { bio: ''}
             if(this.form.bio == '') {
                 errors.bio = ['This field is required']
                 this.showErr(errors)
             }else {
-                let stored = JSON.parse(localStorage.getItem('newUser'))
-                stored.form.bio = this.form.bio
-                localStorage.setItem('newUser', JSON.stringify(stored))
+                await this.$store.commit('updateBio', this.form)
                 this.$router.push({ name: 'ClimberInterestedSkills' })
             }
         },
         showErr(payload) {
             this.validation.error = true
             this.validation.errors = payload
+        },
+        presetForm() {
+            this.newUser.bio ? this.form.bio = this.newUser.bio : ''
         }
+    },
+    mounted() {
+        this.presetForm()
     }
 }
 </script>

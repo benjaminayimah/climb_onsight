@@ -38,7 +38,7 @@ a {
         background-color: rgba(0, 0, 0, 0.03);
     }
 }
-.noti-preview {
-    max-width: 225px;
-}
+// .noti-preview {
+//     max-width: 225px;
+// }
 </style>

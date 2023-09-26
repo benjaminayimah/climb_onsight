@@ -10,7 +10,7 @@
         <div v-if="toggleMenu" class="dropdown" :style="{ top: dynamicFloatingDiv.top+60 + 'px'}">
             <div class="flx jc-sb ai-c mb-8">
                 <strong>Notifications</strong>
-                <button @click="closeDropdown(id)" class="btn-close bg-transparent">
+                <button @click="closeDropdown(id)" class="btn-close scale-in bg-transparent">
                     <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 13.587 13.587">
                         <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
                     </svg>
@@ -34,7 +34,10 @@ import NotificationList from '../includes/NotificationList.vue';
 export default {
     components: { Backdrop, NotificationList },
     name: 'NotificationDropdown',
-    props: ['id', 'new_notification'],
+    props: {
+        id: String,
+        new_notification: Boolean
+    },
     mixins: [dropdownToggleMixin],
     computed: {
         ...mapState({

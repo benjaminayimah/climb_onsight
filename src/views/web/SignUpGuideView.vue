@@ -6,8 +6,8 @@
             </div>
             <div class="w-100 flx column gap-24 ai-c">
                 <ul class="flx gap-8 logon-stepper mb-24">
-                    <li :class="{ 'active' : $route.path === '/company-info'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{ 'active' : $route.path === '/company-info'}, { 'completed' : newGUide.name }]">
+                        <svg class="completed-check"  xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -17,8 +17,8 @@
                         </a>
                         <span>Company Information</span>
                     </li>
-                    <li :class="{ 'active' : $route.path === '/guide-documents'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{ 'active' : $route.path === '/guide-documents'},{ 'completed' : (newGUide.guide_awards != '' && (newGUide.guide_insurance || newGUide.guide_certificate)) } ]">
+                        <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -28,8 +28,8 @@
                         </a>
                         <span>Guide insurance, certificate & awards</span>
                     </li>
-                    <li :class="{ 'active' : $route.path === '/guide-reviews'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{ 'active' : $route.path === '/guide-reviews'}, { 'completed' : newGUide.customer_reviews}]">
+                        <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -39,8 +39,8 @@
                         </a>
                         <span>Customer Review</span>
                     </li>
-                    <li :class="{ 'active' : $route.path === '/guide-experience'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{ 'active' : $route.path === '/guide-experience'}, { 'completed' : newGUide.me}]">
+                        <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -50,8 +50,8 @@
                         </a>
                         <span>Experiences</span>
                     </li>
-                    <li :class="{ 'active' : $route.path === '/guide-reference'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{ 'active' : $route.path === '/guide-reference'}, {'completed' : (newGUide.referees && newGUide.referees[0].name != '' )}]">
+                        <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -69,10 +69,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Logo from '@/components/includes/Logo.vue'
 export default {
     components: { Logo },
-    name: 'SignUpGuideView'
+    name: 'SignUpGuideView',
+    computed: {
+        ...mapState({
+            newGUide: (state) => state.data.newGuide
+        })
+    },
 }
 </script>
 

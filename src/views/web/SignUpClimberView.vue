@@ -6,8 +6,8 @@
             </div>
             <div class="w-100 flx column gap-24 ai-c">
                 <ul class="flx gap-8 logon-stepper mb-24">
-                    <li :class="{ 'active' : $route.path === '/signup-personal-info'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{'active' : $route.path === '/signup-personal-info'}, {'completed' : newUser.dob}]">
+                        <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -17,8 +17,8 @@
                         </a>
                         <span>Personal information</span>
                     </li>
-                    <li :class="{ 'active' : $route.path === '/signup-climbing-experience'}">
-                        <svg  xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{'active' : $route.path === '/signup-climbing-experience'}, {'completed': ((newUser.skills && newUser.skills.length) || newUser.activities) }]">
+                        <svg  class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -29,8 +29,8 @@
                         </a>
                         <span>Climbing experience</span>
                     </li>
-                    <li :class="{ 'active' : $route.path === '/signup-fun-facts'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{'active' : $route.path === '/signup-fun-facts'}, {'completed': newUser.bio}]">
+                        <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -40,8 +40,8 @@
                         </a>
                         <span>Fun facts</span>
                     </li>
-                    <li :class="{ 'active' : $route.path === '/signup-interested-new-skills'}">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
+                    <li :class="[{'active' : $route.path === '/signup-interested-new-skills'}, {'completed': newUser.new_skills }]">
+                        <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                             <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                         </svg>
                         <a href="#" @click.prevent class="centered">
@@ -60,9 +60,15 @@
 
 <script>
 import Logo from '@/components/includes/Logo.vue'
+import { mapState } from 'vuex';
 export default {
     components: { Logo },
-    name: 'SignUpClimberView'
+    name: 'SignUpClimberView',
+    computed: {
+        ...mapState({
+            newUser: (state) => state.newUser.form,
+        })
+    }
 }
 </script>
 
@@ -70,6 +76,9 @@ export default {
 .logon-column-wrapper {
     padding-top: 60px;
     padding-bottom: 60px;
+}
+li::after{
+    top: 38% !important;
 }
 
 </style>
