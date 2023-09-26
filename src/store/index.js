@@ -8,9 +8,9 @@ export default createStore({
     token: localStorage.getItem('auth') || null,
     user: JSON.parse(localStorage.getItem('user')) || {},
     newUser: JSON.parse(localStorage.getItem('newUser')) || null,
-    hostname: 'http://127.0.0.1:8000',
+    // hostname: 'http://127.0.0.1:8000',
+    hostname: 'https://api.climbonsight.ca',
     s3bucket: 'https://s3.amazonaws.com/climbonsight.storage',
-    // hostname: 'https://climbonsightbackend.cevonbeauty.com',
     windowWidth: '',
     menu: false,
     events: [
