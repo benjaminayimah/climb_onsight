@@ -1,6 +1,6 @@
 <template>
     <router-link :to="{ name: climber ? 'Climbers' : 'Guides', query: { id: user.id, origin: $route.name} }" class="bg-img br-16 flx-1 relative" :class="{'list-is-active' : $route.query.id == user.id}">
-        <img :src="user.image" :alt="user.name" />
+        <img :src="s3bucket+'/'+user.image" :alt="user.name" />
         <div class="user-footer absolute br-16 flx jc-sb ai-c">
             <div class="flx column">
                 <div class="fs-09">{{ user.name }}</div>
@@ -18,11 +18,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name: 'UserList',
     props: {
         user: Object,
         climber: Boolean
+    },
+    computed: {
+        ...mapState({
+            s3bucket: (state) => state.s3bucket
+        })
     }
 }
 </script>

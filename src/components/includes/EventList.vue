@@ -1,7 +1,7 @@
 <template>
     <router-link :to="{ name: 'Events', query: { type: event.type, current: event.id, origin: $route.name } }" class="flx-1 evt-card shadow-sm bg-white br-16 flx column gap-16" :class="{'list-is-active' : $route.query.current == event.id}">
         <div class="evt-card-wrapper flx column gap-4">
-            <div class="bg-img" :style="{ backgroundImage: 'url('+event.image+')'}"></div>
+            <div class="bg-img" :style="{ backgroundImage: 'url('+s3bucket+'/'+event.image+')'}"></div>
             <div class="foot flx column gap-4">
                 <div class="flx jc-sb">
                     <h4 class="fs-09">{{ event.name }}</h4>
@@ -27,10 +27,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name: 'EventList',
     props: {
         event: Object
+    },
+    computed: {
+        ...mapState({
+            s3bucket: (state) => state.s3bucket
+        })
     }
 }
 </script>
