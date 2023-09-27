@@ -3,7 +3,7 @@
         <div class="text-center">
             <h4>Event details</h4>
         </div>
-        <img class="br-8 profile-img" :src="event.image" :alt="event.name">
+        <img class="br-8 profile-img" :src="s3bucket+'/'+event.image" :alt="event.name">
         <h4>{{ event.name }}</h4>
         <div>
             <label for="details">Event details</label>
@@ -37,8 +37,14 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
     name: 'EventDetails',
+    computed: {
+        ...mapState({
+            s3bucket: (state) => state.s3bucket
+        })
+    },
     props: {
         event: Object
     }
