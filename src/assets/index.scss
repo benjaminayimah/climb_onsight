@@ -863,6 +863,9 @@ h3.title {
     section.main {
         height: unset;
         padding: 20px;
+        .grid-col-2{
+            grid-template-columns: 1fr;
+        }
     }
     section.main, .md-top {
         flex-direction: column;
