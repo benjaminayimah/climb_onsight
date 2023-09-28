@@ -20,13 +20,13 @@
                     </ul>
                 </div>
                 <div>
-                    <bar-chart v-if="$route.query.state !== 'guides'" />
-                    <bar-chart v-else/>
+                    <bar-chart :title="'Climbers stats'" v-if="$route.query.state !== 'guides'" />
+                    <bar-chart :title="'Guides stats'" v-else/>
                 </div>
             </div>
             <div class="bg-white br-16 pd-32">
                 <h1>Location stats</h1>
-                <bar-chart />
+                <bar-chart :title="'Location stats'" />
             </div>
         </div>
     </section>

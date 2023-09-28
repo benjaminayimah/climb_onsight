@@ -2,7 +2,7 @@
     <Bar
         id="my-chart-id"
         :options="chartOptions"
-        :data="chartData"
+        :data="computedData"
         :height="200"
 
     />
@@ -14,20 +14,28 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 export default {
     name: 'BarChart',
     components: { Bar },
-    data() {
-        return {
-            chartData: {
+    props: {
+        title: String
+    },
+    computed: {
+        computedData() {
+            const chartData = {
                 labels: ['John', 'Mary', 'Sarah', 'Andre', 'Stephanie', 'Sane', 'Cole', 'August', 'Kelly', 'Walter', 'Sam', 'David'],
                 datasets: [ 
                     {
-                        label: 'Stats',
+                        label: this.title,
                         data: [40, 20, 12, 20, 32, 50, 34, 22, 19, 25, 30, 45],
                         backgroundColor: '#B58563',
                         borderRadius: 40,
                         borderSkipped: false,
                     }
                 ]
-            },
+            }
+            return chartData
+        }
+    },
+    data() {
+        return {
             chartOptions: {
                 responsive: true,
                 scales: {
