@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             chartData: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                labels: ['John', 'Mary', 'Sarah', 'Andre', 'Stephanie', 'Sane', 'Cole', 'August', 'Kelly', 'Walter', 'Sam', 'David'],
                 datasets: [ 
                     {
                         label: 'Stats',
@@ -48,6 +48,7 @@ export default {
                             display: true,
                             text: 'Events',
                         },
+                        
                     }
                 }
             }

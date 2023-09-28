@@ -52,6 +52,9 @@ body{
     flex-shrink: 0;
     overflow: hidden;
 }
+.bg-color {
+    background-color: var(--bg-color);
+}
 .bg-white {
     background-color: var(--white);
 }
