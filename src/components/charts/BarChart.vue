@@ -15,7 +15,8 @@ export default {
     name: 'BarChart',
     components: { Bar },
     props: {
-        title: String
+        title: String,
+        xAxis: String
     },
     computed: {
         computedData() {
@@ -45,7 +46,7 @@ export default {
                         },
                         title: {
                             display: true,
-                            text: 'Climbers',
+                            text: this.xAxis,
                         },
                     },
                     y: {
