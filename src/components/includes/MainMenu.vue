@@ -32,11 +32,11 @@
                         </button>
                     </div>
                 </div>
-                <a href="#" class="u-a">
-                    <div class="bg-img br-50" :style="{ backgroundImage: 'url('+avatar+')'}"></div>
+                <a href="#" class="u-a" @mouseup="$store.commit('toggleMenu')">
+                    <img class="br-50" :src="avatar ? s3bucket+'/images/'+avatar : default_avatar" />
                 </a>
             </div>
-            <div class="flx column nav-wrapper">
+            <div class="flx column nav-wrapper" @mouseup="device == 'mobile' ? $store.commit('toggleMenu') : ''">
                 <li>
                     <router-link :to="{ name: 'Home' }">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 22.664 22.664">
@@ -137,7 +137,9 @@ export default {
     },
     computed: {
         ...mapState({
-            menu: (state) => state.menu
+            menu: (state) => state.menu,
+            s3bucket: (state) => state.s3bucket,
+            default_avatar: (state) => state.data.default_avatar
         })
     },
     data() {
@@ -388,7 +390,7 @@ aside{
         }
     }
 }
-.bg-img{
+img{
     width: 75px;
     height: 75px;
     transition: 0.3s ease;
