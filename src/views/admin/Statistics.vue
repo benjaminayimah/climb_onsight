@@ -45,6 +45,9 @@ export default {
 section.main {
     height: calc(100dvh - 128px);
 }
+.dash-stats  {
+            width: 70%;
+        }
 .tab {
     a {
         padding: 4px 12px;
