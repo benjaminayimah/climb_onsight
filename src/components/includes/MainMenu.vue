@@ -382,7 +382,7 @@ aside{
         &::before {
             content: '';
             width: 4px;
-            background-color: var(--primary-color);
+            background-color: var(--secondary-color);
             position: absolute;
             height: 50%;
             border-radius: 2px;
