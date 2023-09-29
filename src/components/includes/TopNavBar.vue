@@ -60,6 +60,7 @@ nav {
 button.hamburger-menu {
     padding: 16px;
     background-color: transparent;
+    margin-left: -16px;
     &:active {   
         background-color: var(--input-hover);
     }

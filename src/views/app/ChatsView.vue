@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="main">
         <h1>Chats</h1>
     </section>
 </template>

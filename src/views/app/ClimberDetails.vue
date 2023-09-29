@@ -31,24 +31,33 @@
                 <div><span>2 years experience</span> in mountain climbing</div>
             </div>
         </div>
+        <send-message-button />
     </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import SendMessageButton from '@/components/includes/SendMessageButton.vue'
+import { mapState, mapGetters } from 'vuex'
 export default {
+    components: { SendMessageButton },
     name: 'ClimberDetails',
     computed: {
         ...mapState({
             s3bucket: (state) => state.s3bucket
-        })
+        }),
+        ...mapGetters(['getDevice'])
     },
     props: {
         user: Object
+    },
+    mounted() {
+        this.getDevice == 'mobile' ? document.body.classList.add('fixed-body') : ''
+    },
+    unmounted() {
+        document.body.classList.remove('fixed-body')
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
 </style>

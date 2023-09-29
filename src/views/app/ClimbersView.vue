@@ -1,6 +1,6 @@
 <template>
-    <section class="flx gap-24 column">
-        <div class="flx">
+    <section class="flx gap-24 column main">
+        <div class="flx section-main-wrapper">
             <div class="section-main-left">
                 <div class="flx ai-c gap-24 tap-height pd-r-24">
                     <h1 class="title">All Climbers</h1>
@@ -12,21 +12,23 @@
                     <user-list v-for="user in climbers" :key="user.id" :user="user" :climber="true" />
                 </div>
             </div>
-            <div v-if="$route.query.id" class="flx-grow-1 section-main-right">
-                <div class="flx jc-sb ai-c tap-height pd-l-24 bd-l-1">
-                    <div>Selected Climber</div>
-                    <div>
-                        <a href="#" @click="goBack" class="btn-close scale-in a-button bg-transparent">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 13.587 13.587">
-                                <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"></path>
-                            </svg>
-                        </a>
+            <transition name="slide-from-right">
+                <div v-if="$route.query.id" class="flx-grow-1 section-main-right">
+                    <div class="flx jc-sb ai-c tap-height pd-l-24 bd-l-1">
+                        <div>Selected Climber</div>
+                        <div>
+                            <a href="#" @click="goBack" class="btn-close scale-in a-button bg-transparent">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 13.587 13.587">
+                                    <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-content pd-l-24 bd-l-1 overflow-y-scroll">
+                        <climber-details :user="computedUser" />
                     </div>
                 </div>
-                <div class="body-content pd-l-24 bd-l-1 overflow-y-scroll">
-                    <climber-details :user="computedUser" />
-                </div>
-            </div>
+            </transition>
         </div>
     </section>
 </template>
@@ -60,6 +62,7 @@ export default {
             else {
                 return this.$router.go(-1)
             }
+            
         }
     }
 }

@@ -37,16 +37,23 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
     name: 'EventDetails',
     computed: {
         ...mapState({
             s3bucket: (state) => state.s3bucket
-        })
+        }),
+        ...mapGetters(['getDevice'])
     },
     props: {
         event: Object
+    },
+    mounted() {
+        this.getDevice == 'mobile' ? document.body.classList.add('fixed-body') : ''
+    },
+    unmounted() {
+        document.body.classList.remove('fixed-body')
     }
 }
 </script>
