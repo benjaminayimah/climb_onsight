@@ -48,15 +48,9 @@ section.main {
 .dash-stats  {
             width: 70%;
         }
-.tab {
+ul.tab {
     a {
         padding: 4px 12px;
-        display: block;
-        border-radius: 24px;
-    }
-    a.active {
-        background-color: #B58563; 
-        color: white;
     }
 }
 </style>

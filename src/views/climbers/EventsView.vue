@@ -108,17 +108,7 @@ section {
     padding-bottom: 100px;
     height: calc(100dvh - 218px);
 }
-.tab {
-    a {
-        padding: 4px 24px;
-        display: block;
-        border-radius: 24px;
-    }
-    a.active {
-        background-color: black; 
-        color: white;
-    }
-}
+
 .evt-card {
     flex-basis: calc(33.33% - 16px);
     height: 260px;

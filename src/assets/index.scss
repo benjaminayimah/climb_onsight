@@ -328,6 +328,11 @@ button:not(.button-disabled) {
 .capitalize {
     text-transform: capitalize;
 }
+.text-ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .wrap-text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -626,7 +631,7 @@ input:not([type=checkbox]), select, textarea {
     }
 }
 .error-border {
-    border-color: var(--danger);
+    border-color: var(--danger) !important;
 }
 .visible {
     visibility: visible;
@@ -854,6 +859,17 @@ h3.title {
 .bt--100 {
     bottom: -100px;
 }
+ul.tab {
+    a {
+        padding: 4px 24px;
+        display: block;
+        border-radius: 24px;
+    }
+    a.active {
+        background-color: black; 
+        color: white;
+    }
+}
 
 //mobile
 .mobile{
@@ -864,6 +880,19 @@ h3.title {
     }
     .gap-24 {
         gap: 16px;
+    }
+    #add-calendar{
+        padding: unset;
+       .section-main-wrapper  {
+        background-color: unset;
+       }
+    }
+    .calendar-left {
+        padding: 24px 0;
+    }
+    .calendar-right{
+        padding-left: 0;
+        padding-right: 0;
     }
     
     
@@ -885,7 +914,7 @@ h3.title {
         grid-template-columns: 1fr 1fr;
         width: 100%;
     }
-    .section-main-wrapper{
+    .section-main-wrapper, .calendar-right{
         flex-direction: column;
     }
     .pd-r-24 {
@@ -917,7 +946,34 @@ h3.title {
     }
 }
 
+.cal-dark-theme {
+    .vuecal__title-bar {
+        background-color: rgb(246, 220, 197);
+    }
+    .vuecal__cell--selected .vuecal__cell-content {
+        border-color: #000;
+    }
+    .vuecal__cell--today .vuecal__cell-content {
+        background-color: #000;
+        color: #fff;
+    }
+    .vuecal__cell:not(.vuecal__cell--today, .vuecal__cell--selected) .vuecal__cell-content {
+        &:hover {
+            background-color: #f4f4f4;
+        }
+    }
+}
+.event-cal-theme {
+    width: 100%;
+    height: calc(100% - 150px);
+    .vuecal__weekdays-headings {
+        border-bottom: unset;
+    }
 
+}
+/* Different color for different event types. */
+.vuecal__event.leisure {background-color: rgba(253, 156, 66, 0.9);border: 1px solid rgb(233, 136, 46);color: #fff;}
+.vuecal__event.sport {background-color: rgba(255, 102, 102, 0.9);border: 1px solid rgb(235, 82, 82);color: #fff;}
 
 //transitions
 .slide-enter-active {
