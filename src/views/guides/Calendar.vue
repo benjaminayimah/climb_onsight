@@ -41,16 +41,18 @@
             </div>
             <div class="calendar-right flx bg-color br-8 flx-1 pd-24 gap-24">
                 <div class="right-col-1 relative">
-                    <div class="flx jc-sb mb-16">
-                        <div class="fs-2rem">{{ format_date_short2(eventCalDate)}}</div>
-                        <ul class="flx bg-white pd-8 br-32 tab">
-                            <li>
-                                <router-link :to="{ name: 'Calendar'}" :class="{'active' : $route.query.status !== 'daily'}">Monthly</router-link>
-                            </li>
-                            <li>
-                                <router-link :to="{ name: 'Calendar', query: { status: 'daily'} }" :class="{'active' : $route.query.status === 'daily'}">Daily</router-link>
-                            </li>
-                        </ul>
+                    <div class="flx jc-sb mb-16 ai-c">
+                        <div class="fs-2rem calendar-title">{{ format_date_short2(eventCalDate)}}</div>
+                        <div>
+                            <ul class="flx bg-white pd-8 br-32 tab">
+                                <li>
+                                    <router-link :to="{ name: 'Calendar'}" :class="{'active' : $route.query.status !== 'daily'}">Monthly</router-link>
+                                </li>
+                                <li>
+                                    <router-link :to="{ name: 'Calendar', query: { status: 'daily'} }" :class="{'active' : $route.query.status === 'daily'}">Daily</router-link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <vue-cal
                         :disable-views="['years', 'year']"
