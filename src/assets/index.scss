@@ -21,7 +21,25 @@
     --dash-padding: 24px;
     --aside-padding: 20px;
     --list-hover: #fbf8f7;
-    
+    --tw-ring-offset-shadow: 0 0 #0000;
+    --tw-ring-shadow: 0 0 #0000;
+    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);
+    --bg-purple: #E8E2FF;
+    --bg-red: #ffe4e6;
+    --bg-green: #d5ffd5;
+    --bg-blue: #e0f2fe;
+}
+.bg-purple {
+    background-color: var(--bg-purple);
+}
+.bg-red {
+    background-color: var(--bg-red);
+}
+.bg-green {
+    background-color: var(--bg-green);
+}
+.bg-blue {
+    background-color: var(--bg-blue);
 }
 img {
     width: 100%;
@@ -199,10 +217,6 @@ button:not(.button-disabled) {
     }
 }
 .shadow-sm {
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000;
-    --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);
-    --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
 }
 .pill {
@@ -215,6 +229,9 @@ button:not(.button-disabled) {
 .pill-black {
     background-color: var(--black);
     color: var(--white);
+}
+.block {
+    display: block;
 }
 //flex-box
 
@@ -384,7 +401,7 @@ a {
     color: unset;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
     margin: unset;
 }
 //margin
@@ -438,6 +455,9 @@ h1, h2, h3, h4 {
 }
 .pd-8 {
     padding: 8px;
+}
+.pd-12 {
+    padding: 12px;
 }
 .pd-16 {
     padding: 16px;
@@ -973,11 +993,19 @@ ul.tab {
     .vuecal__weekdays-headings {
         border-bottom: unset;
     }
+    .weekday-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
 
 }
 /* Different color for different event types. */
-.vuecal__event.leisure {background-color: rgba(253, 156, 66, 0.9);border: 1px solid rgb(233, 136, 46);color: #fff;}
-.vuecal__event.sport {background-color: rgba(255, 102, 102, 0.9);border: 1px solid rgb(235, 82, 82);color: #fff;}
+.vuecal__event.leisure {background-color: var(--bg-purple);border: 1px solid var(--bg-purple);color: #000;}
+.vuecal__event.sport {background-color: var(--bg-green);border: 1px solid var(--bg-green);color: #000;}
+.vuecal__event.ball {background-color: var(--bg-blue);border: 1px solid var(--bg-blue);color: #000;}
+.vuecal__event.volley {background-color: var(--bg-red);border: 1px solid var(--bg-red);color: #000;}
+
+
 
 //transitions
 .slide-enter-active {

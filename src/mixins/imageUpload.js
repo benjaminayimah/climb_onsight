@@ -120,8 +120,6 @@ export default {
                     this.$emit('add-to-formArr', data)
                     this.stopLoader()
                     this.clrOldfile(id)
-
-                    // this.afterTempUpload(res.data)
                 }).catch((e) => {
                     this.stopLoader()
                     this.errorResponse(e)

@@ -3,7 +3,15 @@ export default {
         bannerImage: '/temp/banner_image.png',
         default_avatar: require('@/assets/images/avatar.png'),
         climberSkills: ['Top rope', 'Leading', 'Multi pitch'],
-        newGuide: JSON.parse(localStorage.getItem('newGuide')) || ''
+        newGuide: JSON.parse(localStorage.getItem('newGuide')) || '',
+        categories: [
+            {id: 1, name: 'Ice Climbing', image: require('@/assets/images/ice_climbing.png')},
+            {id: 2, name: 'Mountain Climbing', image: require('@/assets/images/mountain_climbing.png')},
+            {id: 3, name: 'Trad', image: require('@/assets/images/trad.png')},
+            {id: 4, name: 'Lead', image: require('@/assets/images/lead.png')},
+            {id: 5, name: 'Mountaineering', image: require('@/assets/images/mountaineering.png')}
+
+        ]
     },
     mutations: {
         updateCompanyInfo(state, payload) {

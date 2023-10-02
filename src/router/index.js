@@ -94,6 +94,50 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+
+// Guards
+// const super_adminGuard = (to, from, next) => {
+//   // Perform your checks here
+//   if (conditionIsMet) {
+//     // If the condition is met, allow the route transition
+//     next();
+//   } else {
+//     // If the condition is not met, block the route transition
+//     next(false);
+//   }
+// };
+// const adminsGuard = (to, from, next) => {
+//   if (conditionIsMet) {
+//     next();
+//   } else {
+//     next(false);
+//   }
+// };
+// const guidesGuard = (to, from, next) => {
+//   if (conditionIsMet) {
+//     next();
+//   } else {
+//     next(false);
+//   }
+// };
+// const climbersGuard = (to, from, next) => {
+//   if (conditionIsMet) {
+//     next();
+//   } else {
+//     next(false);
+//   }
+// };
+
+// const routes = [
+//   {
+//     path: '/my-route',
+//     component: MyComponent,
+//     beforeEnter: myGuard, // Attach your guard function
+//   },
+//   // Other routes...
+// ];
+
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.auth) {

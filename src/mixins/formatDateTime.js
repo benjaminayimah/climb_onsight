@@ -8,7 +8,7 @@ export default {
           return moment(date).format("MMM Do YY");  
         },
         format_date_short2(date) {
-          return moment(date).format("MMMM D"); 
+          return moment(date).format("MMMM YYYY"); 
         },
         format_date_day(date) {
           return moment(date).format("D"); 
