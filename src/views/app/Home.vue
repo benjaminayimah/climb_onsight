@@ -2,7 +2,7 @@
     <section class="flx gap-32 main">
         <div class="left flx column gap-24">
             <h3 class="show-tab-mob title">Latest</h3>
-            <div class="grid gap-24 grid-col-4 dash-stats">
+            <div class="grid gap-24 grid-col-4 stats-wrapper">
                 <dashboard-stat-list :color="'#E8E2FF'" />
                 <dashboard-stat-list :color="'#d5ffd5'" />
                 <dashboard-stat-list :color="'#e0f2fe'" />

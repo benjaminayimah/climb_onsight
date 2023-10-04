@@ -1,9 +1,12 @@
 <template>
   <router-view/>
+  <modal />
 </template>
 <script>
 import { mapState } from 'vuex'
+import Modal from './components/layouts/Modal.vue'
 export default {
+  components: { Modal },
   name: 'App',
   computed: {
     ...mapState({

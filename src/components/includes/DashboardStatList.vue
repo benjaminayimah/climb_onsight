@@ -1,10 +1,9 @@
 <template>
-    <div class="stats br-16 flx column ai-c relative jc-sb">
+    <div class="stat br-16 flx column ai-c relative jc-sb">
         <a href="" class="absolute">
             <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 15 15">
                 <path d="M1.4,15,0,13.6,11.6,2H5V0H15V10H13V3.4Z"/>
             </svg>
-
         </a>
         <h1>26</h1>
         <div>Featured deals</div>
@@ -21,7 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.stats {
+.stat {
     min-height: 140px;
     background-color: v-bind(color);
     padding: 28px 20px;

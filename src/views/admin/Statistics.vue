@@ -1,6 +1,6 @@
 <template>
     <section class="flx column gap-40 main">
-        <div class="grid gap-24 grid-col-4 dash-stats">
+        <div class="grid gap-24 grid-col-4 stats-wrapper">
             <dashboard-stat-list :color="'#E8E2FF'" />
             <dashboard-stat-list :color="'#d5ffd5'" />
             <dashboard-stat-list :color="'#e0f2fe'" />
@@ -45,9 +45,9 @@ export default {
 section.main {
     height: calc(100dvh - 128px);
 }
-.dash-stats  {
-            width: 70%;
-        }
+.stats-wrapper  {
+    width: 70%;
+}
 ul.tab {
     a {
         padding: 4px 12px;

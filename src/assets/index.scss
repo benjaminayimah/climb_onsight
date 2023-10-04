@@ -818,6 +818,31 @@ h3.title {
         justify-content: space-evenly;
     }
 }
+
+//Grid table
+
+.grid-table{
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .grid-item{
+        background-color: #fff;
+        height: 56px;
+        border-radius: 30px;
+        display: grid;
+        place-content: center;
+    }
+    .grid-item:first-child{
+        background-color: transparent;
+    }
+    .table-cell {
+        padding: 0 8px;
+        display: flex;
+        align-items: center;
+    }
+}
+
 @media screen and (max-width: 1344px){
     .show-tab-mob {
         display: block;
@@ -933,7 +958,7 @@ ul.tab {
     section.main, .md-top {
         flex-direction: column;
     }
-    .dash-stats {
+    .stats-wrapper {
         flex-wrap: wrap;
         grid-template-columns: 1fr 1fr;
         width: 100%;
