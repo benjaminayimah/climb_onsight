@@ -8,9 +8,7 @@
                 <payout-stats-list :color="'#ffe4e6'" />
             </div>
             <div class="flx column gap-16">
-                <div class="text-center">
-                    <h3>Payments</h3>
-                </div>
+                <h3>Payments</h3>
                 <div class="flx">
                     <ul class="flx bg-white pd-8 br-32 tab">
                         <li>
