@@ -4,9 +4,9 @@
         <div id="main_modal" class="modal overflow-y-scroll scroll-hidden flx column relative">
             <div class="modal-top flx jc-sb ai-c sticky">
                 <h3 id="modal_title"></h3>
-                <button @click="$store.commit('closeModal')" class="br-50">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="14.683" viewBox="0 0 14.647 14.683">
-                        <path d="M5648.416,3695.679l-5.629-5.655-5.6,5.59a1,1,0,1,1-1.412-1.415l5.6-5.592-5.584-5.61a1,1,0,1,1,1.418-1.411l5.583,5.608,5.623-5.61a1,1,0,1,1,1.412,1.417l-5.624,5.611,5.631,5.657a1,1,0,1,1-1.418,1.411Z" transform="translate(-5635.478 -3681.291)" fill="#6f7689"/>
+                <button @click="$store.commit('closeModal')" class="btn-close scale-in bg-transparent">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 13.587 13.587">
+                        <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
                     </svg>
                 </button>
             </div>
@@ -20,16 +20,20 @@
     </div>
     <add-payment-modal v-if="forms.new_payment" />
     <funds-withdrawal v-else-if="forms.withdraw_funds" />
+    <account-details-modal v-else-if="forms.account_details"/>
+    <registered-banks-modal v-else-if="forms.banks" />
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';
+const RegisteredBanksModal = defineAsyncComponent(() => import(/* webpackChunkName: RegisteredBanksModal */ '@/views/guides/RegisteredBanksModal.vue'))
+const AccountDetailsModal = defineAsyncComponent(() => import(/* webpackChunkName: AccountDetailsModal */ '@/views/guides/AccountDetailsModal.vue'))
 const AddPaymentModal = defineAsyncComponent(() => import(/* webpackChunkName: AddPaymentModal */ '@/views/guides/AddPaymentModal.vue'));
 const FundsWithdrawal = defineAsyncComponent(() => import(/* webpackChunkName: FundsWithdrawal */ '@/views/guides/FundsWithdrawal.vue'));
 import { mapState } from 'vuex';
 import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawal },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawal, AccountDetailsModal, RegisteredBanksModal },
     name: 'MainModal',
     computed: {
         ...mapState({
@@ -58,23 +62,11 @@ export default {
     z-index: 1;
 }
 .modal-top{
-    padding: 6px 28px;
+    padding: 20px 28px 12px 28px;
     background-color: hsla(0,0%,100%,.8);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
     top: 0;
-    button {
-        height: 48px;
-        width: 48px;
-        padding: unset;
-        background-color: transparent;
-        margin-right: -16px;
-        &:hover {
-            path{
-                fill: var(--ft-dark);
-            }
-        }
-    }
 }
 .modal-bottom{
     padding: 16px 28px 28px 28px;
@@ -82,7 +74,7 @@ export default {
     bottom: 0;
 }
 .modal-body{
-    padding: 32px 28px;
+    padding: 20px 28px;
 }
 
 .modal-top, .modal-bottom {

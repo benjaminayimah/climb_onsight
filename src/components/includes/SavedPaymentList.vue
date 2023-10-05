@@ -5,7 +5,7 @@
             <span class="gray">{{ bank.bank_name }}</span>
         </div>
         <div>
-            <button class="button-primary btn-sm btn-rounded">Details</button>
+            <button @click="$store.commit('preloadBank', bank)" class="button-primary btn-sm btn-rounded">Details</button>
         </div>
     </div>
 </template>
