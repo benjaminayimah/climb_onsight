@@ -7,7 +7,7 @@
         <div class="table-cell"><strong>$243</strong></div>
         <div class="table-cell"><span class="wrap-text wrap-line-1">Climb one climb all</span></div>
         <div class="table-cell">
-            <span>June, 19</span>
+            <span class="wrap-text wrap-line-1">June, 19</span>
         </div>
     </router-link>
 </template>

@@ -22,9 +22,11 @@
     <funds-withdrawal v-else-if="forms.withdraw_funds" />
     <account-details-modal v-else-if="forms.account_details"/>
     <registered-banks-modal v-else-if="forms.banks" />
+    <add-admins-modal v-else-if="forms.add_admin" />
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';
+const AddAdminsModal = defineAsyncComponent(() => import(/* webpackChunkName: AddAdminsModal */ '@/views/admin/AddAdminsModal.vue'))
 const RegisteredBanksModal = defineAsyncComponent(() => import(/* webpackChunkName: RegisteredBanksModal */ '@/views/guides/RegisteredBanksModal.vue'))
 const AccountDetailsModal = defineAsyncComponent(() => import(/* webpackChunkName: AccountDetailsModal */ '@/views/guides/AccountDetailsModal.vue'))
 const AddPaymentModal = defineAsyncComponent(() => import(/* webpackChunkName: AddPaymentModal */ '@/views/guides/AddPaymentModal.vue'));
@@ -33,7 +35,7 @@ import { mapState } from 'vuex';
 import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawal, AccountDetailsModal, RegisteredBanksModal },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal },
     name: 'MainModal',
     computed: {
         ...mapState({
@@ -62,7 +64,7 @@ export default {
     z-index: 1;
 }
 .modal-top{
-    padding: 20px 28px 12px 28px;
+    padding: 28px 28px 12px 28px;
     background-color: hsla(0,0%,100%,.8);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);

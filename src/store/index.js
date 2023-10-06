@@ -13,7 +13,7 @@ export default createStore({
     s3bucket: 'https://s3.amazonaws.com/climbonsight.storage',
     windowWidth: '',
     menu: false,
-    forms: { active: false, loader: false, new_payment: false, withdraw_funds: false, account_details: false, banks: false, tempStorage: {}},
+    forms: { active: false, loader: false, new_payment: false, withdraw_funds: false, account_details: false, banks: false, add_admin: false, tempStorage: {}},
     events: [
       {id: 1, name: 'Demo Event one', type: 'past', image: 'temp/event-1.jpeg'},
       {id: 2, name: 'First Onging event', type: 'past', image: 'temp/event-2.jpeg'},
@@ -67,7 +67,8 @@ export default createStore({
     payment_options: [
       { id: 1, name: 'Jacob Audrey', account_no: '123 456 789 210', bank_name: 'Greenstone Bank', sort_code: '0292', address: 'Grand Central, New York' },
       { id: 2, name: 'Stephen Wood', account_no: '456 123 210 789', bank_name: 'Zenith Bank', sort_code: '123', address: 'Barcelona, Spain' }
-    ]
+    ],
+    admins: []
   },
   mutations: {
     computeWindow(state) {
@@ -151,8 +152,10 @@ export default createStore({
         state.forms.account_details = true
       }else if(payload === 'banks') {
         state.forms.banks = true
+      }else if(payload === 'add_admin') {
+        state.forms.add_admin = true
       }
-
+      
     },
     activateModal(state) {
       state.forms.active = true
