@@ -1,7 +1,7 @@
 <template>
     <section class="main">
         <div class="bg-white br-24 flx chat-section-wrapper">
-            <div class="chat-left-pane overflow-y-scroll ">
+            <div class="chat-left-pane overflow-y-scroll">
                 <div class="pd-32">
                     <h1 class="mb-16">Chats</h1>
                     <div class="chat-wrapper flx column gap-16">
@@ -58,7 +58,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="chat-user-details">
+                <div class="chat-user-details overflow-y-scroll">
                     <div class="pd-32 flx column gap-32">
                         <div class="centered profile gap-4">
                             <profile-avatar :avatar="null" />
