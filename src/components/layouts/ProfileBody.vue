@@ -1,7 +1,7 @@
 <template>
     <div class="grid grid-col-2 gap-32 overflow-y-scroll scroll-hidden profile-body-wrapper">
         <div>
-            <div class="bg-img br-16 relative mb-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/images/'+user.profile_picture+')'} : ''">
+            <div class="bg-img br-16 relative mb-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/images/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} ">
                 <button class="absolute fs-09">Change profile picture</button>
             </div>
             <div class="flx jc-sb mb-32">
@@ -97,7 +97,8 @@ export default {
     mixins: [formatDateTime],
     computed: {
         ...mapState({
-            s3bucket: (state) => state.s3bucket
+            s3bucket: (state) => state.s3bucket,
+            default_avatar: (state) => state.data.default_avatar
         }),
     }
 }
