@@ -374,7 +374,7 @@ button:not(.button-disabled) {
     overflow-y: auto;
     overscroll-behavior-inline: contain;
 }
-.overflow-x-scroll {
+.overflow-x-scroll  {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
 }
@@ -916,6 +916,8 @@ ul.tab {
     }
 }
 
+
+
 //mobile
 .mobile{
     padding: 0;
@@ -926,7 +928,7 @@ ul.tab {
     .gap-24 {
         gap: 16px;
     }
-    #add-calendar{
+    #add_calendar{
         padding: unset;
        .section-main-wrapper  {
         background-color: unset;
@@ -943,7 +945,12 @@ ul.tab {
         font-size: 1.2rem;
         font-weight: bold;
     }
-    
+    .chat-middle-pane {
+        display: none;
+    }
+    .chat-left-pane {
+        flex: 1;
+    }
     
 }
 //tablet

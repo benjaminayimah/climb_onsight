@@ -1,5 +1,5 @@
 <template>
-    <section class="main" id="add-calendar">
+    <section class="main" id="add_calendar">
         <div class="bg-white br-24 flx section-main-wrapper pd-16 gap-16">
             <div class="calendar-left bg-color br-8 pd-32 overflow-y-scroll">
                 <h4 class="text-center mb-24">Add to your calendar</h4>
