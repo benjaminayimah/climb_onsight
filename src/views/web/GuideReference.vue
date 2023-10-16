@@ -2,6 +2,9 @@
     <div class="stepper-wrapper w-100 flx column gap-24">
         <div class="stepper-title">Referees</div>
         <form @submit.prevent="">
+            <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
+                <span>{{ systemErr.message }}</span>
+            </div>
             <div class="form-wrapper flx column gap-24">
                 <div>
                     <guide-referees-input-row v-for="(referee, index) in referees"
@@ -49,7 +52,8 @@ export default {
     },
     data() {
         return {
-            referees: []
+            referees: [],
+            errors: []
         }
     },
     methods: {
@@ -66,27 +70,35 @@ export default {
             this.referees.splice(i, 1, payload)
         },
         async updateNewGuide() {
-            await this.$store.commit('updateGuideReferees', this.referees)
-            this.submitGuide()
+            this.systemErr.error ? this.clearErrs() : ''
+            this.referees.forEach(form => {
+                if(!form.name || !form.email || !form.phone) {
+                    this.errorResponse({response: { data: 'Please fill out all referee\'s fields!'}})
+                }
+            })
+            if(!this.systemErr.error) {
+                await this.$store.commit('updateGuideReferees', this.referees)
+                this.submitGuide()
+            }
         },
         async submitGuide() {
             this.startSpinner()
             try {
                 const res = await axios.post(this.hostname+'/api/register-guide', this.newGUide)
-                this.$router.push({ name: 'GuideRegistrationComplete', params: { token: res.data.token}, query: { status: res.data.status }, replace: true})
+                this.signUpSuccess(res.data)
                 this.stopSpinner()
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()
-                console.error(e.response)
             }
+        },
+        async signUpSuccess(res) {
+            await this.$store.commit('updateGuideCompleted')
+            this.$router.push({ name: 'GuideRegistrationComplete', query: { status: res }, replace: true})
         },
         presetForm() {
             this.newGUide.referees ? this.referees = this.newGUide.referees : this.referees.push({ id: 1, name: '', email: '', phone: ''})
-            
         }
-
-        
     },
     mounted() {
         this.presetForm()

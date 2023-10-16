@@ -4,36 +4,38 @@
     </teleport>
     <teleport to="#modal_content">
         <div class="mb-16">{{ permissions ? 'What would they have access to?' : 'Please fill out the form' }}</div>
-        <form v-if="!permissions" @submit.prevent="" class="flx column gap-24">
-            <div class="form-row column">
-                <label for="name">Admin name</label>
-                <div class="input-wrapper">
-                    <input v-model="form.name" class="form-control" type="text" name="name" id="name"  placeholder="Name of admin">
+        <div v-if="!permissions" class="modal-width">
+            <form @submit.prevent="" class="flx column gap-24">
+                <div class="form-row column">
+                    <label for="name">Admin name</label>
+                    <div class="input-wrapper">
+                        <input v-model="form.name" class="form-control" type="text" name="name" id="name"  placeholder="Name of admin">
+                    </div>
+                    <span class="input-error" v-if="validation.error && validation.errors.name">
+                        {{ validation.errors.name[0] }}
+                    </span>
                 </div>
-                <span class="input-error" v-if="validation.error && validation.errors.name">
-                    {{ validation.errors.name[0] }}
-                </span>
-            </div>
-            <div class="form-row column">
-                <label for="email">Email</label>
-                <div class="input-wrapper">
-                    <input v-model="form.email" class="form-control" type="email" name="email" id="email"  placeholder="Enter email">
+                <div class="form-row column">
+                    <label for="email">Email</label>
+                    <div class="input-wrapper">
+                        <input v-model="form.email" class="form-control" type="email" name="email" id="email"  placeholder="Enter email">
+                    </div>
+                    <span class="input-error" v-if="validation.error && validation.errors.email">
+                        {{ validation.errors.email[0] }}
+                    </span>
                 </div>
-                <span class="input-error" v-if="validation.error && validation.errors.email">
-                    {{ validation.errors.email[0] }}
-                </span>
-            </div>
-            <div class="form-row column">
-                <label for="password">Password</label>
-                <div class="input-wrapper">
-                    <input v-model="form.password" class="form-control" type="password" name="password" id="password"  placeholder="Enter password">
+                <div class="form-row column">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <input v-model="form.password" class="form-control" type="password" name="password" id="password"  placeholder="Enter password">
+                    </div>
+                    <span class="input-error" v-if="validation.error && validation.errors.password">
+                        {{ validation.errors.password[0] }}
+                    </span>
                 </div>
-                <span class="input-error" v-if="validation.error && validation.errors.password">
-                    {{ validation.errors.password[0] }}
-                </span>
-            </div>
-        </form>
-        <div v-else>
+            </form>
+        </div>
+        <div v-else class="modal-width">
             <div class="flx flx-1 flx-wrap gap-24">
                 <access-list v-for="access in adminAccess" :key="access.id" :access="access" @do-check="doCheck" />
             </div>
@@ -100,6 +102,8 @@ export default {
 .btn-lg {
     padding-left: 75px;
     padding-right: 75px;
-
+}
+.modal-width {
+    width: 560px;
 }
 </style>

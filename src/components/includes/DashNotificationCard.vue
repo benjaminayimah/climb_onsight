@@ -2,33 +2,23 @@
     <div class="flx-grow-1 notification-card bg-white br-16">
         <div class="mb-8">New Notifications({{ notifications.length }})</div>
         <ul>
-            <notification-list v-for="notifiction in notifications.slice(0, 5)" :key="notifiction.id" />
+            <notification-list v-for="notification in notifications.slice(0, 5)" :key="notification.id" :notification="notification" :id="null" />
             <div class="text-center mt-16">
-                <a href="#" class="a-link">See all</a>
+                <a href="#" class="a-link" v-if="notifications.length > 5">See all</a>
             </div>
         </ul>
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import NotificationList from './NotificationList.vue'
 export default {
     components: { NotificationList },
     name: 'NotificationCard',
-    data() {
-        return {
-            notifications: [
-                {id: 1},
-                {id: 2},
-                {id: 3},
-                {id: 4},
-                {id: 5},
-                {id: 6},
-                {id: 7},
-                {id: 8},
-                {id: 9},
-                {id: 0}
-            ]
-        }
+    computed: {
+        ...mapState({
+            notifications: (state) => state.notifications
+        })
     }
 }
 </script>

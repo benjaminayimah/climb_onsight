@@ -21,7 +21,7 @@
                 </p>
                 <a href="mailto:support@climbonsight.ca" class="ft-secondary a-link">support@climbonsight.ca</a>
                 <p class="flx jc-c">
-                    <router-link to="/" class="button-primary a-button w-80 btn-lg">Back to homepage</router-link>
+                    <button @click="goBack" class="button-primary w-80 btn-lg">Back to homepage</button>
                 </p>
             </div>
         </div>
@@ -33,8 +33,11 @@ import Logo from '@/components/includes/Logo.vue'
 export default {
     components: { Logo },
     name: 'GuideRegistrationComplete',
-    mounted() {
-        console.log(this.$route.query.status)
+    methods: {
+        goBack() {
+            localStorage.removeItem('newGuide')
+            window.location = '/'
+        }
     }
 }
 </script>

@@ -4,7 +4,7 @@
             <h4>Guide Details</h4>
             <button class="button-danger absolute btn-rounded btn-sm">Delete Guide</button>
         </div>
-        <img class="br-8 profile-img" :src="s3bucket+'/'+user.image" :alt="user.name">
+        <img class="br-8 profile-img" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
         <div class="flx jc-sb ai-c">
             <h3>{{ user.name }}</h3>
             <div class="pill pill-neutral">234 Completed Events</div>
@@ -12,10 +12,13 @@
         <div>
             <label for="status">Status</label>
             <div id="status" class="flx gap-4 ai-c">
-                <span>Verified</span>
+                <span>{{ user.is_approved ? 'Verified' : 'Unverified'}}</span>
                 <i class="br-50 centered pill-neutral">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 12 10" fill="none">
+                    <svg v-if="user.is_approved" xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 12 10" fill="none">
                         <path d="M4.5853 8.02089L10.3203 2.28589L9.54932 1.52843L4.57177 6.49246L2.28589 4.19304L1.51491 4.96402L4.5853 8.02089ZM4.5853 9.54932L0 4.96402L2.28589 2.66461L4.5853 4.96402L9.5358 0L11.8623 2.27236L4.5853 9.54932Z" fill="#5AF9C0"/>
+                    </svg>
+                    <svg v-else xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 16.195 16.195">
+                        <path d="M10.668,3.4l6.786,13.525H3.882L10.668,3.4Zm0-1.467a1.171,1.171,0,0,0-.963.706L2.793,16.411c-.53.942-.079,1.712,1,1.712H17.542c1.08,0,1.531-.77,1-1.712h0L11.631,2.634A1.17,1.17,0,0,0,10.668,1.928ZM11.68,15.086a1.012,1.012,0,1,1-1.012-1.012A1.012,1.012,0,0,1,11.68,15.086Zm-1.012-2.024A1.012,1.012,0,0,1,9.656,12.05V9.013a1.012,1.012,0,1,1,2.024,0V12.05A1.012,1.012,0,0,1,10.668,13.062Z" transform="translate(-2.571 -1.928)" fill="#ff3b3b"/>
                     </svg>
                 </i>
             </div>
@@ -62,7 +65,8 @@ export default {
     name: 'GuideDetails',
     computed: {
         ...mapState({
-            s3bucket: (state) => state.s3bucket
+            s3bucket: (state) => state.s3bucket,
+            default_avatar: (state) => state.data.default_avatar
         }),
         ...mapGetters(['getDevice'])
 

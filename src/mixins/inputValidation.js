@@ -13,6 +13,10 @@ export default {
         }
     },
     methods: {
+        showErr(payload) {
+            this.validation.error = true
+            this.validation.errors = payload
+        },
         clearErrs() {
             if (this.validation.error === true)
             this.validation.error = false

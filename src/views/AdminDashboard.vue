@@ -1,7 +1,7 @@
 <template>
     <main class="home" :class="getDevice">
         <main-menu :user="user.id" :device="getDevice"/>
-        <top-nav-bar :user="user" :device="getDevice"/>
+        <top-nav-bar :user="user" :device="getDevice" :notificaion_count="notificaion_count"/>
         <router-view />
         <!-- {{ user.id }} -->
     <!-- <button @click="delUser">Delete</button> -->
@@ -19,7 +19,8 @@ export default {
         ...mapState({
             user: (state) => state.user,
             hostname: (state) => state.hostname,
-            token: (state) => state.token
+            token: (state) => state.token,
+            notificaion_count: (state) => state.notifications.length
         }),
         ...mapGetters(['getDevice'])
     },

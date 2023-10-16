@@ -13,8 +13,8 @@
             </div>
             <div class="flx gap-70">
                 <ul class="flx gap-16 ai-c">
-                    <settings-dropdown :id="'settins_dropdown'"/>
-                    <notification-dropdown :id="'notification_dropdown'" :new_notification="computedNotifications" />
+                    <settings-dropdown :id="'settings_dropdown'"/>
+                    <notification-dropdown :id="'notification_dropdown'" :notificaion_count="notificaion_count" />
                     <profile-dropdown :id="'profile_dropdown'" :avatar="user.profile_picture" />
                 </ul>
             </div>
@@ -28,18 +28,14 @@ import SettingsDropdown from '../dropdowns/SettingsDropdown.vue'
 import NotificationDropdown from '../dropdowns/NotificationDropdown.vue'
 import ProfileDropdown from '../dropdowns/ProfileDropdown.vue'
 export default {
-  components: { SettingsDropdown, NotificationDropdown, ProfileDropdown },
     name: 'TopNavBar',
+    components: { SettingsDropdown, NotificationDropdown, ProfileDropdown },
     props: {
         device: String,
-        user: Object
+        user: Object,
+        notificaion_count: Number
     },
     mixins: [userNameMixin],
-    data() {
-        return {
-            computedNotifications: false
-        }
-    }
 }
 </script>
 

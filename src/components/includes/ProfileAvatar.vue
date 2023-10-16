@@ -1,5 +1,5 @@
 <template>
-    <img class="br-50" :src="avatar ? s3bucket+'/images/'+avatar : default_avatar" />
+    <img class="br-50" :src="avatar ? s3bucket+'/'+avatar : default_avatar" />
 </template>
 <script>
 import { mapState } from 'vuex';

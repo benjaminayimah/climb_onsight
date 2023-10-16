@@ -14,10 +14,13 @@
                 <div class="form-row column">
                     <label for="award">Awards</label>
                     <div class="input-wrapper">
-                        <input v-model="form.guide_awards" type="text" name="award" id="award" class="form-control" placeholder="List Awards (Add a comma to differentiate)">
+                        <input v-model="form.guide_awards" type="text" name="award" id="award" class="form-control" placeholder="List Awards (Add a comma to differentiate)" :class="{ 'error-border': validation.errors.guide_awards }">
                     </div>
+                    <span class="input-error" v-if="validation.error && validation.errors.guide_awards">
+                        {{ validation.errors.guide_awards[0] }}
+                    </span>
                 </div>
-                <button @click="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
+                <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
                 </button>
             </div>
@@ -26,11 +29,13 @@
 </template>
 
 <script>
+import inputValidation from '@/mixins/inputValidation';
 import DocUploadInput from '@/components/includes/DocUploadInput.vue';
 import { mapState } from 'vuex';
 export default {
-  components: { DocUploadInput },
+    components: { DocUploadInput },
     name: 'GuideDocuments',
+    mixins: [inputValidation],
     computed: {
         ...mapState({
             newGUide: (state) => state.data.newGuide
@@ -47,8 +52,16 @@ export default {
     },
     methods: {
         async updateNewGuide() {
-            await this.$store.commit('updateGuideDoc', this.form)
-            this.$router.push({ name: 'GuideReviews' })
+            let errors = { guide_awards: ''}
+            if(this.form.guide_awards == '') {
+                if(this.form.guide_awards == '') {
+                    errors.guide_awards = ['The awards field is required']
+                }
+                this.showErr(errors)
+            }else {
+                await this.$store.commit('updateGuideDoc', this.form)
+                this.$router.push({ name: 'GuideReviews' })
+            }  
         },
         presetForm() {
             this.newGUide.guide_insurance ? this.form.guide_insurance = this.newGUide.guide_insurance : ''

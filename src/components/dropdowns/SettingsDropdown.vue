@@ -25,14 +25,6 @@
             </div>
             <ul v-if="!reset_pass">
                 <li>
-                    <a href="" class="flx gap-16 ai-c">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 18 18">
-                            <path d="M-3458-676c-7.4,0-9-1.2-9-6.75a8.888,8.888,0,0,1,.76-4.358,4.208,4.208,0,0,1,3-1.978,5.03,5.03,0,0,1,1.65-3.6A5.381,5.381,0,0,1-3458-694a5.384,5.384,0,0,1,3.592,1.314,5.033,5.033,0,0,1,1.65,3.6,4.21,4.21,0,0,1,3,1.978,8.885,8.885,0,0,1,.76,4.358C-3449-677.2-3450.6-676-3458-676Zm0-9.75a3,3,0,0,0-3,3,3,3,0,0,0,3,3,3,3,0,0,0,3-3A3,3,0,0,0-3458-685.75Zm-.126-3.764c1.825,0,3.828.187,3.848.189a4.215,4.215,0,0,0-.564-1.633,3.394,3.394,0,0,0-3.1-1.633h-.033a3.58,3.58,0,0,0-3.156,1.641,4.216,4.216,0,0,0-.595,1.625.116.116,0,0,1,.028,0C-3461.135-689.384-3459.66-689.513-3458.126-689.513Zm.126,8.264a1.5,1.5,0,0,1-1.5-1.5,1.5,1.5,0,0,1,1.5-1.5,1.5,1.5,0,0,1,1.5,1.5A1.5,1.5,0,0,1-3458-681.25Z" transform="translate(3467 694)" fill="#212135"/>
-                        </svg>
-                        <span>Edit profile</span>
-                    </a>
-                </li>
-                <li>
                     <a @click.prevent="resetPassword" href="#" class="flx gap-16 ai-c">
                         <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 16.5 18">
                             <path d="M-3427-681.75c0-3.088,1.456-3.75,8.25-3.75s8.25.662,8.25,3.75-1.456,3.75-8.25,3.75S-3427-678.662-3427-681.75Zm3.75-9.75a4.5,4.5,0,0,1,4.5-4.5,4.5,4.5,0,0,1,4.5,4.5,4.5,4.5,0,0,1-4.5,4.5A4.5,4.5,0,0,1-3423.25-691.5Z" transform="translate(3427 696)" fill="#212135"/>
@@ -48,12 +40,12 @@
                     </div>
                     <div class="form-wrapper flx column gap-16">
                         <div class="form-row column">
-                            <label for="old_password">Old password</label>
+                            <label for="current_password">Current password</label>
                             <div class="input-wrapper">
-                                <input v-model="form.old_password" class="form-control" :class="{ 'error-border': validation.errors.old_password }" type="password" name="old_password" id="old_password" placeholder="Enter old password">
+                                <input v-model="form.current_password" class="form-control" :class="{ 'error-border': validation.errors.current_password }" type="password" name="current_password" id="current_password" placeholder="Enter old password">
                             </div>
-                            <span class="input-error" v-if="validation.error && validation.errors.old_password">
-                                {{ validation.errors.old_password[0] }}
+                            <span class="input-error" v-if="validation.error && validation.errors.current_password">
+                                {{ validation.errors.current_password[0] }}
                             </span>
                         </div>
                         <div class="form-row column">
@@ -77,6 +69,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapState } from 'vuex';
 import dropdownToggleMixin from '@/mixins/dropdownToggleMixin'
 import Backdrop from '../includes/Backdrop.vue'
@@ -91,7 +84,10 @@ export default {
     mixins: [dropdownToggleMixin, inputValidationMixin],
     computed: {
         ...mapState({
-            dynamicFloatingDiv: (state) => state.dropdown.dynamicFloatingDiv
+            dynamicFloatingDiv: (state) => state.dropdown.dynamicFloatingDiv,
+            hostname: (state) => state.hostname,
+            token: (state) => state.token,
+
         }),
         computedTitle() {
             let title = 'Settings'
@@ -104,7 +100,7 @@ export default {
     data () {
         return {
             form: {
-                old_password: '',
+                current_password: '',
                 new_password: ''
             },
             reset_pass: false,
@@ -117,8 +113,23 @@ export default {
             }
             this.openDropdown(id)
         },
-        doSubmit() {
-           // 
+        async doSubmit() {
+            this.startSpinner()
+            this.validation.error || this.systemErr.error ? this.clearErrs() : ''
+            try {
+                const res = await axios.post(this.hostname + '/api/update-password?token=' + this.token, this.form)
+                this.stopSpinner()
+                this.resetFormData(res.data)
+            } catch (e) {
+                this.errorResponse(e)
+                this.stopSpinner()
+            }
+        },
+        resetFormData(res) {
+            this.form.current_password = ''
+            this.form.new_password = ''
+            this.closeDropdown(this.id)
+            console.log(res)
         },
         resetPassword() {
             this.reset_pass = !this.reset_pass

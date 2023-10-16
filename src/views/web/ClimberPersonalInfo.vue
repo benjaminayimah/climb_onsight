@@ -2,7 +2,7 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Personal information</div>
         <div class="centered">
-            <avatar-uploader :status="status" :hostname="hostname" @deleteTemp="deltmp" @upload-click="uploadClick" />
+            <avatar-uploader :status="status" :dimension="80" :hostname="hostname" :auth="false" @deleteTemp="deltmp" @upload-click="uploadClick" />
             <div>Add profile image</div>
             <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
         </div>

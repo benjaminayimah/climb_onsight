@@ -1,6 +1,6 @@
 <template>
     <li class="scale-in2">
-        <a href="#" class="flx gap-8 ai-c bg-white br-32" @click="$emit('select-category', category.name)" :class="{'selected' : computedSelected}">
+        <a href="#" class="flx gap-8 ai-c br-32" @click="$emit('select-category', category)" :class="{'selected' : computedSelected}">
             <span class="fs-09">{{ category.name }}</span>
             <img class="br-50" :src="category.image" :alt="category.name">
         </a>
@@ -12,7 +12,8 @@ export default {
     name: 'CategoryList',
     props: {
         category: Object,
-        selected: String
+        selected: String,
+        color: String
     },
     computed: {
         computedSelected() {
@@ -20,6 +21,9 @@ export default {
             return true
             else
             return false
+        },
+        computedColor() {
+            return this.color
         }
     }
 }
@@ -29,6 +33,7 @@ export default {
 a {
     padding: 4px 4px 4px 12px;
     border: 1px solid transparent;
+    background-color: v-bind(computedColor);
 }
 img {
     height: 35px;

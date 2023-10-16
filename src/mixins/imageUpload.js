@@ -81,9 +81,11 @@ export default {
             this.stopLoader()
             this.form.tempImage = null
             this.status.tempImage = null
-            let stored = JSON.parse(localStorage.getItem('newUser'))
-            stored.form.tempImage = ''
-            localStorage.setItem('newUser', JSON.stringify(stored))
+            if(localStorage.getItem('newUser')) {
+                let stored = JSON.parse(localStorage.getItem('newUser'))
+                stored.form.tempImage = ''
+                localStorage.setItem('newUser', JSON.stringify(stored))
+            }
         },
         deltmp() {
             this.startLoader()

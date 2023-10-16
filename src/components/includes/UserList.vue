@@ -1,6 +1,6 @@
 <template>
     <router-link :to="{ name: climber ? 'Climbers' : 'Guides', query: { id: user.id, origin: $route.name} }" class="bg-img br-16 flx-1 relative" :class="{'list-is-active' : $route.query.id == user.id}">
-        <img :src="s3bucket+'/'+user.image" :alt="user.name" />
+        <img :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name" />
         <div class="user-footer absolute br-16 flx jc-sb ai-c">
             <div class="flx column">
                 <div class="fs-09">{{ user.name }}</div>
@@ -27,7 +27,8 @@ export default {
     },
     computed: {
         ...mapState({
-            s3bucket: (state) => state.s3bucket
+            s3bucket: (state) => state.s3bucket,
+            default_avatar: (state) => state.data.default_avatar
         })
     }
 }
@@ -37,6 +38,7 @@ export default {
 a {
     height: 220px;
     min-width: 180px;
+    max-width: 420px;
     &:hover {
         box-shadow: 0 6px 20px 0 rgba(16, 16, 16, 0.3);
     }

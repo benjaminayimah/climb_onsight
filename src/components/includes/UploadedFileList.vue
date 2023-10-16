@@ -20,7 +20,7 @@ export default {
     components: { Spinner },
     name: 'UploadedFileList',
     props: {
-        file: String,
+        file: Object,
         id: String
     },
     computed: {

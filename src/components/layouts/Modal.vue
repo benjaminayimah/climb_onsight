@@ -1,6 +1,8 @@
 <template>
     <div v-if="forms.active" class="modal-container jc-c ai-c">
-        <backdrop :index="100" :opacity="0.5" />
+        <teleport to="body">
+            <backdrop :index="100" :opacity="0.5" />
+        </teleport>
         <div id="main_modal" class="modal overflow-y-scroll scroll-hidden flx column relative">
             <div class="modal-top flx jc-sb ai-c sticky">
                 <h3 id="modal_title"></h3>
@@ -19,10 +21,11 @@
         </div>
     </div>
     <add-payment-modal v-if="forms.new_payment" />
-    <funds-withdrawal v-else-if="forms.withdraw_funds" />
+    <funds-withdrawal-modal v-else-if="forms.withdraw_funds" />
     <account-details-modal v-else-if="forms.account_details"/>
     <registered-banks-modal v-else-if="forms.banks" />
     <add-admins-modal v-else-if="forms.add_admin" />
+    <new-guide-modal v-else-if="forms.new_guide" />
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';
@@ -30,12 +33,14 @@ const AddAdminsModal = defineAsyncComponent(() => import(/* webpackChunkName: Ad
 const RegisteredBanksModal = defineAsyncComponent(() => import(/* webpackChunkName: RegisteredBanksModal */ '@/views/guides/RegisteredBanksModal.vue'))
 const AccountDetailsModal = defineAsyncComponent(() => import(/* webpackChunkName: AccountDetailsModal */ '@/views/guides/AccountDetailsModal.vue'))
 const AddPaymentModal = defineAsyncComponent(() => import(/* webpackChunkName: AddPaymentModal */ '@/views/guides/AddPaymentModal.vue'));
-const FundsWithdrawal = defineAsyncComponent(() => import(/* webpackChunkName: FundsWithdrawal */ '@/views/guides/FundsWithdrawal.vue'));
+const FundsWithdrawalModal = defineAsyncComponent(() => import(/* webpackChunkName: FundsWithdrawalModal */ '@/views/guides/FundsWithdrawalModal.vue'));
+const NewGuideModal = defineAsyncComponent(() => import(/* webpackChunkName: NewGuideModal */ '@/views/admin/NewGuideModal.vue'));
+
 import { mapState } from 'vuex';
 import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal },
     name: 'MainModal',
     computed: {
         ...mapState({
@@ -49,8 +54,8 @@ export default {
   // pointer-events: none !important;
 .modal{
     max-height: 90vh;
-    width: 560px;
-    z-index: 110;
+    // width: 560px;
+    // z-index: 110;
     border-radius: 24px;
     background-color: #fff;
 }
@@ -87,14 +92,14 @@ export default {
         background: unset;
     }
 }
-@media screen and (max-width: 590px){
-    .modal{
-        width: 430px;
-    }
-}
+// @media screen and (max-width: 590px){
+//     .modal{
+//         width: 430px;
+//     }
+// }
 @media screen and (max-width: 430px){
     .modal:not(#onboarding_modal){
-        max-width: 100%;
+        // max-width: 100%;
         max-height: 100dvh;
         border-radius: 0;
         min-height: 100%;
@@ -103,7 +108,6 @@ export default {
             flex-grow: 1;
         }
     }
-
 }
 
 

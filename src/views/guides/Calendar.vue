@@ -95,7 +95,7 @@
                             <label for="category">Event Category</label>
                             <div class="input-wrapper">
                                 <ul class="flx gap-8 flx-wrap">
-                                    <category-list v-for="category in categories" :key="category.id" :hostname="hostname" :category="category" :selected="form.category" @select-category="selectCategory"/>
+                                    <category-list v-for="category in categories" :key="category.id" :hostname="hostname" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#fff'"/>
                                 </ul>
                             </div>
                             <span class="input-error" v-if="validation.error && validation.errors.gears">
@@ -305,10 +305,10 @@ export default {
             }
         },
         selectCategory(category) {
-            if(this.form.category && this.form.category === category) {
+            if(this.form.category && this.form.category === category.name) {
                 this.form.category = ''
             }else {
-                this.form.category = category
+                this.form.category = category.name
             }
         },
         showErr(payload) {

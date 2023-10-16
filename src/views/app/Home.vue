@@ -21,7 +21,7 @@
                             <event-list v-for="event in events.slice(0, 6)" :key="event.id" :event="event" />
                         </div>
                     </div>
-                    <notification-card v-if="getDevice !== 'mobile'" />
+                    <dash-notification-card v-if="getDevice !== 'mobile'" />
                 </div>
                 <div class="flx flx-grow-1 gap-24">
                     <div v-if="getDevice !== 'mobile'" class="flx-b-60 gap-8 flx column">
@@ -44,11 +44,11 @@
 import { mapGetters, mapState } from 'vuex'
 import DashboardStatList from '@/components/includes/DashboardStatList.vue'
 import EventList from '@/components/includes/EventList.vue'
-import NotificationCard from '@/components/includes/DashNotificationCard.vue'
+import DashNotificationCard from '@/components/includes/DashNotificationCard.vue'
 import DashMessageCard from '@/components/includes/DashMessageCard.vue'
 import DashTodaySection from '@/components/includes/DashTodaySection.vue'
 export default {
-    components: { DashboardStatList, EventList, NotificationCard, DashMessageCard, DashTodaySection },
+    components: { DashboardStatList, EventList, DashNotificationCard, DashMessageCard, DashTodaySection },
     name: 'HomeView',
     computed: {
         ...mapGetters(['getDevice']),

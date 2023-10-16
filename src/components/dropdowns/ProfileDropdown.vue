@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import userRolesMixin from '@/mixins/userRolesMixin'
 import dropdownToggleMixin from '@/mixins/dropdownToggleMixin'
 import Backdrop from '../includes/Backdrop.vue'
 import { mapState } from 'vuex'
@@ -31,7 +32,7 @@ export default {
         id: String,
         avatar: String
     },
-    mixins: [dropdownToggleMixin],
+    mixins: [dropdownToggleMixin, userRolesMixin],
     computed: {
         ...mapState({
             dynamicFloatingDiv: (state) => state.dropdown.dynamicFloatingDiv,
@@ -43,6 +44,12 @@ export default {
             user.activities = JSON.parse(user.activities),
             user.new_skills = JSON.parse(user.new_skills)
             return user
+        },
+        computedWidth() {
+            return this.is_super ? '420px' : '60%'
+        },
+        computedHeight() {
+            return this.is_super ? 'auto' : '80dvh'
         }
     }
 }
@@ -50,9 +57,9 @@ export default {
 
 <style lang="scss" scoped>
 .dropdown{
-    width: 60%;
+    width: v-bind(computedWidth);
     border-radius: 16px;
-    height: 80dvh;
+    height: v-bind(computedHeight);
 }
 a{
     width: 52px;

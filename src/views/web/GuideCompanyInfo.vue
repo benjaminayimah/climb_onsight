@@ -30,7 +30,7 @@
                         {{ validation.errors.phone_number[0] }}
                     </span>
                 </div>
-                <button @click="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
+                <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
                 </button>
             </div>
@@ -77,10 +77,6 @@ export default {
                 await this.$store.commit('updateCompanyInfo', this.form)
                 this.$router.push({ name: 'GuideDocuments' })
             }
-        },
-        showErr(payload) {
-            this.validation.error = true
-            this.validation.errors = payload
         },
         presetForm() {
             this.newGUide && this.newGUide.name ? this.form.name = this.newGUide.name : ''

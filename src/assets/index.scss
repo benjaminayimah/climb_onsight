@@ -3,6 +3,7 @@
     --font: 'Helvetica', sans-serif;
     --primary-color: var(--black);
     --secondary-color: #C69776;
+    --secondary-hover: #c3906b;
     --secondary-light: #F4E8DF;
     --primary-hover: #212135;
     --bg-color: #fbf7f4;
@@ -32,6 +33,9 @@
 .bg-purple {
     background-color: var(--bg-purple);
 }
+.bg-danger {
+    background-color: var(--danger);
+}
 .bg-red {
     background-color: var(--bg-red);
 }
@@ -41,6 +45,19 @@
 .bg-blue {
     background-color: var(--bg-blue);
 }
+.bg-color {
+    background-color: var(--bg-color);
+}
+.bg-white {
+    background-color: var(--white);
+}
+.bg-black {
+    background-color: var(--black);
+}
+.bg-transparent {
+    background-color: transparent;
+}
+
 img {
     width: 100%;
     display: block;
@@ -69,18 +86,6 @@ body{
     background-size: cover;
     flex-shrink: 0;
     overflow: hidden;
-}
-.bg-color {
-    background-color: var(--bg-color);
-}
-.bg-white {
-    background-color: var(--white);
-}
-.bg-black {
-    background-color: var(--black);
-}
-.bg-transparent {
-    background-color: transparent;
 }
 .gray {
     color: var(--gray);
@@ -146,6 +151,10 @@ button:not(.button-disabled) {
     height: 58px;
     padding: 12px 24px;
 }
+.btn-danger {
+    background-color: var(--danger);
+    color: #fff;
+}
 .btn-md {
     height: 50px;
     padding: 12px 24px;
@@ -167,6 +176,16 @@ button:not(.button-disabled) {
     }
     &:active {
         background-color: var(--primary-color);
+    }
+}
+.button-secondary {
+    background-color: var(--secondary-color);
+    color: #fff;
+    &:hover {
+        background-color: var(--secondary-hover);
+    }
+    &:active {
+        background-color: var(--secondary-color);
     }
 }
 .button-danger {
@@ -549,6 +568,9 @@ h1, h2, h3, h4, h5 {
 .fs-1rem {
     font-size: 1rem;
 }
+.fs-102rem {
+    font-size: 1.2rem;
+}
 .fs-2rem {
     font-size: 2rem;
 }
@@ -785,10 +807,12 @@ h3.title {
     }
     i{
         position: absolute;
-        height: 8px;
-        width: 8px;
-        top: 16px;
-        right: 17px;
+        padding: 1px 5px;
+        top: 8px;
+        left: 26px;
+        color: #fff;
+        font-style: normal;
+        border: 1px solid var(--bg-color);
     }
 }
 .dropdown {
@@ -801,6 +825,10 @@ h3.title {
 .profile-body-wrapper {
     padding: 30px 0;
     height: calc(100% - 17px);
+}
+.profile-body-wrapper2 {
+    height: 50dvh;
+    padding: 24px 0;
 }
 .md-top {
     .evt-card-wrapper {
@@ -913,6 +941,32 @@ ul.tab {
     a.active {
         background-color: black; 
         color: white;
+    }
+}
+
+//modal
+
+.modal {
+    min-width: 300px;
+}
+@media screen and (max-width: 970px){
+    .modal-width{
+        width: 680px !important;
+    }
+}
+@media screen and (max-width: 770px){
+    .modal-width{
+        width: 580px !important;
+    }
+}
+@media screen and (max-width: 670px){
+    .modal-width{
+        width: 430px !important;
+    }
+}
+@media screen and (max-width: 486px){
+    .modal-width {
+        max-width: 100%;
     }
 }
 

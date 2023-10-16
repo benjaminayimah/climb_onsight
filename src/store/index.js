@@ -13,7 +13,17 @@ export default createStore({
     s3bucket: 'https://s3.amazonaws.com/climbonsight.storage',
     windowWidth: '',
     menu: false,
-    forms: { active: false, loader: false, new_payment: false, withdraw_funds: false, account_details: false, banks: false, add_admin: false, tempStorage: {}},
+    forms: { 
+      active: false,
+      loader: false,
+      new_payment: false,
+      withdraw_funds: false,
+      account_details: false,
+      banks: false,
+      add_admin: false,
+      new_guide: false,
+      tempStorage: {}
+    },
     events: [
       {id: 1, name: 'Demo Event one', type: 'past', image: 'temp/event-1.jpeg'},
       {id: 2, name: 'First Onging event', type: 'past', image: 'temp/event-2.jpeg'},
@@ -36,39 +46,14 @@ export default createStore({
       {id: 19, name: 'Easter Euro Tour', type: 'registered', image: 'temp/event-1.jpeg'},
       {id: 20, name: 'Jouney to Ther West', type: 'past', image: 'temp/event-3.jpeg'},
     ],
-    guides: [
-      {id: 1, name: 'Jane Doe', image: 'temp/user-1.jpeg'},
-      {id: 2, name: 'Koomson Smith', image: 'temp/user-2.jpeg'},
-      {id: 3, name: 'Kathering Page', image: 'temp/user-3.jpeg'},
-      {id: 4, name: 'Nina Rosemund', image: 'temp/user-4.jpeg'},
-      {id: 5, name: 'Tyller Addams', image: 'temp/user-5.jpeg'},
-      {id: 6, name: 'Emily Gibbson', image: 'temp/user-6.jpeg'},
-      {id: 7, name: 'Cindy Whytte', image: 'temp/user-7.jpeg'},
-      {id: 8, name: 'Emmanuel Jason', image: 'temp/user-8.jpeg'},
-      {id: 9, name: 'Larry Harrison', image: 'temp/user-9.jpeg'},
-      {id: 10, name: 'Tracy Brown', image: 'temp/user-10.jpeg'},
-      {id: 11, name: 'Aurora Jackson', image: 'temp/user-11.jpeg'},
-      {id: 12, name: 'Jason Woods', image: 'temp/user-12.jpeg'},
-    ],
-    climbers: [
-      {id: 1, name: 'Serinna Thorne', image: 'temp/user-7.jpeg'},
-      {id: 2, name: 'Samuel K. Jordan', image: 'temp/user-8.jpeg'},
-      {id: 3, name: 'Catherine Gomez', image: 'temp/user-4.jpeg'},
-      {id: 4, name: 'Emmanuella Coleman', image: 'temp/user-2.jpeg'},
-      {id: 5, name: 'Sean Tyller', image: 'temp/user-12.jpeg'},
-      {id: 6, name: 'Caroline Forbes', image: 'temp/user-6.jpeg'},
-      {id: 7, name: 'Adele Newton', image: 'temp/user-11.jpeg'},
-      {id: 8, name: 'Kingston Jackson', image: 'temp/user-1.jpeg'},
-      {id: 9, name: 'George Kutcher', image: 'temp/user-10.jpeg'},
-      {id: 10, name: 'Daisy Hughe', image: 'temp/user-5.jpeg'},
-      {id: 11, name: 'Zoe Kettleman', image: 'temp/user-3.jpeg'},
-      {id: 12, name: 'William Forrest', image: 'temp/user-9.jpeg'},
-    ],
+    guides: [],
+    climbers: [],
     payment_options: [
       { id: 1, name: 'Jacob Audrey', account_no: '123 456 789 210', bank_name: 'Greenstone Bank', sort_code: '0292', address: 'Grand Central, New York' },
       { id: 2, name: 'Stephen Wood', account_no: '456 123 210 789', bank_name: 'Zenith Bank', sort_code: '123', address: 'Barcelona, Spain' }
     ],
-    admins: []
+    admins: [],
+    notifications: []
   },
   mutations: {
     computeWindow(state) {
@@ -92,11 +77,24 @@ export default createStore({
       localStorage.setItem('user', JSON.stringify(payload))
       state.user = payload
     },
+    setUserData(state, payload) {
+      this.commit('setAuthUser', payload.user)
+      state.notifications = payload.notifications
+      state.guides = payload.guides
+      state.climbers = payload.climbers
+    },
     setNewUser(state, payload) {
       const data = { token: payload, form: {}}
       localStorage.setItem('newUser', JSON.stringify(data))
       state.newUser = data
 
+    },
+    updateUser(state, payload) {
+      state.user = payload
+      this.commit('updateLocalStorage', payload)
+    },
+    updateLocalStorage(state, payload) {
+      localStorage.setItem('user', JSON.stringify(payload));
     },
     //signup climber
     updatePersonalInfo(state, payload) {
@@ -154,6 +152,8 @@ export default createStore({
         state.forms.banks = true
       }else if(payload === 'add_admin') {
         state.forms.add_admin = true
+      }else if (payload === 'new_guide') {
+        state.forms.new_guide = true
       }
       
     },
@@ -170,12 +170,29 @@ export default createStore({
       await this.commit('setTempData', payload)
       this.commit('openModal', 'account_details')
     },
+    async preloadNewGuide(state, payload) {
+      await this.commit('setTempData', payload)
+      this.commit('openModal', 'new_guide')
+    },
     setTempData(state, payload) {
       state.forms.tempStorage = payload
     },
     stopFormLoader(state) {
       state.forms.loader = false
     },
+    acceptGuide(state, payload) {
+      const i =  state.guides.findIndex(x => x.id === payload) 
+      if(i > -1)
+      state.guides[i].is_approved = true
+      const k = state.notifications.findIndex(x => x.id === payload)
+      state.notifications.splice(k, 1);
+    },
+    declineGuide(state, payload) {
+      state.guides.filter(data => data.id !== payload)
+      state.notifications.filter(data => data.id !== payload)
+    },
+
+
     destroyToken(){
       localStorage.removeItem('auth')
       localStorage.removeItem('user')
@@ -190,13 +207,16 @@ export default createStore({
       const url = this.getters.getHostname + '/api/user?token=' + token
       axios.get(url)
       .then((res) => {
-        state.commit('setAuthUser', res.data)
+        state.commit('setUserData', res.data)
       })
       .catch(e => {
-        if(e.response.status == 400 || e.response.status == 404) {
+        if(e.response.status == 400 || e.response.status == 404 ) {
           state.commit('destroyToken')
         }
       })
+    },
+    async doPreloadTemp(state, payload) {
+      return await axios.post(this.getters.getHostname+'/api/set-temp-update?token=' + this.getters.getToken, {image: payload})
     },
     logOut(state) {
       const url = this.getters.getHostname + '/api/logout?token='+ this.getters.getToken
@@ -227,6 +247,27 @@ export default createStore({
       }else{
         return 'tablet'
       }
+    },
+    is_super(state) {
+      return state.user.role === 'super_admin' ? true : false
+    },
+    is_admin(state) {
+      return state.user.role === 'admin' ? true : false
+    },
+    is_guide(state) {
+      return state.user.role === 'guide' ? true : false
+    },
+    is_climber(state) {
+      return state.user.role === 'climber' ? true : false
+    },
+    climber_step1_isSet(state) {
+      return state.newUser.form.dob ? true : false
+    },
+    climber_step2_isSet(state) {
+        return state.newUser.form.skills && state.newUser.form.skills.length ? true : false
+    },
+    climber_step3_isSet(state) {
+        return state.newUser.form.bio ? true : false
     }
   },
   modules: {

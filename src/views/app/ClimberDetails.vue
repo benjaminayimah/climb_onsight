@@ -4,7 +4,7 @@
             <h4>Climber Details</h4>
             <button class="button-danger absolute btn-rounded btn-sm">Delete Climber</button>
         </div>
-        <img class="br-8 profile-img" :src="s3bucket+'/'+user.image" :alt="user.name">
+        <img class="br-8 profile-img" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
         <div class="flx jc-sb ai-c">
             <h3>{{ user.name }}</h3>
             <div class="pill pill-neutral">234 Completed Events</div>
@@ -43,7 +43,8 @@ export default {
     name: 'ClimberDetails',
     computed: {
         ...mapState({
-            s3bucket: (state) => state.s3bucket
+            s3bucket: (state) => state.s3bucket,
+            default_avatar: (state) => state.data.default_avatar
         }),
         ...mapGetters(['getDevice'])
     },
