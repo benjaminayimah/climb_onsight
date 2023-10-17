@@ -49,7 +49,7 @@ export default {
             return this.is_super ? '420px' : '60%'
         },
         computedHeight() {
-            return this.is_super ? 'auto' : '80dvh'
+            return this.is_super ? '70dvh' : '80dvh'
         }
     }
 }

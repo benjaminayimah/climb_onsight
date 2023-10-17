@@ -22,6 +22,10 @@
                     <a href="#" class="a-link" v-if="notifications.length > 8">See all</a>
                 </div>
             </ul>
+            <div v-if="!notifications.length" class="text-center">
+                <div>No Notification</div>
+                <span class="gray">New Notifications will appear here</span>
+            </div>
         </div>
     </teleport>
 </template>

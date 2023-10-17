@@ -299,8 +299,7 @@ export default {
                 }
                 this.showErr(errors)
             }else {
-            this.validation.error ? this.clearErrs() : ''
-                console.log(this.form)
+                this.validation.error ? this.clearErrs() : ''
                 this.stepper = step
             }
         },
