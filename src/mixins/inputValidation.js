@@ -37,7 +37,7 @@ export default {
             }
             else {
                 this.systemErr.error = true
-                this.systemErr.message = e.response.data || 'An unknown error has occured. Please check your credentials or network connection.'
+                this.systemErr.message = e.response.data.message || 'An unknown error has occured. Please check your credentials or network connection.'
             }
         },
         startSpinner() {
