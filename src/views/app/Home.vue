@@ -13,7 +13,7 @@
                     <div v-if="is_super || is_climber" class="flx-b-60 flx column gap-8">
                         <h3 class="title flx jc-sb ai-c">
                             <div>
-                                Confirmed Events
+                                {{ is_super ? 'Top events across the country' : 'Confirmed Events' }}
                             </div>
                             <a href="#" class="fs-1rem a-link">See all</a>
                         </h3>
