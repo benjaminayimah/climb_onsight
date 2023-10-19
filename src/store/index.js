@@ -8,6 +8,7 @@ export default createStore({
     token: localStorage.getItem('auth') || null,
     user: JSON.parse(localStorage.getItem('user')) || {},
     newUser: JSON.parse(localStorage.getItem('newUser')) || null,
+    alert: { status: { show: false, success: false, danger: false, warning: false, info: false }, body: '' },
     // hostname: 'http://127.0.0.1:8000',
     hostname: 'https://api.climbonsight.ca',
     s3bucket: 'https://s3.amazonaws.com/climbonsight.storage',
@@ -24,28 +25,7 @@ export default createStore({
       new_guide: false,
       tempStorage: {}
     },
-    events: [
-      {id: 1, name: 'Demo Event one', type: 'past', image: 'temp/event-1.jpeg'},
-      {id: 2, name: 'First Onging event', type: 'past', image: 'temp/event-2.jpeg'},
-      {id: 3, name: 'Mountain Hikes', type: 'registered', image: 'temp/event-3.jpeg'},
-      {id: 4, name: 'Everst Adventure', type: 'past', image: 'temp/event-4.jpeg'},
-      {id: 5, name: 'Kilimanjaro Climbing', type: 'registered', image: 'temp/event-5.jpeg'},
-      {id: 6, name: 'Easter Euro Tour', type: 'registered', image: 'temp/event-6.jpeg'},
-      {id: 7, name: 'Jouney to Ther West', type: 'past', image: 'temp/event-7.jpeg'},
-      {id: 8, name: 'Final Event', type: 'past', image: 'temp/event-8.jpeg'},
-      {id: 9, name: 'Everst Adventure', type: 'past', image: 'temp/event-9.jpeg'},
-      {id: 10, name: 'Kilimanjaro Climbing', type: 'registered', image: 'temp/event-1.jpeg'},
-      {id: 11, name: 'Easter Euro Tour', type: 'registered', image: 'temp/event-2.jpeg'},
-      {id: 12, name: 'Jouney to Ther West', type: 'past', image: 'temp/event-3.jpeg'},
-      {id: 13, name: 'Final Event', type: 'past', image: 'temp/event-4.jpeg'},
-      {id: 14, name: 'Demo Event one', type: 'past', image: 'temp/event-5.jpeg'},
-      {id: 15, name: 'First Onging event', type: 'past', image: 'temp/event-6.jpeg'},
-      {id: 16, name: 'Mountain Hikes', type: 'registered', image: 'temp/event-7.jpeg'},
-      {id: 17, name: 'Everst Adventure', type: 'past', image: 'temp/event-8.jpeg'},
-      {id: 18, name: 'Kilimanjaro Climbing', type: 'registered', image: 'temp/event-9.jpeg'},
-      {id: 19, name: 'Easter Euro Tour', type: 'registered', image: 'temp/event-1.jpeg'},
-      {id: 20, name: 'Jouney to Ther West', type: 'past', image: 'temp/event-3.jpeg'},
-    ],
+    events: [],
     guides: [],
     climbers: [],
     payment_options: [
@@ -82,6 +62,7 @@ export default createStore({
       state.notifications = payload.notifications
       state.guides = payload.guides
       state.climbers = payload.climbers
+      state.events = payload.events
     },
     setNewUser(state, payload) {
       const data = { token: payload, form: {}}
@@ -137,6 +118,30 @@ export default createStore({
       this.commit('setAuthUser', payload)
       state.user = payload
     },
+    addToEvent(state, payload) {
+      state.events.push(payload)
+      localStorage.removeItem('newEvent')
+    },
+    //alerts
+    showAlert(state, payload) {
+      this.commit('dismisAlert')
+      state.alert.body = payload.body
+      if(payload.status === 'success'){
+          state.alert.status.success = true
+          state.alert.status.show = true
+          setTimeout(() => {
+            this.commit('dismisAlert')
+          }, 3000);
+      }else if(payload.status === 'danger'){
+          state.alert.status.danger = true
+          state.alert.status.show = true
+      }   
+    },
+    dismisAlert(state) {
+      for (let i in state.alert.status)
+      state.alert.status[i] = false
+      state.alert.body = ''
+    },
     // modals
     async openModal(state, payload) {
       state.forms.loader = true
@@ -191,8 +196,6 @@ export default createStore({
       state.guides.filter(data => data.id !== payload)
       state.notifications.filter(data => data.id !== payload)
     },
-
-
     destroyToken(){
       localStorage.removeItem('auth')
       localStorage.removeItem('user')

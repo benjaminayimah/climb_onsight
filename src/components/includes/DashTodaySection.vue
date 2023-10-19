@@ -46,7 +46,6 @@
             <dash-today-list />
         </ul>
         <button class="button-primary btn-md w-100">Show all</button>
-
     </div>
 </template>
 
@@ -56,9 +55,9 @@ export default {
     name: 'DashToday',
     components: { DashTodayList },
     props: {
-        is_super: String,
-        is_guide: String,
-        is_climber: String
+        is_super: Boolean,
+        is_guide: Boolean,
+        is_climber: Boolean
     }
 }
 </script>

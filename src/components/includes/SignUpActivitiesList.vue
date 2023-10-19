@@ -56,11 +56,6 @@ li {
     span {
         font-size: 0.9rem;
     }
-    input {
-        background-color: #D9D9D9;
-        border-radius: 20px;
-        height: 6px;
-    }
     &:hover {
         .slider {
             display: block;

@@ -24,13 +24,11 @@
                     <div v-if="is_guide" class="flx-b-60 bg-white pd-24 br-16 flx column gap-8">
                         <vue-cal
                             :disable-views="['years', 'year']"
-                            :selected-date="selectedDate"
                             :active-view="'month'"
                             events-on-month-view="short"
-                            :events="eventss"
+                            :events="computedEvents"
                             hide-view-selector
                             hide-title-bar
-                            @view-change="calChange"
                             ref="vuecal"
                             class="event-cal-theme ov-hidden br-16"
                         />
@@ -56,6 +54,7 @@
 
 <script>
 import VueCal from 'vue-cal'
+import 'vue-cal/dist/vuecal.css'
 import userRolesMixin from '@/mixins/userRolesMixin'
 import { mapGetters, mapState } from 'vuex'
 import DashboardStatList from '@/components/includes/DashboardStatList.vue'
@@ -71,46 +70,18 @@ export default {
         ...mapGetters(['getDevice']),
         ...mapState({
             events: (state) => state.events
-        })
+        }),
+        computedEvents() {
+            return this.events.map(element => {
+                return {
+                    id: element.id,
+                    start: element.date,
+                    end: element.date,
+                    title: element.event_name
+                };
+            });
+        },
     },
-    data() {
-        return {
-            eventss: [
-                {
-                    start: '2023-09-21',
-                    end: '2023-09-21',
-                    title: 'Bouldering',
-                    content: '<i class="icon material-icons">Califonia</i>',
-                    class: 'leisure',
-                    color: 'bg-purple'
-                },
-                {
-                    start: '2023-09-21',
-                    end: '2023-09-21',
-                    title: 'MT Everest Exploration',
-                    content: '<i class="icon material-icons">Everest</i>',
-                    class: 'sport',
-                    color: 'bg-green'
-                },
-                {
-                    start: '2023-10-22',
-                    end: '2023-10-22',
-                    title: 'Ice Climbing',
-                    content: '<i class="icon material-icons">Alaska</i>',
-                    class: 'ball',
-                    color: 'bg-blue'
-                },
-                {
-                    start: '2023-10-02',
-                    end: '2023-10-02',
-                    title: 'Rock Climbing',
-                    content: '<i class="icon material-icons">New York</i>',
-                    class: 'volley',
-                    color: 'bg-red'
-                }
-            ]
-        }
-    }
 }
 </script>
 

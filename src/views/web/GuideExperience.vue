@@ -4,7 +4,7 @@
         <form>
             <div class="form-wrapper flx column gap-24">
                 <ul class="flx gap-8 flx-wrap">
-                    <category-list v-for="category in computedCateries" :key="category.id" :hostname="hostname" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#F1F1F1'"/>
+                    <category-list v-for="category in computedCateries" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#F1F1F1'"/>
                 </ul>
                 <div v-if="form.category" class="form-row column">
                     <label for="years">Years of expirience</label>
@@ -32,7 +32,6 @@ export default {
     computed: {
         ...mapState({
             categories: (state) => state.data.categories,
-            hostname: (state) => state.hostname,
             newGUide: (state) => state.data.newGuide
         }),
         computedCateries() {

@@ -4,13 +4,13 @@ export default {
         default_avatar: require('@/assets/images/avatar.png'),
         climberSkills: ['Top rope', 'Leading', 'Multi pitch'],
         newGuide: JSON.parse(localStorage.getItem('newGuide')) || '',
+        newEvent: JSON.parse(localStorage.getItem('newEvent')) || {},
         categories: [
             {id: 1, name: 'Ice Climbing', value: 0, image: require('@/assets/images/ice_climbing.png')},
             {id: 2, name: 'Mountain Climbing', value: 0, image: require('@/assets/images/mountain_climbing.png')},
             {id: 3, name: 'Trad', value: 0, image: require('@/assets/images/trad.png')},
             {id: 4, name: 'Lead', value: 0, image: require('@/assets/images/lead.png')},
             {id: 5, name: 'Mountaineering', value: 0, image: require('@/assets/images/mountaineering.png')}
-
         ]
     },
     mutations: {
@@ -71,6 +71,61 @@ export default {
         },
         removeNewGuide(state) {
             state.newGuide = ''
+        },
+        saveEventForm1(state, payload) {
+            let stored = JSON.parse(localStorage.getItem('newEvent'))
+            if(stored) {
+                stored.date = payload.date
+                stored.start_time = payload.start_time
+                stored.end_time = payload.end_time
+                localStorage.setItem('newEvent', JSON.stringify(stored))
+                state.newEvent.date = payload.date
+                state.newEvent.start_time = payload.start_time
+                state.newEvent.end_time = payload.end_time
+            }else {
+                localStorage.setItem('newEvent', JSON.stringify(payload))
+                state.newEvent = payload
+            }
+        },
+        saveEventForm2(state, payload) {
+            let stored = JSON.parse(localStorage.getItem('newEvent'))
+            stored.event_name = payload.event_name
+            stored.price = payload.price
+            stored.address = payload.address
+            stored.latitude = payload.latitude
+            stored.longitude = payload.longitude
+            stored.gallery = payload.gallery
+            localStorage.setItem('newEvent', JSON.stringify(stored))
+            state.newEvent.event_name = payload.event_name
+            state.newEvent.price = payload.price
+            state.newEvent.address = payload.address
+            state.newEvent.latitude = payload.latitude
+            state.newEvent.longitude = payload.longitude
+            state.newEvent.gallery = payload.gallery
+        },
+        saveEventForm3(state, payload) {
+            let stored = JSON.parse(localStorage.getItem('newEvent'))
+            stored.category = payload.category
+            stored.attendance_limit = payload.attendance_limit
+            let gearsString = payload.gears
+            let gearsArray = gearsString.split(',')
+            stored.gears = gearsArray
+            stored.itinerary = payload.itinerary
+            stored.event_description = payload.event_description
+            localStorage.setItem('newEvent', JSON.stringify(stored))
+            state.newEvent.category = payload.category
+            state.newEvent.attendance_limit = payload.attendance_limit
+            state.newEvent.gears = gearsArray
+            state.newEvent.itinerary = payload.itinerary
+            state.newEvent.event_description = payload.event_description
+        },
+        updateEventGallery(state, payload) {
+            let stored = JSON.parse(localStorage.getItem('newEvent'))
+            stored.gallery = payload
+            localStorage.setItem('newEvent', JSON.stringify(stored))
+        },
+        clearNewEvent(state) {
+            state.newEvent = {}
         }
     },
     getters: {

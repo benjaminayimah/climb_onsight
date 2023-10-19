@@ -1,5 +1,6 @@
 <template>
     <main class="home" :class="getDevice">
+        <snack-bar-alert />
         <main-menu :user="user.id" :device="getDevice"/>
         <top-nav-bar :user="user" :device="getDevice" :notificaion_count="notificaion_count"/>
         <router-view />
@@ -12,8 +13,9 @@ import axios from "axios";
 import { mapState, mapGetters } from 'vuex';
 import MainMenu from '@/components/includes/MainMenu.vue';
 import TopNavBar from '@/components/includes/TopNavBar.vue';
+import SnackBarAlert from '@/components/includes/SnackBarAlert.vue';
 export default {
-    components: { MainMenu, TopNavBar },
+    components: { MainMenu, TopNavBar, SnackBarAlert },
     name: 'AdminDashboard',
     computed: {
         ...mapState({

@@ -64,12 +64,6 @@ $dimension: v-bind(computedDimension);
     width: inherit;
     cursor: pointer;
 }
-.avt-overlay{
-    background-color: rgba($color: #000000, $alpha: .5);
-    border-radius: inherit;
-    height: inherit;
-    width: inherit;
-}
 .bg-img{
     height: inherit;
     width: inherit;

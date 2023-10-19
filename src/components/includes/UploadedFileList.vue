@@ -36,7 +36,6 @@ export default {
     },
     methods: {
         async deleteFile(file) {
-            this.deleting = true
             //delete from server
             this.deleting = true
             try {

@@ -48,8 +48,8 @@ export default {
                                 'Content-Type': 'multipart/form-data'
                             }
                         }).then((res) => {
-                            this.stopLoader()
                             this.afterTempUpload(res.data)
+                            this.stopLoader()
                             this.clrOldfile(id)
                         }).catch((e) => {
                             this.stopLoader()
@@ -74,8 +74,10 @@ export default {
         },
         afterTempUpload(res) {
             this.stopLoader()
-            this.form.tempImage = res
             this.status.tempImage = res
+            if(this.form) {
+                this.form.tempImage = res
+            }
         },
         afterDeletion() {
             this.stopLoader()
