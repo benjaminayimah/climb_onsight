@@ -35,7 +35,8 @@
         <div class="form-row column">
             <label for="address">Event location</label>
             <div class="input-wrapper">
-                <input v-model="form.address" autocomplete="off" class="br-16 w-100 bd-trans" type="search" ref="address" id="address" name="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter location then pick from dropdown list" />
+                <input v-model="form.address" autocomplete="off" class="br-16 w-100 bd-trans" type="search" ref="address" id="address" name="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter event location " />
+                <!-- Enter location then pick from dropdown list -->
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.address">
                 {{ validation.errors.address[0] }}
