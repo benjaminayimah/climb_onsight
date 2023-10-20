@@ -52,11 +52,11 @@ export default {
             events: (state) => state.events
         }),
         computedEvents() {
-            const today = new Date().toLocaleDateString()
+            const today = new Date()
             if(this.$route.query.type === 'past') {
-                return this.events.filter(event => new Date(event.date).toLocaleDateString() < today)
+                return this.events.filter(event => new Date(event.date) < today)
             }else if(this.$route.query.type === 'registered') {
-                return this.events.filter(event => new Date(event.date).toLocaleDateString() > today)
+                return this.events.filter(event => new Date(event.date) >= today)
             }
             else {
                 return []
@@ -106,6 +106,7 @@ section {
 
 .evt-card {
     flex-basis: calc(33.33% - 16px);
+    max-width: 33.33%;
     height: 260px;
 }
 
