@@ -71,7 +71,7 @@ export default {
     height: 100%;
 }
 .foot {
-    line-height: 1.2;
+    // line-height: 1.2;
     height: 100%;
 }
 </style>

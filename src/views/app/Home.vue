@@ -95,7 +95,7 @@ section.main {
     flex-basis: 70%;
 }
 .md-top {
-    min-height: 350px;
+    min-height: calc(100dvh - 467px);
 }
 .flx-b-60 {
     flex-basis: 65%;
