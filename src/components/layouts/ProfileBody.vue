@@ -169,13 +169,14 @@ import { mapState } from 'vuex';
 import formatDateTime from '@/mixins/formatDateTime'
 import AvatarUploader from '../includes/AvatarUploader.vue';
 import Spinner from '../includes/Spinner.vue';
+import alertMixin from '@/mixins/alertMixin';
 export default {
     components: { AvatarUploader, Spinner },
     name: 'ProfileBody',
     props: {
         user: Object
     },
-    mixins: [formatDateTime, userRolesMixin, inputValidation, imageUploadMixin],
+    mixins: [formatDateTime, userRolesMixin, inputValidation, imageUploadMixin, alertMixin],
     computed: {
         ...mapState({
             s3bucket: (state) => state.s3bucket,
@@ -204,8 +205,9 @@ export default {
                     this.stopSpinner()
                     this.setData(res.data)
                 }).catch((e) => {
-                    this.errorResponse(e)
                     this.stopSpinner()
+                    this.errorResponse(e)
+
                 })
             }else {
                 this.setData(null)
@@ -227,15 +229,16 @@ export default {
             try {
                 const res = await axios.put(this.hostname+'/api/auth-user/' + this.user.id + '?token=' + this.token, this.form)
                 this.updateSuccess(res.data)
+                this.showAlert('success', res.data.message)
                 this.stopSpinner()
-
             } catch (e) {
-                this.errorResponse(e)
                 this.stopSpinner()
+                this.errorResponse(e)
+
             } 
         },
         updateSuccess(res) {
-            this.$store.commit('updateUser', res)
+            this.$store.commit('updateUser', res.data)
             this.editMode = false
         }
         

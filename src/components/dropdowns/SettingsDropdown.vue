@@ -69,6 +69,7 @@
 </template>
 
 <script>
+import alertMixin from '@/mixins/alertMixin';
 import axios from 'axios';
 import { mapState } from 'vuex';
 import dropdownToggleMixin from '@/mixins/dropdownToggleMixin'
@@ -81,7 +82,7 @@ export default {
     props: {
         id: String
     },
-    mixins: [dropdownToggleMixin, inputValidationMixin],
+    mixins: [dropdownToggleMixin, inputValidationMixin, alertMixin],
     computed: {
         ...mapState({
             dynamicFloatingDiv: (state) => state.dropdown.dynamicFloatingDiv,
@@ -119,6 +120,7 @@ export default {
             try {
                 const res = await axios.post(this.hostname + '/api/update-password?token=' + this.token, this.form)
                 this.stopSpinner()
+                this.showAlert('success', res.data)
                 this.resetFormData(res.data)
             } catch (e) {
                 this.errorResponse(e)

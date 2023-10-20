@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <event-list v-for="event in filteredEvents" :key="event.id" :event="event" />
+                    <event-list v-for="event in computedEvents" :key="event.id" :event="event" />
                 </div>
             </div>
             <transition name="slide-from-right">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="body-content pd-l-24 bd-l-1 overflow-y-scroll">
-                        <event-details :event="computedEvent" />
+                        <event-details :event="filteredEvents" />
                     </div>
                 </div>
             </transition>
@@ -51,30 +51,31 @@ export default {
         ...mapState({
             events: (state) => state.events
         }),
-        computedEvent() {
-            if(this.filteredEvents.length) {
-                const event = this.filteredEvents.find(event => event.id == this.$route.query.current)
-                if(event)
-                return event
-                else
-                return {}
+        computedEvents() {
+            const today = new Date().toLocaleDateString()
+            if(this.$route.query.type === 'past') {
+                return this.events.filter(event => new Date(event.date).toLocaleDateString() < today)
+            }else if(this.$route.query.type === 'registered') {
+                return this.events.filter(event => new Date(event.date).toLocaleDateString() > today)
             }
-            return {}
+            else {
+                return []
+            }
         }
     },
     watch: {
-        '$route.query.type'(newType) {
+        '$route.query.current'(newType) {
             this.filterEvent(newType);
         }
     },
     data() {
         return {
-            filteredEvents: []
+            filteredEvents: {}
         }
     },
     methods: {
         filterEvent(payload) {
-            this.filteredEvents = this.events.filter(data => data.type == payload)
+            this.filteredEvents = this.events.find(data => data.id == payload)
         },
         goBack() {
             if(this.$route.query.origin === this.$route.name) {
@@ -86,7 +87,7 @@ export default {
         }
     },
     mounted() {
-        this.filterEvent(this.$route.query.type)
+        this.filterEvent(this.$route.query.current)
     }
 }
 </script>

@@ -1,10 +1,10 @@
 <template>
-    <div class="br-16 bg-white main-details-wrapper flx column gap-16" v-if="event.name">
+    <div class="br-16 bg-white main-details-wrapper flx column gap-16" v-if="event.event_name">
         <div class="text-center">
             <h4>Event details</h4>
         </div>
-        <img class="br-8 profile-img" :src="s3bucket+'/'+event.image" :alt="event.name">
-        <h4>{{ event.name }}</h4>
+        <img class="br-8 profile-img" :src="s3bucket+'/'+JSON.parse(event.gallery)[0]" :alt="event.event_name">
+        <h4>{{ event.event_name }}</h4>
         <div>
             <label for="details">Event details</label>
             <div id="details">
@@ -40,14 +40,14 @@
 import { mapState, mapGetters } from 'vuex'
 export default {
     name: 'EventDetails',
+    props: {
+        event: Object
+    },
     computed: {
         ...mapState({
             s3bucket: (state) => state.s3bucket
         }),
         ...mapGetters(['getDevice'])
-    },
-    props: {
-        event: Object
     },
     mounted() {
         this.getDevice == 'mobile' ? document.body.classList.add('fixed-body') : ''

@@ -30,6 +30,7 @@ import Guides from '../views/app/GuidesView.vue'
 import Statistics from '../views/admin/Statistics.vue'
 import SubAdmins from '../views/admin/SubAdmins.vue'
 import Climbers from '../views/app/ClimbersView.vue'
+import UpcomingEvents from '../views/guides/UpcomingEvents.vue'
 
 import VerifyEmail from '@/views/web/VerifyEmail.vue'
 import GuideRegistrationComplete from '@/views/web/GuideRegistrationComplete.vue'
@@ -159,6 +160,7 @@ const routes = [
       { path: '/statistics', component: Statistics, name: 'Statistics', beforeEnter: superGuard},
       { path: '/sub-admins', component: SubAdmins, name: 'SubAdmins', beforeEnter: superGuard},
       { path: '/climbers', component: Climbers, name: 'Climbers', beforeEnter: superGuard},
+      { path: '/upcoming-events', component: UpcomingEvents, name: 'UpcomingEvents', beforeEnter: guidesGuard},
       { path: '/access-denied', component: AccessDenied, name: 'AccessDenied'}
     ]
   },

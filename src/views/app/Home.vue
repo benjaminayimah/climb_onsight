@@ -77,7 +77,9 @@ export default {
                     id: element.id,
                     start: element.date,
                     end: element.date,
-                    title: element.event_name
+                    title: element.event_name,
+                    color: 'bg-purple',
+                    class: 'leisure'
                 };
             });
         },
