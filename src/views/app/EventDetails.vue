@@ -5,7 +5,7 @@
             <button v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
         </div>
         <div class="gap-24 flx col-row">
-            <div class="flx gap-16 column w-50 flx-1">
+            <div class="flx gap-16 column w-50 flx-grow-1">
                 <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
                 <h4>{{ event.event_name }}</h4>
                 <div v-if="event.event_description">
@@ -82,7 +82,8 @@ export default {
 
 <style lang="scss" scoped>
 .gallery img {
-    flex-basis: calc(33.33% - 16px);
+    width: calc(33.33% - 16px);
     max-width: 33.33%;
+    max-height: 155px;
 }
 </style>
