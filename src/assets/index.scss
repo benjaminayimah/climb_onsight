@@ -546,6 +546,9 @@ h1, h2, h3, h4, h5 {
 .w-100 {
     width: 100%;
 }
+.w-50 {
+    width: 50%;
+}
 .h-100 {
     height: 100%;
 }
@@ -587,9 +590,6 @@ h1, h2, h3, h4, h5 {
 //details-card
 .main-details-wrapper {
     padding: 32px 24px;
-    .absolute {
-        inset: -8px 0 auto auto;
-    }
     .profile-img {
         height: 200px;
     }
@@ -1027,9 +1027,18 @@ ul.tab {
             padding: 20px;
         }
     }
+    .event-section .section-main-right {
+        width: 100%;
+    }
     
 }
 //tablet
+.tablet {
+    .event-section .section-main-right {
+        width: calc(100% - 140px);
+    }
+    
+}
 .tablet, .mobile {
     section.main {
         height: unset;
@@ -1072,6 +1081,12 @@ ul.tab {
         .body-content {
             height: 100%;
         }
+    }
+    .col-row {
+        flex-direction: column;
+    }
+    .w-50 {
+        width: 100%;
     }
     .bt--100 {
         bottom: -50px;

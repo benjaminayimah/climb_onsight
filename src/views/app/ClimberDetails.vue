@@ -1,10 +1,10 @@
 <template>
-    <div class="br-16 bg-white main-details-wrapper flx column gap-16" v-if="user.name">
-        <div class="text-center relative">
+    <div class="br-16 bg-white main-details-wrapper flx column gap-16">
+        <div class="flx jc-sb ai-c">
             <h4>Climber Details</h4>
-            <button class="button-danger absolute btn-rounded btn-sm">Delete Climber</button>
+            <button class="button-danger btn-rounded btn-sm">Delete Climber</button>
         </div>
-        <img class="br-8 profile-img" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
+        <img class="br-16 profile-img" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
         <div class="flx jc-sb ai-c">
             <h3>{{ user.name }}</h3>
             <div class="pill pill-neutral">234 Completed Events</div>

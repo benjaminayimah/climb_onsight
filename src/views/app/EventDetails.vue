@@ -1,48 +1,64 @@
 <template>
-    <div class="br-16 bg-white main-details-wrapper flx column gap-16" v-if="event.event_name">
-        <div class="text-center">
+    <div class="br-16 bg-white main-details-wrapper">
+        <div class="flx jc-sb ai-c mb-16">
             <h4>Event details</h4>
+            <button v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
         </div>
-        <img class="br-8 profile-img" :src="s3bucket+'/'+JSON.parse(event.gallery)[0]" :alt="event.event_name">
-        <h4>{{ event.event_name }}</h4>
-        <div>
-            <label for="details">Event details</label>
-            <div id="details">
-                Lorem ipsum dolor sit amet consectetur. Molestie erat vel suscipit lacinia vulputate. Viverra pulvinar sed nibh facilisi nisl mattis neque aliquam volutpat. Malesuada lacinia justo nisi et laoreet ac leo eget auctor. Eget elit nunc sit nam. In tellus laoreet nibh vestibulum.
+        <div class="gap-24 flx col-row">
+            <div class="flx gap-16 column w-50 flx-1">
+                <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
+                <h4>{{ event.event_name }}</h4>
+                <div v-if="event.event_description">
+                    <label for="details">Event details</label>
+                    <div id="details">
+                        {{ event.event_description }}
+                    </div>
+                </div>
+                <div class="flx gap-24" :class="is_guide ? 'column' : 'jc-sb'">
+                    <div>
+                        <label for="price">Event pricing</label>
+                        <div id="price"><strong>${{event.price}}</strong></div>
+                    </div>
+                    <div>
+                        <label for="date">Date</label>
+                        <div id="date">{{ format_date(event.date) }}</div>
+                    </div>
+                    <div>
+                        <label for="time">Time</label>
+                        <div id="time">{{ format_time(event.start_time) }} - {{ format_time(event.end_time) }}</div>
+                    </div>
+                    <div>
+                        <label for="time">Event location</label>
+                        <div id="time">{{ event.address }}</div>
+                    </div>
+                </div>
+                <div class="flx column gap-8">
+                    <label for="guide">Guide for event</label>
+                    <div class="bg-img br-16" id="guide"></div>
+                </div>
             </div>
-        </div>
-        <div class="flx jc-sb">
-            <div>
-                <label for="price">Event pricing</label>
-                <div id="price"><strong>$243</strong></div>
+            <div class="w-50" v-if="is_guide">
+                <div class="mb-32">
+                    Registered climbers
+                </div>
+                <div>
+                    No climber is registered for this event yet
+                </div>
             </div>
-            <div>
-                <label for="date">Date</label>
-                <div id="date">June 19</div>
-            </div>
-            <div>
-                <label for="time">Time</label>
-                <div id="time">02:00 PM</div>
-            </div>
-            <div>
-                <label for="time">Event location</label>
-                <div id="time">23 victoria avenue</div>
-            </div>
-        </div>
-        <div class="flx column gap-8">
-            <label for="guide">Guide for event</label>
-            <div class="bg-img br-16" id="guide"></div>
         </div>
     </div>
 </template>
 
 <script>
+import formatDateTime from '@/mixins/formatDateTime'
+import userRolesMixin from '@/mixins/userRolesMixin'
 import { mapState, mapGetters } from 'vuex'
 export default {
     name: 'EventDetails',
     props: {
         event: Object
     },
+    mixins: [userRolesMixin, formatDateTime],
     computed: {
         ...mapState({
             s3bucket: (state) => state.s3bucket

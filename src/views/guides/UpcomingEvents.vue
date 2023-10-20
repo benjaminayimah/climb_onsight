@@ -1,5 +1,5 @@
 <template>
-  <section class="flx gap-24 column main">
+  <section class="flx gap-24 column main event-section">
         <div class="flx section-main-wrapper">
             <div class="section-main-left">
                 <div class="flx tap-height pd-r-24 ai-c">
@@ -42,7 +42,7 @@ export default {
             events: (state) => state.events
         }),
         computedEvent() {
-            if(this.events.length) {
+            if(this.events && this.events.length) {
                 const event = this.events.find(event => event.id == this.$route.query.current)
                 if(event)
                 return event

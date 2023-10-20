@@ -1,5 +1,5 @@
 <template>
-    <section class="flx gap-24 column main">
+    <section class="flx gap-24 column main event-section">
         <h1 class="title">Events</h1>
         <div class="flx section-main-wrapper">
             <div class="section-main-left">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <div class="body-content pd-l-24 bd-l-1 overflow-y-scroll">
-                        <event-details :event="filteredEvents" />
+                        <event-details :event="computedEvent" />
                     </div>
                 </div>
             </transition>
@@ -61,22 +61,19 @@ export default {
             else {
                 return []
             }
-        }
-    },
-    watch: {
-        '$route.query.current'(newType) {
-            this.filterEvent(newType);
-        }
-    },
-    data() {
-        return {
-            filteredEvents: {}
+        },
+        computedEvent() {
+            if(this.events && this.events.length) {
+                const event = this.events.find(event => event.id == this.$route.query.current)
+                if(event)
+                return event
+                else
+                return {}
+            }
+            return {}
         }
     },
     methods: {
-        filterEvent(payload) {
-            this.filteredEvents = this.events.find(data => data.id == payload)
-        },
         goBack() {
             if(this.$route.query.origin === this.$route.name) {
                 this.$router.push({ name: 'Events', query: {type: this.$route.query.type}})
@@ -86,9 +83,6 @@ export default {
             }
         }
     },
-    mounted() {
-        this.filterEvent(this.$route.query.current)
-    }
 }
 </script>
 
