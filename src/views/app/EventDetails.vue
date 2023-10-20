@@ -33,6 +33,12 @@
                     </div>
                 </div>
                 <div class="flx column gap-8">
+                    <label for="guide">Gallery</label>
+                    <div class="flx gap-16 flx-wrap gallery" v-if="event.gallery && event.gallery.length">
+                        <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
+                    </div>
+                </div>
+                <div v-if="!is_guide" class="flx column gap-8">
                     <label for="guide">Guide for event</label>
                     <div class="bg-img br-16" id="guide"></div>
                 </div>
@@ -75,5 +81,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.gallery img {
+    flex-basis: calc(33.33% - 16px);
+    max-width: 33.33%;
+}
 </style>
