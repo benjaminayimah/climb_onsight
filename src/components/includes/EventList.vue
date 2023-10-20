@@ -41,8 +41,8 @@ export default {
             s3bucket: (state) => state.s3bucket
         }),
         eventType() {
-            const today = new Date().toLocaleDateString()
-            const eventDate = new Date(this.event.date).toLocaleDateString()
+            const today = new Date()
+            const eventDate = new Date(this.event.date)
             return today > eventDate ? 'past' : 'registered'
         }
     }
