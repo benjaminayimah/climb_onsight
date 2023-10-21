@@ -23,6 +23,7 @@ export default createStore({
       banks: false,
       add_admin: false,
       new_guide: false,
+      profile_edit: false,
       tempStorage: {}
     },
     events: [],
@@ -159,6 +160,8 @@ export default createStore({
         state.forms.add_admin = true
       }else if (payload === 'new_guide') {
         state.forms.new_guide = true
+      }else if (payload === 'profile_edit') {
+        state.forms.profile_edit = true
       }
       
     },
@@ -178,6 +181,10 @@ export default createStore({
     async preloadNewGuide(state, payload) {
       await this.commit('setTempData', payload)
       this.commit('openModal', 'new_guide')
+    },
+    async preloadProfileEdit(state, payload) {
+      await this.commit('setTempData', payload)
+      this.commit('openModal', 'profile_edit')
     },
     setTempData(state, payload) {
       state.forms.tempStorage = payload
@@ -218,9 +225,9 @@ export default createStore({
         }
       })
     },
-    async doPreloadTemp(state, payload) {
-      return await axios.post(this.getters.getHostname+'/api/set-temp-update?token=' + this.getters.getToken, {image: payload})
-    },
+    // async doPreloadTemp(state, payload) {
+    //   return await axios.post(this.getters.getHostname+'/api/set-temp-update?token=' + this.getters.getToken, {image: payload})
+    // },
     logOut(state) {
       const url = this.getters.getHostname + '/api/logout?token='+ this.getters.getToken
       axios.delete(url)

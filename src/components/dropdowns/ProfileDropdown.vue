@@ -13,7 +13,7 @@
                     </svg>
                 </button>
             </div>
-            <profile-body :user="computedUser"/>
+            <profile-body :user="computedUser" @close-modal="closeModal"/>
         </div>
     </teleport>
 </template>
@@ -50,6 +50,11 @@ export default {
         },
         computedHeight() {
             return this.is_super ? '70dvh' : '80dvh'
+        }
+    },
+    methods: {
+        closeModal() {
+            this.closeDropdown(this.id)
         }
     }
 }

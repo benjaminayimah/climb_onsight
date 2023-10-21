@@ -74,8 +74,8 @@ button {
     height: 40px;
     width: 40px;
     border: 2px var(--bg-white) solid;
-    right: -15px;
-    bottom: -10px;
+    right: -7%;
+    bottom: -4%;
 }
 button.delete {
     background-color: rgba(255, 81, 81, 0.8);

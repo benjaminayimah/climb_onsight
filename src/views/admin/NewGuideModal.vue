@@ -33,7 +33,6 @@
                 </div>
             </div>
         </div>
-
     </teleport>
     <teleport to="#modal_title">
         Guide profile
@@ -213,9 +212,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.pd-24 {
-    // background: rgba(244, 244, 244, 0.76);
-}
 .modal-width {
     width: 900px;
 }
@@ -231,7 +227,6 @@ li {
     .bg-white {
         min-width: 300px;
         max-width: 400px;
-
     }
 }
 </style>

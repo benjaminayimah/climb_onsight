@@ -1,15 +1,13 @@
 <template>
     <div v-if="is_guide || is_climber" class="grid grid-col-2 gap-32 profile-body-wrapper overflow-y-scroll scroll-hidden">
         <div>
-            <div class="bg-img br-16 relative mb-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} ">
-                <button class="absolute fs-09">Change profile picture</button>
-            </div>
+            <div class="bg-img br-16 mb-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} "></div>
             <div class="flx jc-sb mb-24">
                 <h3>{{ user.name }}</h3>
                 <div class="pill pill-neutral">0 Completed Events</div>
             </div>
             <div class="mb-32">
-                <button class="button-primary btn-sm-lng gap-8 btn-rounded">
+                <button @click="triggerEdit" class="button-primary btn-sm-lng gap-8 btn-rounded">
                     <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 16.919 16.166">
                         <path d="M-3593.823-882.342a.749.749,0,0,1-.2-.713l.857-3.427a.75.75,0,0,1,.2-.348l10.708-10.708a2.555,2.555,0,0,1,1.816-.751,2.55,2.55,0,0,1,1.815.751,2.57,2.57,0,0,1,0,3.631l-10.708,10.708a.749.749,0,0,1-.348.2l-3.427.857a.753.753,0,0,1-.181.022A.751.751,0,0,1-3593.823-882.342Zm12.624-14.134-10.561,10.561-.5,2.012,2.012-.5,10.561-10.561a1.067,1.067,0,0,0,0-1.509,1.059,1.059,0,0,0-.754-.312A1.063,1.063,0,0,0-3581.2-896.476Zm-4.385,14.353a.75.75,0,0,1-.75-.75.75.75,0,0,1,.75-.75h7.709a.75.75,0,0,1,.75.75.75.75,0,0,1-.75.75Z" transform="translate(3594.043 898.288)" fill="#fff"/>
                     </svg>
@@ -91,7 +89,7 @@
             <span class="gray capitalize">{{ user.role.replace(/_/g, ' ') }}</span>
         </div>
         <div v-if="!editMode" class="centered">
-            <button @click="preloadImage" class="button-primary gap-8 btn-sm btn-rounded">
+            <button @click="setData" class="button-primary gap-8 btn-sm btn-rounded">
                 <svg v-if="!submiting" xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 16.919 16.166">
                     <path d="M-3593.823-882.342a.749.749,0,0,1-.2-.713l.857-3.427a.75.75,0,0,1,.2-.348l10.708-10.708a2.555,2.555,0,0,1,1.816-.751,2.55,2.55,0,0,1,1.815.751,2.57,2.57,0,0,1,0,3.631l-10.708,10.708a.749.749,0,0,1-.348.2l-3.427.857a.753.753,0,0,1-.181.022A.751.751,0,0,1-3593.823-882.342Zm12.624-14.134-10.561,10.561-.5,2.012,2.012-.5,10.561-10.561a1.067,1.067,0,0,0,0-1.509,1.059,1.059,0,0,0-.754-.312A1.063,1.063,0,0,0-3581.2-896.476Zm-4.385,14.353a.75.75,0,0,1-.75-.75.75.75,0,0,1,.75-.75h7.709a.75.75,0,0,1,.75.75.75.75,0,0,1-.75.75Z" transform="translate(3594.043 898.288)" fill="#fff"/>
                 </svg>
@@ -197,27 +195,11 @@ export default {
         }
     },
     methods: {
-        preloadImage() {
-            if(this.user.profile_picture) {
-                this.startSpinner()
-                this.$store.dispatch('doPreloadTemp', this.user.profile_picture)
-                .then((res) => {
-                    this.stopSpinner()
-                    this.setData(res.data)
-                }).catch((e) => {
-                    this.stopSpinner()
-                    this.errorResponse(e)
-
-                })
-            }else {
-                this.setData(null)
-            }
-        },
-        setData(image) {
-            this.afterTempUpload(image)
+        setData() {
             this.form.name = this.user.name
             this.form.email = this.user.email
             this.form.phone_number = this.user.phone_number
+            this.user.profile_picture ? this.afterTempUpload(this.user.profile_picture) : ''
             this.editMode = true
         },
         closeEditMode() {
@@ -240,11 +222,13 @@ export default {
         updateSuccess(res) {
             this.$store.commit('updateUser', res.data)
             this.editMode = false
+            this.$emit('close-modal')
+        },
+        triggerEdit() {
+            this.$emit('close-modal')
+            this.$store.commit('preloadProfileEdit', this.user)
         }
         
-    },
-    mounted() {
-        // this.user.profile_picture ? this.preloadImage() : ''
     }
 }
 </script>
@@ -257,15 +241,6 @@ img {
 .bg-img {
     border-radius: 16px;
     height: 180px;
-    button {
-        background-color: rgba(255, 255, 255, 0.8);
-        backdrop-filter: saturate(180%) blur(20px);
-        -webkit-backdrop-filter: saturate(180%) blur(20px);
-        inset: auto auto 16px 16px;
-        padding: 10px;
-        color: #000000;
-        border-radius: 30px;
-    }
 }
 .grid-item {
     min-width: 135px;

@@ -19,6 +19,9 @@
                         </h3>
                         <div class="flx flx-1 gap-16 flx-wrap">
                             <event-list v-for="event in events.slice(0, 6)" :key="event.id" :event="event" />
+                            <div v-if="events.length < 6" class="flx-1 evt-card shadow-sm bg-white br-16 centered">
+                                <button class="button-primary btn-rounded btn-sm-lng">Explore more</button>
+                            </div>
                         </div>
                     </div>
                     <div v-if="is_guide" class="flx-b-60 bg-white pd-24 br-16 flx column gap-8">

@@ -127,11 +127,10 @@ export default {
                 this.stopSpinner()
             }
         },
-        resetFormData(res) {
+        resetFormData() {
             this.form.current_password = ''
             this.form.new_password = ''
             this.closeDropdown(this.id)
-            console.log(res)
         },
         resetPassword() {
             this.reset_pass = !this.reset_pass
