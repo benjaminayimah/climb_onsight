@@ -30,19 +30,19 @@ export default {
     watch: {
         'status.tempImage'(newFIle) {
             this.addToGallery(newFIle)
-        }
-    },
-    data() {
-        return {
-            
+        },
+        'imageStatus.msg'(newMessage) {
+            this.showUploadError(newMessage)
         }
     },
     methods: {
         addToGallery(file) {
             this.$emit('add-to-gallery', file)
+        },
+        showUploadError(message) {
+            this.$emit('show-error', message, this.imageStatus.active)
         }
     }
-
 }
 </script>
 

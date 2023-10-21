@@ -115,7 +115,7 @@ button, .a-button{
         transition: var(--input-btn-transition);
     }
 }
-button:not(.button-disabled) {
+button:not(.button-disabled, .absolute) {
     &:active {
         transform: scale(0.98);
     }

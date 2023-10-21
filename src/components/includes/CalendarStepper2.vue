@@ -14,7 +14,7 @@
             <div class="gallery">
                 <div class="gallery-wrapper grid grid-col-3 gap-8 mb-8">
                     <gallery-image v-for="(image, index) in form.gallery" :key="index" :index="index" :image="image" @delete-image="deleteImage" />
-                    <gallery-uploader v-for="(image, index) in computeEmptyGal" :key="index" :index="index" :id="'gallery_img_'+index" @add-to-gallery="addToGallery"/>
+                    <gallery-uploader v-for="(image, index) in computeEmptyGal" :key="index" :index="index" :id="'gallery_img_'+index" @add-to-gallery="addToGallery" @show-error="showError"/>
                 </div>
                 <span class="flx gap-4 ai-c fs-09"><i class="br-50"></i>First image would be used as trip cover</span>
             </div>
@@ -75,7 +75,7 @@ export default {
                 longitude: null,
                 address: ''
             },
-            imageStatus: { active: false, msg: ''}
+            imageStatus: { active: true, msg: ''}
         }
     },
     methods: {
@@ -122,7 +122,16 @@ export default {
                 this.newEvent.longitude ? this.form.longitude = this.newEvent.longitude : ''
                 this.newEvent.gallery ? this.form.gallery = this.newEvent.gallery : ''
             }
-        }, 
+        },
+        showError(message, status) {
+            if(status) {
+                this.imageStatus.msg = message
+                this.imageStatus.active = true
+            }else {
+                this.imageStatus.msg = ''
+                this.imageStatus.active = false
+            }
+        },
     },
     mounted() {
         this.presetForm()
