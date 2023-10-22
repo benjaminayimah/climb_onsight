@@ -35,8 +35,7 @@
         <div class="form-row column">
             <label for="address">Event location</label>
             <div class="input-wrapper">
-                <input v-model="form.address" autocomplete="off" class="br-16 w-100 bd-trans" type="search" ref="address" id="address" name="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter event location " />
-                <!-- Enter location then pick from dropdown list -->
+                <input @focusout="checkAddressInput" autocomplete="off" class="br-16 w-100 bd-trans" type="search" ref="address" id="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter location then pick from dropdown list" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.address">
                 {{ validation.errors.address[0] }}
@@ -50,19 +49,25 @@
 </template>
 
 <script>
+import autoCompleMixin from '@/mixins/autoCompleMixin'
 import inputValidationMixin from '@/mixins/inputValidation'
 import GalleryUploader from './GalleryUploader.vue'
 import GalleryImage from './GalleryImage.vue'
 export default {
     components: { GalleryUploader, GalleryImage },
     name: 'CalendarStepper2',
-    mixins: [inputValidationMixin],
+    mixins: [inputValidationMixin, autoCompleMixin],
     props: {
         newEvent: Object
     },
     computed: {
         computeEmptyGal() {
             return 6 - this.form.gallery.length
+        }
+    },
+    watch: {
+        inputAddress(newInput) {
+            this.checkAddressInput(newInput)
         }
     },
     data() {
@@ -89,7 +94,7 @@ export default {
                     errors.price = ['The Price field is required']
                 }
                 if(this.form.address == '') {
-                    errors.address = ['The Event location field is required']
+                    errors.address = ['Type and then select the location from the dropdown']
                 }
                 if(this.form.gallery.length < 1) {
                     errors.gallery = ['Upload at least one image of the location']
@@ -132,6 +137,11 @@ export default {
                 this.imageStatus.active = false
             }
         },
+        checkAddressInput() {
+            if(document.querySelector('#address').value == '') {
+                this.form.address = ''
+            }
+        }
     },
     mounted() {
         this.presetForm()

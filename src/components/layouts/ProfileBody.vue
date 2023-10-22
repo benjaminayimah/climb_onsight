@@ -1,86 +1,5 @@
 <template>
-    <div v-if="is_guide || is_climber" class="grid grid-col-2 gap-32 profile-body-wrapper overflow-y-scroll scroll-hidden">
-        <div>
-            <div class="bg-img br-16 mb-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} "></div>
-            <div class="flx jc-sb mb-24">
-                <h3>{{ user.name }}</h3>
-                <div class="pill pill-neutral">0 Completed Events</div>
-            </div>
-            <div class="mb-32">
-                <button @click="triggerEdit" class="button-primary btn-sm-lng gap-8 btn-rounded">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 16.919 16.166">
-                        <path d="M-3593.823-882.342a.749.749,0,0,1-.2-.713l.857-3.427a.75.75,0,0,1,.2-.348l10.708-10.708a2.555,2.555,0,0,1,1.816-.751,2.55,2.55,0,0,1,1.815.751,2.57,2.57,0,0,1,0,3.631l-10.708,10.708a.749.749,0,0,1-.348.2l-3.427.857a.753.753,0,0,1-.181.022A.751.751,0,0,1-3593.823-882.342Zm12.624-14.134-10.561,10.561-.5,2.012,2.012-.5,10.561-10.561a1.067,1.067,0,0,0,0-1.509,1.059,1.059,0,0,0-.754-.312A1.063,1.063,0,0,0-3581.2-896.476Zm-4.385,14.353a.75.75,0,0,1-.75-.75.75.75,0,0,1,.75-.75h7.709a.75.75,0,0,1,.75.75.75.75,0,0,1-.75.75Z" transform="translate(3594.043 898.288)" fill="#fff"/>
-                    </svg>
-                    Edit profile
-                </button>
-            </div>
-            <div class="mb-24">
-                <label class="gray">Climber fun facts</label>
-                <div>
-                    {{ user.bio || 'n/a' }}
-                </div>
-            </div>
-            <div class="flx gap-16 flx-wrap">
-                <div>
-                    <label class="gray">Email</label>
-                    <div>{{ user.email }}</div>
-                </div>
-                <div>
-                    <label class="gray">Phone</label>
-                    <div>{{ user.phone_number || 'n/a' }}</div>
-                </div>
-                <div>
-                    <label class="gray">Age</label>
-                    <div>{{ calculateAge(user.dob) }}</div>
-                </div>
-                <div v-if="user.gender">
-                    <label class="gray">Sex</label>
-                    <div class="capitalize">{{ user.gender }}</div>
-                </div>
-                <div>
-                    <label class="gray">Proficiency</label>
-                    <div v-if="user.skills && user.skills.length" >
-                        <li v-for="skill in user.skills" :key="skill">{{ skill }}</li>
-                    </div>
-                    <div v-else>
-                        n/a
-                    </div>
-                </div>
-                <div>
-                    <label class="gray">Activity</label>
-                    <div>
-                        <li v-for="activity in user.activities" :key="activity.name">
-                            {{ activity.name }} ({{ activity.level }}%)
-                        </li>
-                    </div>
-                </div>
-                <div>
-                    <label class="gray">New skills</label>
-                    <div v-if="user.new_skills && user.new_skills.length" >
-                        <li v-for="skill in user.new_skills" :key="skill">{{ skill }}</li>
-                    </div>
-                    <div v-else>
-                        n/a
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="flx jc-sb mb-32">
-                <span class="pill pill-neutral ft-secondary centered">Gallery</span>
-                <button class="button-primary btn-sm-lng btn-rounded">Add image to gallery</button>
-            </div>
-            <div class="flx flx-wrap gap-16">
-                <div class="grid-item bg-img"></div>
-                <div class="grid-item bg-img"></div>
-                <div class="grid-item bg-img"></div>
-                <div class="grid-item bg-img"></div>
-                <div class="grid-item bg-img"></div>
-                <div class="grid-item bg-img"></div>
-            </div>
-        </div>
-    </div>
-    <div v-else class="flx column gap-24 profile-body-wrapper overflow-y-scroll scroll-hidden">
+    <div v-if="is_super" class="flx column gap-24 profile-body-wrapper overflow-y-scroll scroll-hidden">
         <div class="centered text-center">
             <avatar-uploader v-if="editMode" :status="status" :hostname="hostname" :dimension="90" :auth="true" @deleteTemp="deltmp" @upload-click="uploadClick" />
             <img v-else class="br-50 mb-8" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
@@ -154,6 +73,81 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+    <div v-else class="flx gap-32 profile-body-wrapper overflow-y-scroll scroll-hidden" :class="is_guide ? 'column' : ''">
+        <div class="w-50">
+            <div class="bg-img br-16 mb-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} "></div>
+            <div class="flx jc-sb mb-24">
+                <h3>{{ user.name }}</h3>
+                <div class="pill pill-neutral">0 Completed Events</div>
+            </div>
+            <div class="mb-32">
+                <button @click="triggerEdit" class="button-primary btn-sm-lng gap-8 btn-rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 16.919 16.166">
+                        <path d="M-3593.823-882.342a.749.749,0,0,1-.2-.713l.857-3.427a.75.75,0,0,1,.2-.348l10.708-10.708a2.555,2.555,0,0,1,1.816-.751,2.55,2.55,0,0,1,1.815.751,2.57,2.57,0,0,1,0,3.631l-10.708,10.708a.749.749,0,0,1-.348.2l-3.427.857a.753.753,0,0,1-.181.022A.751.751,0,0,1-3593.823-882.342Zm12.624-14.134-10.561,10.561-.5,2.012,2.012-.5,10.561-10.561a1.067,1.067,0,0,0,0-1.509,1.059,1.059,0,0,0-.754-.312A1.063,1.063,0,0,0-3581.2-896.476Zm-4.385,14.353a.75.75,0,0,1-.75-.75.75.75,0,0,1,.75-.75h7.709a.75.75,0,0,1,.75.75.75.75,0,0,1-.75.75Z" transform="translate(3594.043 898.288)" fill="#fff"/>
+                    </svg>
+                    Edit profile
+                </button>
+            </div>
+            <div v-if="user.bio" class="mb-24">
+                <label class="gray">Climber fun facts</label>
+                <div>
+                    {{ user.bio }}
+                </div>
+            </div>
+            <div class="flx gap-16 flx-wrap">
+                <div v-if="user.email">
+                    <label class="gray">Email</label>
+                    <div>{{ user.email }}</div>
+                </div>
+                <div v-if="user.phone_number">
+                    <label class="gray">Phone</label>
+                    <div>{{ user.phone_number }}</div>
+                </div>
+                <div v-if="user.dob">
+                    <label class="gray">Age</label>
+                    <div>{{ calculateAge(user.dob) }}</div>
+                </div>
+                <div v-if="user.gender">
+                    <label class="gray">Sex</label>
+                    <div class="capitalize">{{ user.gender }}</div>
+                </div>
+                <div v-if="user.skills && user.skills.length" >
+                    <label class="gray">Proficiency</label>
+                    <div>
+                        <li v-for="skill in user.skills" :key="skill">{{ skill }}</li>
+                    </div>
+                </div>
+                <div v-if="user.activities && user.activities.length">
+                    <label class="gray">Activity</label>
+                    <div>
+                        <li v-for="activity in user.activities" :key="activity.name">
+                            {{ activity.name }} ({{ activity.level }}%)
+                        </li>
+                    </div>
+                </div>
+                <div v-if="user.new_skills && user.new_skills.length" >
+                    <label class="gray">New skills</label>
+                    <div>
+                        <li v-for="skill in user.new_skills" :key="skill">{{ skill }}</li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-50">
+            <div class="flx jc-sb mb-32">
+                <span class="pill pill-neutral ft-secondary centered">Gallery</span>
+                <button class="button-primary btn-sm-lng btn-rounded">Add image to gallery</button>
+            </div>
+            <div class="flx flx-wrap gap-16">
+                <div class="grid-item bg-img"></div>
+                <div class="grid-item bg-img"></div>
+                <div class="grid-item bg-img"></div>
+                <div class="grid-item bg-img"></div>
+                <div class="grid-item bg-img"></div>
+                <div class="grid-item bg-img"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -250,6 +244,9 @@ ul {
     li {
         padding: 14px 16px;
     }
+}
+.column .w-50 {
+    width: 100%;
 }
 
 @media screen and (max-width: 1040px){

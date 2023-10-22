@@ -46,7 +46,7 @@ export default {
             return user
         },
         computedWidth() {
-            return this.is_super ? '420px' : '60%'
+            return this.is_super || this.is_guide ? '420px' : '60%'
         },
         computedHeight() {
             return this.is_super ? '70dvh' : '80dvh'
