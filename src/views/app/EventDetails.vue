@@ -38,10 +38,10 @@
                         <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
                     </div>
                 </div>
-                <div v-if="!is_guide" class="flx column gap-8">
+                <!-- <div v-if="!is_guide" class="flx column gap-8">
                     <label for="guide">Guide for event</label>
-                    <div class="bg-img br-16" id="guide"></div>
-                </div>
+                    <user-list :user="user" :climber="true" />
+                </div> -->
             </div>
             <div class="w-50" v-if="is_guide">
                 <div class="mb-32">
@@ -56,10 +56,13 @@
 </template>
 
 <script>
+// import axios from 'axios'
 import formatDateTime from '@/mixins/formatDateTime'
 import userRolesMixin from '@/mixins/userRolesMixin'
 import { mapState, mapGetters } from 'vuex'
+// import UserList from '@/components/includes/UserList.vue'
 export default {
+    // components: { UserList },
     name: 'EventDetails',
     props: {
         event: Object
@@ -67,10 +70,32 @@ export default {
     mixins: [userRolesMixin, formatDateTime],
     computed: {
         ...mapState({
-            s3bucket: (state) => state.s3bucket
+            s3bucket: (state) => state.s3bucket,
+            hostname: (state) => state.hostname,
+            token: (state) => state.token
         }),
         ...mapGetters(['getDevice'])
     },
+    // watch: {
+    //     '$route.query.current'(newValue) {
+    //         this.fetchThisGuide(newValue);
+    //     }
+    // },
+    // data() {
+    //     return {
+    //         user: {}
+    //     }
+    // },
+    // methods: {
+    //     async fetchThisGuide() {
+    //         try {
+    //             const res = await axios.get(this.hostname + '/api/get-this-guide/'+this.event.user_id+'?token=' + this.token)
+    //             this.user = res.data
+    //         } catch (e) {
+    //             console.error(e)
+    //         }
+    //     }
+    // },
     mounted() {
         this.getDevice == 'mobile' ? document.body.classList.add('fixed-body') : ''
     },
@@ -85,5 +110,9 @@ export default {
     width: calc(33.33% - 16px);
     max-width: 33.33%;
     max-height: 155px;
+}
+.bg-img {
+    width: 180px;
+    height: 210px;
 }
 </style>
