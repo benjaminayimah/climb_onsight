@@ -7,7 +7,7 @@
             <div class="w-100 flx ai-c flx-1">
                 <div class="flx-1 flx column gap-60 text-center">
                     <div class="fw-700 fs-5rem">Welcome</div>
-                    <div>Apply to be listed on climb onsight by filling out the following information</div>
+                    <div>Apply to be listed on Climb Onsight by filling out the following information</div>
                     <button @click="goToApply" class="button-primary gap-8 w-100 btn-lg ai-c">
                         <span>Apply</span>
                     </button>

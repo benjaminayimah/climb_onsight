@@ -31,7 +31,7 @@
                         {{ validation.errors.gender[0] }}
                     </span>
                 </div>
-                <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c">
+                <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : status.spin }" :disabled="status.spin ? true : false">
                     Continue
                 </button>
             </div>

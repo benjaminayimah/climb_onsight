@@ -22,7 +22,9 @@ import GuideReference from '../views/web/GuideReference.vue'
 
 import AdminDashboard from '../views/AdminDashboard.vue'
 import Home from '../views/app/Home.vue'
-import Events from '../views/climbers/EventsView.vue'
+import MyEvents from '../views/climbers/MyEvents.vue'
+import ExploreEvents from '../views/climbers/ExploreEvents.vue'
+
 import Chats from '../views/app/ChatsView.vue'
 import Calendar from '../views/guides/Calendar.vue'
 import Payout from '../views/guides/Payout.vue'
@@ -152,7 +154,8 @@ const routes = [
     meta: { requiresAuth: true },
     children: [
       { path: '/', component: Home, name: 'Home' },
-      { path: '/events', component: Events, name: 'Events', beforeEnter: climbersGuard},
+      { path: '/my-events', component: MyEvents, name: 'MyEvents', beforeEnter: climbersGuard},
+      { path: '/explore-events', component: ExploreEvents, name: 'ExploreEvents', beforeEnter: climbersGuard},
       { path: '/chats', component: Chats, name: 'Chats'},
       { path: '/calendar', component: Calendar, name: 'Calendar', beforeEnter: guidesGuard},
       { path: '/payout', component: Payout, name: 'Payout', beforeEnter: guidesGuard},

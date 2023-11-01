@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="" class="flx column gap-16">
         <div class="form-row column">
-            <label for="category">Event Category</label>
+            <label for="category">Event Category(Choose one)</label>
             <div class="input-wrapper">
                 <ul class="flx gap-8 flx-wrap">
                     <category-list v-for="category in categories" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#fff'"/>
@@ -12,7 +12,7 @@
             </span>
         </div>
         <div class="form-row column">
-            <label for="attendance_limit">Attendace limit</label>
+            <label for="attendance_limit">Attendance range</label>
             <input v-model="form.attendance_limit" type="range" min="1" max="30" step="1" class="w-100 custom-range" />
             <div class="flx jc-sb">
                 <span class="fs-09 gray">Min(1)</span>
@@ -21,6 +21,15 @@
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.attendance_limit">
                 {{ validation.errors.attendance_limit[0] }}
+            </span>
+        </div>
+        <div class="form-row column">
+            <label for="price">Price(USD)</label>
+            <div class="input-wrapper">
+                <input v-model="form.price" @input="checkNumberInput" class="br-16 w-100 bd-trans" type="number" min="1" id="price" name="price"  :class="{ 'error-border': validation.errors.price }" placeholder="Enter event price" />
+            </div>
+            <span class="input-error" v-if="validation.error && validation.errors.price">
+                {{ validation.errors.price[0] }}
             </span>
         </div>
         <div class="form-row column">
@@ -91,6 +100,7 @@ export default {
         return {
             form: {
                 category: '',
+                price: '',
                 attendance_limit: 10,
                 gears: [],
                 itinerary: '',

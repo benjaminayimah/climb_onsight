@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="is_climber ? { name: 'Events', query: { type: eventType, current: event.id, origin: $route.name } } : { name: 'UpcomingEvents', query: { current: event.id, origin: $route.name} } " class="flx-1 evt-card shadow-sm bg-white br-16 flx column gap-16" :class="{'list-is-active' : $route.query.current == event.id}">
+    <a href="#" @click.prevent="doClick" class="flx-1 evt-card shadow-sm bg-white br-16 flx column gap-16" :class="{'list-is-active' : $route.query.current == event.id}">
         <div class="evt-card-wrapper flx column gap-4">
             <div class="bg-img" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}"></div>
             <div class="foot flx column gap-4">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-    </router-link>
+    </a>
 </template>
 
 <script>
@@ -34,7 +34,8 @@ export default {
     name: 'EventList',
     mixins: [formatDateTime, userRolesMixin],
     props: {
-        event: Object
+        event: Object,
+        redirect: Boolean
     },
     computed: {
         ...mapState({
@@ -44,6 +45,16 @@ export default {
             const today = new Date()
             const eventDate = new Date(this.event.date)
             return today > eventDate ? 'past' : 'registered'
+        }
+    },
+    methods: {
+        doClick() {
+            if(this.redirect) {
+                this.$router.push(this.is_climber ? { name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } : { name: 'UpcomingEvents', query: { current: this.event.id, origin: this.$route.name} } )
+
+            }else {
+                this.$emit('open-modal', { type: 'event', data: this.event})
+            }
         }
     }
 }

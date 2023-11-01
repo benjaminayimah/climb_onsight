@@ -6,7 +6,7 @@
                     <h1 class="title">All upcoming events</h1>
                 </div>
                 <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <event-list v-for="event in events" :key="event.id" :event="event" />
+                    <event-list v-for="event in events" :key="event.id" :event="event" :redirect="true" />
                 </div>
             </div>
             <transition name="slide-from-right">
@@ -86,5 +86,6 @@ section {
 .evt-card {
     flex-basis: calc(50% - 16px);
     height: 260px;
+    max-width: 275px;
 }
 </style>

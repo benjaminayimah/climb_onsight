@@ -7,10 +7,12 @@ export default {
         newEvent: JSON.parse(localStorage.getItem('newEvent')) || {},
         categories: [
             {id: 1, name: 'Ice Climbing', value: 0, image: require('@/assets/images/ice_climbing.png')},
-            {id: 2, name: 'Mountain Climbing', value: 0, image: require('@/assets/images/mountain_climbing.png')},
-            {id: 3, name: 'Trad', value: 0, image: require('@/assets/images/trad.png')},
-            {id: 4, name: 'Lead', value: 0, image: require('@/assets/images/lead.png')},
-            {id: 5, name: 'Mountaineering', value: 0, image: require('@/assets/images/mountaineering.png')}
+            {id: 2, name: 'Rock Climbing', value: 0, image: require('@/assets/images/mountain_climbing.png')},
+            // {id: 3, name: 'Trad', value: 0, image: require('@/assets/images/trad.png')},
+            {id: 3, name: 'Mixed Climbing', value: 0, image: require('@/assets/images/lead.png')},
+            {id: 4, name: 'Mountaineering', value: 0, image: require('@/assets/images/mountaineering.png')},
+            {id: 5, name: 'Other', value: 0, image: require('@/assets/images/trad.png')}
+
         ]
     },
     mutations: {
@@ -90,14 +92,12 @@ export default {
         saveEventForm2(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))
             stored.event_name = payload.event_name
-            stored.price = payload.price
             stored.address = payload.address
             stored.latitude = payload.latitude
             stored.longitude = payload.longitude
             stored.gallery = payload.gallery
             localStorage.setItem('newEvent', JSON.stringify(stored))
             state.newEvent.event_name = payload.event_name
-            state.newEvent.price = payload.price
             state.newEvent.address = payload.address
             state.newEvent.latitude = payload.latitude
             state.newEvent.longitude = payload.longitude
@@ -110,12 +110,14 @@ export default {
             let gearsString = payload.gears
             let gearsArray = gearsString.split(',')
             stored.gears = gearsArray
+            stored.price = payload.price
             stored.itinerary = payload.itinerary
             stored.event_description = payload.event_description
             localStorage.setItem('newEvent', JSON.stringify(stored))
             state.newEvent.category = payload.category
             state.newEvent.attendance_limit = payload.attendance_limit
             state.newEvent.gears = gearsArray
+            state.newEvent.price = payload.price
             state.newEvent.itinerary = payload.itinerary
             state.newEvent.event_description = payload.event_description
         },

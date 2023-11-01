@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <user-list v-for="user in climbers" :key="user.id" :user="user" :climber="true" />
+                    <user-list v-for="user in climbers" :key="user.id" :user="user" :climber="true" :redirect="true" />
                 </div>
             </div>
             <transition name="slide-from-right">

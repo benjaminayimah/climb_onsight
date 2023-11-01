@@ -8,7 +8,7 @@
                 <div class="flx-1 flx column gap-40">
                     <div class="text-center">
                         <div class="fw-700 fs-2rem">Welcome</div>
-                        <div>Sign up to climb on sight</div>
+                        <div>Sign up to Climb Onsight</div>
                     </div>
                     <form @submit.prevent="signUp">
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">

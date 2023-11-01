@@ -13,6 +13,10 @@ export default {
         }
     },
     methods: {
+        showSysErr(payload) {
+            this.systemErr.error = true
+            this.systemErr.message = payload
+        },
         showErr(payload) {
             this.validation.error = true
             this.validation.errors = payload

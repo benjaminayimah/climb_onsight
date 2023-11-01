@@ -7,16 +7,16 @@
                     <div>
                         <ul class="flx bg-white pd-8 br-32 tab">
                             <li>
-                                <router-link :to="{ name: 'Events', query: { type: 'registered'} }" :class="{'active' : $route.query.type === 'registered'}">Registered</router-link>
+                                <router-link :to="{ name: 'MyEvents', query: { type: 'registered'} }" :class="{'active' : $route.query.type === 'registered'}">Registered</router-link>
                             </li>
                             <li>
-                                <router-link :to="{ name: 'Events', query: { type: 'past'} }" :class="{'active' : $route.query.type === 'past'}">Past</router-link>
+                                <router-link :to="{ name: 'MyEvents', query: { type: 'past'} }" :class="{'active' : $route.query.type === 'past'}">Past</router-link>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <event-list v-for="event in computedEvents" :key="event.id" :event="event" />
+                    <event-list v-for="event in computedEvents" :key="event.id" :event="event" :redirect="true"  />
                 </div>
             </div>
             <transition name="slide-from-right">
@@ -46,7 +46,7 @@ import EventDetails from '../app/EventDetails.vue';
 import { mapState } from 'vuex';
 export default {
     components: { EventList, EventDetails },
-    name: 'EventsView',
+    name: 'MyEvents',
     computed: {
         ...mapState({
             events: (state) => state.events
@@ -76,7 +76,7 @@ export default {
     methods: {
         goBack() {
             if(this.$route.query.origin === this.$route.name) {
-                this.$router.push({ name: 'Events', query: {type: this.$route.query.type}})
+                this.$router.push({ name: 'MyEvents', query: {type: this.$route.query.type}})
             }
             else {
                 return this.$router.go(-1)
@@ -94,8 +94,8 @@ section {
     height: var(--tap-height);
 }
 .section-main-left {
-    flex-basis: 60%;
-    min-width: 60%;
+    flex-basis: 40%;
+    min-width: 40%;
 }
 .body-content {
     border-top: 1px solid #e4e4e4;
@@ -105,8 +105,8 @@ section {
 }
 
 .evt-card {
-    flex-basis: calc(33.33% - 16px);
-    max-width: 33.33%;
+    flex-basis: calc(50% - 16px);
+    max-width: 50%;
     height: 260px;
 }
 

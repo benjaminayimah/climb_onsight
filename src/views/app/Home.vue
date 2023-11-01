@@ -18,7 +18,7 @@
                             <a href="#" class="fs-1rem a-link">See all</a>
                         </h3>
                         <div class="flx flx-1 gap-16 flx-wrap">
-                            <event-list v-for="event in events.slice(0, 6)" :key="event.id" :event="event" />
+                            <event-list v-for="event in events.slice(0, 6)" :key="event.id" :event="event" :redirect="true" />
                             <div v-if="events.length < 6" class="flx-1 evt-card shadow-sm bg-white br-16 centered">
                                 <button class="button-primary btn-rounded btn-sm-lng">Explore more</button>
                             </div>

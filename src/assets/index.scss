@@ -13,6 +13,7 @@
     --danger-hover: #f23838;
     --success: #32D49D;
     --gray: #7f7f7f;
+    --gray-light: #E6E6E6;
     --input-btn-transition: 0.2s all ease;
     --input-btn-line-height: 2;
     --border-radius: 14px;
@@ -56,6 +57,9 @@
 }
 .bg-transparent {
     background-color: transparent;
+}
+.ft-danger {
+    color: var(--danger);
 }
 
 img {
@@ -186,6 +190,15 @@ button:not(.button-disabled, .absolute) {
     }
     &:active {
         background-color: var(--secondary-color);
+    }
+}
+.button-neutral{
+    background-color: var(--gray-light);
+    &:hover {
+        background-color: #dadada;
+    }
+    &:active {
+        background-color: var(--gray-light);
     }
 }
 .button-danger {
@@ -508,6 +521,7 @@ h1, h2, h3, h4, h5 {
 .bd-l-1 {
     border-left: 1px solid #e4e4e4;
 }
+
 //border-radius
 
 .br-0{
@@ -593,17 +607,15 @@ h1, h2, h3, h4, h5 {
     .profile-img {
         height: 200px;
     }
-    
     label {
         color: var(--gray);
     }
-    #status{
-        i {
-            height: 25px;
-            width: 25px;
-        }
+}
+#status{
+    i {
+        height: 25px;
+        width: 25px;
     }
-    
 }
 .invalid-credentials{
     border: 1px solid var(--danger);
@@ -655,7 +667,28 @@ select{
         padding: 12px 20px;
     }
 }
-input:not([type=checkbox]), select, textarea {
+.input-wrapper.search {
+    input[type=search] {
+        padding: 8px 12px 8px 45px;
+        border-color: transparent;
+        &:hover {
+            border-color: transparent;
+        }
+        &:focus {
+            border-color: #000;
+        }
+    }
+    i {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        left: 20px;
+    }
+}
+input:not([type=checkbox],[type=radio]), select, textarea {
     appearance: none;
     outline: 0;
     font-family: inherit;
@@ -973,6 +1006,9 @@ ul.tab {
     .modal-width{
         width: 580px !important;
     }
+    .profile-body-wrapper {
+        flex-direction: column;
+    }
 }
 @media screen and (max-width: 670px){
     .modal-width{
@@ -1087,7 +1123,27 @@ ul.tab {
     .bt--100 {
         bottom: -50px;
     }
+    .search-filter {
+        position: fixed;
+        width: calc(60% + 100px);
+        inset: 0 auto 0 auto;
+        z-index: 999;
+        border-radius: unset;
+        box-shadow: 10px 15px 10px 20px rgba(0, 0, 0, 0.04);
+        background-color: var(--white);
+        transition: 0.3s all;
+    }
+    .search-result-section {
+        width: 100%;
+    }
+    .show-filter {
+        right: 0;
+    }
+    .hide-filter {
+        right: -100%;
+    }
 }
+
 
 .cal-dark-theme {
     .vuecal__title-bar {

@@ -13,6 +13,7 @@ export default createStore({
     hostname: 'https://api.climbonsight.ca',
     s3bucket: 'https://s3.amazonaws.com/climbonsight.storage',
     windowWidth: '',
+    current_location: '',
     menu: false,
     forms: { 
       active: false,
@@ -24,7 +25,10 @@ export default createStore({
       add_admin: false,
       new_guide: false,
       profile_edit: false,
-      tempStorage: {}
+      search_result: false,
+      tempStorage: {},
+      searchResults: [],
+      searchResultsGuides: []
     },
     events: [],
     guides: [],
@@ -64,6 +68,8 @@ export default createStore({
       state.guides = payload.guides
       state.climbers = payload.climbers
       state.events = payload.events
+      this.commit('setEventResults', { guides: payload.guides, events: payload.events })
+
     },
     setNewUser(state, payload) {
       const data = { token: payload, form: {}}
@@ -88,6 +94,7 @@ export default createStore({
       state.newUser.form.dob = payload.dob
       state.newUser.form.gender = payload.gender
       state.newUser.form.tempImage = payload.tempImage
+
     },
     updateClimbingExp(state, payload) {
         let stored = JSON.parse(localStorage.getItem('newUser'))
@@ -111,6 +118,9 @@ export default createStore({
         stored.form.new_skills = dataArray
         localStorage.setItem('newUser', JSON.stringify(stored))
         state.newUser.form.new_skills = dataArray
+    },
+    setCurrentLocation(state, payload) {
+      state.current_location = payload
     },
     toggleMenu(state) {
       state.menu = !state.menu
@@ -162,6 +172,8 @@ export default createStore({
         state.forms.new_guide = true
       }else if (payload === 'profile_edit') {
         state.forms.profile_edit = true
+      }else if(payload === 'search_result') {
+        state.forms.search_result = true
       }
       
     },
@@ -186,6 +198,10 @@ export default createStore({
       await this.commit('setTempData', payload)
       this.commit('openModal', 'profile_edit')
     },
+    async preloadSearchResult(state, payload) {
+      await this.commit('setTempData', payload)
+      this.commit('openModal', 'search_result')
+    },
     setTempData(state, payload) {
       state.forms.tempStorage = payload
     },
@@ -207,6 +223,10 @@ export default createStore({
       localStorage.removeItem('auth')
       localStorage.removeItem('user')
       location.reload()
+    },
+    setEventResults(state, payload) {
+      state.searchResults = payload.events
+      state.searchResultsGuides = payload.guides
     },
   },
   actions: {
@@ -237,6 +257,16 @@ export default createStore({
       .catch(() => {
           state.commit('destroyToken')
       })
+    },
+    getCucrrentLocation(state, payload) {
+      const apiKey = 'AIzaSyBhfD_dScS-ENmuXtQAxTCxtOYadquTric' // Your Google Cloud Platform API key
+      const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${payload.lat},${payload.lng}&key=${apiKey}`
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const address = data.results[0].formatted_address
+          state.commit('setCurrentLocation', address)
+        })
     },
   },
   getters: {

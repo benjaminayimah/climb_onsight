@@ -4,12 +4,9 @@
         <main-menu :user="user.id" :device="getDevice"/>
         <top-nav-bar :user="user" :device="getDevice" :notificaion_count="notificaion_count"/>
         <router-view />
-        <!-- {{ user.id }} -->
-    <!-- <button @click="delUser">Delete</button> -->
     </main>
 </template>
 <script>
-import axios from "axios";
 import { mapState, mapGetters } from 'vuex';
 import MainMenu from '@/components/includes/MainMenu.vue';
 import TopNavBar from '@/components/includes/TopNavBar.vue';
@@ -25,22 +22,6 @@ export default {
             notificaion_count: (state) => state.notifications.length
         }),
         ...mapGetters(['getDevice'])
-    },
-    methods: {
-        delUser() {
-            const url = this.hostname + '/api/users/132'
-            const headers = {
-                'Content-Type' : 'application/json',
-                'Authorization' : `Bearer ${this.token}`
-            };
-            axios.delete(url, { headers })
-            .then(res => {
-                console.log(res)
-            })
-            .catch(e => {
-                console.error(e.response)
-            })
-        }
     }
     
 }

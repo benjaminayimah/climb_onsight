@@ -107,7 +107,7 @@
                         <div>
                             <label class="gray fs-09">Reference details</label>
                             <div>
-                                <div v-for="referee in JSON.parse(guide.referees)" :key="referee.id" class="flx gap-8">
+                                <div v-for="referee in JSON.parse(guide.referees)" :key="referee.id" class="flx gap-8 flx-wrap">
                                     <div class="flx gap-4">
                                         <span class="gray">name:</span>
                                         <span>{{ referee.name }}</span>

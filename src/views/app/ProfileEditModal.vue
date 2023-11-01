@@ -10,6 +10,7 @@
                 </div> -->
                 <div class="centered">
                     <avatar-uploader :status="status" :hostname="hostname" :dimension="140" :auth="true" @deleteTemp="deltmp" @upload-click="uploadClick" />
+                    <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
                 </div>
                 <form >
                     <input class="hide" @change="uploadTemp('avatar_img')" name="image" id="avatar_img" type="file" ref="img"> 

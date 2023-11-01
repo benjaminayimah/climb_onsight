@@ -24,18 +24,9 @@
             </span>
         </div>
         <div class="form-row column">
-            <label for="price">Price(USD)</label>
-            <div class="input-wrapper">
-                <input v-model="form.price" class="br-16 w-100 bd-trans" type="number" id="price" name="price"  :class="{ 'error-border': validation.errors.price }" placeholder="Enter event price" />
-            </div>
-            <span class="input-error" v-if="validation.error && validation.errors.price">
-                {{ validation.errors.price[0] }}
-            </span>
-        </div>
-        <div class="form-row column">
             <label for="address">Event location</label>
             <div class="input-wrapper">
-                <input @focusout="checkAddressInput" autocomplete="off" class="br-16 w-100 bd-trans" type="search" ref="address" id="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter location then pick from dropdown list" />
+                <input @focusout="checkAddressInput" class="br-16 w-100 bd-trans" type="search" autocomplete="off" ref="address" id="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter location then pick from dropdown list" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.address">
                 {{ validation.errors.address[0] }}
@@ -74,7 +65,6 @@ export default {
         return {
             form: {
                 event_name: '',
-                price: '',
                 gallery: [],
                 latitude: null,
                 longitude: null,
@@ -140,6 +130,11 @@ export default {
         checkAddressInput() {
             if(document.querySelector('#address').value == '') {
                 this.form.address = ''
+            }
+        },
+        checkNumberInput() {
+            if (this.form.price < 1) {
+                this.form.price = 1;
             }
         }
     },
