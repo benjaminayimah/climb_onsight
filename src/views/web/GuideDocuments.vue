@@ -1,6 +1,6 @@
 <template>
     <div class="stepper-wrapper w-100 flx column gap-32">
-        <div class="stepper-title">Guide insurance, Certificates, and Awards</div>
+        <div class="stepper-title">Terms & Conditions, Guide insurance, Certificates etc.</div>
         <form @submit.prevent="">
             <div class="form-wrapper flx column gap-24">
                 <div class="form-row column">
@@ -76,6 +76,8 @@ export default {
         presetForm() {
             this.newGUide.guide_insurance ? this.form.guide_insurance = this.newGUide.guide_insurance : ''
             this.newGUide.guide_certificate ? this.form.guide_certificate = this.newGUide.guide_certificate : ''
+            this.newGUide.guide_terms ? this.form.guide_terms = this.newGUide.guide_terms : ''
+
             if(this.newGUide.guide_awards) {
                 this.form.guide_awards = this.newGUide.guide_awards.join(',')
             }
