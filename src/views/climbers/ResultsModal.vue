@@ -1,79 +1,59 @@
 <template>
-    <teleport v-if="booking.active" to="body">
+    <teleport v-if="prebook" to="body">
         <backdrop :index="401" :opacity="0.5" />
         <div class="modal-container jc-c ai-c">
-            <div class="bg-white top-overlay br-24 pd-24">
-                <div v-if="booking.page === 1" class="text-center">
-                    <h3>Sign a waiver</h3>
+            <div class="bg-white top-overlay-1 br-24 pd-24">
+                <div>
+                    <h3>Request a booking</h3>
                     <p class="mt-24">
-                        Click on the button below to sign a liability waiver  on docusign.
+                        Thank you for choosing our event. Before you proceed, please note the following:
                     </p>
+                    <ul>
+                        <li>Your booking will be reviewed and approved by our team.</li>
+                        <li>Once approved, you will receive an email with a payment link to complete your booking.</li>
+                        <li>Please make the payment to secure your spot at the event.</li>
+                    </ul>
                     <p class="mb-24">
-                        Each person attending trip must sign a waiver before the trip.
+                        We're here to ensure a seamless experience for you. If you have any questions, feel free to contact us.
                     </p>
-                </div>
-                <div v-else-if="booking.page === 2" class="text-center">
-                    <h3>Relist?</h3>
-                    <p class="mt-24 mb-24">
-                        Would you be willing to open up your booking to the public? if another climber joins you on this trip you maybe to open to a partial discount based on group rates.
-                    </p>
-                </div>
-                <div v-else-if="booking.page === 3">
-                    <h3>Summary</h3>
-                    <div class="mt-24 mb-24">
-                        <div class="flx column mb-8">
-                            <label class="gray">Event name</label>
-                            <div>{{ result.data.event_name }}</div>
-                        </div>
-                        <div class="flx column mb-8">
-                            <label class="gray">Event date</label>
-                            <div>{{ format_date(result.data.date) }} <span class="gray">at</span> {{ format_time(result.data.start_time) }}</div>
-                        </div>
-                        <div class="flx column mb-8">
-                            <label class="gray">Event price</label>
-                            <strong>${{ result.data.price }}</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="flx gap-8" :class="{ 'column' : booking.page !== 2}">
-                    <button v-if="booking.page === 1" @click="nextPage(2)" class="button-primary btn-md gap-8 w-100 btn-rounded">
-                        <span>Sign waiver</span>
-                    </button>
-                    <button v-if="booking.page === 2" @click="relist(true)" class="button-primary btn-md gap-8 w-100 btn-rounded">
-                        <span>Yes</span>
-                    </button>
-                    <button v-if="booking.page === 2" @click="relist(false)" class="button-neutral btn-md gap-8 w-100 btn-rounded">
-                        <span>No</span>
-                    </button>
-                    <button v-if="booking.page === 3" @click="submitBooking" class="button-primary btn-md gap-8 w-100 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+                </div>    
+                <div class="flx gap-8 column">
+                    <button @click="submitPreBooking" class="button-primary btn-md gap-8 w-100 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                         <spinner v-if="submiting" :size="18" />
-                        <span>{{ submiting ? 'Redirecting...' : 'Proceed to payment' }}</span>
+                        <span>{{ submiting ? 'Submitting...' : 'Submit request' }}</span>
                     </button>
-                    <button v-if="booking.page === 1 || booking.page === 3" @click="cancelBooking" class="button-outline w-100 btn-rounded btn-md bg-transparent">Cancel</button>
+                    <button @click="cancelPreBooking" class="button-outline w-100 btn-rounded btn-md bg-transparent">Cancel</button>
                 </div>
             </div>
         </div>
     </teleport>
     <teleport to="#modal_title">
-        {{ result.type === 'event' ? 'Event details' : 'Guides\' profile' }}
+        <div class="flx gap-8 ai-c">
+            <span>{{ result.type === 'event' ? 'Event details' : 'Guides\' profile' }}</span>
+            <div v-if="result.type === 'event' && eventStatus">
+                <div class="fs-09 br-16 booking-status awaiting-payment text-center" v-if="eventStatus.accepted && !eventStatus.paid">Awaiting payment</div>
+                <div class="fs-09 br-16 booking-status booking-pending text-center" v-else-if="!eventStatus.accepted && !eventStatus.paid && !eventStatus.guide_delete">Booking pending</div>
+                <div class="fs-09 br-16 booking-status booking-canceled text-center" v-else-if="eventStatus.guide_delete">Booking canceled</div>
+                <div class="fs-09 br-16 booking-status booked-event text-center" v-else>Already booked</div>
+            </div>
+        </div>
     </teleport>
     <teleport to="#modal_content">
         <div class="modal-width">
             <profile-body v-if="result.type === 'guide'" :user="result.data" :guest="true"/>
-            <event-body v-else-if="result.type === 'event'" :event="result.data" />
+            <event-body v-else-if="result.type === 'event'" :event="result.data" :guide="guide"/>
         </div>
     </teleport>
     <teleport to="#modal_footer">
         <div class="flx jc-fe gap-8">
-            <button @click="triggerBooking" class="button-primary btn-rounded btn-md" >
-                <span>Book {{ result.type }}</span>
-            </button>
+            <booking-trigger-button :eventStatus="eventStatus" :resultType="result.type" @booking-trigger="bookingTrigger" />
         </div>
     </teleport>
 </template>
 
 <script>
 import axios from 'axios'
+import alertMixin from '@/mixins/alertMixin'
 import formatDateTime from '@/mixins/formatDateTime'
 import inputValidation from '@/mixins/inputValidation'
 import ProfileBody from '@/components/layouts/ProfileBody.vue'
@@ -81,58 +61,67 @@ import { mapState } from 'vuex'
 import EventBody from '@/components/layouts/EventBody.vue'
 import Backdrop from '@/components/includes/Backdrop.vue'
 import Spinner from '@/components/includes/Spinner.vue'
+import BookingTriggerButton from '@/components/includes/BookingTriggerButton.vue'
 export default {
-    components: { ProfileBody, EventBody, Backdrop, Spinner },
+    components: { ProfileBody, EventBody, Backdrop, Spinner, BookingTriggerButton },
     name: 'ResultsModal',
-    mixins: [inputValidation, formatDateTime],
+    mixins: [inputValidation, formatDateTime, alertMixin],
     computed: {
         ...mapState({
             result: (state) => state.forms.tempStorage,
             hostname: (state) => state.hostname,
-            token: (state) => state.token
+            token: (state) => state.token,
+            bookings: (state) => state.bookings
         }),
+        eventStatus() {
+            return this.bookings.find(event => event.event_id === this.result.data.id)
+        }
     },
     data() {
         return {
-            form: {
-                relist: false
-            },
-            booking: { active: false, page: 1 }
+            prebook: false,
+            guide: {}
         }
     },
     methods: {
-        triggerBooking() {
-            this.booking.active = true
+        bookingTrigger() {
+            if(this.eventStatus && this.eventStatus.accepted) {
+                this.$store.commit('triggerBooking', this.eventStatus)
+            }else {
+                this.triggerPreBooking()
+            }
         },
-        cancelBooking() {
-            this.booking.active = false
-            this.booking.page = 1
+        triggerPreBooking() {
+            this.prebook = true
         },
-        nextPage(page) {
-            this.booking.page = page
+        cancelPreBooking() {
+            this,this.prebook = false
         },
-        async submitBooking() {
+        getThisGuide(guide) {
+            this.$store.dispatch('getThisGuide', guide)
+            .then((res) => {
+                this.guide = res.data
+            })
+        },
+        async submitPreBooking() {
             this.startSpinner()
             try {
-                const res = await axios.post(this.hostname+'/api/attempt-payment/'+ this.result.data.id + '?token='+ this.token, this.form)
-                this.bookingSuccess(res.data)
-                location.href = res.data
+                const res = await axios.post(this.hostname+'/api/prebook-event/'+ this.result.data.id + '?token='+ this.token)
+                this.showAlert('success', res.data.message)
+                this.stopSpinner()
+                this.prebook = false
+                this.$store.commit('closeModal')
+                this.$store.commit('updateBookings', res.data.bookings)
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()
             }
-        },
-        relist(value) {
-            this.form.relist = value
-            this.nextPage(3)
-        },
-        bookingSuccess(res) {
-            this.stopSpinner()
-            console.log(res)
         }
     },
     mounted() {
         this.$store.commit('stopFormLoader')
+        this.getThisGuide(this.result.data.user_id)
+
     }
 }
 </script>
@@ -151,7 +140,12 @@ export default {
     display: flex;
     z-index: 402;
 }
-.top-overlay {
-    width: 400px;
+.top-overlay-1 {
+    width: 500px;
 }
+li {
+    list-style-type: disc; 
+    list-style-position: inside; 
+}
+
 </style>

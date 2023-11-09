@@ -11,7 +11,7 @@ export default {
           return moment(date).format("MMMM YYYY"); 
         },
         format_date_short3(date) {
-          return moment(date).format("MMM YY"); 
+          return moment(date).format("MMM D"); 
         },
         format_date_day(date) {
           return moment(date).format("D"); 

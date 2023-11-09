@@ -86,10 +86,9 @@ export default {
             return this.events.map(element => {
                 return {
                     id: element.id,
-                    start: element.date,
-                    end: element.date,
+                    start: element.start_date,
+                    end: element.end_date,
                     start_time: element.start_time,
-                    end_time: element.end_time,
                     title: element.event_name,
                     color: 'bg-purple',
                     class: 'leisure'

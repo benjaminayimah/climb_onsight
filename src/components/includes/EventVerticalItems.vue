@@ -7,7 +7,7 @@
             </div>
             <div>{{ format_date(event.start) }}</div>
             <div class="fs-09 gray">
-                <div>{{ format_time(event.start_time) }} - {{ format_time(event.end_time) }}</div>
+                <div>{{ format_time(event.start_time)+'(EST)' }}</div>
             </div>
         </a>
     </li>

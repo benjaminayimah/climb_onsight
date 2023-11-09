@@ -15,6 +15,7 @@ export default createStore({
     windowWidth: '',
     current_location: '',
     menu: false,
+    bookingModal: { active: false, page: 1, data: {} },
     forms: { 
       active: false,
       loader: false,
@@ -26,6 +27,7 @@ export default createStore({
       new_guide: false,
       profile_edit: false,
       search_result: false,
+      booking_request: false,
       tempStorage: {},
       searchResults: [],
       searchResultsGuides: []
@@ -33,6 +35,7 @@ export default createStore({
     events: [],
     guides: [],
     climbers: [],
+    bookings: [],
     payment_options: [
       { id: 1, name: 'Jacob Audrey', account_no: '123 456 789 210', bank_name: 'Greenstone Bank', sort_code: '0292', address: 'Grand Central, New York' },
       { id: 2, name: 'Stephen Wood', account_no: '456 123 210 789', bank_name: 'Zenith Bank', sort_code: '123', address: 'Barcelona, Spain' }
@@ -68,6 +71,7 @@ export default createStore({
       state.guides = payload.guides
       state.climbers = payload.climbers
       state.events = payload.events
+      state.bookings = payload.bookings
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
 
     },
@@ -125,6 +129,9 @@ export default createStore({
     toggleMenu(state) {
       state.menu = !state.menu
     },
+    updateBookings(state, payload) {
+      state.bookings = payload
+    },
     updateClimber(state, payload) {
       this.commit('setAuthUser', payload)
       state.user = payload
@@ -132,6 +139,18 @@ export default createStore({
     addToEvent(state, payload) {
       state.events.push(payload)
       localStorage.removeItem('newEvent')
+    },
+    triggerBooking(state, payload) {
+      state.bookingModal.active = true
+      state.bookingModal.data = payload
+    },
+    cancelBooking(state) {
+      state.bookingModal.active = false
+      state.bookingModal.page = 1
+      state.bookingModal.data = ''
+    },
+    nextBookingPage(state, payload) {
+      state.bookingModal.page = payload
     },
     //alerts
     showAlert(state, payload) {
@@ -174,8 +193,9 @@ export default createStore({
         state.forms.profile_edit = true
       }else if(payload === 'search_result') {
         state.forms.search_result = true
+      }else if(payload === 'booking_request') {
+        state.forms.booking_request = true
       }
-      
     },
     activateModal(state) {
       state.forms.active = true
@@ -201,6 +221,13 @@ export default createStore({
     async preloadSearchResult(state, payload) {
       await this.commit('setTempData', payload)
       this.commit('openModal', 'search_result')
+    },
+    async preloadBooking_request(state, payload) {
+      await this.commit('setTempData', payload)
+      this.commit('openModal', 'booking_request')
+    },
+    updateNotifications(state, payload) {
+      state.notifications = state.notifications.filter(data => data.id !== payload)
     },
     setTempData(state, payload) {
       state.forms.tempStorage = payload
@@ -228,6 +255,9 @@ export default createStore({
       state.searchResults = payload.events
       state.searchResultsGuides = payload.guides
     },
+    setSomeEvents(state) {
+      state.searchResults = state.events
+    }
   },
   actions: {
     async signIn(state, payload) {
@@ -245,9 +275,9 @@ export default createStore({
         }
       })
     },
-    // async doPreloadTemp(state, payload) {
-    //   return await axios.post(this.getters.getHostname+'/api/set-temp-update?token=' + this.getters.getToken, {image: payload})
-    // },
+    async getThisGuide(state, payload) {  
+      return await axios.get(this.getters.getHostname + '/api/get-this-guide/'+payload+'?token='+this.getters.getToken)
+    },
     logOut(state) {
       const url = this.getters.getHostname + '/api/logout?token='+ this.getters.getToken
       axios.delete(url)

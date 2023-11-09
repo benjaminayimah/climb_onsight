@@ -38,6 +38,9 @@ import VerifyEmail from '@/views/web/VerifyEmail.vue'
 import GuideRegistrationComplete from '@/views/web/GuideRegistrationComplete.vue'
 import AccessDenied from '@/views/app/AccessDenied.vue'
 
+import BookingSuccess from '@/views/climbers/BookingSuccess.vue'
+import BookingCanceled from '@/views/climbers/BookingCanceled.vue'
+
 
 // Guards
 const superGuard = (to, from, next) => {
@@ -164,7 +167,10 @@ const routes = [
       { path: '/sub-admins', component: SubAdmins, name: 'SubAdmins', beforeEnter: superGuard},
       { path: '/climbers', component: Climbers, name: 'Climbers', beforeEnter: superGuard},
       { path: '/upcoming-events', component: UpcomingEvents, name: 'UpcomingEvents', beforeEnter: guidesGuard},
-      { path: '/access-denied', component: AccessDenied, name: 'AccessDenied'}
+      { path: '/access-denied', component: AccessDenied, name: 'AccessDenied'},
+      { path: '/booking/success/:session_id', name: 'BookingSuccess', component: BookingSuccess },
+      { path: '/booking/canceled/:session_id', name: 'BookingCanceled', component: BookingCanceled },
+
     ]
   },
   { 

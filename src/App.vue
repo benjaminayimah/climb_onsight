@@ -1,15 +1,18 @@
 <template>
   <router-view/>
+  <booking-modal v-if="booking" />
   <modal />
 </template>
 <script>
 import { mapState } from 'vuex'
 import Modal from './components/layouts/Modal.vue'
+import BookingModal from './views/climbers/BookingModal.vue'
 export default {
-  components: { Modal },
+  components: { Modal, BookingModal },
   name: 'App',
   computed: {
     ...mapState({
+      booking: (state) => state.bookingModal.active,
       token: (state) => state.token
     })
   },

@@ -4,6 +4,13 @@
         <form @submit.prevent="">
             <div class="form-wrapper flx column gap-24">
                 <div class="form-row column">
+                    <span class="gray fs-09">Required</span>
+                    <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile"  :id="'guide_terms'" :formInput2="form.guide_terms" :label="'Terms & Conditions or waiver file'" :validationError="validation.errors.guide_terms"/>
+                    <span class="input-error" v-if="validation.error && validation.errors.guide_terms">
+                        {{ validation.errors.guide_terms[0] }}
+                    </span>
+                </div>
+                <div class="form-row column">
                     <span class="gray fs-09">Optional</span>
                     <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile"  :id="'guide_insurance'" :formInput="form.guide_insurance" :label="'Proof of guiding insurance'"/>
                 </div>
@@ -46,6 +53,7 @@ export default {
             form: {
                 guide_insurance: [],
                 guide_certificate: [],
+                guide_terms: '',
                 guide_awards: ''
             }
         }
@@ -53,9 +61,11 @@ export default {
     methods: {
         async updateNewGuide() {
             let errors = { guide_awards: ''}
-            if(this.form.guide_awards == '') {
+            if(this.form.guide_awards == '' || this.form.guide_terms == '') {
                 if(this.form.guide_awards == '') {
                     errors.guide_awards = ['The awards field is required']
+                }if(this.form.guide_terms == '') {
+                    errors.guide_terms = ['The terms and conditions field is required']
                 }
                 this.showErr(errors)
             }else {
@@ -73,16 +83,20 @@ export default {
         addToFormArr(payload) {
             if(payload.key === 'guide_insurance') {
                 this.form.guide_insurance.push(payload)
-            }else {
+            }else if( payload.key === 'guide_certificate') {
                 this.form.guide_certificate.push(payload)
-            }
+            } else if( payload.key === 'guide_terms') {
+                this.form.guide_terms = payload
+            } 
             this.$store.commit('updateGuideDoc', this.form)
         },
         delFile(payload) {
             if(payload.key === 'guide_insurance') {
                 this.form.guide_insurance = this.form.guide_insurance.filter(data => data.url != payload.file)
-            }else {
+            }else if( payload.key === 'guide_certificate')  {
                 this.form.guide_certificate = this.form.guide_certificate.filter(data => data.url != payload.file)
+            }else if( payload.key === 'guide_terms') {
+                this.form.guide_terms = ''
             }
             this.$store.commit('updateGuideDoc', this.form)
         }

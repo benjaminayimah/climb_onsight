@@ -17,15 +17,42 @@
                     </div>
                     <div>
                         <label for="date">Date</label>
-                        <div id="date">{{ format_date(event.date) }}</div>
+                        <div id="date">{{ format_date(event.start_date) }}</div>
                     </div>
                     <div>
                         <label for="time">Time</label>
-                        <div id="time">{{ format_time(event.start_time) }} - {{ format_time(event.end_time) }}</div>
+                        <div id="time">{{ format_time(event.start_time)+ '(EST)' }}</div>
                     </div>
                     <div>
                         <label for="time">Event location</label>
                         <div id="time">{{ event.address }}</div>
+                    </div>
+                </div>
+                <div class="flx column gap-16">
+                    <div v-if="event.itinerary">
+                        <label for="time">Itinerary</label>
+                        <div id="time">{{ event.itinerary }}</div>
+                    </div>
+                    <div v-if="event.gears">
+                        <label for="time">Gears</label>
+                        <div id="time">
+                            <li v-for="(gear, index) in JSON.parse(event.gears)" :key="index">{{ gear }}</li>
+                        </div>
+                    </div>
+                    <div v-if="event.faqs">
+                        <label for="time">FAQ's</label>
+                        <div id="time">
+                            <li v-for="faq in JSON.parse(event.faqs)" :key="faq.id">
+                                <div>
+                                    <i class="gray">Question: </i>
+                                    <span>{{ faq.question }}</span>
+                                </div>
+                                <div class="mb-16">
+                                    <i class="gray">Answer: </i>
+                                    <span>{{ faq.answer }}</span>
+                                </div>
+                            </li>
+                        </div>
                     </div>
                 </div>
                 <div class="flx column gap-8">
@@ -34,10 +61,10 @@
                         <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
                     </div>
                 </div>
-                <!-- <div v-if="!is_guide" class="flx column gap-8">
+                <div v-if="!is_guide" class="flx column gap-8">
                     <label for="guide">Guide for event</label>
-                    <user-list :user="user" :climber="true" />
-                </div> -->
+                    <user-list :user="guide" :climber="true" :redirect="false" />
+                </div>
             </div>
         </div>
     </div>
@@ -46,10 +73,13 @@
 <script>
 import formatDateTime from '@/mixins/formatDateTime'
 import { mapState, mapGetters } from 'vuex'
+import UserList from '../includes/UserList.vue'
 export default {
+  components: { UserList },
     name: 'EventBody',
     props: {
-        event: Object
+        event: Object,
+        guide: Object
     },
     mixins: [ formatDateTime],
     computed: {

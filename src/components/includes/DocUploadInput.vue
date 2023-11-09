@@ -1,6 +1,6 @@
 <template>
     <div class="input-wrapper">
-        <div @click="uploadClick(id)" class="div-input flx jc-sb ai-c" :class="{ 'error-border': validation.errors.file }">
+        <div @click="uploadClick(id)" class="div-input flx jc-sb ai-c" :class="{ 'error-border': validation.errors.file || validationError }">
             <span :id="id+'_label'" class="gray fs-09 wrap-text wrap-line-1" :title="label">{{ label }}</span>
             <span class="flx column ai-c scale-in">
                 <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 18.764 16.165">
@@ -13,13 +13,23 @@
         <span class="input-error" v-if="validation.error && validation.errors.file">
             {{ validation.errors.file[0] }}
         </span>
-        <uploaded-file-list
-            v-for="input in formInput"
-            :key="input.name"
-            :file="input"
-            :id="id"
-            @delete-file="deleteFile"
-        />
+        <div v-if="formInput">
+            <uploaded-file-list
+                v-for="input in formInput"
+                :key="input.name"
+                :file="input"
+                :id="id"
+                @delete-file="deleteFile"
+            />
+        </div>
+        <div v-else-if="formInput2">
+            <uploaded-file-list
+                :key="formInput2.name"
+                :file="formInput2"
+                :id="id"
+                @delete-file="deleteFile"
+            />
+        </div>
         <div v-if="status.spin" class="flx gap-8 ai-c">
             <spinner :size="10" />
             <span class="fs-8">uploading...</span>
@@ -38,8 +48,10 @@ export default {
     mixins: [imageUploadMixin, inputValidation],
     props: {
         formInput: Array,
+        formInput2: Object,
         id: String,
-        label: String
+        label: String,
+        validationError: String
     },
     methods: {
         deleteFile(file) {

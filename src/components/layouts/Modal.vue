@@ -28,6 +28,7 @@
     <new-guide-modal v-else-if="forms.new_guide" />
     <profile-edit-modal v-else-if="forms.profile_edit" />
     <results-modal v-else-if="forms.search_result"/>
+    <booking-request-modal v-else-if="forms.booking_request" />
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';
@@ -39,12 +40,13 @@ const FundsWithdrawalModal = defineAsyncComponent(() => import(/* webpackChunkNa
 const NewGuideModal = defineAsyncComponent(() => import(/* webpackChunkName: NewGuideModal */ '@/views/admin/NewGuideModal.vue'));
 const ProfileEditModal = defineAsyncComponent(() => import(/* webpackChunkName: ProfileEditModal */ '@/views/app/ProfileEditModal.vue'))
 const ResultsModal = defineAsyncComponent(() => import(/* webpackChunkName: ResultsModal */ '@/views/climbers/ResultsModal.vue'))
+const BookingRequestModal = defineAsyncComponent(() => import(/* webpackChunkName: BookingRequestModal */ '@/views/app/BookingRequestModal.vue'))
 
 import { mapState } from 'vuex';
 import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal  },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal  },
     name: 'MainModal',
     computed: {
         ...mapState({

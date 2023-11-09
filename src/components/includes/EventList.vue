@@ -1,7 +1,14 @@
 <template>
     <a href="#" @click.prevent="doClick" class="flx-1 evt-card shadow-sm bg-white br-16 flx column gap-16" :class="{'list-is-active' : $route.query.current == event.id}">
         <div class="evt-card-wrapper flx column gap-4">
-            <div class="bg-img" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}"></div>
+            <div class="bg-img relative" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}">
+                <div v-if="eventStatus" class="absolute status-wrapper">
+                    <div class="fs-09 br-16 booking-status awaiting-payment text-center" v-if="eventStatus.accepted && !eventStatus.paid">Awaiting payment</div>
+                    <div class="fs-09 br-16 booking-status booking-pending text-center" v-else-if="!eventStatus.accepted && !eventStatus.paid && !eventStatus.guide_delete">Booking pending</div>
+                    <div class="fs-09 br-16 booking-status booking-canceled text-center" v-else-if="eventStatus.guide_delete">Booking canceled</div>
+                    <div class="fs-09 br-16 booking-status booked-event text-center" v-else>Already booked</div>
+                </div>
+            </div>
             <div class="foot flx column gap-4">
                 <div class="flx jc-sb">
                     <h4 class="fs-09">{{ event.event_name }}</h4>
@@ -10,11 +17,11 @@
                 <div class="flx gap-8">
                     <div class="flx column">
                         <div class="label">Date</div>
-                        <span class="wrap-text wrap-line-1" title="Jun 20">{{ format_date_short3(event.date) }}</span>
+                        <span class="wrap-text wrap-line-1" title="Jun 20">{{ format_date_short3(event.start_date) }}</span>
                     </div>
                     <div class="flx column">
                         <div class="label">Time</div>
-                        <span class="wrap-text wrap-line-1" title="02:00 PM">{{ format_time(event.start_time) }}</span>
+                        <span class="wrap-text wrap-line-1" title="02:00 PM">{{ format_time(event.start_time)+'(EST)' }}</span>
                     </div>
                     <div class="flx column">
                         <div class="label">Location</div>
@@ -39,19 +46,22 @@ export default {
     },
     computed: {
         ...mapState({
-            s3bucket: (state) => state.s3bucket
+            s3bucket: (state) => state.s3bucket,
+            bookings: (state) => state.bookings
         }),
         eventType() {
             const today = new Date()
-            const eventDate = new Date(this.event.date)
+            const eventDate = new Date(this.event.start_date)
             return today > eventDate ? 'past' : 'registered'
+        },
+        eventStatus() {
+            return this.bookings.find(event => event.event_id === this.event.id)
         }
     },
     methods: {
         doClick() {
             if(this.redirect) {
                 this.$router.push(this.is_climber ? { name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } : { name: 'UpcomingEvents', query: { current: this.event.id, origin: this.$route.name} } )
-
             }else {
                 this.$emit('open-modal', { type: 'event', data: this.event})
             }
@@ -84,5 +94,8 @@ export default {
 .foot {
     // line-height: 1.2;
     height: 100%;
+}
+.status-wrapper {
+    inset: auto auto 8px 8px;
 }
 </style>

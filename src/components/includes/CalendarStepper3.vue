@@ -1,17 +1,6 @@
 <template>
     <form @submit.prevent="" class="flx column gap-16">
         <div class="form-row column">
-            <label for="category">Event Category(Choose one)</label>
-            <div class="input-wrapper">
-                <ul class="flx gap-8 flx-wrap">
-                    <category-list v-for="category in categories" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#fff'"/>
-                </ul>
-            </div>
-            <span class="input-error" v-if="validation.error && validation.errors.category">
-                {{ validation.errors.category[0] }}
-            </span>
-        </div>
-        <div class="form-row column">
             <label for="attendance_limit">Attendance range</label>
             <input v-model="form.attendance_limit" type="range" min="1" max="30" step="1" class="w-100 custom-range" />
             <div class="flx jc-sb">
@@ -65,6 +54,28 @@
                 {{ validation.errors.event_description[0] }}
             </span>
         </div>
+        <div class="form-row column">
+            <div class="flx jc-sb ai-c">
+                <label for="question">Add Q & A</label>
+                <span class="gray fs-08">Optional</span>
+            </div>
+            <faq-input-row v-for="(faq, index) in form.faqs" 
+                :key="faq.id"
+                :index="index"
+                :form="faq"
+                :length="form.faqs.length"
+                @remove-row="removeRow"
+                @add-form-input="addFormInput"
+            />
+            <a href="#" @click.prevent="addNewRow" class="a-link flx gap-4 ai-c">
+                <i class="br-50 centered">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 11.521 11.521">
+                        <path  d="M19.678,26.263V21.326H14.74V19.68h4.938V14.742h1.646V19.68h4.938v1.646H21.324v4.938Z" transform="translate(-14.74 -14.742)" fill="#000"/>
+                    </svg>
+                </i>
+                Add more
+            </a>
+        </div>
         <div class="flx column gap-8">
             <button @click="saveForm3" class="button-primary gap-8 btn-md w-100" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="18" />
@@ -80,10 +91,10 @@ import axios from 'axios'
 import { mapState } from 'vuex'
 import inputValidationMixin from '@/mixins/inputValidation'
 import alertMixin from '@/mixins/alertMixin'
-import CategoryList from './CategoryList.vue'
 import Spinner from './Spinner.vue'
+import FaqInputRow from './FaqInputRow.vue'
 export default {
-    components: { CategoryList, Spinner },
+    components: { Spinner, FaqInputRow },
     name: 'CalendarStepper3',
     mixins: [inputValidationMixin, alertMixin],
     props: {
@@ -99,16 +110,28 @@ export default {
     data() {
         return {
             form: {
-                category: '',
                 price: '',
                 attendance_limit: 10,
                 gears: [],
+                faqs: [],
                 itinerary: '',
                 event_description: '',
             },
         }
     },
     methods: {
+        addNewRow() {
+            const data = { id: new Date().getTime(), question: '', answer: ''}
+            this.form.faqs.push(data)
+        },
+        removeRow(index) {
+            const i = index
+            this.form.faqs.splice(i, 1);
+        },
+        addFormInput(payload) {
+            const i = this.form.faqs.findIndex(x => x.id == payload.id)
+            this.form.faqs.splice(i, 1, payload)
+        },
         selectCategory(category) {
             if(this.form.category && this.form.category === category.name) {
                 this.form.category = ''
@@ -118,9 +141,9 @@ export default {
         },
         async saveForm3() {
             let errors = { category: ''}
-            if(this.form.category == '') {
-                if(this.form.category == '') {
-                    errors.category = ['The Category field is required']
+            if(this.form.price == '') {
+                if(this.form.price == '') {
+                    errors.price = ['The Price field is required']
                 }
                 this.showErr(errors)
             }else {
@@ -153,14 +176,16 @@ export default {
         },
         presetForm() {
             if(this.newEvent) {
-                this.newEvent.category ? this.form.category = this.newEvent.category : ''
+                this.newEvent.price ? this.form.price = this.newEvent.price : ''
                 this.newEvent.attendance_limit ? this.form.attendance_limit = this.newEvent.attendance_limit : ''
                 this.newEvent.itinerary ? this.form.itinerary = this.newEvent.itinerary : ''
                 this.newEvent.event_description ? this.form.event_description = this.newEvent.event_description : ''
                 if(this.newEvent.gears) {
                     this.form.gears = this.newEvent.gears.join(',')
                 }
+                this.newEvent.faqs ? this.form.faqs = this.newEvent.faqs : this.form.faqs.push({ id: 1, question: '', answer: ''})
             }
+
         }
     },
     mounted() {

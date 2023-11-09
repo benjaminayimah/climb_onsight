@@ -1,12 +1,23 @@
 <template>
     <form @submit.prevent="" class="flx column gap-16">
-        <div class="form-row column">
+        <!-- <div class="form-row column">
             <label for="event_name">Event name</label>
             <div class="input-wrapper">
                 <input v-model="form.event_name" class="br-16 w-100 bd-trans" type="text" id="event_name" name="event_name"  :class="{ 'error-border': validation.errors.event_name }" placeholder="Enter your event name" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.event_name">
                 {{ validation.errors.event_name[0] }}
+            </span>
+        </div> -->
+        <div class="form-row column">
+            <label for="category">Event Category(Choose one)</label>
+            <div class="input-wrapper">
+                <ul class="flx gap-8 flx-wrap">
+                    <category-list v-for="category in categories" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#fff'"/>
+                </ul>
+            </div>
+            <span class="input-error" v-if="validation.error && validation.errors.category">
+                {{ validation.errors.category[0] }}
             </span>
         </div>
         <div class="form-row column">
@@ -26,7 +37,7 @@
         <div class="form-row column">
             <label for="address">Event location</label>
             <div class="input-wrapper">
-                <input @focusout="checkAddressInput" class="br-16 w-100 bd-trans" type="search" autocomplete="off" ref="address" id="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter location then pick from dropdown list" />
+                <input v-model="form.address" @focusout="checkAddressInput" class="br-16 w-100 bd-trans" type="search" autocomplete="off" ref="address" id="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter location then pick from dropdown list" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.address">
                 {{ validation.errors.address[0] }}
@@ -44,14 +55,19 @@ import autoCompleMixin from '@/mixins/autoCompleMixin'
 import inputValidationMixin from '@/mixins/inputValidation'
 import GalleryUploader from './GalleryUploader.vue'
 import GalleryImage from './GalleryImage.vue'
+import CategoryList from './CategoryList.vue'
+import { mapState } from 'vuex'
 export default {
-    components: { GalleryUploader, GalleryImage },
+    components: { GalleryUploader, GalleryImage, CategoryList },
     name: 'CalendarStepper2',
     mixins: [inputValidationMixin, autoCompleMixin],
     props: {
         newEvent: Object
     },
     computed: {
+        ...mapState({
+            categories: (state) => state.data.categories,
+        }),
         computeEmptyGal() {
             return 6 - this.form.gallery.length
         }
@@ -64,7 +80,7 @@ export default {
     data() {
         return {
             form: {
-                event_name: '',
+                category: '',
                 gallery: [],
                 latitude: null,
                 longitude: null,
@@ -74,14 +90,18 @@ export default {
         }
     },
     methods: {
+        selectCategory(category) {
+            if(this.form.category && this.form.category === category.name) {
+                this.form.category = ''
+            }else {
+                this.form.category = category.name
+            }
+        },
         async nextPage() {
-            let errors = { event_name: '', price: '', address: '', gallery: []}
-            if(this.form.event_name == '' || this.form.price == '' || this.form.address == '' || this.form.gallery.length < 1) {
-                if(this.form.event_name == '') {
-                    errors.event_name = ['The Event name field is required']
-                }
-                if(this.form.price == '') {
-                    errors.price = ['The Price field is required']
+            let errors = { category: '', address: '', gallery: []}
+            if(this.form.category == '' || this.form.address == '' || this.form.gallery.length < 1) {
+                if(this.form.category == '') {
+                    errors.category = ['The Category field is required']
                 }
                 if(this.form.address == '') {
                     errors.address = ['Type and then select the location from the dropdown']
@@ -110,8 +130,7 @@ export default {
         },
         presetForm() {
             if(this.newEvent) {
-                this.newEvent.event_name ? this.form.event_name = this.newEvent.event_name : ''
-                this.newEvent.price ? this.form.price = this.newEvent.price : ''
+                this.newEvent.category ? this.form.category = this.newEvent.category : ''
                 this.newEvent.address ? this.form.address = this.newEvent.address : ''
                 this.newEvent.latitude ? this.form.latitude = this.newEvent.latitude : ''
                 this.newEvent.longitude ? this.form.longitude = this.newEvent.longitude : ''

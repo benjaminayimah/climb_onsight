@@ -18,9 +18,9 @@
                             <a href="#" class="fs-1rem a-link">See all</a>
                         </h3>
                         <div class="flx flx-1 gap-16 flx-wrap">
-                            <event-list v-for="event in events.slice(0, 6)" :key="event.id" :event="event" :redirect="true" />
-                            <div v-if="events.length < 6" class="flx-1 evt-card shadow-sm bg-white br-16 centered">
-                                <button class="button-primary btn-rounded btn-sm-lng">Explore more</button>
+                            <event-list v-for="event in computedBooking.slice(0, 6)" :key="event.id" :event="event" :redirect="true" />
+                            <div v-if="computedBooking.length < 6" class="flx-1 evt-card shadow-sm bg-white br-16 centered">
+                                <router-link  :to="{ name: 'ExploreEvents' }" class="button-primary btn-rounded btn-sm-lng">Explore more</router-link>
                             </div>
                         </div>
                     </div>
@@ -72,20 +72,24 @@ export default {
     computed: {
         ...mapGetters(['getDevice']),
         ...mapState({
-            events: (state) => state.events
+            events: (state) => state.events,
+            bookings: (state) => state.bookings
         }),
         computedEvents() {
             return this.events.map(element => {
                 return {
                     id: element.id,
-                    start: element.date,
-                    end: element.date,
+                    start: element.start_date,
+                    end: element.end_date,
                     title: element.event_name,
                     color: 'bg-purple',
                     class: 'leisure'
                 };
             });
         },
+        computedBooking() {
+            return this.is_climber ? this.bookings : this.events
+        }
     },
 }
 </script>

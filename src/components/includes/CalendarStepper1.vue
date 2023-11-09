@@ -1,39 +1,58 @@
 <template>
-    <form @submit.prevent="" class="flx column gap-16">
+    <form @submit.prevent="" class="flx column gap-24">
         <div class="form-row column">
-            <label>Pick a date</label>
-            <div class="bg-white br-16 cal-picker-wrapper">
-                <vue-cal
-                    class="vuecal--rounded-theme cal-dark-theme"
-                    xsmall
-                    hide-view-selector
-                    :time="false"
-                    :selected-date="form.date"
-                    active-view="month"
-                    :disable-views="['week', 'day']"
-                    @cell-click="dateInput"
-                    v-model="form.date"
-                    style="width:100%;height:300px;box-shadow:unset;"
-                />
+            <label for="event_name">Event name</label>
+            <div class="input-wrapper">
+                <input v-model="form.event_name" class="br-16 w-100 bd-trans" type="text" id="event_name" name="event_name"  :class="{ 'error-border': validation.errors.event_name }" placeholder="Enter your event name" />
             </div>
+            <span class="input-error" v-if="validation.error && validation.errors.event_name">
+                {{ validation.errors.event_name[0] }}
+            </span>
         </div>
         <div class="form-row column">
-            <label for="start_time">Start time</label>
+            <label for="start_date">Start date</label>
             <div class="input-wrapper">
-                <input v-model="form.start_time" class="br-16 w-100 bd-trans" type="time" id="start_time" name="start_time"  :class="{ 'error-border': validation.errors.start_time }" />
+                <input v-model="form.start_date" class="br-16 w-100" type="date" id="start_date" name="start_date" :class="{ 'error-border': validation.errors.start_date }" />
+            </div>
+            <span class="input-error" v-if="validation.error && validation.errors.start_date">
+                {{ validation.errors.start_date[0] }}
+            </span>
+        </div>
+        <div class="form-row column">
+            <label for="end_date">End date</label>
+            <div class="input-wrapper">
+                <input v-model="form.end_date" class="br-16 w-100" type="date" id="end_date" name="end_date" :class="{ 'error-border': validation.errors.end_date }" />
+            </div>
+            <span class="input-error" v-if="validation.error && validation.errors.end_date">
+                {{ validation.errors.end_date[0] }}
+            </span>
+        </div>
+        <div class="form-row column">
+            <label for="start_time">Event time (EST)</label>
+            <div class="input-wrapper">
+                <input v-model="form.start_time" class="br-16 w-100" type="time" id="start_time" name="start_time" :class="{ 'error-border': validation.errors.start_time }" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.start_time">
                 {{ validation.errors.start_time[0] }}
             </span>
         </div>
         <div class="form-row column">
-            <label for="end_time">End time</label>
+            <label for="repeat" class="flx gap-8 ai-fs" data-type="input-wapper">
+                <input v-model="form.repeat" type="checkbox" id="repeat">
+                <span>
+                    Repeat this event?
+                </span>
+            </label>
+        </div>
+        <div v-if="form.repeat" class="form-row column">
+            <label for="repeat_at">Select repeat range</label>
             <div class="input-wrapper">
-                <input v-model="form.end_time" class="br-16 w-100" type="time" id="end_time" name="end_time" :class="{ 'error-border': validation.errors.end_time }" />
+                <select v-model="form.repeat_at" name="repeat_at" id="repeat_at" class="form-control">
+                    <option>weekly</option>
+                    <option>monthly</option>
+                    <option>daily</option>
+                </select>
             </div>
-            <span class="input-error" v-if="validation.error && validation.errors.end_time">
-                {{ validation.errors.end_time[0] }}
-            </span>
         </div>
         <div>
             <button @click="nextPage" class="button-primary btn-md w-100">Next</button>
@@ -43,11 +62,8 @@
 
 <script>
 import inputValidationMixin from '@/mixins/inputValidation'
-import VueCal from 'vue-cal'
-import 'vue-cal/dist/vuecal.css'
 export default {
     name: 'CalendarStepper1',
-    components: { VueCal },
     mixins: [inputValidationMixin],
     props: {
         newEvent: Object
@@ -55,9 +71,12 @@ export default {
     data() {
         return {
             form: {
-                date: '',
+                event_name: '',
+                start_date: new Date().toISOString().slice(0, 10),
+                end_date: new Date().toISOString().slice(0, 10),
                 start_time: '',
-                end_time: ''
+                repeat: false,
+                repeat_at: 'weekly'
             }
         }
     },
@@ -66,13 +85,19 @@ export default {
             this.form.date = new Date(date).toISOString().slice(0, 10)
         },
         async nextPage() {
-            let errors = { start_time: '', end_time: ''}
-            if(this.form.start_time == '' || this.form.end_time == '') {
-                if(this.form.start_time == '') {
-                    errors.start_time = ['Please select event Start Time']
+            let errors = { event_name: '', start_date: '', end_date: '', start_time: '',}
+            if(this.form.event_name == '' || this.form.start_date == '' || this.form.end_date == '' || this.form.start_time == '') {
+                if(this.form.event_name == '') {
+                    errors.event_name = ['The Event name field is required']
                 }
-                if(this.form.end_time == '') {
-                    errors.end_time = ['Please select event End Time']
+                if(this.form.start_date == '') {
+                    errors.start_date = ['Please select a start date']
+                }
+                if(this.form.end_date == '') {
+                    errors.end_date = ['Please select an end date']
+                }
+                if(this.form.start_time == '') {
+                    errors.start_time = ['Please select event start time']
                 }
                 this.showErr(errors)
             }else {
@@ -82,9 +107,12 @@ export default {
             }
         },
         presetForm() {
-            this.newEvent && this.newEvent.date ? this.form.date = this.newEvent.date : this.form.date = new Date().toISOString().slice(0, 10)
+            this.newEvent && this.newEvent.event_name ? this.form.event_name = this.newEvent.event_name : ''
+            this.newEvent && this.newEvent.start_date ? this.form.start_date = this.newEvent.start_date : new Date().toISOString().slice(0, 10)
+            this.newEvent && this.newEvent.end_date ? this.form.end_date = this.newEvent.end_date : new Date().toISOString().slice(0, 10)
             this.newEvent && this.newEvent.start_time ? this.form.start_time = this.newEvent.start_time : ''
-            this.newEvent && this.newEvent.end_time ? this.form.end_time = this.newEvent.end_time : ''
+            this.newEvent && this.newEvent.repeat ? this.form.repeat = this.newEvent.repeat : false
+            this.newEvent && this.newEvent.repeat_at ? this.form.repeat_at = this.newEvent.repeat_at : ''
         }, 
     },
     mounted() {

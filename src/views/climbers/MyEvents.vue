@@ -49,22 +49,22 @@ export default {
     name: 'MyEvents',
     computed: {
         ...mapState({
-            events: (state) => state.events
+            bookings: (state) => state.bookings,
         }),
         computedEvents() {
             const today = new Date()
             if(this.$route.query.type === 'past') {
-                return this.events.filter(event => new Date(event.date) < today)
+                return this.bookings.filter(event => new Date(event.start_date) < today)
             }else if(this.$route.query.type === 'registered') {
-                return this.events.filter(event => new Date(event.date) >= today)
+                return this.bookings.filter(event => new Date(event.start_date) >= today)
             }
             else {
                 return []
             }
         },
         computedEvent() {
-            if(this.events && this.events.length) {
-                const event = this.events.find(event => event.id == this.$route.query.current)
+            if(this.bookings && this.bookings.length) {
+                const event = this.bookings.find(event => event.id == this.$route.query.current)
                 if(event)
                 return event
                 else

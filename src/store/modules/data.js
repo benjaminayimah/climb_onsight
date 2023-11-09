@@ -38,10 +38,12 @@ export default {
             stored.guide_awards = dataArray
             stored.guide_insurance = payload.guide_insurance
             stored.guide_certificate = payload.guide_certificate
+            stored.guide_terms = payload.guide_terms
             localStorage.setItem('newGuide', JSON.stringify(stored))
             state.newGuide.guide_awards = dataArray
             state.newGuide.guide_insurance = payload.guide_insurance
             state.newGuide.guide_certificate = payload.guide_certificate
+            state.newGuide.guide_terms = payload.guide_terms
         },
         updateGuideReviews(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newGuide'))
@@ -76,14 +78,26 @@ export default {
         },
         saveEventForm1(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))
+            // event_name: '',
+            //     start_date: '',
+            //     end_date: '',
+            //     start_time: '',
+            //     repeat: false,
+            //     repeat_at: ''
             if(stored) {
-                stored.date = payload.date
+                stored.event_name = payload.event_name
+                stored.start_date = payload.start_date
+                stored.end_date = payload.end_date
                 stored.start_time = payload.start_time
-                stored.end_time = payload.end_time
+                stored.repeat = payload.repeat
+                stored.repeat_at = payload.repeat_at
                 localStorage.setItem('newEvent', JSON.stringify(stored))
-                state.newEvent.date = payload.date
+                state.newEvent.event_name = payload.event_name
+                state.newEvent.start_date = payload.start_date
+                state.newEvent.end_date = payload.end_date
                 state.newEvent.start_time = payload.start_time
-                state.newEvent.end_time = payload.end_time
+                state.newEvent.repeat = payload.repeat
+                state.newEvent.repeat_at = payload.repeat_at
             }else {
                 localStorage.setItem('newEvent', JSON.stringify(payload))
                 state.newEvent = payload
@@ -91,13 +105,13 @@ export default {
         },
         saveEventForm2(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))
-            stored.event_name = payload.event_name
+            stored.category = payload.category
             stored.address = payload.address
             stored.latitude = payload.latitude
             stored.longitude = payload.longitude
             stored.gallery = payload.gallery
             localStorage.setItem('newEvent', JSON.stringify(stored))
-            state.newEvent.event_name = payload.event_name
+            state.newEvent.category = payload.category
             state.newEvent.address = payload.address
             state.newEvent.latitude = payload.latitude
             state.newEvent.longitude = payload.longitude
@@ -105,18 +119,18 @@ export default {
         },
         saveEventForm3(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))
-            stored.category = payload.category
             stored.attendance_limit = payload.attendance_limit
             let gearsString = payload.gears
             let gearsArray = gearsString.split(',')
             stored.gears = gearsArray
+            stored.faqs = payload.faqs
             stored.price = payload.price
             stored.itinerary = payload.itinerary
             stored.event_description = payload.event_description
             localStorage.setItem('newEvent', JSON.stringify(stored))
-            state.newEvent.category = payload.category
             state.newEvent.attendance_limit = payload.attendance_limit
             state.newEvent.gears = gearsArray
+            state.newEvent.faqs = payload.faqs
             state.newEvent.price = payload.price
             state.newEvent.itinerary = payload.itinerary
             state.newEvent.event_description = payload.event_description

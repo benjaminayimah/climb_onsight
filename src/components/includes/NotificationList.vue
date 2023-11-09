@@ -25,17 +25,27 @@ export default {
     },
     computed: {
         computedNotiType() {
-            let data = { message: '', buttonText: ''}
+            let data = { message: '', buttonText: 'View'}
             if(this.is_super) {
                 data.message = 'Theres a new guide sign up'
-                data.buttonText = 'View'
+            }else if(this.is_guide) {
+                data.message = 'You have a new booking request.'
+            }else if(this.is_climber) {
+                data.message = 'Your booking request is accepted.'
             }
             return data
         }
     },
     methods: {
         doClick() {
-            this.$store.commit('preloadNewGuide', this.notification)
+            if(this.is_super) {
+                this.$store.commit('preloadNewGuide', this.notification)
+            }else if(this.is_guide) {
+                this.$store.commit('preloadBooking_request', this.notification)
+            }
+            // else if(this.is_climber) {
+            //     this.$store.commit('triggerBooking', this.notification)
+            // }
             this.id ? this.$emit('close-dropdown', this.id) : ''
         }
     }

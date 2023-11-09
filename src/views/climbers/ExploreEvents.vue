@@ -225,6 +225,8 @@ export default {
                 }else if(query.status === 'search') {
                     this.searchEvents(this.$route.query.query)
                 }
+            }else {
+                this.$store.commit('setSomeEvents')
             }
         },
         toggleFilter() {
