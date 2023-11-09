@@ -12,7 +12,7 @@
                         <label for="cos_check" class="flx gap-8 ai-fs" data-type="input-wapper">
                             <input v-model="cos_check_box" type="checkbox" class="mt-6" id="cos_check">
                             <span>
-                                I have read and agreed to Climb Onsight's <a href="https://climbonsight.ca/terms_and_conditions" class="ft-secondary a-link" target="_blank" onclick="return !window.open(this.href, 'Climb Onsight Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
+                                I have read and agreed to Climb Onsight's <a href="https://climbonsight.ca/terms-and-conditions" class="ft-secondary a-link" target="_blank" onclick="return !window.open(this.href, 'Climb Onsight Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
                             </span>
                         </label>
                     </p>
@@ -92,7 +92,7 @@ export default {
             if(this.guide.guide_terms) {
                 return JSON.parse(this.guide.guide_terms).url
             }else {
-                return 'https://climbonsight.ca/terms_and_conditions'
+                return 'https://climbonsight.ca/terms-and-conditions'
             }
         }
     },

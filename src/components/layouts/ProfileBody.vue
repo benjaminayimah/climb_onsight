@@ -161,6 +161,26 @@
                         <li v-for="skill in user.new_skills" :key="skill">{{ skill }}</li>
                     </div>
                 </div>
+                <div class="mt-16 terms">
+                    <div v-if="computedGuide" class="flx jc-sb ai-c">
+                        <a :href="s3bucket+'/'+computedGuide" class=" a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
+                            Terms & Conditions
+                        </a>
+                        <button @click.prevent="changeTerms" class="br-50 btn-close scale-in bg-transparent">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 16.919 16.166">
+                                <path d="M-3593.823-882.342a.749.749,0,0,1-.2-.713l.857-3.427a.75.75,0,0,1,.2-.348l10.708-10.708a2.555,2.555,0,0,1,1.816-.751,2.55,2.55,0,0,1,1.815.751,2.57,2.57,0,0,1,0,3.631l-10.708,10.708a.749.749,0,0,1-.348.2l-3.427.857a.753.753,0,0,1-.181.022A.751.751,0,0,1-3593.823-882.342Zm12.624-14.134-10.561,10.561-.5,2.012,2.012-.5,10.561-10.561a1.067,1.067,0,0,0,0-1.509,1.059,1.059,0,0,0-.754-.312A1.063,1.063,0,0,0-3581.2-896.476Zm-4.385,14.353a.75.75,0,0,1-.75-.75.75.75,0,0,1,.75-.75h7.709a.75.75,0,0,1,.75.75.75.75,0,0,1-.75.75Z" transform="translate(3594.043 898.288)" fill="#333"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div v-else class="centered">
+                        <a href="#" class="block flx gap-8 ai-c">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 15.132 15.132">
+                                <path d="M-1983.684,13.883V8.816h-5.066a1.25,1.25,0,0,1-1.25-1.25,1.25,1.25,0,0,1,1.25-1.25h5.066V1.25a1.25,1.25,0,0,1,1.25-1.25,1.25,1.25,0,0,1,1.249,1.25V6.316h5.066a1.25,1.25,0,0,1,1.25,1.25,1.25,1.25,0,0,1-1.25,1.25h-5.066v5.066a1.249,1.249,0,0,1-1.249,1.249A1.249,1.249,0,0,1-1983.684,13.883Z" transform="translate(1990)" fill="#222"/>
+                            </svg>
+                            Upload terms & conditions
+                        </a>
+                    </div>
+                </div>
             </div>
             <div v-if="guest && user.guide_experience">
                 <label class="gray" for="experience">Experiences</label>
@@ -231,6 +251,13 @@ export default {
             hostname: (state) => state.hostname,
             token: (state) => state.token
         }),
+        computedGuide() {
+            if(this.user && this.user.guide_terms) {
+                return JSON.parse(this.user.guide_terms).url
+            }else {
+                return ''
+            }
+        }
     },
     data() {
         return {
@@ -280,6 +307,9 @@ export default {
         },
         switchTab(tab) {
             this.tab = tab
+        },
+        changeTerms() {
+            console.log('me')
         }
         
     }
@@ -315,6 +345,18 @@ ul.tab {
 }
 .column.w-50 {
     width: 100%;
+}
+.terms {
+    div {
+        border-radius: 10px;
+        padding: 12px 16px;
+        border: 1px #e0e0e0 solid;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 4px;
+    }
+    button {
+        height: 35px;
+        width: 35px;
+    }
 }
 
 @media screen and (max-width: 1040px){
