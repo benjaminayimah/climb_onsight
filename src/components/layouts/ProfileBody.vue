@@ -161,7 +161,7 @@
                         <li v-for="skill in user.new_skills" :key="skill">{{ skill }}</li>
                     </div>
                 </div>
-                <div class="mt-16 terms">
+                <div v-if="is_guide" class="mt-16 terms">
                     <div v-if="computedGuide" class="flx jc-sb ai-c">
                         <a :href="s3bucket+'/'+computedGuide" class=" a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
                             Terms & Conditions
