@@ -2,11 +2,8 @@
     <a href="#" @click.prevent="doClick" class="flx-1 evt-card shadow-sm bg-white br-16 flx column gap-16" :class="{'list-is-active' : $route.query.current == event.id}">
         <div class="evt-card-wrapper flx column gap-4">
             <div class="bg-img relative" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}">
-                <div v-if="eventStatus" class="absolute status-wrapper">
-                    <div class="fs-09 br-16 booking-status awaiting-payment text-center" v-if="eventStatus.accepted && !eventStatus.paid">Awaiting payment</div>
-                    <div class="fs-09 br-16 booking-status booking-pending text-center" v-else-if="!eventStatus.accepted && !eventStatus.paid && !eventStatus.guide_delete">Booking pending</div>
-                    <div class="fs-09 br-16 booking-status booking-canceled text-center" v-else-if="eventStatus.guide_delete">Booking canceled</div>
-                    <div class="fs-09 br-16 booking-status booked-event text-center" v-else>Already booked</div>
+                <div v-if="bookingStatus" class="absolute status-wrapper">
+                    <booking-status :status="bookingStatus" />
                 </div>
             </div>
             <div class="foot flx column gap-4">
@@ -37,7 +34,9 @@
 import userRolesMixin from '@/mixins/userRolesMixin';
 import formatDateTime from '@/mixins/formatDateTime';
 import { mapState } from 'vuex'
+import BookingStatus from './BookingStatus.vue';
 export default {
+  components: { BookingStatus },
     name: 'EventList',
     mixins: [formatDateTime, userRolesMixin],
     props: {
@@ -54,7 +53,7 @@ export default {
             const eventDate = new Date(this.event.start_date)
             return today > eventDate ? 'past' : 'registered'
         },
-        eventStatus() {
+        bookingStatus() {
             return this.bookings.find(event => event.event_id === this.event.id)
         }
     },

@@ -30,11 +30,8 @@
     <teleport to="#modal_title">
         <div class="flx gap-8 ai-c">
             <span>{{ result.type === 'event' ? 'Event details' : 'Guides\' profile' }}</span>
-            <div v-if="result.type === 'event' && eventStatus">
-                <div class="fs-09 br-16 booking-status awaiting-payment text-center" v-if="eventStatus.accepted && !eventStatus.paid">Awaiting payment</div>
-                <div class="fs-09 br-16 booking-status booking-pending text-center" v-else-if="!eventStatus.accepted && !eventStatus.paid && !eventStatus.guide_delete">Booking pending</div>
-                <div class="fs-09 br-16 booking-status booking-canceled text-center" v-else-if="eventStatus.guide_delete">Booking canceled</div>
-                <div class="fs-09 br-16 booking-status booked-event text-center" v-else>Already booked</div>
+            <div v-if="result.type === 'event' && bookingStatus">
+                <booking-status :status="bookingStatus" />
             </div>
         </div>
     </teleport>
@@ -46,7 +43,7 @@
     </teleport>
     <teleport to="#modal_footer">
         <div class="flx jc-fe gap-8">
-            <booking-trigger-button :eventStatus="eventStatus" :resultType="result.type" @booking-trigger="bookingTrigger" />
+            <booking-trigger-button :eventStatus="bookingStatus" :resultType="result.type" @booking-trigger="bookingTrigger" />
         </div>
     </teleport>
 </template>
@@ -62,8 +59,9 @@ import EventBody from '@/components/layouts/EventBody.vue'
 import Backdrop from '@/components/includes/Backdrop.vue'
 import Spinner from '@/components/includes/Spinner.vue'
 import BookingTriggerButton from '@/components/includes/BookingTriggerButton.vue'
+import BookingStatus from '@/components/includes/BookingStatus.vue'
 export default {
-    components: { ProfileBody, EventBody, Backdrop, Spinner, BookingTriggerButton },
+    components: { ProfileBody, EventBody, Backdrop, Spinner, BookingTriggerButton, BookingStatus },
     name: 'ResultsModal',
     mixins: [inputValidation, formatDateTime, alertMixin],
     computed: {
@@ -73,7 +71,7 @@ export default {
             token: (state) => state.token,
             bookings: (state) => state.bookings
         }),
-        eventStatus() {
+        bookingStatus() {
             return this.bookings.find(event => event.event_id === this.result.data.id)
         }
     },
@@ -85,8 +83,8 @@ export default {
     },
     methods: {
         bookingTrigger() {
-            if(this.eventStatus && this.eventStatus.accepted) {
-                this.$store.commit('triggerBooking', this.eventStatus)
+            if(this.bookingStatus && this.bookingStatus.accepted) {
+                this.$store.commit('triggerBooking', this.bookingStatus)
             }else {
                 this.triggerPreBooking()
             }

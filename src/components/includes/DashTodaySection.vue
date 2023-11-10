@@ -39,21 +39,23 @@
             </a>
         </div>
         <ul>
-            <dash-today-list />
-            <dash-today-list />
-            <dash-today-list />
-            <dash-today-list />
-            <dash-today-list />
+            <dash-today-list v-for="event in events.slice(0, 5)" :key="event.id" />
         </ul>
-        <button class="button-primary btn-md w-100">Show all</button>
+        <button v-if="events.length > 5" class="button-primary btn-md w-100">Show all</button>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import DashTodayList from './DashTodayList.vue'
 export default {
     name: 'DashToday',
     components: { DashTodayList },
+    computed: {
+        ...mapState({
+            events: (state) => state.events
+        })
+    },
     props: {
         is_super: Boolean,
         is_guide: Boolean,

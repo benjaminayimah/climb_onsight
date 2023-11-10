@@ -3,11 +3,8 @@
         <div class="flx jc-sb ai-c mb-16">
             <div class="flx gap-8 ai-c">
                 <h4>Event details</h4>
-                <div v-if="eventStatus">
-                    <div class="fs-09 br-16 booking-status awaiting-payment text-center" v-if="eventStatus.accepted && !eventStatus.paid">Awaiting payment</div>
-                    <div class="fs-09 br-16 booking-status booking-pending text-center" v-else-if="!eventStatus.accepted && !eventStatus.paid && !eventStatus.guide_delete">Booking pending</div>
-                    <div class="fs-09 br-16 booking-status booking-canceled text-center" v-else-if="eventStatus.guide_delete">Booking canceled</div>
-                    <div class="fs-09 br-16 booking-status booked-event text-center" v-else>Already booked</div>
+                <div v-if="bookingStatus">
+                    <booking-status :status="bookingStatus" />
                 </div>
             </div>
             <button v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
@@ -83,14 +80,14 @@
                         <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
                     </div>
                 </div>
-                <div v-if="guide" class="flx column gap-8 guide">
+                <div v-if="guide && !is_guide" class="flx column gap-8 guide">
                     <label for="guide">Guide for event</label>
                     <!-- <profile-avatar :avatar="guide.profile_picture" /> -->
                     <user-list :user="guide" :climber="true" :redirect="false" />
                     <!-- <div class="fs-102rem">{{ guide.name }}</div> -->
                 </div>
                 <div v-if="is_climber" class="sticky flx jc-fe">
-                    <booking-trigger-button :eventStatus="eventStatus" :resultType="'event'" @booking-trigger="bookingTrigger" />
+                    <booking-trigger-button :eventStatus="bookingStatus" :resultType="'event'" @booking-trigger="bookingTrigger" />
                 </div>
             </div>
             <div class="w-50" v-if="is_guide">
@@ -112,8 +109,9 @@ import { mapState, mapGetters } from 'vuex'
 import BookingTriggerButton from '@/components/includes/BookingTriggerButton.vue'
 // import ProfileAvatar from '@/components/includes/ProfileAvatar.vue'
 import UserList from '@/components/includes/UserList.vue'
+import BookingStatus from '@/components/includes/BookingStatus.vue'
 export default {
-    components: { BookingTriggerButton, UserList },
+    components: { BookingTriggerButton, UserList, BookingStatus },
     name: 'EventDetails',
     props: {
         event: Object
@@ -127,7 +125,7 @@ export default {
             token: (state) => state.token,
             bookings: (state) => state.bookings,
         }),
-        eventStatus() {
+        bookingStatus() {
             return this.bookings.find(event => event.event_id === this.event.id)
         }
     },
@@ -143,7 +141,7 @@ export default {
     },
     methods: {
         bookingTrigger() {
-            this.$store.commit('triggerBooking', this.eventStatus)
+            this.$store.commit('triggerBooking', this.bookingStatus)
         },
         getThisGuide(guide) {
             this.$store.dispatch('getThisGuide', guide)
