@@ -31,7 +31,7 @@ export default createStore({
       booking_request: false,
       admin_password: false,
       permissions: false,
-      tempStorage: {},
+      tempStorage: '',
       searchResults: [],
       searchResultsGuides: []
     },
