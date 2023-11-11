@@ -47,7 +47,7 @@
                         <div id="time">{{ event.address }}</div>
                     </div>
                 </div>
-                <div>
+                <div class="flx column gap-16">
                     <div v-if="event.itinerary">
                         <label for="time">Itinerary</label>
                         <div id="time">{{ event.itinerary }}</div>
@@ -58,15 +58,15 @@
                             <li v-for="(gear, index) in JSON.parse(event.gears)" :key="index">{{ gear }}</li>
                         </div>
                     </div>
-                    <div v-if="computedFaqs">
-                        <label for="time">FAQ's</label>
-                        <div id="time">
+                    <div v-if="computedFaqs.length">
+                        <label for="faq">FAQ's</label>
+                        <div id="faq" class="flx gap-16 column">
                             <li v-for="faq in computedFaqs" :key="faq.id">
                                 <div>
                                     <i class="gray">Question: </i>
                                     <span>{{ faq.question }}</span>
                                 </div>
-                                <div class="mb-16">
+                                <div>
                                     <i class="gray">Answer: </i>
                                     <span>{{ faq.answer }}</span>
                                 </div>
