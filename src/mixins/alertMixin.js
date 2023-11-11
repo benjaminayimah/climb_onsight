@@ -1,11 +1,11 @@
 export default {
     methods: {
         showAlert(status, message) {
-            const successPayload = {
+            const payload = {
                 status: status,
                 body: message
             };
-            this.$store.commit('showAlert', successPayload);
+            this.$store.commit('showAlert', payload);
         }
     }
 }

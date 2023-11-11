@@ -1,7 +1,7 @@
 <template>
     <teleport to="body">
         <backdrop :index="401" :opacity="0.5" />
-        <div class="modal-container jc-c ai-c">
+        <div class="modal-container fixed flx jc-c ai-c">
             <div class="bg-white top-overlay br-24 pd-24">
                 <div v-if="booking.page === 1">
                     <h3>Sign a waiver</h3>
@@ -147,9 +147,6 @@ export default {
 }
 .modal-container {
     margin: 0 20px;
-    position: fixed;
-    inset: 0;
-    display: flex;
     z-index: 402;
 }
 </style>

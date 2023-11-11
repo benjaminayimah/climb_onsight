@@ -9,6 +9,7 @@ export default createStore({
     user: JSON.parse(localStorage.getItem('user')) || {},
     newUser: JSON.parse(localStorage.getItem('newUser')) || null,
     alert: { status: { show: false, success: false, danger: false, warning: false, info: false }, body: '' },
+    deleteModal: { active: false, deleting: false, id: '', type: '' },
     // hostname: 'http://127.0.0.1:8000',
     hostname: 'https://api.climbonsight.ca',
     s3bucket: 'https://s3.amazonaws.com/climbonsight.storage',
@@ -28,6 +29,8 @@ export default createStore({
       profile_edit: false,
       search_result: false,
       booking_request: false,
+      admin_password: false,
+      permissions: false,
       tempStorage: {},
       searchResults: [],
       searchResultsGuides: []
@@ -72,6 +75,7 @@ export default createStore({
       state.climbers = payload.climbers
       state.events = payload.events
       state.bookings = payload.bookings
+      state.admins = payload.admins
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
 
     },
@@ -195,6 +199,8 @@ export default createStore({
         state.forms.search_result = true
       }else if(payload === 'booking_request') {
         state.forms.booking_request = true
+      }else if(payload === 'admin_password') {
+        state.forms.admin_password = true
       }
     },
     activateModal(state) {
@@ -225,6 +231,19 @@ export default createStore({
     async preloadBooking_request(state, payload) {
       await this.commit('setTempData', payload)
       this.commit('openModal', 'booking_request')
+    },
+    async preloadAdmin_password(state, payload) {
+      await this.commit('setTempData', payload)
+      this.commit('openModal', 'admin_password')
+    },
+    async preloadAdminInfo(state, payload) {
+      await this.commit('setTempData', payload)
+      this.commit('openModal', 'add_admin')
+    },
+    async setUpdatePermissions(state, payload) {
+      await this.commit('setTempData', payload)
+      state.forms.permissions = true
+      this.commit('openModal', 'add_admin')
     },
     updateNotifications(state, payload) {
       state.notifications = state.notifications.filter(data => data.id !== payload)
@@ -257,7 +276,41 @@ export default createStore({
     },
     setSomeEvents(state) {
       state.searchResults = state.events
-    }
+    },
+    addToAdmins(state, payload) {
+      state.admins.push(payload)
+    },
+    updateToAdmins(state, payload) {
+      const i = state.admins.findIndex(x => x.id === payload.id)
+      state.admins.splice(i, 1, payload)
+    },
+    deleteAdmin(state, payload) {
+      const i = state.admins.findIndex(x => x.id == payload)
+      state.admins.splice(i, 1);
+    },
+    //set delete
+    setDeleteModal(state, payload) {
+      document.body.classList.add('fixed-body')
+      state.deleteModal.active = true
+      state.deleteModal.id = payload.id
+      state.deleteModal.type = payload.type  
+    },
+    closeDeleteModal(state) {
+      for (let i in state.deleteModal) {
+        state.deleteModal[i] = false
+      }
+      document.body.classList.remove('fixed-body')
+    },
+    doDelete(state) {
+      state.deleteModal.deleting = true
+      const id = state.deleteModal.id
+      const type = state.deleteModal.type
+      if(type === 'admin'){
+        this.dispatch('deleteAdmin', id)
+      }else{
+        this.commit('closeDeleteModal')
+      }
+    },
   },
   actions: {
     async signIn(state, payload) {
@@ -298,6 +351,27 @@ export default createStore({
           state.commit('setCurrentLocation', address)
         })
     },
+    async deleteAdmin(state, payload) {
+      try {
+        const res = await axios.delete(this.getters.getHostname+'/api/delete-user/'+payload+'?token='+this.getters.getToken);
+        state.commit('deleteAdmin', res.data.id)
+        state.commit('closeDeleteModal')
+        const alertPayload = {
+            status: 'success',
+            body: res.data.message
+        };
+        state.commit('showAlert', alertPayload)
+      
+      } catch (e) {
+        const payload = {
+            status: 'danger',
+            body: e.response.data.message
+        };
+        state.commit('showAlert', payload)
+        state.commit('closeDeleteModal')
+
+      }
+    }
   },
   getters: {
     auth(state) {

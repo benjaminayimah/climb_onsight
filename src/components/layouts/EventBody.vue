@@ -39,10 +39,10 @@
                             <li v-for="(gear, index) in JSON.parse(event.gears)" :key="index">{{ gear }}</li>
                         </div>
                     </div>
-                    <div v-if="event.faqs">
+                    <div v-if="computedFaqs.length">
                         <label for="time">FAQ's</label>
                         <div id="time">
-                            <li v-for="faq in JSON.parse(event.faqs)" :key="faq.id">
+                            <li v-for="faq in computedFaqs" :key="faq.id">
                                 <div>
                                     <i class="gray">Question: </i>
                                     <span>{{ faq.question }}</span>
@@ -83,10 +83,17 @@ export default {
     },
     mixins: [ formatDateTime],
     computed: {
+        ...mapGetters(['getDevice']),
         ...mapState({
             s3bucket: (state) => state.s3bucket
         }),
-        ...mapGetters(['getDevice'])
+        computedFaqs() {
+            if(this.event.faqs) {
+                return JSON.parse(this.event.faqs).filter(data => data.question || data.answer)
+            }
+            else
+            return []
+        }
     }
 }
 </script>

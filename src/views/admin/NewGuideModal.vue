@@ -1,7 +1,7 @@
 <template>
     <teleport v-if="acceptTrigger.active" to="body">
         <backdrop :index="401" :opacity="0.5" />
-        <div class="modal-container jc-c ai-c">
+        <div class="modal-container fixed flx jc-c ai-c">
             <div class="bg-white br-24 pd-24">
                 <div class="flx jc-sb ai-c">
                     <h3>{{ acceptTrigger.type === 'accept' ? 'Accept Guide' : 'Decline Guide' }}</h3>
@@ -21,7 +21,7 @@
                     Are you sure you want to {{ acceptTrigger.type === 'accept' ? 'accept' : 'decline' }} this guide?
                 </p>
                 <div class="flx column gap-8">
-                    <button v-if="acceptTrigger.type === 'accept'" @click="accetGuide" class="button-secondary btn-md gap-8 w-100 btn-rounded">
+                    <button v-if="acceptTrigger.type === 'accept'" @click="acceptGuide" class="button-secondary btn-md gap-8 w-100 btn-rounded">
                         <spinner v-if="submiting" :size="18" />
                         <span>{{ submiting ? 'Please wait...' : 'Yes, proceed' }}</span>
                     </button>
@@ -191,7 +191,7 @@ export default {
         triggerCancel() {
             this.acceptTrigger.active = false
         },
-        async accetGuide() {
+        async acceptGuide() {
             this.startSpinner()
             try {
                 await axios.put(this.hostname+'/api/accept-guide/'+this.guide.id+'?token='+this.token )
@@ -201,7 +201,6 @@ export default {
                 this.$store.commit('closeModal')
                 // console.log(res.data)
             } catch (e) {
-                console.log(e.response)
                 this.stopSpinner()
             }
         },
@@ -215,7 +214,6 @@ export default {
                 this.$store.commit('closeModal')
                 // console.log(res.data)
             } catch (e) {
-                console.log(e.response)
                 this.stopSpinner()
             }
         }
@@ -234,9 +232,6 @@ li {
 }
 .modal-container {
     margin: 0 20px;
-    position: fixed;
-    inset: 0;
-    display: flex;
     z-index: 402;
     .bg-white {
         min-width: 300px;

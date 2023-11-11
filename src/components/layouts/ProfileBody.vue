@@ -287,7 +287,7 @@ export default {
             this.startSpinner()
             try {
                 const res = await axios.put(this.hostname+'/api/auth-user/' + this.user.id + '?token=' + this.token, this.form)
-                this.updateSuccess(res.data)
+                this.updateSuccess(res.data.user)
                 this.showAlert('success', res.data.message)
                 this.stopSpinner()
             } catch (e) {
@@ -297,7 +297,7 @@ export default {
             } 
         },
         updateSuccess(res) {
-            this.$store.commit('updateUser', res.data)
+            this.$store.commit('updateUser', res)
             this.editMode = false
             this.$emit('close-modal')
         },

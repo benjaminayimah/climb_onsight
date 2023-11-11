@@ -1,7 +1,7 @@
 <template>
     <teleport v-if="prebook" to="body">
         <backdrop :index="401" :opacity="0.5" />
-        <div class="modal-container jc-c ai-c">
+        <div class="modal-container flx jc-c ai-c fixed">
             <div class="bg-white top-overlay-1 br-24 pd-24">
                 <div>
                     <h3>Request a booking</h3>
@@ -133,9 +133,6 @@ export default {
 }
 .modal-container {
     margin: 0 20px;
-    position: fixed;
-    inset: 0;
-    display: flex;
     z-index: 402;
 }
 .top-overlay-1 {

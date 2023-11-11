@@ -1,5 +1,5 @@
 <template>
-    <div v-if="forms.active" class="modal-container jc-c ai-c">
+    <div v-if="forms.active" class="modal-container fixed flx jc-c ai-c">
         <teleport to="body">
             <backdrop :index="100" :opacity="0.5" />
         </teleport>
@@ -29,6 +29,7 @@
     <profile-edit-modal v-else-if="forms.profile_edit" />
     <results-modal v-else-if="forms.search_result"/>
     <booking-request-modal v-else-if="forms.booking_request" />
+    <reset-admin-password v-else-if="forms.admin_password" />
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';
@@ -41,12 +42,13 @@ const NewGuideModal = defineAsyncComponent(() => import(/* webpackChunkName: New
 const ProfileEditModal = defineAsyncComponent(() => import(/* webpackChunkName: ProfileEditModal */ '@/views/app/ProfileEditModal.vue'))
 const ResultsModal = defineAsyncComponent(() => import(/* webpackChunkName: ResultsModal */ '@/views/climbers/ResultsModal.vue'))
 const BookingRequestModal = defineAsyncComponent(() => import(/* webpackChunkName: BookingRequestModal */ '@/views/app/BookingRequestModal.vue'))
+const ResetAdminPassword = defineAsyncComponent(() => import(/* webpackChunkName: ResetAdminPassword */ '@/views/admin/ResetAdminPassword.vue'))
 
 import { mapState } from 'vuex';
 import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal  },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal, ResetAdminPassword  },
     name: 'MainModal',
     computed: {
         ...mapState({
@@ -66,9 +68,7 @@ export default {
     background-color: #fff;
 }
 .modal-container{
-    position: fixed;
     inset: 0;
-    display: flex;
     z-index: 400;
 }
 .modal-top, .modal-bottom {

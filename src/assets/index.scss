@@ -9,8 +9,8 @@
     --bg-color: #fbf7f4;
     --black: #000000;
     --white: #ffffff;
-    --danger: #FF5151;
-    --danger-hover: #f23838;
+    --danger: #f13c3c;
+    --danger-hover: #e32525;
     --success: #32D49D;
     --gray: #7f7f7f;
     --gray-light: #E6E6E6;
@@ -224,6 +224,7 @@ button:not(.button-disabled, .absolute) {
     }
 }
 .a-link {
+    cursor: pointer;
     &:hover {
         text-decoration: underline;
         background-color: unset;
@@ -651,10 +652,14 @@ h1, h2, h3, h4, h5 {
     color: var(--black);
 }
 form {
-    label {
+    label:not([data-type=input-wrapper]) {
         font-size: 0.9rem;
         font-weight: 600;
     }
+}
+input[type=checkbox]{
+    height: 17px;
+    width: 17px;
 }
 .form-row{
     display: flex;
@@ -951,6 +956,35 @@ $completionWidth: 440px;
         align-items: center;
     }
 }
+.table-row{
+    button:not(.t-pill-btn) {
+        height: 55px;
+        padding: 8px 24px;
+        margin-left: 40px;
+    }
+    .t-pill-btn {
+        padding: 6px 12px;
+        border-radius: 30px;
+        height: 36px;
+        min-width: 36px;
+    }
+    .delete{
+        color: var(--danger);
+        background-color: #ffecec;
+        &:hover {
+            background-color: var(--danger);
+            color: var(--white);
+        }
+    }
+    .row-actions{
+        gap: 6px;
+    }
+    .cell-hover-show:hover{
+        .hidden {
+            visibility: visible;
+        }
+    }
+}
 
 @media screen and (max-width: 1344px){
     .show-tab-mob {
@@ -1029,6 +1063,9 @@ ul.tab {
 
 .modal {
     min-width: 300px;
+}
+.modal-container {
+    inset: 0;
 }
 @media screen and (max-width: 970px){
     .modal-width{
