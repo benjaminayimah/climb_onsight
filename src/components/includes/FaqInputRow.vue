@@ -1,10 +1,10 @@
 <template>
     <div class="flx column gap-16">
         <div class="input-wrapper">
-            <input @input="formData" v-model="thisForm.question" class="br-16 w-100 bd-trans" type="text" :name="'question'+index" placeholder="Enter question" />
+            <input @input="formData" v-model="thisForm.question" class="br-16 w-100" type="text" :name="'question'+index" placeholder="Enter question" :class="input2 ? 'form-control2' : 'form-control'" />
         </div>
         <div class="input-wrapper">
-            <input @input="formData" v-model="thisForm.answer" class="br-16 w-100 bd-trans" type="text" :name="'answer'+index" placeholder="Enter answer" />
+            <input @input="formData" v-model="thisForm.answer" class="br-16 w-100" type="text" :name="'answer'+index" placeholder="Enter answer" :class="input2 ? 'form-control2' : 'form-control'" />
         </div>
         <a v-if="length > 1" href="#" @click="$emit('remove-row', index)" class="a-link flx gap-4 ai-c">
             <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 18 18">
@@ -21,7 +21,8 @@ export default {
     props: {
         form: Object,
         index: Number,
-        length: Number
+        length: Number,
+        input2: Boolean
     },
     data() {
         return {
@@ -44,8 +45,6 @@ export default {
 .input-wrapper {
     select, input, textarea {
         padding: 10px 20px;
-        border: 1px solid transparent;
-        background-color: #fff;
     }
 }
 </style>

@@ -7,7 +7,7 @@
                     <booking-status :status="bookingStatus" />
                 </div>
             </div>
-            <button v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
+            <button @click="$store.commit('preloadEventEdit', event)" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
         </div>
         <div class="gap-24 flx col-row">
             <div class="flx gap-16 column w-50 flx-grow-1">

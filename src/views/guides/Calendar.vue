@@ -2,10 +2,7 @@
     <section class="main" id="add_calendar">
         <div class="bg-white br-24 flx section-main-wrapper pd-16 gap-16">
             <div class="calendar-left bg-color br-8 pd-32 overflow-y-scroll">
-                <h4 class="text-center mb-24">Add to your calendar</h4>
-                <calendar-stepper-2 :newEvent="newEvent" v-if="$route.query.stepper === '2'" />
-                <calendar-stepper-3 :newEvent="newEvent" v-else-if="$route.query.stepper === '3'" @go-to-event="goToEvent" />
-                <calendar-stepper-1 :newEvent="newEvent" v-else />
+                <add-calendar-event @go-to-event="goToEvent" :input2="true" />
             </div>
             <div class="calendar-right flx bg-color br-8 flx-1 pd-24 gap-24">
                 <div class="right-col-1 relative">
@@ -66,17 +63,14 @@ import formatDateTime from '@/mixins/formatDateTime'
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
 import EventVerticalItems from '@/components/includes/EventVerticalItems.vue'
-import CalendarStepper2 from '@/components/includes/CalendarStepper2.vue'
-import CalendarStepper3 from '@/components/includes/CalendarStepper3.vue'
-import CalendarStepper1 from '@/components/includes/CalendarStepper1.vue'
 import { mapState } from 'vuex'
+import AddCalendarEvent from './AddCalendarEvent.vue'
 export default {
     name: 'CalendarView',
-    components: { VueCal, EventVerticalItems, CalendarStepper2, CalendarStepper3, CalendarStepper1 },
+    components: { VueCal, EventVerticalItems, AddCalendarEvent },
     mixins: [formatDateTime],
     computed: {
         ...mapState({
-            newEvent: (state) => state.data.newEvent,
             events: (state) => state.events
         }),
         computeEmptyGal() {

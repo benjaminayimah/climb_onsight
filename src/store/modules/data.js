@@ -78,12 +78,6 @@ export default {
         },
         saveEventForm1(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))
-            // event_name: '',
-            //     start_date: '',
-            //     end_date: '',
-            //     start_time: '',
-            //     repeat: false,
-            //     repeat_at: ''
             if(stored) {
                 stored.event_name = payload.event_name
                 stored.start_date = payload.start_date

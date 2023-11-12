@@ -30,6 +30,7 @@
     <results-modal v-else-if="forms.search_result"/>
     <booking-request-modal v-else-if="forms.booking_request" />
     <reset-admin-password v-else-if="forms.admin_password" />
+    <event-edit-modal v-else-if="forms.event_edit"/>
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';
@@ -43,12 +44,13 @@ const ProfileEditModal = defineAsyncComponent(() => import(/* webpackChunkName: 
 const ResultsModal = defineAsyncComponent(() => import(/* webpackChunkName: ResultsModal */ '@/views/climbers/ResultsModal.vue'))
 const BookingRequestModal = defineAsyncComponent(() => import(/* webpackChunkName: BookingRequestModal */ '@/views/app/BookingRequestModal.vue'))
 const ResetAdminPassword = defineAsyncComponent(() => import(/* webpackChunkName: ResetAdminPassword */ '@/views/admin/ResetAdminPassword.vue'))
+const EventEditModal = defineAsyncComponent(() => import(/* webpackChunkName: EventEditModal */ '@/views/guides/EventEditModal.vue'))
 
 import { mapState } from 'vuex';
 import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal, ResetAdminPassword  },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, AccountDetailsModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal, ResetAdminPassword, EventEditModal  },
     name: 'MainModal',
     computed: {
         ...mapState({

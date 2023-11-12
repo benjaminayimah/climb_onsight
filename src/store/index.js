@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 import data from './modules/data'
 import dropdown from './modules/dropdown'
+import router from '@/router'
 
 export default createStore({
   state: {
@@ -17,6 +18,7 @@ export default createStore({
     current_location: '',
     menu: false,
     bookingModal: { active: false, page: 1, data: {} },
+    updateForm: {},
     forms: { 
       active: false,
       loader: false,
@@ -31,6 +33,7 @@ export default createStore({
       booking_request: false,
       admin_password: false,
       permissions: false,
+      event_edit: false,
       tempStorage: '',
       searchResults: [],
       searchResultsGuides: []
@@ -144,6 +147,11 @@ export default createStore({
       state.events.push(payload)
       localStorage.removeItem('newEvent')
     },
+    updateEvent(state, payload) {
+      const i = state.events.findIndex(x => x.id === payload.id)
+      state.events.splice(i, 1, payload)
+      state.updateForm = {}
+    },
     triggerBooking(state, payload) {
       state.bookingModal.active = true
       state.bookingModal.data = payload
@@ -201,6 +209,8 @@ export default createStore({
         state.forms.booking_request = true
       }else if(payload === 'admin_password') {
         state.forms.admin_password = true
+      }else if(payload === 'event_edit') {
+        state.forms.event_edit = true
       }
     },
     activateModal(state) {
@@ -208,6 +218,9 @@ export default createStore({
     },
     closeModal(state) {
       state.forms.active = false
+      if(state.forms.event_edit) {
+        router.push({ name: 'UpcomingEvents', query: { current: state.forms.tempStorage.id, origin: 'UpcomingEvents'}})
+      }
       document.body.classList.remove('fixed-body')
       for (let i in state.forms)
       state.forms[i] = false
@@ -244,6 +257,10 @@ export default createStore({
       await this.commit('setTempData', payload)
       state.forms.permissions = true
       this.commit('openModal', 'add_admin')
+    },
+    async preloadEventEdit(state, payload) {
+      await this.commit('setTempData', payload)
+      this.commit('openModal', 'event_edit')
     },
     updateNotifications(state, payload) {
       state.notifications = state.notifications.filter(data => data.id !== payload)
@@ -287,6 +304,33 @@ export default createStore({
     deleteAdmin(state, payload) {
       const i = state.admins.findIndex(x => x.id == payload)
       state.admins.splice(i, 1);
+    },
+    //update event
+
+    updateTempStorage1(state, payload) {
+      state.updateForm.event_name = payload.event_name
+      state.updateForm.start_date = payload.start_date
+      state.updateForm.end_date = payload.end_date
+      state.updateForm.start_time = payload.start_time
+      state.updateForm.repeat = payload.repeat
+      state.updateForm.repeat_at = payload.repeat_at
+    },
+    updateTempStorage2(state, payload) {
+      state.updateForm.category = payload.category
+      state.updateForm.address = payload.address
+      state.updateForm.latitude = payload.latitude
+      state.updateForm.longitude = payload.longitude
+      state.updateForm.gallery = payload.gallery
+    },
+    updateTempStorage3(state, payload) {
+      state.updateForm.attendance_limit = payload.attendance_limit
+      let gearsString = payload.gears
+      let gearsArray = gearsString.split(',')
+      state.updateForm.gears = gearsArray
+      state.updateForm.faqs = payload.faqs
+      state.updateForm.price = payload.price
+      state.updateForm.itinerary = payload.itinerary
+      state.updateForm.event_description = payload.event_description
     },
     //set delete
     setDeleteModal(state, payload) {

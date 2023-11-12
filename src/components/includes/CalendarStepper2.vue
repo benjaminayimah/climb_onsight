@@ -1,14 +1,5 @@
 <template>
     <form @submit.prevent="" class="flx column gap-16">
-        <!-- <div class="form-row column">
-            <label for="event_name">Event name</label>
-            <div class="input-wrapper">
-                <input v-model="form.event_name" class="br-16 w-100 bd-trans" type="text" id="event_name" name="event_name"  :class="{ 'error-border': validation.errors.event_name }" placeholder="Enter your event name" />
-            </div>
-            <span class="input-error" v-if="validation.error && validation.errors.event_name">
-                {{ validation.errors.event_name[0] }}
-            </span>
-        </div> -->
         <div class="form-row column">
             <label for="category">Event Category(Choose one)</label>
             <div class="input-wrapper">
@@ -37,7 +28,7 @@
         <div class="form-row column">
             <label for="address">Event location</label>
             <div class="input-wrapper">
-                <input v-model="form.address" @focusout="checkAddressInput" class="br-16 w-100 bd-trans" type="search" autocomplete="off" ref="address" id="address" :class="{ 'error-border': validation.errors.address }" placeholder="Enter location then pick from dropdown list" />
+                <input v-model="form.address" @focusout="checkAddressInput" class="br-16 w-100" type="search" autocomplete="off" ref="address" id="address" :class="[{'error-border': validation.errors.address }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter location then pick from dropdown list" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.address">
                 {{ validation.errors.address[0] }}
@@ -62,7 +53,9 @@ export default {
     name: 'CalendarStepper2',
     mixins: [inputValidationMixin, autoCompleMixin],
     props: {
-        newEvent: Object
+        newEvent: Object,
+        input2: Boolean,
+        editMode: Boolean
     },
     computed: {
         ...mapState({
@@ -112,8 +105,8 @@ export default {
                 this.showErr(errors)
             }else {
                 this.validation.error ? this.clearErrs() : ''
-                await this.$store.commit('saveEventForm2', this.form)
-                this.$router.push({ name: 'Calendar', query: { stepper: '3'}})
+                this.editMode ? await this.$store.commit('updateTempStorage2', this.form) : await this.$store.commit('saveEventForm2', this.form)
+                this.$router.push({ name: this.$route.name, query: { stepper: '3', current: this.$route.query.current, origin: this.$route.query.origin }})
             }
         },
         addToGallery(file) {
@@ -126,7 +119,7 @@ export default {
             this.$store.commit('updateEventGallery', this.form.gallery)
         },
         previousPage() {
-            this.$router.push({ name: 'Calendar'})
+            this.$router.push({ name: this.$route.name, query: { current: this.$route.query.current, origin: this.$route.query.origin }})
         },
         presetForm() {
             if(this.newEvent) {
@@ -134,7 +127,13 @@ export default {
                 this.newEvent.address ? this.form.address = this.newEvent.address : ''
                 this.newEvent.latitude ? this.form.latitude = this.newEvent.latitude : ''
                 this.newEvent.longitude ? this.form.longitude = this.newEvent.longitude : ''
-                this.newEvent.gallery ? this.form.gallery = this.newEvent.gallery : ''
+                if (this.newEvent.gallery ) {
+                    if(this.editMode) {
+                        this.form.gallery = JSON.parse(this.newEvent.gallery)
+                    }else {
+                        this.form.gallery = this.newEvent.gallery
+                    }
+                }
             }
         },
         showError(message, status) {
@@ -167,8 +166,6 @@ export default {
 .input-wrapper {
     select, input, textarea {
         padding: 10px 20px;
-        border: 1px solid transparent;
-        background-color: #fff;
     }
 }
 .gallery i {

@@ -15,7 +15,7 @@
         <div class="form-row column">
             <label for="price">Price(USD)</label>
             <div class="input-wrapper">
-                <input v-model="form.price" @input="checkNumberInput" class="br-16 w-100 bd-trans" type="number" min="1" id="price" name="price"  :class="{ 'error-border': validation.errors.price }" placeholder="Enter event price" />
+                <input v-model="form.price" @input="checkNumberInput" class="br-16 w-100" type="number" min="1" id="price" name="price"  :class="[{'error-border': validation.errors.price }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter event price" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.price">
                 {{ validation.errors.price[0] }}
@@ -27,7 +27,7 @@
                 <span class="gray fs-08">Separate with a comma</span>
             </div>
             <div class="input-wrapper">
-                <input v-model="form.gears" class="br-16 w-100 bd-trans" type="text" id="gears" name="gears"  :class="{ 'error-border': validation.errors.gears }" placeholder="Enter Gears" />
+                <input v-model="form.gears" class="br-16 w-100" type="text" id="gears" name="gears"  :class="[{'error-border': validation.errors.gears }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter Gears" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.gears">
                 {{ validation.errors.gears[0] }}
@@ -39,7 +39,7 @@
                 <span class="gray fs-08">Optional</span>
             </div>
             <div class="input-wrapper">
-                <input v-model="form.itinerary" class="br-16 w-100 bd-trans" type="text" id="itinerary" name="itinerary"  :class="{ 'error-border': validation.errors.itinerary }" placeholder="Enter itinerary" />
+                <input v-model="form.itinerary" class="br-16 w-100" type="text" id="itinerary" name="itinerary"  :class="[{'error-border': validation.errors.itinerary }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter itinerary" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.itinerary">
                 {{ validation.errors.itinerary[0] }}
@@ -48,7 +48,7 @@
         <div class="form-row column">
             <label for="event_description">Event description</label>
             <div class="input-wrapper">
-                <textarea v-model="form.event_description" class="br-16 w-100 bd-trans" id="event_description" name="event_description"  :class="{ 'error-border': validation.errors.event_description }" rows="2"></textarea>
+                <textarea v-model="form.event_description" class="br-16 w-100" id="event_description" name="event_description"  :class="[{'error-border': validation.errors.event_description }, input2 ? 'form-control2' : 'form-control']" rows="2"></textarea>
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.event_description">
                 {{ validation.errors.event_description[0] }}
@@ -64,6 +64,7 @@
                 :index="index"
                 :form="faq"
                 :length="form.faqs.length"
+                :input2="input2"
                 @remove-row="removeRow"
                 @add-form-input="addFormInput"
             />
@@ -98,13 +99,16 @@ export default {
     name: 'CalendarStepper3',
     mixins: [inputValidationMixin, alertMixin],
     props: {
-        newEvent: Object
+        newEvent: Object,
+        input2: Boolean,
+        editMode: Boolean
     },
     computed: {
         ...mapState({
             categories: (state) => state.data.categories,
             token: (state) => state.token,
-            hostname: (state) => state.hostname
+            hostname: (state) => state.hostname,
+            updateForm: (state) => state.updateForm
         }),
     },
     data() {
@@ -148,8 +152,8 @@ export default {
                 this.showErr(errors)
             }else {
                 this.validation.error ? this.clearErrs() : ''
-                await this.$store.commit('saveEventForm3', this.form)
-                this.submitForm()
+                this.editMode ? await this.$store.commit('updateTempStorage3', this.form) : await this.$store.commit('saveEventForm3', this.form)
+                this.editMode ? this.submitUpdate() : this.submitForm()
             }
         },
         async submitForm() {
@@ -171,8 +175,23 @@ export default {
             this.$router.push({ name: 'Calendar'})
             this.$emit('go-to-event', res.data.date)
         },
+        async submitUpdate() {
+            try {
+                this.startSpinner()
+                const res = await axios.put(this.hostname+'/api/event/'+this.newEvent.id+'?token='+this.token, this.updateForm)
+                this.stopSpinner()
+                this.$store.commit('updateEvent', res.data.event)
+                this.$store.commit('closeModal')
+                this.$router.push({ name: this.$route.name, query: { current: this.newEvent.id, origin: this.$route.query.origin }})
+                this.showAlert('success', res.data.message)
+            } catch (e) {
+                this.stopSpinner()
+                this.errorResponse(e)
+                this.showAlert('danger', e.response.message || e.message)
+            }
+        },
         previousPage() {
-            this.$router.push({ name: 'Calendar', query: { stepper: '2'}})
+            this.$router.push({ name: this.$route.name, query: { stepper: '2', current: this.$route.query.current, origin: this.$route.query.origin }})
         },
         presetForm() {
             if(this.newEvent) {
@@ -181,9 +200,22 @@ export default {
                 this.newEvent.itinerary ? this.form.itinerary = this.newEvent.itinerary : ''
                 this.newEvent.event_description ? this.form.event_description = this.newEvent.event_description : ''
                 if(this.newEvent.gears) {
-                    this.form.gears = this.newEvent.gears.join(',')
+                    if(this.editMode) {
+                        this.form.gears = JSON.parse(this.newEvent.gears).join(',')
+
+                    }else {
+                        this.form.gears = this.newEvent.gears.join(',')
+                    }
                 }
-                this.newEvent.faqs ? this.form.faqs = this.newEvent.faqs : this.form.faqs.push({ id: 1, question: '', answer: ''})
+                if (this.newEvent.faqs ) {
+                    if(this.editMode) {
+                        this.form.faqs = JSON.parse(this.newEvent.faqs )
+                    }else {
+                        this.form.faqs = this.newEvent.faqs 
+                    }
+                }else {
+                    this.form.faqs.push({ id: 1, question: '', answer: ''})
+                }
             }
 
         }
@@ -197,9 +229,7 @@ export default {
 <style lang="scss" scoped>
 .input-wrapper {
     select, input, textarea {
-        padding: 10px 20px;
-        border: 1px solid transparent;
-        background-color: #fff;
+        padding: 10px 20px
     }
 }
 .counter {

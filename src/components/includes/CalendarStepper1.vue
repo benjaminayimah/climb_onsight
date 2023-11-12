@@ -3,7 +3,7 @@
         <div class="form-row column">
             <label for="event_name">Event name</label>
             <div class="input-wrapper">
-                <input v-model="form.event_name" class="br-16 w-100 bd-trans" type="text" id="event_name" name="event_name"  :class="{ 'error-border': validation.errors.event_name }" placeholder="Enter your event name" />
+                <input v-model="form.event_name" class="br-16 w-100 form-control" type="text" id="event_name" name="event_name"  :class="[{ 'error-border': validation.errors.event_name }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter your event name" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.event_name">
                 {{ validation.errors.event_name[0] }}
@@ -12,7 +12,7 @@
         <div class="form-row column">
             <label for="start_date">Start date</label>
             <div class="input-wrapper">
-                <input v-model="form.start_date" class="br-16 w-100" type="date" id="start_date" name="start_date" :class="{ 'error-border': validation.errors.start_date }" />
+                <input v-model="form.start_date" class="br-16 w-100" type="date" id="start_date" name="start_date" :class="[{'error-border': validation.errors.start_date }, input2 ? 'form-control2' : 'form-control']" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.start_date">
                 {{ validation.errors.start_date[0] }}
@@ -21,7 +21,7 @@
         <div class="form-row column">
             <label for="end_date">End date</label>
             <div class="input-wrapper">
-                <input v-model="form.end_date" class="br-16 w-100" type="date" id="end_date" name="end_date" :class="{ 'error-border': validation.errors.end_date }" />
+                <input v-model="form.end_date" class="br-16 w-100" type="date" id="end_date" name="end_date" :class="[{'error-border': validation.errors.end_date }, input2 ? 'form-control2' : 'form-control']" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.end_date">
                 {{ validation.errors.end_date[0] }}
@@ -30,7 +30,7 @@
         <div class="form-row column">
             <label for="start_time">Event time (EST)</label>
             <div class="input-wrapper">
-                <input v-model="form.start_time" class="br-16 w-100" type="time" id="start_time" name="start_time" :class="{ 'error-border': validation.errors.start_time }" />
+                <input v-model="form.start_time" class="br-16 w-100" type="time" id="start_time" name="start_time" :class="[{'error-border': validation.errors.start_time }, input2 ? 'form-control2' : 'form-control']" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.start_time">
                 {{ validation.errors.start_time[0] }}
@@ -66,7 +66,9 @@ export default {
     name: 'CalendarStepper1',
     mixins: [inputValidationMixin],
     props: {
-        newEvent: Object
+        newEvent: Object,
+        input2: Boolean,
+        editMode: Boolean
     },
     data() {
         return {
@@ -102,8 +104,8 @@ export default {
                 this.showErr(errors)
             }else {
                 this.validation.error ? this.clearErrs() : ''
-                await this.$store.commit('saveEventForm1', this.form)
-                this.$router.push({ name: 'Calendar', query: { stepper: '2'}})
+                this.editMode ? await this.$store.commit('updateTempStorage1', this.form) : await this.$store.commit('saveEventForm1', this.form)
+                this.$router.push({ name: this.$route.name, query: { stepper: '2', current: this.$route.query.current, origin: this.$route.query.origin }})
             }
         },
         presetForm() {
@@ -113,6 +115,11 @@ export default {
             this.newEvent && this.newEvent.start_time ? this.form.start_time = this.newEvent.start_time : ''
             this.newEvent && this.newEvent.repeat ? this.form.repeat = this.newEvent.repeat : false
             this.newEvent && this.newEvent.repeat_at ? this.form.repeat_at = this.newEvent.repeat_at : ''
+            if(this.editMode && this.newEvent.repeat_at) {
+                this.form.repeat = true
+            }else {
+                this.form.repeat = false
+            }
         }, 
     },
     mounted() {
@@ -125,8 +132,6 @@ export default {
 .input-wrapper {
     select, input, textarea {
         padding: 10px 20px;
-        border: 1px solid transparent;
-        background-color: #fff;
     }
 }
 .cal-picker-wrapper {
