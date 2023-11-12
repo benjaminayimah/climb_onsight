@@ -24,8 +24,7 @@ export default {
     computed: {
         ...mapState({
             s3bucket: (state) => state.s3bucket,
-            hostname: (state) => state.hostname,
-            token: (state) =>state.token
+            hostname: (state) => state.hostname
         })
     },
     data() {
@@ -36,9 +35,10 @@ export default {
     },
     methods: {
         async deleteFile(file) {
+            //delete from server
             this.deleting = true
             try {
-                await axios.delete(this.hostname + '/api/delete-temp-image?token='+this.token)
+                await axios.post(this.hostname + '/api/delete-uploaded-file', { file })
                 this.deleting = false
                 this.$emit('delete-image', file)
             } catch (e) {
