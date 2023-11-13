@@ -6,11 +6,11 @@
                 <div>12 August 2023</div>
             </div>
             <div v-if="is_guide">
-                <button class="button-primary br-50 add">
+                <router-link :to="{ name: 'Calendar'}" class="button-primary br-50 centered add">
                     <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 11.521 11.521">
                         <path d="M19.678,26.263V21.326H14.74V19.68h4.938V14.742h1.646V19.68h4.938v1.646H21.324v4.938Z" transform="translate(-14.74 -14.742)" fill="#fff"/>
                     </svg>
-                </button>
+                </router-link>
             </div>
         </div>
         <strong v-if="is_super">Top Locations</strong>
@@ -79,7 +79,7 @@ a.booked {
     border-left: 1px solid #eee;
     padding-left: 16px;
 }
-button.add {
+a.add {
     height: 35px;
     width: 35px;
 }
