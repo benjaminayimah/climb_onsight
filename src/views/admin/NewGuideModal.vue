@@ -199,7 +199,6 @@ export default {
                 this.$store.commit('acceptGuide', this.guide.id)
                 this.acceptTrigger.active = false
                 this.$store.commit('closeModal')
-                // console.log(res.data)
             } catch (e) {
                 this.stopSpinner()
             }

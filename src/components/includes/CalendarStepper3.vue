@@ -116,7 +116,7 @@ export default {
             form: {
                 price: '',
                 attendance_limit: 10,
-                gears: '',
+                gears: [],
                 faqs: [],
                 itinerary: '',
                 event_description: '',
@@ -202,7 +202,6 @@ export default {
                 if(this.newEvent.gears) {
                     if(this.editMode) {
                         this.form.gears = JSON.parse(this.newEvent.gears).join(',')
-
                     }else {
                         this.form.gears = this.newEvent.gears.join(',')
                     }

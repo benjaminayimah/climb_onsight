@@ -33,10 +33,10 @@
                         <label for="time">Itinerary</label>
                         <div id="time">{{ event.itinerary }}</div>
                     </div>
-                    <div v-if="event.gears">
+                    <div v-if="computedGears.length">
                         <label for="time">Gears</label>
                         <div id="time">
-                            <li v-for="(gear, index) in JSON.parse(event.gears)" :key="index">{{ gear }}</li>
+                            <li v-for="(gear, index) in computedGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
                     <div v-if="computedFaqs.length">
@@ -94,7 +94,14 @@ export default {
             }
             else
             return []
-        }
+        },
+        computedGears() {
+            if(this.event.gears && Array.isArray(JSON.parse(this.event.gears))) {
+                return JSON.parse(this.event.gears)
+            }
+            else
+            return []
+        },
     }
 }
 </script>

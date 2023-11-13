@@ -119,6 +119,9 @@ export default {
                 let gearsArray = gearsString.split(',')
                 stored.gears = gearsArray
                 state.newEvent.gears = gearsArray
+            }else {
+                stored.gears = []
+                state.newEvent.gears = []
             }
             stored.faqs = payload.faqs
             stored.price = payload.price

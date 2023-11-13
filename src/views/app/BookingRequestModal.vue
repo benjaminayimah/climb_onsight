@@ -17,7 +17,7 @@
                 <spinner v-if="submiting" :size="18" />
                 <span>{{ submiting ? 'Please wait...' : 'Accept' }}</span>
             </button>
-            <button class="button-outline w-50 btn-md bg-transparent" :class="{ 'button-disabled' : declining }" :disabled="declining ? true : false">
+            <button @click="declineBooking" class="button-outline w-50 btn-md gap-8 bg-transparent" :class="{ 'button-disabled' : declining }" :disabled="declining ? true : false">
                 <spinner v-if="declining" :size="18" />
                 <span>{{ declining ? 'Please wait...' : 'Decline' }}</span>
             </button>
@@ -64,6 +64,18 @@ export default {
                 this.stopSpinner()
             }
         },
+        async declineBooking() {
+            this.declining = true
+            try {
+                const res = await axios.post(this.hostname+'/api/decline-booking/'+ this.climber.id + '?token='+ this.token)
+                this.showAlert('success', res.data.message)
+                this.$store.commit('updateNotifications', this.climber.id)
+                this.$store.commit('closeModal')
+            } catch (e) {
+                this.errorResponse(e)
+                this.declining = false
+            }
+        }
         
     },
     mounted() {
