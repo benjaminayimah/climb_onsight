@@ -305,6 +305,11 @@ export default createStore({
       const i = state.admins.findIndex(x => x.id == payload)
       state.admins.splice(i, 1);
     },
+    async deleteEvent(state, payload) {
+      router.push({ name: 'UpcomingEvents'})
+      const i = state.events.findIndex(x => x.id == payload)
+      state.events.splice(i, 1);
+    },
     //update event
 
     updateTempStorage1(state, payload) {
@@ -351,7 +356,10 @@ export default createStore({
       const type = state.deleteModal.type
       if(type === 'admin'){
         this.dispatch('deleteAdmin', id)
-      }else{
+      }else if(type === 'event') {
+        this.dispatch('deleteEvent', id)
+      }
+      else{
         this.commit('closeDeleteModal')
       }
     },
@@ -398,13 +406,13 @@ export default createStore({
     async deleteAdmin(state, payload) {
       try {
         const res = await axios.delete(this.getters.getHostname+'/api/delete-user/'+payload+'?token='+this.getters.getToken);
-        state.commit('deleteAdmin', res.data.id)
         state.commit('closeDeleteModal')
         const alertPayload = {
             status: 'success',
             body: res.data.message
         };
         state.commit('showAlert', alertPayload)
+        state.commit('deleteAdmin', res.data.id)
       
       } catch (e) {
         const payload = {
@@ -415,7 +423,26 @@ export default createStore({
         state.commit('closeDeleteModal')
 
       }
-    }
+    },
+    async deleteEvent(state, payload) {
+      try {
+        const res = await axios.delete(this.getters.getHostname+'/api/event/'+payload+'?token='+this.getters.getToken);
+        state.commit('closeDeleteModal')
+        const alertPayload = {
+            status: 'success',
+            body: res.data.message
+        };
+        state.commit('showAlert', alertPayload)
+        state.commit('deleteEvent', res.data.id)
+      } catch (e) {
+        const payload = {
+            status: 'danger',
+            body: e.response.data.message
+        };
+        state.commit('showAlert', payload)
+        state.commit('closeDeleteModal')
+      }
+    },
   },
   getters: {
     auth(state) {

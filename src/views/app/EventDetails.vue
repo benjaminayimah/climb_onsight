@@ -7,7 +7,10 @@
                     <booking-status :status="bookingStatus" />
                 </div>
             </div>
-            <button @click="$store.commit('preloadEventEdit', event)" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
+            <div class="flx gap-8">
+                <button @click="$store.commit('preloadEventEdit', event)" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
+                <button @click="$store.commit('setDeleteModal', {id: event.id, type: 'event'})"  class="button-danger btn-sm btn-rounded" v-if="is_guide">Delete trip</button>
+            </div>
         </div>
         <div class="gap-24 flx col-row">
             <div class="flx gap-16 column w-50 flx-grow-1">
@@ -52,10 +55,10 @@
                         <label for="time">Itinerary</label>
                         <div id="time">{{ event.itinerary }}</div>
                     </div>
-                    <div v-if="event.gears">
+                    <div v-if="computedGears.length">
                         <label for="time">Gears</label>
                         <div id="time">
-                            <li v-for="(gear, index) in JSON.parse(event.gears)" :key="index">{{ gear }}</li>
+                            <li v-for="(gear, index) in computedGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
                     <div v-if="computedFaqs.length">
@@ -132,6 +135,13 @@ export default {
             else
             return []
         },
+        computedGears() {
+            if(this.event.gears && Array.isArray(JSON.parse(this.event.gears))) {
+                return JSON.parse(this.event.gears)
+            }
+            else
+            return []
+        },
         bookingStatus() {
             return this.bookings.find(event => event.event_id === this.event.id)
         }
@@ -151,10 +161,13 @@ export default {
             this.$store.commit('triggerBooking', this.bookingStatus)
         },
         getThisGuide(guide) {
-            this.$store.dispatch('getThisGuide', guide)
-            .then((res) => {
-                this.guide = res.data
-            })
+            if(guide) {
+                this.$store.dispatch('getThisGuide', guide)
+                .then((res) => {
+                    this.guide = res.data
+                })
+            }
+            
         }
     },
     mounted() {

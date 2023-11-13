@@ -1,6 +1,6 @@
 <template>
   <section class="flx gap-24 column main event-section">
-        <div class="flx section-main-wrapper">
+        <div v-if="events.length" class="flx section-main-wrapper">
             <div class="section-main-left">
                 <div class="flx tap-height pd-r-24 ai-c">
                     <h1 class="title">All upcoming events</h1>
@@ -26,6 +26,13 @@
                     </div>
                 </div>
             </transition>
+        </div>
+        <div v-else class="empty-state flx column jc-c ai-c gap-16">
+            <div class="text-center">
+                <h1 class="title">No Upcoming Event</h1>
+                <div class="mb-16">You have no event coming up</div>
+                <router-link :to="{name: 'Calendar'}" class="button-primary btn-md  btn-rounded block">Add go to calendar</router-link>
+            </div>
         </div>
     </section>
 </template>
@@ -82,7 +89,9 @@ section {
     padding-bottom: 100px;
     height: calc(100dvh - 158px);
 }
-
+.empty-state, .not-found{
+    height: 80vh;
+}
 .evt-card {
     flex-basis: calc(50% - 16px);
     height: 260px;

@@ -116,7 +116,7 @@ export default {
             form: {
                 price: '',
                 attendance_limit: 10,
-                gears: [],
+                gears: '',
                 faqs: [],
                 itinerary: '',
                 event_description: '',

@@ -114,16 +114,18 @@ export default {
         saveEventForm3(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))
             stored.attendance_limit = payload.attendance_limit
-            let gearsString = payload.gears
-            let gearsArray = gearsString.split(',')
-            stored.gears = gearsArray
+            if(payload.gears) {
+                let gearsString = payload.gears
+                let gearsArray = gearsString.split(',')
+                stored.gears = gearsArray
+                state.newEvent.gears = gearsArray
+            }
             stored.faqs = payload.faqs
             stored.price = payload.price
             stored.itinerary = payload.itinerary
             stored.event_description = payload.event_description
             localStorage.setItem('newEvent', JSON.stringify(stored))
             state.newEvent.attendance_limit = payload.attendance_limit
-            state.newEvent.gears = gearsArray
             state.newEvent.faqs = payload.faqs
             state.newEvent.price = payload.price
             state.newEvent.itinerary = payload.itinerary
