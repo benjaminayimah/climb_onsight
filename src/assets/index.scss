@@ -271,20 +271,20 @@ button:not(.button-disabled, .absolute) {
 }
 .booking-status {
     color: #fff;
-    padding: 0 10px;
+    padding: 2px 8px;
     font-weight: normal;
 }
 .awaiting-payment {
-    background-color: #21ca3f;
+    background-color: rgba(33, 202, 63, 1);
 }
 .booking-pending {
-    background-color: #ffaf0c;
+    background-color: rgba(255, 175, 12, 1);
 }
 .booking-canceled {
-    background-color: var(--danger);
+    background-color: rgba(241, 60, 60, 1);
 }
 .booked-event {
-    background-color: #000
+    background-color: rgba(0, 0, 0, 1)
 }
 //flex-box
 
@@ -1154,6 +1154,7 @@ ul.tab {
 .tablet, .mobile {
     section.main {
         height: unset;
+        // min-height: 100dvh;
         padding: 20px;
         .grid-col-2{
             grid-template-columns: 1fr;

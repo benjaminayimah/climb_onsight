@@ -39,17 +39,11 @@
                 <div v-if="submiting" class="centered empty">
                     <spinner v-if="submiting" :size="24" />
                 </div>
-                <div v-else-if="computedResults.events.length || computedResults.guides.length">
+                <div v-else-if="computedResults.events.length">
                     <div v-if="computedResults.events.length">
                         <div class="title">Events</div>
                         <div class="flx-wrap flx gap-24">
                             <event-list v-for="event in computedResults.events" :key="event.id" :event="event" :redirect="false" @open-modal="openModal" />
-                        </div>
-                    </div>
-                    <div v-if="computedResults.guides.length">
-                        <div  class="title">Guides</div>
-                        <div class="flx-wrap flx gap-24">
-                            <user-list v-for="user in computedResults.guides" :key="user.id" :user="user" :redirect="false" @open-modal="openModal"  />
                         </div>
                     </div>
                 </div>
@@ -98,16 +92,14 @@ import EventList from '@/components/includes/EventList.vue'
 import { mapState, mapGetters } from 'vuex'
 import CategoryList from '@/components/includes/CategoryList.vue'
 import Spinner from '@/components/includes/Spinner.vue'
-import UserList from '@/components/includes/UserList.vue'
 export default {
-    components: { EventList, CategoryList, Spinner, UserList },
+    components: { EventList, CategoryList, Spinner },
     name: 'ExploreEvents',
     mixins: [inputValidation],
     computed: {
         ...mapGetters(['getDevice']),
         ...mapState({
             events: (state) => state.searchResults,
-            guides: (state) => state.searchResultsGuides,
             categories: (state) => state.data.categories,
             hostname: (state) => state.hostname,
             token: (state) => state.token,
@@ -115,10 +107,9 @@ export default {
         }),
         computedResults() {
             const query = this.$route.query
-            let result = { events: this.events ? this.events : [], guides: this.guides ? this.guides : []}
+            let result = { events: this.events ? this.events : []}
             if(query.query || (query.lat && query.lng)) {
                 result.events = this.searchResultEvents
-                result.guides = this.searchResultGuides 
             }
             return result
         },
@@ -133,7 +124,6 @@ export default {
                 date: '',
             },
             searchResultEvents: [],
-            searchResultGuides: [],
             radius: 10,
             locationSearch: false,
             completed: false,
@@ -215,7 +205,6 @@ export default {
             this.stopSpinner()
             this.completed = true
             this.searchResultEvents = res.events
-            this.searchResultGuides = res.guides
         },
         errMsg() {
             return 'Please input a search parameter'
@@ -236,7 +225,6 @@ export default {
             this.showFilter = !this.showFilter
         },
         applyFilter() {
-            console.log(this.form)
             this.toggleFilter()
         }
     },
