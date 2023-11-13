@@ -71,17 +71,18 @@
 </template>
 
 <script>
+import userRolesMixin from '@/mixins/userRolesMixin'
 import formatDateTime from '@/mixins/formatDateTime'
 import { mapState, mapGetters } from 'vuex'
 import UserList from '../includes/UserList.vue'
 export default {
-  components: { UserList },
+    components: { UserList },
     name: 'EventBody',
     props: {
         event: Object,
         guide: Object
     },
-    mixins: [ formatDateTime],
+    mixins: [ formatDateTime, userRolesMixin],
     computed: {
         ...mapGetters(['getDevice']),
         ...mapState({

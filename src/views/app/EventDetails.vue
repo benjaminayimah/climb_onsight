@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="flx gap-8">
-                <button @click="$store.commit('preloadEventEdit', event)" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit Trip Details</button>
+                <button @click="$store.commit('preloadEventEdit', event)" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit trip details</button>
                 <button @click="$store.commit('setDeleteModal', {id: event.id, type: 'event'})"  class="button-danger btn-sm btn-rounded" v-if="is_guide">Delete trip</button>
             </div>
         </div>
