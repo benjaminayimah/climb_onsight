@@ -54,10 +54,10 @@
                         <div>{{ guide.phone_number }}</div>
                     </div>
                     <div class="flx gap-24 flx-1 flx-wrap">
-                        <div v-if="guide.guide_insurance">
+                        <div v-if="computedInsurance.length">
                             <label class="gray fs-09">Guide Insurance</label>
                             <div>
-                                <a class="a-link flx gap-4 ai-c" v-for="insurance in JSON.parse(guide.guide_insurance)" :key="insurance.id" :href="s3bucket+'/'+insurance.url" target="_blank" onclick="return !window.open(this.href, 'Guide Insurance', 'width=700,height=800');">
+                                <a class="a-link flx gap-4 ai-c" v-for="insurance in JSON.parse(guide.computedInsurance)" :key="insurance.id" :href="s3bucket+'/'+insurance.url" target="_blank" onclick="return !window.open(this.href, 'Guide Insurance', 'width=700,height=800');">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 15.5 19.5">
                                         <path d="M19.53,9.44l-7-7A.79.79,0,0,0,12,2.25H9A4.75,4.75,0,0,0,4.25,7V17A4.75,4.75,0,0,0,9,21.75h6A4.75,4.75,0,0,0,19.75,17V10A.79.79,0,0,0,19.53,9.44ZM12.75,4.79l4.46,4.46H14A1.25,1.25,0,0,1,12.75,8ZM5.75,17A3.26,3.26,0,0,0,9,20.25h6A3.26,3.26,0,0,0,18.25,17V10.75H14A2.75,2.75,0,0,1,11.25,8V3.75H9A3.26,3.26,0,0,0,5.75,7Z" transform="translate(-4.25 -2.25)" fill-rule="evenodd"/>
                                     </svg>
@@ -68,10 +68,10 @@
                                 </a>
                             </div>
                         </div>
-                        <div v-if="guide.guide_certificate">
+                        <div v-if="computedCertificate.length">
                             <label class="gray fs-09">Guide Certificates</label>
                             <div>
-                                <a class="a-link flx gap-4 ai-c" v-for="certificate in JSON.parse(guide.guide_certificate)" :key="certificate.id" :href="s3bucket+'/'+certificate.url" target="_blank" onclick="return !window.open(this.href, 'Guide Certificates', 'width=700,height=800');">
+                                <a class="a-link flx gap-4 ai-c" v-for="certificate in computedCertificate" :key="certificate.id" :href="s3bucket+'/'+certificate.url" target="_blank" onclick="return !window.open(this.href, 'Guide Certificates', 'width=700,height=800');">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 15.5 19.5">
                                         <path d="M19.53,9.44l-7-7A.79.79,0,0,0,12,2.25H9A4.75,4.75,0,0,0,4.25,7V17A4.75,4.75,0,0,0,9,21.75h6A4.75,4.75,0,0,0,19.75,17V10A.79.79,0,0,0,19.53,9.44ZM12.75,4.79l4.46,4.46H14A1.25,1.25,0,0,1,12.75,8ZM5.75,17A3.26,3.26,0,0,0,9,20.25h6A3.26,3.26,0,0,0,18.25,17V10.75H14A2.75,2.75,0,0,1,11.25,8V3.75H9A3.26,3.26,0,0,0,5.75,7Z" transform="translate(-4.25 -2.25)" fill-rule="evenodd"/>
                                     </svg>
@@ -176,7 +176,21 @@ export default {
             s3bucket: (state) => state.s3bucket,
             hostname: (state) => state.hostname,
             token: (state) => state.token
-        })
+        }),
+        computedCertificate() {
+            if(this.guide.guide_certificate && Array.isArray(JSON.parse(this.guide.guide_certificate))) {
+                return JSON.parse(this.this.guide.guide_certificate)
+            }
+            else
+            return []
+        },
+        computedInsurance() {
+            if(this.guide.guide_insurance && Array.isArray(JSON.parse(this.guide.guide_insurance))) {
+                return JSON.parse(this.guide.guide_insurance)
+            }
+            else
+            return []
+        },
     },
     data() {
         return {
