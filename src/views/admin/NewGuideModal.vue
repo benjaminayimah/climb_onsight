@@ -179,7 +179,7 @@ export default {
         }),
         computedCertificate() {
             if(this.guide.guide_certificate && Array.isArray(JSON.parse(this.guide.guide_certificate))) {
-                return JSON.parse(this.this.guide.guide_certificate)
+                return JSON.parse(this.guide.guide_certificate)
             }
             else
             return []
