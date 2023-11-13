@@ -27,24 +27,24 @@
                         Events near me
                     </button>
                 </div>
+                <!-- {{ computedFilters }} -->
+
                 <div class="ft-danger" v-if="systemErr.error">{{ systemErr.message }}</div>
-                <div v-if="completed">
-                    <div v-if="!locationSearch">
-                        <div>Search results for: <strong>{{ $route.query.query }}</strong></div>
+                <div v-if="completed && !submiting">
+                    <div v-if="locationSearch ">
+                        <div>Events near your current location: <strong>{{ $route.query.addr }}</strong></div>
                     </div>
                     <div v-else>
-                        <div>Events near your current location: <strong>{{ $route.query.addr }}</strong></div>
+                        <div>Search results for: <strong>{{ $route.query.query }}</strong></div>
                     </div>
                 </div>
                 <div v-if="submiting" class="centered empty">
                     <spinner v-if="submiting" :size="24" />
                 </div>
-                <div v-else-if="computedResults.events.length">
-                    <div v-if="computedResults.events.length">
-                        <div class="title">Events</div>
-                        <div class="flx-wrap flx gap-24">
-                            <event-list v-for="event in computedResults.events" :key="event.id" :event="event" :redirect="false" @open-modal="openModal" />
-                        </div>
+                <div v-else-if="computedResults.length">
+                    <div class="title">Events</div>
+                    <div class="flx-wrap flx gap-24">
+                        <event-list v-for="event in computedResults" :key="event.id" :event="event" :redirect="false" @open-modal="openModal" />
                     </div>
                 </div>
                 <div v-else class="centered empty">
@@ -107,12 +107,25 @@ export default {
         }),
         computedResults() {
             const query = this.$route.query
-            let result = { events: this.events ? this.events : []}
+            let result = this.events || []
             if(query.query || (query.lat && query.lng)) {
-                result.events = this.searchResultEvents
+                result = this.searchResultEvents
             }
             return result
         },
+        computedFilters() {
+            const query = this.$route.query
+            let result = this.computedResults
+            if(result.length) {
+                if(query === 'filter_category') {
+                    result = 'filter_category'
+                }
+                if(query === 'filter_date') {
+                    result = 'filter_date'
+                }
+            }
+            return result
+        }
     },
     data() {
         return {
@@ -225,6 +238,13 @@ export default {
             this.showFilter = !this.showFilter
         },
         applyFilter() {
+            let newQuery = {}
+            if(this.filter.category) {
+                newQuery = { filter_category: this.filter.category }
+            }if(this.filter.date) {
+                newQuery = { filter_date: this.filter.date }
+            }
+            this.$router.push({ query: newQuery });
             this.toggleFilter()
         }
     },

@@ -1,7 +1,7 @@
 <template>
     <section class="main">
         <div class="main-wrapper">
-            <div class="flx jc-sb ai-c">
+            <div v-if="admins.length" class="flx jc-sb ai-c">
                 <h1>Sub Admins</h1>
                 <button @click="$store.commit('openModal', 'add_admin')" class="button-primary btn-sm-lng btn-rounded gap-8">
                     <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 11.521 11.521">
