@@ -97,7 +97,8 @@ export default {
             this.startSpinner()
             try {
                 const res = await axios.post(this.hostname+'/api/setup-stripe?token='+ this.token)
-                location.href = res.data
+                this.$store.commit('setAuthUser', res.data.user)
+                location.href = res.data.url
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()

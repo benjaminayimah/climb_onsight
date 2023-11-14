@@ -12,8 +12,8 @@ export default createStore({
     newUser: JSON.parse(localStorage.getItem('newUser')) || null,
     alert: { status: { show: false, success: false, danger: false, warning: false, info: false }, body: '' },
     deleteModal: { active: false, deleting: false, id: '', type: '' },
-    // hostname: 'http://127.0.0.1:8000',
-    hostname: 'https://api.climbonsight.ca',
+    hostname: 'http://127.0.0.1:8000',
+    // hostname: 'https://api.climbonsight.ca',
     s3bucket: 'https://s3.amazonaws.com/climbonsight.storage',
     windowWidth: '',
     current_location: '',
@@ -81,7 +81,6 @@ export default createStore({
       state.bookings = payload.bookings
       state.admins = payload.admins
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
-
     },
     setNewUser(state, payload) {
       const data = { token: payload, form: {}}
