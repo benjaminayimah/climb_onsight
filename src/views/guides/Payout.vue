@@ -15,7 +15,7 @@
     <div v-else-if="user.stripe_account_id && !user.details_submitted" class="empty-state flx column jc-c ai-c gap-16">
         <div class="centered text-center">
             <h3>Finish payout setup</h3>
-            <div class="mb-24">Your payout account is incomplete. Please click on the button to continue</div>
+            <div class="mb-24">Your payout account is incomplete. Please click on the button to finish setup.</div>
             <button @click="finishSetupStripe" class="button-primary btn-md-lng gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="18" />
                 <span>{{ submiting ? 'Please wait...' : 'Finish setup'}}</span>
