@@ -2,7 +2,7 @@
     <h4 v-if="!editForm" class="text-center mb-24">Add to your calendar</h4>
     <calendar-stepper-2 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-if="$route.query.stepper === '2'" />
     <calendar-stepper-3 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else-if="$route.query.stepper === '3'" @go-to-event="$emit('go-to-event')" />
-    <calendar-stepper-1 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else />
+    <calendar-stepper-1 :user="user" :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else />
 </template>
 
 <script>
@@ -22,6 +22,7 @@ export default {
             newEvent: (state) => state.data.newEvent,
             editForm: (state) => state.forms.event_edit,
             event: (state) => state.forms.tempStorage,
+            user: (state) => state.user
         }),
         computedEvent() {
             if(this.editForm)

@@ -10,7 +10,7 @@
                     </p>
                     <p>
                         <label for="cos_check" class="flx gap-8 ai-fs" data-type="input-wapper">
-                            <input v-model="cos_check_box" type="checkbox" class="mt-6" id="cos_check">
+                            <input v-model="cos_check_box" type="checkbox" class="mt-6 flx-shrink-0" id="cos_check">
                             <span>
                                 I have read and agreed to Climb Onsight's <a href="https://climbonsight.ca/terms-and-conditions" class="ft-secondary a-link" target="_blank" onclick="return !window.open(this.href, 'Climb Onsight Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
                             </span>
@@ -18,7 +18,7 @@
                     </p>
                     <p>
                         <label for="guide_check" class="flx ai-fs gap-8" data-type="input-wapper">
-                            <input v-model="guide_check_box" type="checkbox" class="mt-6" id="guide_check">
+                            <input v-model="guide_check_box" type="checkbox" class="mt-6 flx-shrink-0" id="guide_check">
                             <span>
                                 I have read and agreed to the Guides's <a :href="s3bucket +'/'+ computedGuide" class="ft-secondary a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
                             </span>
@@ -123,6 +123,9 @@ export default {
             try {
                 const res = await axios.post(this.hostname+'/api/attempt-payment/'+ this.booking.data.receipt_no + '?token='+ this.token, this.booking.data)
                 location.href = res.data
+                // console.log(res.data)
+                // this.stopSpinner()
+
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()

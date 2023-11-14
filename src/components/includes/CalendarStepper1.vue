@@ -55,7 +55,12 @@
             </div>
         </div>
         <div>
-            <button @click="nextPage" class="button-primary btn-md w-100">Next</button>
+            <button @click="nextPage" class="button-primary btn-md w-100" :class="{ 'button-disabled' : !user.details_submitted && !user.payouts_enabled }" :disabled="!user.details_submitted && !user.payouts_enabled ? true : false">
+                Next
+            </button>
+            <div class="mt-8 fs-09 text-center" v-if="!user.details_submitted && !user.payouts_enabled">
+                In order to get started with listing events, accepting payment and receiving payouts, you will need to setup your payout account. <router-link class="a-link ft-secondary" :to="{ name: 'Payout'}">Setup account now.</router-link>
+            </div>
         </div>
     </form>
 </template>
@@ -68,7 +73,8 @@ export default {
     props: {
         newEvent: Object,
         input2: Boolean,
-        editMode: Boolean
+        editMode: Boolean,
+        user: Object
     },
     data() {
         return {
