@@ -161,6 +161,7 @@
 </template>
 
 <script>
+import alertMixin from '@/mixins/alertMixin'
 import inputValidation from '@/mixins/inputValidation'
 import axios from 'axios'
 import Backdrop from '@/components/includes/Backdrop.vue'
@@ -169,7 +170,7 @@ import Spinner from '@/components/includes/Spinner.vue'
 export default {
     components: { Backdrop, Spinner },
     name: 'NewGuideModal',
-    mixins: [inputValidation],
+    mixins: [inputValidation, alertMixin],
     computed: {
         ...mapState({
             guide: (state) => state.forms.tempStorage,
@@ -208,13 +209,16 @@ export default {
         async acceptGuide() {
             this.startSpinner()
             try {
-                await axios.put(this.hostname+'/api/accept-guide/'+this.guide.id+'?token='+this.token )
+                const res = await axios.put(this.hostname+'/api/accept-guide/'+this.guide.id+'?token='+this.token )
                 this.stopSpinner()
                 this.$store.commit('acceptGuide', this.guide.id)
                 this.acceptTrigger.active = false
                 this.$store.commit('closeModal')
+                this.showAlert('success', res.data.message)
             } catch (e) {
                 this.stopSpinner()
+                this.showAlert('danger', e.response.data.message)
+
             }
         },
         async declineGuide() {

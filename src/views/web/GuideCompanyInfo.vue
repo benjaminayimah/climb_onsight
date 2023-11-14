@@ -30,6 +30,18 @@
                         {{ validation.errors.phone_number[0] }}
                     </span>
                 </div>
+                <div class="form-row column">
+                    <label for="country">Country</label>
+                    <div class="input-wrapper">
+                        <select v-model="form.country" name="country" id="country" class="form-control" :class="{ 'error-border': validation.errors.country }">
+                            <option selected value="">Select country</option>
+                            <option v-for="(country, index) in countries" :key="index" :value="country.code">{{ country.country }}</option>
+                        </select>
+                    </div>
+                    <span class="input-error" v-if="validation.error && validation.errors.country">
+                        {{ validation.errors.country[0] }}
+                    </span>
+                </div>
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
                 </button>
@@ -47,7 +59,8 @@ export default {
     mixins: [inputValidationMixin, phoneNumberMixin],
     computed: {
         ...mapState({
-            newGUide: (state) => state.data.newGuide
+            newGUide: (state) => state.data.newGuide,
+            countries: (state) => state.country.countries
         })
     },
     data() {
@@ -55,14 +68,15 @@ export default {
             form: {
                 name: '',
                 email: '',
-                phone_number: ''
+                phone_number: '',
+                country: ''
             }
         }
     },
     methods: {
         async updateNewGuide() {
             let errors = { name: '', email: '', phone_number: ''}
-            if(this.form.name == '' || this.form.email == '' || this.form.phone_number == '') {
+            if(this.form.name == '' || this.form.email == '' || this.form.phone_number == '' || this.form.country == '') {
                 if(this.form.name == '') {
                     errors.name = ['The name field is required']
                 }
@@ -71,6 +85,8 @@ export default {
                 }
                 if(this.form.phone_number == '') {
                     errors.phone_number = ['The phone number field is required']
+                }if(this.form.country == '') {
+                    errors.country = ['The country field is required']
                 }
                 this.showErr(errors)
             }else {
@@ -82,6 +98,8 @@ export default {
             this.newGUide && this.newGUide.name ? this.form.name = this.newGUide.name : ''
             this.newGUide && this.newGUide.email ? this.form.email = this.newGUide.email : ''
             this.newGUide && this.newGUide.phone_number ? this.form.phone_number = this.newGUide.phone_number : ''
+            this.newGUide && this.newGUide.country ? this.form.country = this.newGUide.country : ''
+
         }
     },
     mounted() {

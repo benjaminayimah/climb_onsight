@@ -93,7 +93,7 @@ export default {
     name: 'SignUp',
     computed: {
         ...mapState({
-            hostname: (state) => state.hostname
+            hostname: (state) => state.hostname,
         })
     },
     mixins: [inputValidationMixin, phoneNumberMixin, passwordToggleMixin],

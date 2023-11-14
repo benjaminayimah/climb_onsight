@@ -22,10 +22,13 @@ export default {
                 stored.name = payload.name
                 stored.email = payload.email
                 stored.phone_number = payload.phone_number
+                stored.country = payload.country
                 localStorage.setItem('newGuide', JSON.stringify(stored))
                 state.newGuide.name = payload.name
                 state.newGuide.email = payload.email
                 state.newGuide.phone_number = payload.phone_number
+                state.newGuide.country = payload.country
+
             }else {
                 localStorage.setItem('newGuide', JSON.stringify(payload))
                 state.newGuide = payload

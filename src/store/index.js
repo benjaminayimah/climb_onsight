@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
 import data from './modules/data'
+import country from './modules/country'
 import dropdown from './modules/dropdown'
 import router from '@/router'
 
@@ -487,6 +488,7 @@ export default createStore({
   },
   modules: {
     data,
-    dropdown
+    dropdown,
+    country
   }
 })
