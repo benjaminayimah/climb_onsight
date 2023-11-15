@@ -178,7 +178,7 @@ export default {
         }
     },
     mounted() {
-        this.user.details_submitted && this.user.payouts_enabled ? this.fetchAccount() : ''
+        // this.user.details_submitted && this.user.payouts_enabled ? this.fetchAccount() : ''
     }
 }
 </script>
