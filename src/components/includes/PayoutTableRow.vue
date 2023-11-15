@@ -1,24 +1,38 @@
 <template>
-    <router-link :to="{ name: 'Payout' }" class="grid-item grid-col-payout">
+    <div class="grid-item grid-col-payout">
         <div class="table-cell gap-8">
-            <profile-avatar :avatar="user.image"/>
-            <span class="wrap-text wrap-line-1">{{ user.name }}</span>
+            <span class="wrap-text wrap-line-1">{{ formatAmount(payout.amount, payout.currency ) }}</span>
         </div>
-        <div class="table-cell"><strong>$243</strong></div>
-        <div class="table-cell"><span class="wrap-text wrap-line-1">Climb one climb all</span></div>
+        <div class="table-cell"><strong>{{ formatAmount(computedNet, payout.currency) }}</strong></div>
+        <div class="table-cell"><span class="wrap-text wrap-line-1">{{ payout.description || 'n/a' }}</span></div>
         <div class="table-cell">
-            <span class="wrap-text wrap-line-1">June, 19</span>
+            <span class="wrap-text wrap-line-1">{{ format_date_short3(payout.created) }}</span>
         </div>
-    </router-link>
+    </div>
 </template>
 
 <script>
-import ProfileAvatar from './ProfileAvatar.vue'
+import stripeAmountFormatter from '@/mixins/stripeAmountFormatter';
+import formatDateTime from '@/mixins/formatDateTime';
 export default {
-    components: { ProfileAvatar },
     name: 'PayoutTableRow',
+    mixins: [formatDateTime, stripeAmountFormatter],
     props: {
-        user: Object
+        payout: Object
+    },
+    computed: {
+        computedGross() {
+            const amountFromStripe = this.payout.amount;
+            const formattedAmount = (amountFromStripe / 100).toFixed(2);
+            const formattedCurrency = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: this.payout.currency
+            }).format(formattedAmount);
+            return formattedCurrency
+        },
+        computedNet() {
+            return this.payout.amount - this.payout.amount * 0.1;
+        },
     }
 }
 </script>

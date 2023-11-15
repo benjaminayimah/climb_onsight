@@ -1,15 +1,22 @@
 <template>
     <div class="stat br-16 flx column gap-4">
-        <strong>Featured deals</strong>
-        <span class="gray">Today</span>
-        <h1 class="mt-8">$29,243.23</h1>
+        <strong>{{ title }}</strong>
+        <span class="gray">{{ period }}</span>
+        <h1 class="mt-8">{{ amount && currency ? formatAmount(value, currency) : value }}</h1>
     </div>
 </template>
 <script>
+import stripeAmountFormatter from '@/mixins/stripeAmountFormatter'
 export default {
     name: 'PayoutStatList',
+    mixins: [stripeAmountFormatter],
     props: {
-        color: String
+        color: String,
+        value: Number,
+        title: String,
+        period: String,
+        currency: String,
+        amount: Boolean
     }
 }
 </script>

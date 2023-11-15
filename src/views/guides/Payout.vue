@@ -28,56 +28,56 @@
             </div>
         </div>
     </div>
-    <!-- <div v-else-if="user.stripe_account_id && !user.details_submitted" class="empty-state flx column jc-c ai-c gap-16">
-        <div class="centered text-center">
-            <h3>Finish payout setup</h3>
-            <div class="mb-24">Your payout account is incomplete. Please click on the button to finish setup.</div>
-            <button @click="finishSetupStripe" class="button-primary btn-md-lng gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="18" />
-                <span>{{ submiting ? 'Please wait...' : 'Finish setup'}}</span>
-            </button>
+    <section v-else class="main">
+        <div class="pd-32 mb-24 br-16 bg-white">
+            <h3 class="flx gap-8 ai-c">
+                <svg xmlns="http://www.w3.org/2000/svg" height="25" viewBox="0 0 28 28">
+                    <path d="M-1985.9,23.9A13.908,13.908,0,0,1-1990,14a13.91,13.91,0,0,1,4.1-9.9A13.907,13.907,0,0,1-1976,0a13.908,13.908,0,0,1,9.9,4.1A13.91,13.91,0,0,1-1962,14a13.908,13.908,0,0,1-4.1,9.9A13.908,13.908,0,0,1-1976,28,13.907,13.907,0,0,1-1985.9,23.9Zm1.414-18.385A11.924,11.924,0,0,0-1988,14a11.924,11.924,0,0,0,3.515,8.485A11.924,11.924,0,0,0-1976,26a11.924,11.924,0,0,0,8.486-3.514A11.924,11.924,0,0,0-1964,14a11.924,11.924,0,0,0-3.515-8.486A11.924,11.924,0,0,0-1976,2,11.924,11.924,0,0,0-1984.486,5.514Zm6.162,13.856-4.539-4.487a.928.928,0,0,1-.017-1.311.928.928,0,0,1,1.311-.016l3.823,3.79L-1970.5,8.7a.928.928,0,0,1,1.307-.114.927.927,0,0,1,.115,1.306l-7.891,9.414a.93.93,0,0,1-.664.331h-.046A.93.93,0,0,1-1978.323,19.371Z" transform="translate(1990)" fill="#07b923"/>
+                </svg>
+                Payout active
+            </h3>
+            <span>
+                Payout is enabled on this account.
+            </span>
+            <a @click.prevent="goToStripe" href="#" class="a-link ft-secondary">
+                View more details on stripe
+                <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 14.5 14.5">
+                    <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)" fill="#C69776"/>
+                </svg>
+            </a>
         </div>
-    </div> -->
-    <!-- <div v-else-if="user.details_submitted" class="empty-state flx column jc-c ai-c gap-16">
-        <div class="centered text-center">
-            <h3>Account under review</h3>
-            <div class="mb-24">Your payout details have been submitted successfully and currently under review. We will update you shortly.</div>
-        </div>
-    </div> -->
-    <section v-else class="flx gap-40 main">
-        <div class="payout-left flx column gap-40">
+        <div class="payout-left flx column gap-24">
             <div class="grid gap-24 grid-col-4 stats-wrapper">
-                <payout-stats-list :color="'#E8E2FF'" />
-                <payout-stats-list :color="'#d5ffd5'" />
-                <payout-stats-list :color="'#e0f2fe'" />
-                <payout-stats-list :color="'#ffe4e6'" />
+                <payout-stats-list :amount="true" :value="computeGross || 0" :title="'Gross balance'" :period="'Last 7 days'" :currency="computedCurrency" :color="'#E8E2FF'" />
+                <payout-stats-list :amount="true" :value="computeNet || 0" :title="'Net balance'" :period="'Last 7 days'" :color="'#d5ffd5'" :currency="computedCurrency" />
+                <payout-stats-list :value="events || 0"  :title="'Total events'" :period="'All times'" :color="'#e0f2fe'" :currency="computedCurrency" />
+                <payout-stats-list :value="bookings || 0" :title="'Total bookings'" :period="'All times'" :color="'#ffe4e6'" :currency="computedCurrency" />
             </div>
-            <div class="flx column gap-16">
-                <h3>Payments</h3>
-                <div class="flx">
-                    <ul class="flx bg-white pd-8 br-32 tab">
-                        <li>
-                            <router-link :to="{ name: 'Payout' }" :class="{'active' : $route.query.status !== 'all'}">Recent</router-link>
-                        </li>
-                        <li>
-                            <router-link :to="{ name: 'Payout', query: { status: 'all'} }" :class="{'active' : $route.query.status === 'all'}">all</router-link>
-                        </li>
-                    </ul>
+            <div class="flx column gap-8">
+                <h3>Upcoming Payouts</h3>
+                <div class="short-description">
+                    These amounts are estimated because transactions are still accumulating. Payouts will arrive in your bank account every business day.
+                    <a class="a-link ft-secondary" @click.prevent="goToStripe" href="#">
+                        To change this settings go to Stripe main dashboard
+                        <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 14.5 14.5">
+                            <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)" fill="#C69776"/>
+                        </svg>
+                    </a>
                 </div>
                 <div class="grid-table">
                     <div class="grid table-body">
                         <div class="grid-item table-head grid-col-payout">
-                            <h4 class="table-cell wrap-text wrap-line-1">Name</h4>
-                            <h4 class="table-cell wrap-text wrap-line-1">Amount</h4>
-                            <h4 class="table-cell wrap-text wrap-line-1">Trip</h4>
+                            <h4 class="table-cell wrap-text wrap-line-1">Gross amount</h4>
+                            <h4 class="table-cell wrap-text wrap-line-1">Net amount</h4>
+                            <h4 class="table-cell wrap-text wrap-line-1">Description</h4>
                             <h4 class="table-cell wrap-text wrap-line-1">Date</h4>
                         </div>
-                        <payout-table-row v-for="user in users" :key="user.id" :user="user" />
+                        <payout-table-row v-for="payout in payouts.data" :key="payout.id" :payout="payout" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="payout-right overflow-y-scroll bg-white br-16 flx-1 pd-32 flx column gap-16">
+        <!-- <div class="payout-right overflow-y-scroll bg-white br-16 flx-1 pd-32 flx column gap-16">
             <div class="text-center">
                 <h3>Payout menu</h3>
             </div>
@@ -98,7 +98,7 @@
                 Add Bank Details
             </button>
             <button @click="$store.commit('openModal', 'withdraw_funds')" class="button-primary btn-lg w-100">Withdraw funds</button>
-        </div>
+        </div> -->
     </section>
     
     
@@ -106,25 +106,36 @@
 
 <script>
 import axios from 'axios'
+import { mapState } from 'vuex'
 import PayoutStatsList from '@/components/includes/PayoutStatsList.vue'
 import PayoutTableRow from '@/components/includes/PayoutTableRow.vue'
-import { mapState } from 'vuex'
-import SavedPaymentList from '@/components/includes/SavedPaymentList.vue'
+// import SavedPaymentList from '@/components/includes/SavedPaymentList.vue'
 import inputValidation from '@/mixins/inputValidation'
 import Spinner from '@/components/includes/Spinner.vue'
 export default {
     name: 'PayoutView',
-    components: { PayoutStatsList, PayoutTableRow, SavedPaymentList, Spinner },
+    components: { PayoutStatsList, PayoutTableRow, /*SavedPaymentList,*/ Spinner },
     mixins: [inputValidation],
     computed: {
         ...mapState({
-            users: (state) => state.climbers,
+            payouts: (state) => state.payouts,
+            balance: (state) => state.balance,
+            events: (state) => state.events.length,
+            bookings: (state) => state.bookings.length,
             user: (state) => state.user,
             payment_options: (state) => state.payment_options,
             token: (state) => state.token,
             hostname: (state) => state.hostname
-
-        })
+        }),
+        computeGross() {
+            return this.payouts.data && this.payouts.data.length ? this.payouts.data.reduce((acc, item) => acc + item.amount, 0) : ''
+        },
+        computeNet() {
+            return this.balance ? this.balance[0].amount : ''
+        },
+        computedCurrency() {
+            return this.balance ? this.balance[0].currency : ''
+        }
     },
     methods: {
         async setupStripe() {
@@ -155,10 +166,19 @@ export default {
                 this.errorResponse(e)
                 this.stopSpinner()
             }
+        },
+        async goToStripe() {
+            try {
+                const res = await axios.post(this.hostname+'/api/goto-stripe-dashboard/'+this.user.stripe_account_id+'?token='+ this.token)
+                location.href = res.data
+            } catch (e) {
+                this.errorResponse(e)
+                this.stopSpinner()
+            }
         }
     },
     mounted() {
-        this.fetchAccount()
+        this.user.details_submitted && this.user.payouts_enabled ? this.fetchAccount() : ''
     }
 }
 </script>
@@ -168,7 +188,7 @@ export default {
     flex-basis: 65%;
 }
 .grid-col-payout{
-    grid-template-columns: 1.6fr .8fr 1.5fr .8fr;
+    grid-template-columns: 1fr 1fr 1.5fr .8fr;
 }
 .payout-right {
     height: calc(100dvh - 120px);
@@ -179,5 +199,11 @@ export default {
     .text-center {
         max-width: 400px;
     }
+}
+.short-description {
+    max-width: 500px;
+}
+.stats-wrapper {
+    max-width: 1000px;
 }
 </style>

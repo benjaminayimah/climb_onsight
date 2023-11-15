@@ -15,14 +15,13 @@ export default {
   computed: {
     ...mapState({
       booking: (state) => state.bookingModal.active,
-      token: (state) => state.token,
       deleteModal: (state) => state.deleteModal.active
     })
   },
   created() {
     this.$store.commit('computeWindow')
     window.addEventListener('resize', this.windowSize)
-    localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', this.token) : ''
+    localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', localStorage.getItem('auth')) : ''
   },
   methods: {
     windowSize() {
