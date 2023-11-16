@@ -21,7 +21,7 @@
                     </div>
                     <div class="flx gap-8">
                         <label class="gray">Country:</label>
-                        <div>{{ computedCountry ? computedCountry.country : bank.country }}</div>
+                        <div>{{ computedCountry.country || bank.country }}</div>
                     </div>
                     <div class="flx gap-8">
                         <label class="gray">Currency:</label>
@@ -54,11 +54,7 @@ export default {
             countries: (state) => state.country.countries
         }),
         computedCountry() {
-            if(this.bank && this.bank.country && this.countries) {
-                return this.countries.find(data => data.code === this.bank.country)
-            }
-            else
-            return ''
+            return this.countries.find(data => data.code === this.bank.country)
         },
         computedIcon() {
             if(this.bank.object === 'card' && this.bank.brand == 'Visa')
