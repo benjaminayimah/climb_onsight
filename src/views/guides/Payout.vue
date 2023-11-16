@@ -86,7 +86,7 @@
                         </a>
                     </div>
                     <div v-else class="short-description">
-                        There are no payouts due. Payouts will show up here, along with the date they're expected to arrive in your bank account.
+                        There are no payouts due. Payouts will show up here, along with the date they're expected to arrive in your default bank.
                     </div>
                     <div v-if="payouts.data.length" class="grid-table">
                         <div class="grid table-body">
