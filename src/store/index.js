@@ -147,7 +147,6 @@ export default createStore({
       const i =  state.bookings.findIndex(x => x.receipt_no == payload.receipt_no) 
       if(i > -1)
       state.bookings[i].paid = 1
-      console.log(payload)
     },
     updateClimber(state, payload) {
       this.commit('setAuthUser', payload)
