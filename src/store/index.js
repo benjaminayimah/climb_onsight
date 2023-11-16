@@ -25,7 +25,6 @@ export default createStore({
       loader: false,
       new_payment: false,
       withdraw_funds: false,
-      account_details: false,
       banks: false,
       add_admin: false,
       new_guide: false,
@@ -45,10 +44,8 @@ export default createStore({
     bookings: [],
     payouts: [],
     balance: '',
-    payment_options: [
-      { id: 1, name: 'Jacob Audrey', account_no: '123 456 789 210', bank_name: 'Greenstone Bank', sort_code: '0292', address: 'Grand Central, New York' },
-      { id: 2, name: 'Stephen Wood', account_no: '456 123 210 789', bank_name: 'Zenith Bank', sort_code: '123', address: 'Barcelona, Spain' }
-    ],
+    account: '',
+    payment_options: [],
     admins: [],
     notifications: []
   },
@@ -84,7 +81,8 @@ export default createStore({
       state.admins = payload.admins
       state.payouts = payload.payouts
       state.balance = payload.balance
-
+      state.account = payload.account
+      state.payment_options = payload.account.external_accounts.data
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
     },
     setNewUser(state, payload) {
@@ -198,8 +196,6 @@ export default createStore({
         state.forms.new_payment = true
       }else if(payload === 'withdraw_funds') {
         state.forms.withdraw_funds = true
-      }else if(payload === 'account_details') {
-        state.forms.account_details = true
       }else if(payload === 'banks') {
         state.forms.banks = true
       }else if(payload === 'add_admin') {
@@ -229,10 +225,6 @@ export default createStore({
       document.body.classList.remove('fixed-body')
       for (let i in state.forms)
       state.forms[i] = false
-    },
-    async preloadBank(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'account_details')
     },
     async preloadNewGuide(state, payload) {
       await this.commit('setTempData', payload)

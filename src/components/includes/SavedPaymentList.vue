@@ -1,11 +1,29 @@
 <template>
-    <div class="br-16 pd-16-24 flx ai-c jc-sb">
+    <div class="br-16 pd-16-24 flx  jc-sb">
         <div>
-            <div class="mb-8">{{ bank.name }}</div>
+            <div v-if="bank.account_holder_name" class="mb-8">{{ bank.account_holder_name }}</div>
             <span class="gray">{{ bank.bank_name }}</span>
+            <div class="fs-09 capitalize">
+                <div class="flx gap-8">
+                    <label class="gray">Account type:</label>
+                    <div>{{ bank.object.replace(/_/g, ' ') }}</div>
+                </div>
+                <div v-if="bank.routing_number" class="flx gap-8">
+                    <label class="gray">Routing number:</label>
+                    <div>{{ bank.routing_number }}</div>
+                </div>
+                <div class="flx gap-8">
+                    <label class="gray">Country:</label>
+                    <div>{{ bank.country }}</div>
+                </div>
+                <div class="flx gap-8">
+                    <label class="gray">Currency:</label>
+                    <div>{{ bank.currency }}</div>
+                </div>
+            </div>
         </div>
         <div>
-            <button @click="$store.commit('preloadBank', bank)" class="button-primary btn-sm btn-rounded">Details</button>
+            <span class="fs-09 badge badge-cyan br-24" v-if="bank.default_for_currency && bank.status === 'new'">Default</span>
         </div>
     </div>
 </template>

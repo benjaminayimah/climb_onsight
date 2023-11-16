@@ -1,5 +1,5 @@
 <template>
-    <div class="grid-item grid-col-payout">
+    <div class="grid-item table-row grid-col-payout">
         <div class="table-cell gap-8">
             <span class="wrap-text wrap-line-1">{{ formatAmount(payout.amount, payout.currency ) }}</span>
         </div>

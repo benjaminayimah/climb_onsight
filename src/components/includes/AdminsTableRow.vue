@@ -1,5 +1,5 @@
 <template>
-    <a href="#" @click.prevent="" class="grid-item table-row grid-col-admins">
+    <a href="#" @click.prevent="" class="grid-item table-row table-row grid-col-admins">
         <div class="table-cell gap-8">
             <profile-avatar :id="user.id" :image="user.image"/>
             <span class="wrap-text wrap-line-1 capitalize">{{ user.name }}</span>
