@@ -82,7 +82,8 @@ export default createStore({
       state.payouts = payload.payouts
       state.balance = payload.balance
       state.account = payload.account
-      state.payment_options = payload.account.external_accounts.data
+      payload.account ? state.payment_options = payload.account.external_accounts.data : ''
+      
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
     },
     setNewUser(state, payload) {
