@@ -50,9 +50,8 @@ export default {
         async completeBooking() {
             try {
                 const res = await axios.post(this.hostname + '/api/complete-booking?token='+this.token, {session_id: this.$route.params.session_id})
-                if(res.data) {
-                    this.completed = true
-                }
+                this.completed = true
+                this.$store.commit('updateBooking', res.data.booking)
             } catch (e) {
                 this.showAlert('danger', e.response.data.message)
             }

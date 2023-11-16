@@ -162,7 +162,7 @@ export default {
             return this.balance ? this.balance[0].amount : ''
         },
         computedCurrency() {
-            return this.balance ? this.balance[0].currency : ''
+            return this.account.default_currency
         },
         computedText() {
             let data = 'business day'
@@ -214,7 +214,7 @@ export default {
         }
     },
     mounted() {
-        // this.user.details_submitted && this.user.payouts_enabled ? this.fetchAccount() : ''
+        this.user.details_submitted && this.user.payouts_enabled ? this.fetchAccount() : ''
     }
 }
 </script>

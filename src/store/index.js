@@ -143,6 +143,11 @@ export default createStore({
     updateBookings(state, payload) {
       state.bookings = payload
     },
+    updateBooking(state, payload) {
+      const i =  state.bookings.findIndex(x => x.receipt_no == payload.receipt_no) 
+      if(i > -1)
+      state.bookings[i].paid = payload.paid
+    },
     updateClimber(state, payload) {
       this.commit('setAuthUser', payload)
       state.user = payload

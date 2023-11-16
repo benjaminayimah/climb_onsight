@@ -1,8 +1,8 @@
 <template>
     <div class="br-16 pd-16-24 flx  jc-sb">
         <div>
-            <div v-if="bank.account_holder_name" class="mb-8">{{ bank.account_holder_name }}</div>
-            <span class="gray">{{ bank.bank_name }}</span>
+            <div v-if="bank.account_holder_name" class="mb-8">{{ bank.account_holder_name || bank.name }}</div>
+            <span>{{ bank.bank_name || bank.brand }}</span>
             <div class="fs-09 capitalize">
                 <div class="flx gap-8">
                     <label class="gray">Account type:</label>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="flx gap-8">
                     <label class="gray">Currency:</label>
-                    <div>{{ bank.currency }}</div>
+                    <div class="uppercase">{{ bank.currency }}</div>
                 </div>
             </div>
         </div>
