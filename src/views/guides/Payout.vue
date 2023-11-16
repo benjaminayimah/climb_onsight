@@ -113,7 +113,7 @@
                 </div>
                 <div>Saved payout accounts</div>
                 <div class="flx column gap-16">
-                    <saved-payment-list v-for="bank in payment_options" :key="bank.id" :bank="bank" />
+                    <saved-payment-list v-for="(bank, index) in payment_options" :key="bank.id" :bank="bank" :index="index" :length="payment_options.length" />
                 </div>
                 <!-- <button @click="$store.commit('openModal', 'banks')" class="btn-lg w-100 button-outline bg-transparent btn-rounded flx ai-c gap-8">
                     <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 0 22.664 22.664">
@@ -177,7 +177,7 @@ export default {
             }
             return data
 
-        }
+        },
     },
     methods: {
         async setupStripe() {
@@ -220,7 +220,7 @@ export default {
         }
     },
     mounted() {
-        // this.user.details_submitted && this.user.payouts_enabled ? this.fetchAccount() : ''
+        this.user.details_submitted && this.user.payouts_enabled ? this.fetchAccount() : ''
     }
 }
 </script>

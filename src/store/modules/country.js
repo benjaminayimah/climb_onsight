@@ -151,7 +151,7 @@ export default {
             },
             {
                 "country": "Canada",
-                "code": "CAD"
+                "code": "CA"
             },
             {
                 "country": "Cape Verde",
