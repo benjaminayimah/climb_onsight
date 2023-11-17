@@ -46,7 +46,7 @@
                     </h3>
                     <span>
                         Payout is enabled on this account.
-                        <a @click.prevent="goToStripe" href="#" target="_blank" class="a-link ft-secondary">
+                        <a @click.prevent="goToStripe" href="#" class="a-link ft-secondary">
                             View more details on stripe
                             <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 14.5 14.5">
                                 <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)" fill="#C69776"/>
@@ -84,7 +84,7 @@
                     <h3 class="mt-8">Upcoming Payouts</h3>
                     <div v-if="payouts.data.length" class="short-description mb-8">
                         These amounts are estimated because transactions are still accumulating. Payouts will arrive in your payout account every {{ computedText }}.
-                        <a class="a-link ft-secondary" @click.prevent="goToStripe" href="#" target="_blank">
+                        <a class="a-link ft-secondary" @click.prevent="goToStripe" href="#">
                             To change this settings go to Stripe main dashboard
                             <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 14.5 14.5">
                                 <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)" fill="#C69776"/>
@@ -212,7 +212,8 @@ export default {
         async goToStripe() {
             try {
                 const res = await axios.post(this.hostname+'/api/goto-stripe-dashboard/'+this.user.stripe_account_id+'?token='+ this.token)
-                location.href = res.data
+                const newTab = window.open('', '_blank');
+                newTab.location.href = res.data;
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()

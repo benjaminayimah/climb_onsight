@@ -63,91 +63,91 @@ export default {
             },
             {
                 "country": "Bahamas",
-                "code": "BSD"
+                "code": "BS"
             },
             {
                 "country": "Bahrain",
-                "code": "BHD"
+                "code": "BH"
             },
             {
                 "country": "Bangladesh",
-                "code": "BDT"
+                "code": "BD"
             },
             {
                 "country": "Barbados",
-                "code": "BBD"
+                "code": "BB"
             },
             {
                 "country": "Belarus",
-                "code": "BYR"
+                "code": "BY"
             },
             {
                 "country": "Belgium",
-                "code": "EUR"
+                "code": "BE"
             },
             {
                 "country": "Belize",
-                "code": "BZD"
+                "code": "BZ"
             },
             {
                 "country": "Benin",
-                "code": "XOF"
+                "code": "BJ"
             },
             {
                 "country": "Bermuda",
-                "code": "BMD"
+                "code": "BM"
             },
             {
                 "country": "Bhutan",
-                "code": "BTN"
+                "code": "BT"
             },
             {
                 "country": "Bolivia",
-                "code": "BOB"
+                "code": "BO"
             },
             {
                 "country": "Bosnia and Herzegovina",
-                "code": "BAM"
+                "code": "BA"
             },
             {
                 "country": "Botswana",
-                "code": "BWP"
+                "code": "BW"
             },
             {
                 "country": "Bouvet Island",
-                "code": "NOK"
+                "code": "BV"
             },
             {
                 "country": "Brazil",
-                "code": "BRL"
+                "code": "BR"
             },
             {
                 "country": "British Indian Ocean Territory",
-                "code": "USD"
+                "code": "IO"
             },
             {
                 "country": "Brunei",
-                "code": "BND"
+                "code": "BN"
             },
             {
                 "country": "Bulgaria",
-                "code": "BGN"
+                "code": "BG"
             },
             {
                 "country": "Burkina Faso",
-                "code": "XOF"
+                "code": "BF"
             },
             {
                 "country": "Burundi",
-                "code": "BIF"
+                "code": "BI"
             },
             {
                 "country": "Cambodia",
-                "code": "KHR"
+                "code": "KH"
             },
             {
                 "country": "Cameroon",
-                "code": "XAF"
+                "code": "CM"
             },
             {
                 "country": "Canada",
@@ -155,823 +155,827 @@ export default {
             },
             {
                 "country": "Cape Verde",
-                "code": "CVE"
+                "code": "CV"
             },
             {
                 "country": "Cayman Islands",
-                "code": "KYD"
+                "code": "KY"
             },
             {
                 "country": "Central African Republic",
-                "code": "XAF"
+                "code": "CF"
             },
             {
                 "country": "Chad",
-                "code": "XAF"
+                "code": "TD"
             },
             {
                 "country": "Chile",
-                "code": "CLP"
+                "code": "CL"
             },
             {
                 "country": "China",
-                "code": "CNY"
+                "code": "CN"
             },
             {
                 "country": "Christmas Island",
-                "code": "AUD"
+                "code": "CX"
             },
             {
                 "country": "Cocos (Keeling) Islands",
-                "code": "AUD"
+                "code": "CC"
             },
             {
                 "country": "Colombia",
-                "code": "COP"
+                "code": "CO"
             },
             {
                 "country": "Comoros",
-                "code": "KMF"
+                "code": "KM"
+            },
+            {
+                "country": "Congo(The Democratic Republic)",
+                "code": "CD"
             },
             {
                 "country": "Congo",
-                "code": "XAF"
+                "code": "CG"
             },
             {
                 "country": "Cook Islands",
-                "code": "NZD"
+                "code": "CK"
             },
             {
                 "country": "Costa Rica",
-                "code": "CRC"
+                "code": "CR"
             },
             {
                 "country": "Croatia",
-                "code": "HRK"
+                "code": "HR"
             },
             {
                 "country": "Cuba",
-                "code": "CUP"
+                "code": "CU"
             },
             {
                 "country": "Cyprus",
-                "code": "EUR"
+                "code": "CY"
             },
             {
                 "country": "Czech Republic",
-                "code": "CZK"
+                "code": "CZ"
             },
             {
                 "country": "Denmark",
-                "code": "DKK"
+                "code": "DK"
             },
             {
                 "country": "Djibouti",
-                "code": "DJF"
+                "code": "DJ"
             },
             {
                 "country": "Dominica",
-                "code": "XCD"
+                "code": "DM"
             },
             {
                 "country": "Dominican Republic",
-                "code": "DOP"
+                "code": "DO"
             },
             {
                 "country": "East Timor",
-                "code": "USD"
+                "code": "TL"
             },
             {
                 "country": "Ecuador",
-                "code": "ECS"
+                "code": "EC"
             },
             {
                 "country": "Egypt",
-                "code": "EGP"
+                "code": "EG"
             },
             {
                 "country": "El Salvador",
-                "code": "SVC"
+                "code": "SV"
             },
             {
                 "country": "England",
-                "code": "GBP"
+                "code": "GB-ENG"
             },
             {
                 "country": "Equatorial Guinea",
-                "code": "XAF"
+                "code": "GQ"
             },
             {
                 "country": "Eritrea",
-                "code": "ERN"
+                "code": "ER"
             },
             {
                 "country": "Estonia",
-                "code": "EUR"
+                "code": "EE"
             },
             {
                 "country": "Ethiopia",
-                "code": "ETB"
+                "code": "ET"
             },
             {
                 "country": "Falkland Islands",
-                "code": "FKP"
+                "code": "FK"
             },
             {
                 "country": "Faroe Islands",
-                "code": "DKK"
+                "code": "FO"
             },
             {
                 "country": "Fiji Islands",
-                "code": "FJD"
+                "code": "FJ"
             },
             {
                 "country": "Finland",
-                "code": "EUR"
+                "code": "FI"
             },
             {
                 "country": "France",
-                "code": "EUR"
+                "code": "FR"
             },
             {
                 "country": "French Guiana",
-                "code": "EUR"
+                "code": "GF"
             },
             {
                 "country": "French Polynesia",
-                "code": "XPF"
+                "code": "PF"
             },
             {
                 "country": "French Southern territories",
-                "code": "EUR"
+                "code": "TF"
             },
             {
                 "country": "Gabon",
-                "code": "XAF"
+                "code": "GA"
             },
             {
                 "country": "Gambia",
-                "code": "GMD"
+                "code": "GM"
             },
             {
                 "country": "Georgia",
-                "code": "GEL"
+                "code": "GE"
             },
             {
                 "country": "Germany",
-                "code": "EUR"
+                "code": "DE"
             },
             {
                 "country": "Ghana",
-                "code": "GHS"
+                "code": "GH"
             },
             {
                 "country": "Gibraltar",
-                "code": "GIP"
+                "code": "GI"
             },
             {
                 "country": "Greece",
-                "code": "EUR"
+                "code": "GR"
             },
             {
                 "country": "Greenland",
-                "code": "DKK"
+                "code": "GL"
             },
             {
                 "country": "Grenada",
-                "code": "XCD"
+                "code": "GD"
             },
             {
                 "country": "Guadeloupe",
-                "code": "EUR"
+                "code": "GP"
             },
             {
                 "country": "Guam",
-                "code": "USD"
+                "code": "GU"
             },
             {
                 "country": "Guatemala",
-                "code": "QTQ"
+                "code": "GT"
             },
             {
                 "country": "Guinea",
-                "code": "GNF"
+                "code": "GN"
             },
             {
                 "country": "Guinea-Bissau",
-                "code": "CFA"
+                "code": "GW"
             },
             {
                 "country": "Guyana",
-                "code": "GYD"
+                "code": "GY"
             },
             {
                 "country": "Haiti",
-                "code": "HTG"
+                "code": "HT"
             },
             {
                 "country": "Heard Island and McDonald Islands",
-                "code": "AUD"
+                "code": "HM"
             },
             {
                 "country": "Holy See (Vatican City State)",
-                "code": "EUR"
+                "code": "VA"
             },
             {
                 "country": "Honduras",
-                "code": "HNL"
+                "code": "HN"
             },
             {
                 "country": "Hong Kong",
-                "code": "HKD"
+                "code": "HK"
             },
             {
                 "country": "Hungary",
-                "code": "HUF"
+                "code": "HU"
             },
             {
                 "country": "Iceland",
-                "code": "ISK"
+                "code": "IS"
             },
             {
                 "country": "India",
-                "code": "INR"
+                "code": "IN"
             },
             {
                 "country": "Indonesia",
-                "code": "IDR"
+                "code": "ID"
             },
             {
                 "country": "Iran",
-                "code": "IRR"
+                "code": "IR"
             },
             {
                 "country": "Iraq",
-                "code": "IQD"
+                "code": "IQ"
             },
             {
                 "country": "Ireland",
-                "code": "EUR"
+                "code": "IE"
             },
             {
                 "country": "Israel",
-                "code": "ILS"
+                "code": "IL"
             },
             {
                 "country": "Italy",
-                "code": "EUR"
+                "code": "IT"
             },
             {
                 "country": "Ivory Coast",
-                "code": "XOF"
+                "code": "CI"
             },
             {
                 "country": "Jamaica",
-                "code": "JMD"
+                "code": "JM"
             },
             {
                 "country": "Japan",
-                "code": "JPY"
+                "code": "JP"
             },
             {
                 "country": "Jordan",
-                "code": "JOD"
+                "code": "JO"
             },
             {
                 "country": "Kazakhstan",
-                "code": "KZT"
+                "code": "KZ"
             },
             {
                 "country": "Kenya",
-                "code": "KES"
+                "code": "KE"
             },
             {
                 "country": "Kiribati",
-                "code": "AUD"
+                "code": "KI"
             },
             {
                 "country": "Kuwait",
-                "code": "KWD"
+                "code": "KW"
             },
             {
                 "country": "Kyrgyzstan",
-                "code": "KGS"
+                "code": "KG"
             },
             {
                 "country": "Laos",
-                "code": "LAK"
+                "code": "LA"
             },
             {
                 "country": "Latvia",
-                "code": "LVL"
+                "code": "LV"
             },
             {
                 "country": "Lebanon",
-                "code": "LBP"
+                "code": "LB"
             },
             {
                 "country": "Lesotho",
-                "code": "LSL"
+                "code": "LS"
             },
             {
                 "country": "Liberia",
-                "code": "LRD"
+                "code": "LR"
             },
             {
                 "country": "Libyan Arab Jamahiriya",
-                "code": "LYD"
+                "code": "LY"
             },
             {
                 "country": "Liechtenstein",
-                "code": "CHF"
+                "code": "LI"
             },
             {
                 "country": "Lithuania",
-                "code": "LTL"
+                "code": "LT"
             },
             {
                 "country": "Luxembourg",
-                "code": "EUR"
+                "code": "LU"
             },
             {
                 "country": "Macao",
-                "code": "MOP"
+                "code": "MO"
             },
             {
                 "country": "North Macedonia",
-                "code": "MKD"
+                "code": "MK"
             },
             {
                 "country": "Madagascar",
-                "code": "MGF"
+                "code": "MG"
             },
             {
                 "country": "Malawi",
-                "code": "MWK"
+                "code": "MW"
             },
             {
                 "country": "Malaysia",
-                "code": "MYR"
+                "code": "MY"
             },
             {
                 "country": "Maldives",
-                "code": "MVR"
+                "code": "MV"
             },
             {
                 "country": "Mali",
-                "code": "XOF"
+                "code": "ML"
             },
             {
                 "country": "Malta",
-                "code": "EUR"
+                "code": "MT"
             },
             {
                 "country": "Marshall Islands",
-                "code": "USD"
+                "code": "MH"
             },
             {
                 "country": "Martinique",
-                "code": "EUR"
+                "code": "MQ"
             },
             {
                 "country": "Mauritania",
-                "code": "MRO"
+                "code": "MR"
             },
             {
                 "country": "Mauritius",
-                "code": "MUR"
+                "code": "MU"
             },
             {
                 "country": "Mayotte",
-                "code": "EUR"
+                "code": "YT"
             },
             {
                 "country": "Mexico",
-                "code": "MXN"
+                "code": "MX"
             },
             {
                 "country": "Micronesia, Federated States of",
-                "code": "USD"
+                "code": "FM"
             },
             {
                 "country": "Moldova",
-                "code": "MDL"
+                "code": "MD"
             },
             {
                 "country": "Monaco",
-                "code": "EUR"
+                "code": "MC"
             },
             {
                 "country": "Mongolia",
-                "code": "MNT"
+                "code": "MN"
             },
             {
                 "country": "Montserrat",
-                "code": "XCD"
+                "code": "MS"
             },
             {
                 "country": "Morocco",
-                "code": "MAD"
+                "code": "MA"
             },
             {
                 "country": "Mozambique",
-                "code": "MZN"
+                "code": "MZ"
             },
             {
                 "country": "Myanmar",
-                "code": "MMR"
+                "code": "MM"
             },
             {
                 "country": "Namibia",
-                "code": "NAD"
+                "code": "NA"
             },
             {
                 "country": "Nauru",
-                "code": "AUD"
+                "code": "NR"
             },
             {
                 "country": "Nepal",
-                "code": "NPR"
+                "code": "NP"
             },
             {
                 "country": "Netherlands",
-                "code": "EUR"
-            },
-            {
-                "country": "Netherlands Antilles",
-                "code": "ANG"
+                "code": "NL"
             },
             {
                 "country": "New Caledonia",
-                "code": "XPF"
+                "code": "NC"
             },
             {
                 "country": "New Zealand",
-                "code": "NZD"
+                "code": "NZ"
             },
             {
                 "country": "Nicaragua",
-                "code": "NIO"
+                "code": "NI"
             },
             {
                 "country": "Niger",
-                "code": "XOF"
+                "code": "NE"
             },
             {
                 "country": "Nigeria",
-                "code": "NGN"
+                "code": "NG"
             },
             {
                 "country": "Niue",
-                "code": "NZD"
+                "code": "NU"
             },
             {
                 "country": "Norfolk Island",
-                "code": "AUD"
+                "code": "NF"
             },
             {
                 "country": "North Korea",
-                "code": "KPW"
+                "code": "KP"
             },
             {
                 "country": "Northern Ireland",
-                "code": "GBP"
+                "code": "GB-NIR"
             },
             {
                 "country": "Northern Mariana Islands",
-                "code": "USD"
+                "code": "MF"
             },
             {
                 "country": "Norway",
-                "code": "NOK"
+                "code": "NO"
             },
             {
                 "country": "Oman",
-                "code": "OMR"
+                "code": "OM"
             },
             {
                 "country": "Pakistan",
-                "code": "PKR"
+                "code": "PK"
             },
             {
                 "country": "Palau",
-                "code": "USD"
+                "code": "PW"
             },
             {
                 "country": "Palestine",
-                "code": null
+                "code": "PS"
             },
             {
                 "country": "Panama",
-                "code": "PAB"
+                "code": "PA"
             },
             {
                 "country": "Papua New Guinea",
-                "code": "PGK"
+                "code": "PG"
             },
             {
                 "country": "Paraguay",
-                "code": "PYG"
+                "code": "PY"
             },
             {
                 "country": "Peru",
-                "code": "PEN"
+                "code": "PE"
             },
             {
                 "country": "Philippines",
-                "code": "PHP"
+                "code": "PH"
             },
             {
                 "country": "Pitcairn",
-                "code": "NZD"
+                "code": "PN"
             },
             {
                 "country": "Poland",
-                "code": "PLN"
+                "code": "PL"
             },
             {
                 "country": "Portugal",
-                "code": "EUR"
+                "code": "PY"
             },
             {
                 "country": "Puerto Rico",
-                "code": "USD"
+                "code": "PR"
             },
             {
                 "country": "Qatar",
-                "code": "QAR"
+                "code": "QA"
             },
             {
-                "country": "Reunion",
-                "code": "EUR"
+                "country": "Republic of North Macedonia",
+                "code": "MK"
             },
             {
                 "country": "Romania",
-                "code": "RON"
+                "code": "RO"
             },
             {
                 "country": "Russian Federation",
-                "code": "RUB"
+                "code": "RU"
             },
             {
                 "country": "Rwanda",
-                "code": "RWF"
+                "code": "RW"
+            },
+            {
+                "country": "Réunion",
+                "code": "RE"
             },
             {
                 "country": "Saint Helena",
-                "code": "SHP"
+                "code": "SH"
             },
             {
                 "country": "Saint Kitts and Nevis",
-                "code": "XCD"
+                "code": "KN"
             },
             {
                 "country": "Saint Lucia",
-                "code": "XCD"
+                "code": "LC"
             },
             {
                 "country": "Saint Pierre and Miquelon",
-                "code": "EUR"
+                "code": "PM"
             },
             {
                 "country": "Saint Vincent and the Grenadines",
-                "code": "XCD"
+                "code": "VC"
             },
             {
                 "country": "Samoa",
-                "code": "WST"
+                "code": "WS"
             },
             {
                 "country": "San Marino",
-                "code": "EUR"
+                "code": "SM"
             },
             {
                 "country": "Sao Tome and Principe",
-                "code": "STD"
+                "code": "ST"
             },
             {
                 "country": "Saudi Arabia",
-                "code": "SAR"
+                "code": "SA"
             },
             {
                 "country": "Scotland",
-                "code": "GBP"
+                "code": "GB-SCT"
             },
             {
                 "country": "Senegal",
-                "code": "XOF"
+                "code": "SN"
             },
             {
                 "country": "Serbia",
-                "code": "RSD"
+                "code": "RS"
             },
             {
                 "country": "Seychelles",
-                "code": "SCR"
+                "code": "SC"
             },
             {
                 "country": "Sierra Leone",
-                "code": "SLL"
+                "code": "SL"
             },
             {
                 "country": "Singapore",
-                "code": "SGD"
+                "code": "SG"
             },
             {
                 "country": "Slovakia",
-                "code": "EUR"
+                "code": "SK"
             },
             {
                 "country": "Slovenia",
-                "code": "EUR"
+                "code": "SI"
             },
             {
                 "country": "Solomon Islands",
-                "code": "SBD"
+                "code": "SB"
             },
             {
                 "country": "Somalia",
-                "code": "SOS"
+                "code": "SO"
             },
             {
                 "country": "South Africa",
-                "code": "ZAR"
+                "code": "ZA"
             },
             {
                 "country": "South Georgia and the South Sandwich Islands",
-                "code": "GBP"
+                "code": "GS"
             },
             {
                 "country": "South Korea",
-                "code": "KRW"
+                "code": "KR"
             },
             {
                 "country": "South Sudan",
-                "code": "SSP"
+                "code": "SS"
             },
             {
                 "country": "Spain",
-                "code": "EUR"
+                "code": "ES"
             },
             {
                 "country": "Sri Lanka",
-                "code": "LKR"
+                "code": "LK"
             },
             {
                 "country": "Sudan",
-                "code": "SDG"
+                "code": "SD"
             },
             {
                 "country": "Suriname",
-                "code": "SRD"
+                "code": "SR"
             },
             {
                 "country": "Svalbard and Jan Mayen",
-                "code": "NOK"
+                "code": "SJ"
             },
             {
                 "country": "Swaziland",
-                "code": "SZL"
+                "code": "SZ"
             },
             {
                 "country": "Sweden",
-                "code": "SEK"
+                "code": "SE"
             },
             {
                 "country": "Switzerland",
-                "code": "CHF"
+                "code": "CH"
             },
             {
                 "country": "Syria",
-                "code": "SYP"
+                "code": "SY"
             },
             {
                 "country": "Tajikistan",
-                "code": "TJS"
+                "code": "TJ"
             },
             {
                 "country": "Tanzania",
-                "code": "TZS"
+                "code": "TZ"
             },
             {
                 "country": "Thailand",
-                "code": "THB"
-            },
-            {
-                "country": "The Democratic Republic of Congo",
-                "code": "CDF"
+                "code": "TH"
             },
             {
                 "country": "Togo",
-                "code": "XOF"
+                "code": "TG"
             },
             {
                 "country": "Tokelau",
-                "code": "NZD"
+                "code": "TK"
             },
             {
                 "country": "Tonga",
-                "code": "TOP"
+                "code": "TO"
             },
             {
                 "country": "Trinidad and Tobago",
-                "code": "TTD"
+                "code": "TT"
             },
             {
                 "country": "Tunisia",
-                "code": "TND"
+                "code": "TN"
             },
             {
                 "country": "Turkey",
-                "code": "TRY"
+                "code": "TR"
             },
             {
                 "country": "Turkmenistan",
-                "code": "TMT"
+                "code": "TM"
             },
             {
                 "country": "Turks and Caicos Islands",
-                "code": "USD"
+                "code": "TC"
             },
             {
                 "country": "Tuvalu",
-                "code": "AUD"
+                "code": "TV"
             },
             {
                 "country": "Uganda",
-                "code": "UGX"
+                "code": "UG"
             },
             {
                 "country": "Ukraine",
-                "code": "UAH"
+                "code": "UA"
             },
             {
                 "country": "United Arab Emirates",
-                "code": "AED"
+                "code": "AE"
             },
             {
                 "country": "United Kingdom",
-                "code": "GBP"
+                "code": "GB"
             },
             {
                 "country": "United States",
-                "code": "USD"
+                "code": "US"
             },
             {
                 "country": "United States Minor Outlying Islands",
-                "code": "USD"
+                "code": "UM"
             },
             {
                 "country": "Uruguay",
-                "code": "UYU"
+                "code": "UY"
             },
             {
                 "country": "Uzbekistan",
-                "code": "UZS"
+                "code": "UZ"
             },
             {
                 "country": "Vanuatu",
-                "code": "VUV"
+                "code": "VU"
             },
             {
                 "country": "Venezuela",
-                "code": "VEF"
+                "code": "VE"
             },
             {
                 "country": "Vietnam",
-                "code": "VND"
+                "code": "VN"
             },
             {
                 "country": "Virgin Islands, British",
-                "code": "USD"
+                "code": "VG"
             },
             {
                 "country": "Virgin Islands, U.S.",
-                "code": "USD"
+                "code": "VI"
             },
             {
                 "country": "Wales",
-                "code": "GBP"
+                "code": "GB-WLS"
             },
             {
                 "country": "Wallis and Futuna",
-                "code": "XPF"
+                "code": "WF"
             },
             {
                 "country": "Western Sahara",
-                "code": "MAD"
+                "code": "EH"
             },
             {
                 "country": "Yemen",
-                "code": "YER"
+                "code": "YE"
             },
             {
                 "country": "Zambia",
-                "code": "ZMW"
+                "code": "ZM"
             },
             {
                 "country": "Zimbabwe",
-                "code": "ZWD"
+                "code": "ZW"
+            },
+            {
+                "country": "Åland Islands",
+                "code": "AX"
             }
         ]
     },

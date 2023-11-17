@@ -195,6 +195,6 @@ export default {
     width: 150px;
 }
 .sticky {
-    bottom: 0;
+    bottom: -60px;
 }
 </style>
