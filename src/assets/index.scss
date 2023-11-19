@@ -355,13 +355,13 @@ button:not(.button-disabled, .button-disabled2, .absolute) {
     font-weight: normal;
 }
 .awaiting-payment {
-    background-color: rgba(33, 202, 63, 1);
+    background-color: #7AFC96;
 }
 .booking-pending {
-    background-color: rgba(255, 175, 12, 1);
+    background-color: rgb(255, 205, 104);
 }
 .booking-canceled {
-    background-color: rgba(241, 60, 60, 1);
+    background-color: rgb(255, 120, 120);
 }
 .booked-event {
     background-color: rgba(0, 0, 0, 1);
