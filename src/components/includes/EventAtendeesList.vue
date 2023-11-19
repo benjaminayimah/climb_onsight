@@ -3,7 +3,10 @@
         <div class="flx gap-8">
             <profile-avatar :avatar="computedClimber.profile_picture" :name="computedClimber.name" />
             <div>
-                <div>{{ computedClimber.name }}</div>
+                <div class="flx gap-4">
+                    {{ computedClimber.name }}
+                    <booking-status :guideView="true" :status="bookingStatus" />
+                </div>
                 <div class="gray">{{ calculateAge(computedClimber.dob) }}</div>
             </div>
         </div>
@@ -21,16 +24,21 @@
 import { mapState } from 'vuex'
 import ProfileAvatar from './ProfileAvatar.vue'
 import formatDateTime from '@/mixins/formatDateTime'
+import BookingStatus from './BookingStatus.vue'
 export default {
     name: 'EventAttendeesList',
-    components: { ProfileAvatar },
+    components: { ProfileAvatar, BookingStatus },
     mixins: [formatDateTime],
     computed: {
         ...mapState({
-            climbers: (state) => state.climbers
+            climbers: (state) => state.climbers,
+            bookings: (state) => state.bookings
         }),
         computedClimber() {
             return this.climbers.find(data => data.id === this.booking.user_id)
+        },
+        bookingStatus() {
+            return this.bookings.find(event => event.id === this.booking.id)
         }
     },
     props: {

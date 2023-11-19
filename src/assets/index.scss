@@ -350,7 +350,7 @@ button:not(.button-disabled, .button-disabled2, .absolute) {
     display: block;
 }
 .booking-status {
-    color: #fff;
+    color: #000;
     padding: 2px 8px;
     font-weight: normal;
 }
@@ -364,7 +364,8 @@ button:not(.button-disabled, .button-disabled2, .absolute) {
     background-color: rgba(241, 60, 60, 1);
 }
 .booked-event {
-    background-color: rgba(0, 0, 0, 1)
+    background-color: rgba(0, 0, 0, 1);
+    color: #fff 
 }
 //flex-box
 
