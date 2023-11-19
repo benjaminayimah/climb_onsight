@@ -2,7 +2,7 @@
     <div class="flx jc-c">
         <div class="completed-card">
             <div v-if="!completed && !error" class="flx column ai-c gap-24">
-                <lottie-loader />
+                <lottie-loader :size="50" />
                 <div class="flx column ai-c gap-16">
                     <h3>Payment successful</h3>
                     <div class="text-center comp-text">Finalizing your booking, please wait...</div>

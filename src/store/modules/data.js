@@ -136,6 +136,7 @@ export default {
             state.newEvent.price = payload.price
             state.newEvent.itinerary = payload.itinerary
             state.newEvent.event_description = payload.event_description
+            state.newEvent.color = payload.color
         },
         updateEventGallery(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))

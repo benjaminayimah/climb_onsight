@@ -6,7 +6,7 @@
         <div class="table-cell"><strong>{{ formatAmount(computedNet, payout.currency) }}</strong></div>
         <div class="table-cell"><span class="wrap-text wrap-line-1">{{ payout.description || 'n/a' }}</span></div>
         <div class="table-cell">
-            <span class="wrap-text wrap-line-1">{{ format_date_short3(payout.created) }}</span>
+            <span class="wrap-text wrap-line-1">{{ format_date_short(computedDate) }}</span>
         </div>
     </div>
 </template>
@@ -33,6 +33,14 @@ export default {
         computedNet() {
             return this.payout.amount - this.payout.amount * 0.1;
         },
+        computedDate() {
+            const epochTime = this.payout.created;
+            const date = new Date(epochTime * 1000); // Convert seconds to milliseconds
+
+            // Format the date as you need
+            return date
+
+        }
     }
 }
 </script>

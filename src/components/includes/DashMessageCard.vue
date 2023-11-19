@@ -3,7 +3,7 @@
         <div>New Messages({{ messages.length }})</div>
         <a href="#" class="fs-1rem a-link">See all</a>
     </h3>
-    <div class="grid grid-col-2 bg-white br-16">
+    <div v-if="messages.length" class="grid grid-col-2 bg-white br-16">
         <a v-for="message in messages.slice(0, 4)" :key="message.id" href="" class="flx jc-sb msg-list gap-4">
             <div class="flx gap-8">
                 <div class="bg-img br-50"></div>
@@ -17,22 +17,21 @@
             </div>
         </a>
     </div>
+    <div v-else class="bg-white flx-1 br-16 centered">
+        <div class="text-center">
+            <div>No Messages</div>
+            <span class="gray">New Messages will appear here</span>
+        </div>
+    </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     name: 'DashMessageCard',
-    data() {
-        return {
-            messages: [
-                {id: 1},
-                {id: 1},
-                {id: 1},
-                {id: 1},
-                {id: 1},
-                {id: 1}
-
-            ]
-        }
+    computed: {
+        ...mapState({
+            messages: (state) => state.messages
+        })
     }
 }
 </script>

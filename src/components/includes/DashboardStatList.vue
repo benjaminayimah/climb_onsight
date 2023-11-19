@@ -5,16 +5,24 @@
                 <path d="M1.4,15,0,13.6,11.6,2H5V0H15V10H13V3.4Z"/>
             </svg>
         </a>
-        <h1>26</h1>
-        <div>Featured deals</div>
-        <span>23% increase from last week</span>
+        <h1>{{ amount && currency ? formatAmount(value, currency) : value  }}</h1>
+        <div>{{ title }}</div>
+        <span>{{ period }}</span>
     </div>
 </template>
 <script>
+import stripeAmountFormatter from '@/mixins/stripeAmountFormatter'
 export default {
     name: 'DashboardStatList',
+    mixins: [stripeAmountFormatter],
     props: {
-        color: String
+        color: String,
+        title: String,
+        value: Number,
+        period: String,
+        currency: String,
+        amount: Boolean
+
     }
 }
 </script>

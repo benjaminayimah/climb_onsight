@@ -14,7 +14,7 @@
             </div>
             <div class="modal-body">
                 <div id="modal_content">
-                    <lottie-loader v-if="forms.loader" />
+                    <lottie-loader :size="50" v-if="forms.loader" />
                 </div>
             </div>
             <div class="modal-bottom sticky" id="modal_footer"></div>

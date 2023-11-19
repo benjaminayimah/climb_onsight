@@ -3,10 +3,36 @@
         <div class="left flx column gap-24">
             <h3 class="show-tab-mob title">Latest</h3>
             <div class="grid gap-24 grid-col-4 stats-wrapper">
-                <dashboard-stat-list :color="'#E8E2FF'" />
-                <dashboard-stat-list :color="'#d5ffd5'" />
-                <dashboard-stat-list :color="'#e0f2fe'" />
-                <dashboard-stat-list :color="'#ffe4e6'" />
+                <dashboard-stat-list v-if="is_guide"
+                    :title="'Total transactions'"
+                    :value="computedGross || 0"
+                    :color="'#E8E2FF'"
+                    :period="'Last 7 days'"
+                    :amount="true"
+                    :currency="computedCurrency"
+                />
+                <dashboard-stat-list v-if="is_guide"
+                    :title="'My payouts'"
+                    :value="computedNet || 0"
+                    :color="'#d5ffd5'"
+                    :period="'Last 7 days'"
+                    :amount="true"
+                    :currency="computedCurrency"
+                />
+                <dashboard-stat-list v-if="is_guide || is_super"
+                    :title="'Total events'"
+                    :value="events.length || 0"
+                    :color="'#e0f2fe'"
+                    :period="'All times'"
+                    :amount="false"
+                />
+                <dashboard-stat-list
+                    :title="'Current bookings'"
+                    :value="bookings.length || 0"
+                    :color="'#ffe4e6'"
+                    :period="'23% increase from last week'"
+                    :amount="false"
+                />
             </div>
             <div class="flx column flx-grow-1 gap-16">
                 <div class="flx md-top gap-24">
@@ -42,7 +68,7 @@
                     <div v-if="getDevice !== 'mobile'" class="flx-b-60 gap-8 flx column">
                         <dash-message-card />
                     </div>
-                    <div v-if="getDevice !== 'mobile'" class="flx-grow-1 flx column merch-card gap-8">
+                    <div v-if="getDevice !== 'mobile'" class="flx-grow-1 flx column gap-8">
                         <h3 class="title">Climbing Merchandise</h3>
                         <div class="bg-white flx-1 br-16 centered">
                             <a href="" target="_blank" class="gray a-link">Explore merchandise</a>
@@ -51,15 +77,16 @@
                 </div>
             </div>
         </div>
-        <dash-today-section :is_super="is_super" :is_guide="is_guide" :is_climber="is_climber" />
+        <dash-today-section :is_super="is_super" :is_guide="is_guide" :is_climber="is_climber" :bookings="bookings" :events="events" />
     </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
 import userRolesMixin from '@/mixins/userRolesMixin'
-import { mapGetters, mapState } from 'vuex'
+import statsMixin from '@/mixins/statsMixin'
 import DashboardStatList from '@/components/includes/DashboardStatList.vue'
 import EventList from '@/components/includes/EventList.vue'
 import DashNotificationCard from '@/components/includes/DashNotificationCard.vue'
@@ -68,13 +95,9 @@ import DashTodaySection from '@/components/includes/DashTodaySection.vue'
 export default {
     components: { DashboardStatList, EventList, DashNotificationCard, DashMessageCard, DashTodaySection, VueCal },
     name: 'HomeView',
-    mixins: [userRolesMixin],
+    mixins: [userRolesMixin, statsMixin],
     computed: {
         ...mapGetters(['getDevice']),
-        ...mapState({
-            events: (state) => state.events,
-            bookings: (state) => state.bookings
-        }),
         computedEvents() {
             return this.events.map(element => {
                 return {
@@ -82,8 +105,8 @@ export default {
                     start: element.start_date,
                     end: element.end_date,
                     title: element.event_name,
-                    color: 'bg-purple',
-                    class: 'leisure'
+                    color: element.color_class,
+                    class: element.color_class
                 };
             });
         },

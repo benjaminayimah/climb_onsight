@@ -26,11 +26,15 @@
     --tw-ring-offset-shadow: 0 0 #0000;
     --tw-ring-shadow: 0 0 #0000;
     --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / .05);
-    --bg-purple: #E8E2FF;
+    --bg-purple: #ddd4ff;
     --bg-red: #ffe4e6;
-    --bg-green: #d5ffd5;
-    --bg-blue: #e0f2fe;
+    --bg-green: #bdffbd;
+    --bg-blue: #bbe4fe;
+    --bg-pink: #ffc4ed;
+    --bg-yellow: #fff4b2;
+    --bg-brown: var(--secondary-light)
 }
+
 .bg-purple {
     background-color: var(--bg-purple);
 }
@@ -64,6 +68,57 @@
 .ft-secondary {
     color: var(--secondary-color);
 }
+.ft-white {
+    color: var(--white);
+}
+
+//calendar colors
+
+.event-purple {
+    background-color: var(--bg-purple);
+}
+.event-green {
+    background-color: var(--bg-green);
+}
+.event-pink {
+    background-color: var(--bg-pink);
+}
+.event-blue {
+    background-color: var(--bg-blue);
+}
+.event-red {
+    background-color: var(--bg-red);
+}
+.event-yellow {
+    background-color: var(--bg-yellow);
+}
+.event-brown {
+    background-color: var(--bg-brown);
+}
+/* Different color for different event types. */
+.vuecal__cell-events{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.vuecal__event {
+    border-radius: 20px;
+    padding: 2px 4px;
+    width: 90% !important;
+    div {
+        color: #000;
+    }
+}
+.vuecal__event.event-purple {background-color: var(--bg-purple)}
+.vuecal__event.event-green {background-color: var(--bg-green)}
+.vuecal__event.event-pink {background-color: var(--bg-pink)}
+.vuecal__event.event-blue {background-color: var(--bg-blue)}
+.vuecal__event.event-red {background-color: var(--bg-red)}
+.vuecal__event.event-yellow {background-color: var(--bg-yellow)}
+.vuecal__event.event-brown {background-color: var(--bg-brown)}
+
+
+
 
 img {
     width: 100%;
@@ -71,6 +126,16 @@ img {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     height: 100%;
+}
+.bg-img{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+img, .bg-img {
+    background-color: var(--bg-color);
 }
 a, button {
     -webkit-tap-highlight-color: transparent;
@@ -87,13 +152,7 @@ body{
     background-color: var(--bg-color);
     text-rendering: optimizeSpeed;
 }
-.bg-img{
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    flex-shrink: 0;
-    overflow: hidden;
-}
+
 .gray {
     color: var(--gray);
 }
@@ -122,12 +181,19 @@ button, .a-button{
         transition: var(--input-btn-transition);
     }
 }
-button:not(.button-disabled, .absolute) {
+button:not(.button-disabled, .button-disabled2, .absolute) {
     &:active {
         transform: scale(0.98);
     }
 }
 .button-disabled{
+    // background-color: #a1a1a1 !important;
+    &:hover {
+        background-color: var(--black);
+        cursor: not-allowed
+    }
+}
+.button-disabled2{
     background-color: #a1a1a1 !important;
     &:hover {
         background-color: #a1a1a1 !important;
@@ -528,6 +594,9 @@ h1, h2, h3, h4, h5 {
 }
 .mb-60 {
     margin-bottom: 60px;
+}
+.pd-4 {
+    padding: 4px;
 }
 .pd-8 {
     padding: 8px;
@@ -1069,8 +1138,8 @@ $completionWidth: 440px;
           margin-left: unset;
         }
     }
-    .counter{
-        background-color: var(--white);
+    .counter {
+        margin-left: -24px;
     }
 }
 .bt--100 {
@@ -1087,7 +1156,13 @@ ul.tab {
         color: white;
     }
 }
-
+.send-msg-button__icon {
+    height: 30px;
+    width: 30px;
+    &:hover {
+        background-color: var(--primary-hover);
+    }
+}
 //modal
 
 .modal {
@@ -1280,13 +1355,6 @@ ul.tab {
     }
 
 }
-/* Different color for different event types. */
-.vuecal__event.leisure {background-color: var(--bg-purple);border: 1px solid var(--bg-purple);color: #000;}
-.vuecal__event.sport {background-color: var(--bg-green);border: 1px solid var(--bg-green);color: #000;}
-.vuecal__event.ball {background-color: var(--bg-blue);border: 1px solid var(--bg-blue);color: #000;}
-.vuecal__event.volley {background-color: var(--bg-red);border: 1px solid var(--bg-red);color: #000;}
-
-
 
 //transitions
 .slide-enter-active {

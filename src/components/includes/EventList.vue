@@ -3,7 +3,7 @@
         <div class="evt-card-wrapper flx column gap-4">
             <div class="bg-img relative" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}">
                 <div v-if="bookingStatus" class="absolute status-wrapper">
-                    <booking-status :status="bookingStatus" />
+                    <booking-status v-if="is_climber" :status="bookingStatus" />
                 </div>
             </div>
             <div class="foot flx column gap-4">
@@ -36,7 +36,7 @@ import formatDateTime from '@/mixins/formatDateTime';
 import { mapState } from 'vuex'
 import BookingStatus from './BookingStatus.vue';
 export default {
-  components: { BookingStatus },
+    components: { BookingStatus },
     name: 'EventList',
     mixins: [formatDateTime, userRolesMixin],
     props: {

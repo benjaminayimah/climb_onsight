@@ -84,8 +84,8 @@ export default {
                     end: element.end_date,
                     start_time: element.start_time,
                     title: element.event_name,
-                    color: 'bg-purple',
-                    class: 'leisure'
+                    color: element.color_class,
+                    class: element.color_class
                 };
             });
         },

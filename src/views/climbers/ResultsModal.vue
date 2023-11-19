@@ -31,7 +31,7 @@
         <div class="flx gap-8 ai-c">
             <span>{{ result.type === 'event' ? 'Event details' : 'Guides\' profile' }}</span>
             <div v-if="result.type === 'event' && bookingStatus">
-                <booking-status :status="bookingStatus" />
+                <booking-status v-if="is_climber" :status="bookingStatus" />
             </div>
         </div>
     </teleport>
@@ -50,6 +50,7 @@
 
 <script>
 import axios from 'axios'
+import userRolesMixin from '@/mixins/userRolesMixin'
 import alertMixin from '@/mixins/alertMixin'
 import formatDateTime from '@/mixins/formatDateTime'
 import inputValidation from '@/mixins/inputValidation'
@@ -63,7 +64,7 @@ import BookingStatus from '@/components/includes/BookingStatus.vue'
 export default {
     components: { ProfileBody, EventBody, Backdrop, Spinner, BookingTriggerButton, BookingStatus },
     name: 'ResultsModal',
-    mixins: [inputValidation, formatDateTime, alertMixin],
+    mixins: [inputValidation, formatDateTime, alertMixin,  userRolesMixin],
     computed: {
         ...mapState({
             result: (state) => state.forms.tempStorage,

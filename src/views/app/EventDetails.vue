@@ -4,7 +4,7 @@
             <div class="flx gap-8 ai-c">
                 <h4>Event details</h4>
                 <div v-if="bookingStatus">
-                    <booking-status :status="bookingStatus" />
+                    <booking-status v-if="is_climber" :status="bookingStatus" />
                 </div>
             </div>
             <div class="flx gap-8">
@@ -94,11 +94,15 @@
                 </div>
             </div>
             <div class="w-50" v-if="is_guide">
-                <div class="mb-32">
-                    Registered climbers
+                <div class="mb-24">
+                    <strong>Registered climbers</strong>
                 </div>
-                <div>
-                    No climber is registered for this event yet
+                <div v-if="computedBookings.length" class="flx column gap-4">
+                   <event-atendees-list v-for="booking in computedBookings" :key="booking.id" :booking="booking" />
+                </div>
+                <div v-else>
+                    <div>No climber is registered for this event yet</div>
+                    <span class="gray">Registered climber will appear here</span>
                 </div>
             </div>
         </div>
@@ -110,11 +114,11 @@ import formatDateTime from '@/mixins/formatDateTime'
 import userRolesMixin from '@/mixins/userRolesMixin'
 import { mapState, mapGetters } from 'vuex'
 import BookingTriggerButton from '@/components/includes/BookingTriggerButton.vue'
-// import ProfileAvatar from '@/components/includes/ProfileAvatar.vue'
 import UserList from '@/components/includes/UserList.vue'
 import BookingStatus from '@/components/includes/BookingStatus.vue'
+import EventAtendeesList from '@/components/includes/EventAtendeesList.vue'
 export default {
-    components: { BookingTriggerButton, UserList, BookingStatus },
+    components: { BookingTriggerButton, UserList, BookingStatus, EventAtendeesList },
     name: 'EventDetails',
     props: {
         event: Object
@@ -144,6 +148,9 @@ export default {
         },
         bookingStatus() {
             return this.bookings.find(event => event.event_id === this.event.id)
+        },
+        computedBookings() {
+            return this.bookings.length ? this.bookings.filter(booking => booking.event_id === this.event.id ) : []
         }
     },
     data() {

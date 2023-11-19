@@ -98,8 +98,8 @@ export default {
                 this.signinSuccess(res.data)
                 this.stopSpinner()
             } catch (e) {
-                this.errorResponse(e)
                 this.stopSpinner()
+                this.errorResponse(e)
             }
         },
         async signinSuccess(res) {

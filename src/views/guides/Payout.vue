@@ -1,4 +1,5 @@
 <template>
+    <main-page-loader v-if="pageLoader" />
     <div v-if="!user.stripe_account_id && !user.charges_enabled" class="empty-state flx column jc-c ai-c gap-16">
         <div class="centered text-center">
             <svg class="mb-16" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 0 62.666 54.021">
@@ -75,10 +76,10 @@
                 </div>
                 </div>
                 <div class="grid gap-24 grid-col-4 stats-wrapper">
-                    <payout-stats-list :amount="true" :value="computeGross || 0" :title="'Gross balance'" :period="'Last 7 days'" :currency="computedCurrency" :color="'#E8E2FF'" />
-                    <payout-stats-list :amount="true" :value="computeNet || 0" :title="'Net balance'" :period="'Last 7 days'" :color="'#d5ffd5'" :currency="computedCurrency" />
-                    <payout-stats-list :value="events || 0"  :title="'Total events'" :period="'All times'" :color="'#e0f2fe'" :currency="computedCurrency" />
-                    <payout-stats-list :value="bookings || 0" :title="'Total bookings'" :period="'All times'" :color="'#ffe4e6'" :currency="computedCurrency" />
+                    <payout-stats-list :amount="true" :value="computedGross || 0" :title="'Gross balance'" :period="'Last 7 days'" :currency="computedCurrency" :color="'#E8E2FF'" />
+                    <payout-stats-list :amount="true" :value="computedNet || 0" :title="'Net balance'" :period="'Last 7 days'" :color="'#d5ffd5'" :currency="computedCurrency" />
+                    <payout-stats-list :value="events.length || 0"  :title="'Total events'" :period="'All times'" :color="'#e0f2fe'"/>
+                    <payout-stats-list :value="bookings.length || 0" :title="'Total bookings'" :period="'All times'" :color="'#ffe4e6'" />
                 </div>
                 <div class="flx column gap-8">
                     <h3 class="mt-8">Upcoming Payouts</h3>
@@ -131,7 +132,7 @@
             </div>
         </section>
         <div v-else class="empty-state centered">
-            <lottie-loader />
+            <lottie-loader :size="50" />
         </div>
     </div>
 </template>
@@ -139,45 +140,37 @@
 <script>
 import axios from 'axios'
 import { mapState } from 'vuex'
+import statsMixin from '@/mixins/statsMixin'
 import PayoutStatsList from '@/components/includes/PayoutStatsList.vue'
 import PayoutTableRow from '@/components/includes/PayoutTableRow.vue'
 import SavedPaymentList from '@/components/includes/SavedPaymentList.vue'
 import inputValidation from '@/mixins/inputValidation'
 import Spinner from '@/components/includes/Spinner.vue'
 import LottieLoader from '@/components/lotties/LottieLoader.vue'
+import MainPageLoader from '@/components/includes/MainPageLoader.vue'
 export default {
     name: 'PayoutView',
-    components: { PayoutStatsList, PayoutTableRow, SavedPaymentList, Spinner, LottieLoader },
-    mixins: [inputValidation],
+    components: { PayoutStatsList, PayoutTableRow, SavedPaymentList, Spinner, LottieLoader, MainPageLoader },
+    mixins: [inputValidation, statsMixin],
     computed: {
         ...mapState({
-            payouts: (state) => state.payouts,
-            balance: (state) => state.balance,
-            events: (state) => state.events.length,
-            bookings: (state) => state.bookings.length,
-            account: (state) => state.account,
             user: (state) => state.user,
             payment_options: (state) => state.payment_options,
             token: (state) => state.token,
             hostname: (state) => state.hostname
         }),
-        computeGross() {
-            return this.payouts.data && this.payouts.data.length ? this.payouts.data.reduce((acc, item) => acc + item.amount, 0) : ''
-        },
-        computeNet() {
-            return this.balance ? this.balance[0].amount : ''
-        },
-        computedCurrency() {
-            return this.account.default_currency
-        },
         computedText() {
             let data = 'business day'
             if(this.account && !this.account.settings.payouts.schedule.interval === 'daily') {
                 data = this.account.settings.payouts.schedule.interval + 'business days'
             }
             return data
-
         },
+    },
+    data() {
+        return {
+            pageLoader: false
+        }
     },
     methods: {
         async setupStripe() {
@@ -210,13 +203,15 @@ export default {
             }
         },
         async goToStripe() {
+            this.pageLoader = true
             try {
                 const res = await axios.post(this.hostname+'/api/goto-stripe-dashboard/'+this.user.stripe_account_id+'?token='+ this.token)
                 const newTab = window.open('', '_blank');
                 newTab.location.href = res.data;
+                this.pageLoader = false
             } catch (e) {
                 this.errorResponse(e)
-                this.stopSpinner()
+                this.pageLoader = false
             }
         }
     },

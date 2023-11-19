@@ -1,21 +1,24 @@
 <template>
   <router-view/>
+  <main-page-loader v-if="pageLoader" />
   <booking-modal v-if="booking" />
   <modal />
-  <delete-modal v-if="deleteModal"  />
+  <delete-modal v-if="deleteModal" />
 </template>
 <script>
 import { mapState } from 'vuex'
 import DeleteModal from './components/includes/DeleteModal.vue'
+import MainPageLoader from './components/includes/MainPageLoader.vue'
 import Modal from './components/layouts/Modal.vue'
 import BookingModal from './views/climbers/BookingModal.vue'
 export default {
-  components: { Modal, BookingModal, DeleteModal },
+  components: { Modal, BookingModal, DeleteModal, MainPageLoader },
   name: 'App',
   computed: {
     ...mapState({
       booking: (state) => state.bookingModal.active,
-      deleteModal: (state) => state.deleteModal.active
+      deleteModal: (state) => state.deleteModal.active,
+      pageLoader: (state) => state.pageLoader
     })
   },
   created() {

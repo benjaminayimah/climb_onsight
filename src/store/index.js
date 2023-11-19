@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import axios from 'axios'
 import data from './modules/data'
 import country from './modules/country'
+import color from './modules/color'
 import dropdown from './modules/dropdown'
 import router from '@/router'
 
@@ -18,6 +19,7 @@ export default createStore({
     windowWidth: '',
     current_location: '',
     menu: false,
+    pageLoader: false,
     bookingModal: { active: false, page: 1, data: {} },
     updateForm: {},
     forms: { 
@@ -47,7 +49,8 @@ export default createStore({
     account: '',
     payment_options: [],
     admins: [],
-    notifications: []
+    notifications: [],
+    messages: []
   },
   mutations: {
     computeWindow(state) {
@@ -172,6 +175,12 @@ export default createStore({
     },
     nextBookingPage(state, payload) {
       state.bookingModal.page = payload
+    },
+    startPageLoader(state) {
+      state.pageLoader = true
+    },
+    stopPageLoader(state) {
+      state.pageLoader = false
     },
     //alerts
     showAlert(state, payload) {
@@ -372,10 +381,12 @@ export default createStore({
         return await axios.post(this.getters.getHostname + '/api/sign-in', payload)
     },
     getAuthUser(state, token) {
+      state.commit('startPageLoader')
       const url = this.getters.getHostname + '/api/user?token=' + token
       axios.get(url)
       .then((res) => {
         state.commit('setUserData', res.data)
+        state.commit('stopPageLoader')
       })
       .catch(e => {
         if(e.response.status == 400 || e.response.status == 404 ) {
@@ -420,7 +431,7 @@ export default createStore({
       } catch (e) {
         const payload = {
             status: 'danger',
-            body: e.response.data.message
+            body: e.response ? e.response.data.message : 'An unknown error has occured. Please check your credentials or network connection.'
         };
         state.commit('showAlert', payload)
         state.commit('closeDeleteModal')
@@ -440,7 +451,7 @@ export default createStore({
       } catch (e) {
         const payload = {
             status: 'danger',
-            body: e.response.data.message
+            body: e.response ? e.response.data.message : 'An unknown error has occured. Please check your credentials or network connection.'
         };
         state.commit('showAlert', payload)
         state.commit('closeDeleteModal')
@@ -491,6 +502,7 @@ export default createStore({
   modules: {
     data,
     dropdown,
-    country
+    country,
+    color
   }
 })

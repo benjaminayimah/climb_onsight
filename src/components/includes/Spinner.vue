@@ -39,7 +39,7 @@ export default {
     height: calc(var(--dimension) + 8px);
     border-radius: 50%;
     border: 2px solid transparent;
-    border-bottom-color: #FF3D00;
+    border-bottom-color: #ffffff63;
 }
 
 @keyframes rotation {

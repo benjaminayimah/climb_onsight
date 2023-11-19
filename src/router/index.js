@@ -32,7 +32,7 @@ import Guides from '../views/app/GuidesView.vue'
 import Statistics from '../views/admin/Statistics.vue'
 import SubAdmins from '../views/admin/SubAdmins.vue'
 import Climbers from '../views/app/ClimbersView.vue'
-import UpcomingEvents from '../views/guides/UpcomingEvents.vue'
+import UpcomingEvents from '../views/app/UpcomingEvents.vue'
 
 import VerifyEmail from '@/views/web/VerifyEmail.vue'
 import GuideRegistrationComplete from '@/views/web/GuideRegistrationComplete.vue'
@@ -56,6 +56,15 @@ const superGuard = (to, from, next) => {
 };
 const guidesGuard = (to, from, next) => {
   if (store.getters.is_guide) {
+    next();
+  } else {
+    next({
+      name: 'AccessDenied'
+    });
+  }
+};
+const guidesAndSuperGuard = (to, from, next) => {
+  if (store.getters.is_guide || store.getters.is_super) {
     next();
   } else {
     next({
@@ -166,7 +175,7 @@ const routes = [
       { path: '/statistics', component: Statistics, name: 'Statistics', beforeEnter: superGuard},
       { path: '/sub-admins', component: SubAdmins, name: 'SubAdmins', beforeEnter: superGuard},
       { path: '/climbers', component: Climbers, name: 'Climbers', beforeEnter: superGuard},
-      { path: '/upcoming-events', component: UpcomingEvents, name: 'UpcomingEvents', beforeEnter: guidesGuard},
+      { path: '/upcoming-events', component: UpcomingEvents, name: 'UpcomingEvents', beforeEnter: guidesAndSuperGuard },
       { path: '/access-denied', component: AccessDenied, name: 'AccessDenied'},
       { path: '/booking/success/:session_id', name: 'BookingSuccess', component: BookingSuccess },
       { path: '/booking/canceled/:session_id', name: 'BookingCanceled', component: BookingCanceled },

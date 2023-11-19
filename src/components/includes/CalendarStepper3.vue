@@ -108,7 +108,8 @@ export default {
             categories: (state) => state.data.categories,
             token: (state) => state.token,
             hostname: (state) => state.hostname,
-            updateForm: (state) => state.updateForm
+            updateForm: (state) => state.updateForm,
+            colors: (state) => state.color.colors
         }),
     },
     data() {
@@ -120,6 +121,7 @@ export default {
                 faqs: [],
                 itinerary: '',
                 event_description: '',
+                color: ''
             },
         }
     },
@@ -221,6 +223,7 @@ export default {
     },
     mounted() {
         this.presetForm()
+        this.form.color = this.colors[Math.floor(Math.random() * this.colors.length)];
     }
 }
 </script>
