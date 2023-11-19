@@ -3,7 +3,7 @@
         <div class="flx gap-8 ai-c">
             <profile-avatar :name="event.event_name" :avatar="JSON.parse(event.gallery)[0]" />
             <div>
-                <div class="fs-09 flx gap-8">
+                <div class="fs-09 flx gap-4">
                     <span class="wrap-text wrap-line-1">
                         {{ event.event_name }}
                     </span>
