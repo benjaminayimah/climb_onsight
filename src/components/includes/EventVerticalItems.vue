@@ -5,7 +5,7 @@
                 <h1>{{ format_date_day(event.start) }}</h1>
                 <h5 class="uppercase wrap-text wrap-line-1">{{event.title}}</h5>
             </div>
-            <div>{{ format_date(event.start) }}</div>
+            <div class="wrap-text wrap-line-1">{{ format_date(event.start) }}</div>
             <div class="fs-09 gray">
                 <div>{{ format_time(event.start_time)+'(EST)' }}</div>
             </div>
