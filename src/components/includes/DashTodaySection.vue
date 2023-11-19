@@ -100,7 +100,8 @@ img, .counter {
     height: 50px;
     width: 50px;
     border: 2px solid #fff;
-    background-color: var(--bg-color);
+    background-color: var(--gray-light);
+
 }
 a.booked {
     border-left: 1px solid #eee;
