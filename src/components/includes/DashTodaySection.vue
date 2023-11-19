@@ -37,7 +37,7 @@
                 </a>
             </div>
             <ul>
-                <dash-today-list v-for="event in events.slice(0, 5)" :key="event.id" :event="event" :bookings="bookings" :is_climber="is_climberZ" />
+                <dash-today-list v-for="event in events.slice(0, 5)" :key="event.id" :event="event" :bookings="bookings" :is_climber="is_climber" />
             </ul>
             <button v-if="events.length > 5" class="button-primary btn-md w-100">Show all</button>
         </div>
