@@ -4,7 +4,7 @@
             <profile-avatar :avatar="computedClimber.profile_picture" :name="computedClimber.name" />
             <div>
                 <div class="flx gap-4">
-                    {{ computedClimber.name }}
+                    {{  computedClimber.name }}
                     <booking-status :guideView="true" :status="bookingStatus" />
                 </div>
                 <div class="gray">{{ calculateAge(computedClimber.dob) }}</div>
@@ -29,21 +29,22 @@ export default {
     name: 'EventAttendeesList',
     components: { ProfileAvatar, BookingStatus },
     mixins: [formatDateTime],
+    props: {
+        booking: Object
+    },
     computed: {
         ...mapState({
             climbers: (state) => state.climbers,
             bookings: (state) => state.bookings
         }),
         computedClimber() {
-            return this.climbers.find(data => data.id === this.booking.user_id)
+            return this.climbers.flat().find(data => data.id === this.booking.user_id)
         },
         bookingStatus() {
             return this.bookings.find(event => event.id === this.booking.id)
         }
-    },
-    props: {
-        booking: Object
     }
+    
 }
 </script>
 
