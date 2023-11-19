@@ -58,6 +58,7 @@ export default {
                 this.stopSpinner()
                 this.showAlert('success', res.data.message)
                 this.$store.commit('updateNotifications', this.climber.id)
+                this.$store.commit('updateBooking', res.data.booking)
                 this.$store.commit('closeModal')
             } catch (e) {
                 this.errorResponse(e)
@@ -70,6 +71,7 @@ export default {
                 const res = await axios.post(this.hostname+'/api/decline-booking/'+ this.climber.id + '?token='+ this.token)
                 this.showAlert('success', res.data.message)
                 this.$store.commit('updateNotifications', this.climber.id)
+                this.$store.commit('deleteBooking', res.data.booking)
                 this.$store.commit('closeModal')
             } catch (e) {
                 this.errorResponse(e)
