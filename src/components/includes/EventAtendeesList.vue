@@ -1,7 +1,7 @@
 <template>
      <div class="flx jc-sb ai-c gap-8 pd-16 br-16 attendees-list">
         <div class="flx gap-8">
-            <profile-avatar :avatar="computedClimber.profile_picture || null" :name="computedClimber.profile_picture" />
+            <profile-avatar :avatar="computedClimber.profile_picture" :name="computedClimber.name" />
             <div>
                 <div>{{ computedClimber.name }}</div>
                 <div class="gray">{{ calculateAge(computedClimber.dob) }}</div>
