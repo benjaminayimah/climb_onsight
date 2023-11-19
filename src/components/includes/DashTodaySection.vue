@@ -71,12 +71,12 @@ export default {
             guides: (state) => state.guides
         }),
         computedRegistered() {
-            let data = []
+            let data = ''
             if(this.is_guide) {
-                data = this.climbers
+                data = this.climbers.flat()
             }
             else if(this.is_climber) {
-                data = this.guides
+                data = this.guides.flat()
             }
             return data
         }
