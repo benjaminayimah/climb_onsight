@@ -43,14 +43,9 @@ export default {
             return this.events.find(data => data.id === this.notification.event_id)
         },
         eventType() {
-            if(this.event) {
-                const today = new Date()
-                const eventDate = new Date(this.event.start_date)
-                return today > eventDate ? 'past' : 'registered'
-            }else {
-                return ''
-            }
-            
+            const today = new Date()
+            const eventDate = new Date(this.event.start_date)
+            return today > eventDate ? 'past' : 'registered'
         },
     },
     methods: {
