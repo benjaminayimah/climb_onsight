@@ -55,7 +55,15 @@ export default {
             }else if(this.is_guide) {
                 this.$store.commit('preloadBooking_request', this.notification)
             }else if(this.is_climber) {
-                this.event ? this.$router.push({ name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } ) : ''
+                if (this.event ) {
+                    this.$router.push({ name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } )
+                } else {
+                    const alertPayload = {
+                        status: 'danger',
+                        body: 'Sorry, this event cannot be found. It may have been deleted by the guide.'
+                    };
+                    this.$store.commit('showAlert', alertPayload)
+                }
             }
             this.id ? this.$emit('close-dropdown', this.id) : ''
         }
