@@ -11,10 +11,10 @@
                         <div>
                             <ul class="flx bg-white pd-8 br-32 tab">
                                 <li>
-                                    <router-link :to="{ name: 'Calendar'}" :class="{'active' : $route.query.status !== 'daily'}">Monthly</router-link>
+                                    <router-link :to="{ name: 'Calendar'}" :class="{'active' : $route.query.status !== 'day'}">Month</router-link>
                                 </li>
                                 <li>
-                                    <router-link :to="{ name: 'Calendar', query: { status: 'daily'} }" :class="{'active' : $route.query.status === 'daily'}">Daily</router-link>
+                                    <router-link :to="{ name: 'Calendar', query: { status: 'day'} }" :class="{'active' : $route.query.status === 'day'}">Day</router-link>
                                 </li>
                             </ul>
                         </div>
@@ -22,7 +22,7 @@
                     <vue-cal
                         :disable-views="['years', 'year']"
                         :selected-date="selectedDate"
-                        :active-view="$route.query.status !== 'daily' ? 'month': 'day'"
+                        :active-view="$route.query.status !== 'day' ? 'month': 'day'"
                         events-on-month-view="short"
                         :events="computedEvents"
                         hide-view-selector

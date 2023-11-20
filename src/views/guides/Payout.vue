@@ -108,7 +108,7 @@
                     </div>
                 </div>
             </div>
-            <div class="payout-right overflow-y-scroll bg-white br-16 flx-1 pd-32 flx column gap-16">
+            <div class="payout-right sticky top-90 overflow-y-scroll bg-white br-16 flx-1 pd-32 flx column gap-16">
                 <div class="text-center">
                     <h3>Payout menu</h3>
                 </div>
@@ -246,5 +246,10 @@ export default {
 }
 .table-cell {
     font-weight: 400;
+}
+.mobile {
+    .pd-32 {
+        padding: 32px 16px;
+    }
 }
 </style>

@@ -714,6 +714,10 @@ h1, h2, h3, h4, h5 {
 .fs-5rem {
     font-size: clamp(2rem, 1vw + 3rem, 5rem);
 }
+.top-90 {
+    top: 90px;
+}
+
 
 //details-card
 .main-details-wrapper {
