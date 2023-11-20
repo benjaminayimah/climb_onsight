@@ -394,9 +394,18 @@ export default createStore({
         state.commit('stopPageLoader')
       })
       .catch(e => {
-        if(e.response.status == 400 || e.response.status == 404 ) {
-          state.commit('destroyToken')
+        if(e.response) {
+          if(e.response.status == 400 || e.response.status == 404 ) {
+            state.commit('destroyToken')
+          }
+        }else {
+          const payload = {
+            status: 'danger',
+            body: 'An unknown error has occured. Please check your internet connection.'
+          };
+          state.commit('showAlert', payload)
         }
+        state.commit('stopPageLoader')
       })
     },
     async getThisGuide(state, payload) {  
