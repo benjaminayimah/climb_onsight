@@ -43,9 +43,14 @@ export default {
             return this.events.find(data => data.id === this.notification.event_id)
         },
         eventType() {
-            const today = new Date()
-            const eventDate = new Date(this.event.start_date)
-            return today > eventDate ? 'past' : 'registered'
+            if(this.event) {
+                const today = new Date()
+                const eventDate = new Date(this.event.start_date)
+                return today > eventDate ? 'past' : 'registered'
+            }else {
+                return ''
+            }
+            
         },
     },
     methods: {
@@ -55,7 +60,7 @@ export default {
             }else if(this.is_guide) {
                 this.$store.commit('preloadBooking_request', this.notification)
             }else if(this.is_climber) {
-                this.$router.push({ name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } )
+                this.event ? this.$router.push({ name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } ) : ''
             }
             this.id ? this.$emit('close-dropdown', this.id) : ''
         }
