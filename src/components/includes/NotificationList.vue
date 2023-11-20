@@ -16,6 +16,7 @@
 
 <script>
 import userRolesMixin from '@/mixins/userRolesMixin';
+import { mapState } from 'vuex';
 export default {
     name: 'NotificationList',
     mixins: [userRolesMixin],
@@ -24,6 +25,9 @@ export default {
         id: String
     },
     computed: {
+        ...mapState({
+            events: (state) => state.events
+        }),
         computedNotiType() {
             let data = { message: '', buttonText: 'View'}
             if(this.is_super) {
@@ -34,7 +38,15 @@ export default {
                 data.message = 'Your booking request is accepted.'
             }
             return data
-        }
+        },
+        event() {
+            return this.events.find(data => data.id === this.notification.event_id)
+        },
+        eventType() {
+            const today = new Date()
+            const eventDate = new Date(this.event.start_date)
+            return today > eventDate ? 'past' : 'registered'
+        },
     },
     methods: {
         doClick() {
@@ -42,10 +54,9 @@ export default {
                 this.$store.commit('preloadNewGuide', this.notification)
             }else if(this.is_guide) {
                 this.$store.commit('preloadBooking_request', this.notification)
+            }else if(this.is_climber) {
+                this.$router.push({ name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } )
             }
-            // else if(this.is_climber) {
-            //     this.$store.commit('triggerBooking', this.notification)
-            // }
             this.id ? this.$emit('close-dropdown', this.id) : ''
         }
     }
