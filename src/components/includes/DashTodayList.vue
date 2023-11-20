@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="{ name: 'UpcomingEvents', query: { current: this.event.id, origin: this.$route.name} }" class="flx jc-sb ai-c">
+    <a href="#" @click.prevent="handleClick" class="flx jc-sb ai-c">
         <div class="flx gap-8 ai-c">
             <profile-avatar :name="event.event_name" :avatar="JSON.parse(event.gallery)[0]" />
             <div>
@@ -18,7 +18,7 @@
             <strong class="fs-09">{{ format_date_short3(event.start_date) }}</strong>
             <div class="fs-09 gray">{{ event.address }}</div>
         </div>
-    </router-link>
+    </a>
 </template>
 
 <script>
@@ -37,6 +37,15 @@ export default {
     computed: {
         bookingStatus() {
             return this.bookings.find(event => event.event_id === this.event.id)
+        },
+    },
+    methods: {
+        handleClick() {
+            if(this.is_climber) {
+                this.$store.commit('preloadSearchResult', { type: 'event', data: this.event})
+            }else {
+                this.$router.push({name: 'UpcomingEvents', query: { current: this.event.id, origin: this.$route.name} } )
+            }
         }
     }
 }
