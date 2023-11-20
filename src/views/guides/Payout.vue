@@ -98,10 +98,10 @@
                     <div v-if="payouts.data.length" class="grid-table">
                         <div class="grid table-body">
                             <div class="grid-item table-head grid-col-payout">
-                                <h4 class="table-cell wrap-text wrap-line-1">Gross amount</h4>
-                                <h4 class="table-cell wrap-text wrap-line-1">Net amount</h4>
-                                <h4 class="table-cell wrap-text wrap-line-1">Description</h4>
-                                <h4 class="table-cell wrap-text wrap-line-1">Date</h4>
+                                <h4 class="table-cell"><span class="wrap-text wrap-line-1 uppercase">Gross amount</span></h4>
+                                <h4 class="table-cell"><span class="wrap-text wrap-line-1 uppercase">Net amount</span></h4>
+                                <h4 class="table-cell"><span class="wrap-text wrap-line-1 uppercase">Description</span></h4>
+                                <h4 class="table-cell"><span class="wrap-text wrap-line-1 uppercase">Date</span></h4>
                             </div>
                             <payout-table-row v-for="payout in payouts.data" :key="payout.id" :payout="payout" />
                         </div>
