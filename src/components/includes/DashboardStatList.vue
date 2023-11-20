@@ -1,10 +1,8 @@
 <template>
     <div class="stat br-16 flx column ai-c relative jc-sb">
-        <a href="" class="absolute">
-            <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 15 15">
+            <svg class="absolute" xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 15 15">
                 <path d="M1.4,15,0,13.6,11.6,2H5V0H15V10H13V3.4Z"/>
             </svg>
-        </a>
         <h1>{{ amount && currency ? formatAmount(value, currency) : value  }}</h1>
         <div>{{ title }}</div>
         <span>{{ period }}</span>
@@ -40,7 +38,7 @@ export default {
         font-size: 0.9rem;
         color: var(--gray);
     }
-    a {
+    svg {
         top: 20px;
         right: 20px;
     }

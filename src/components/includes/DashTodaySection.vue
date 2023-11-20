@@ -22,19 +22,19 @@
                     <profile-avatar v-for="climber in computedRegistered.slice(0, 5)" :key="climber.id" :avatar="climber.profile_picture" :name="climber.name" />
                     <div v-if="computedRegistered.length > 5" class="fw-700 counter centered br-24">+{{ computedRegistered.length - 5 }}</div>
                 </div>
-                <a href="" class="flx gap-16 ai-c booked">
+                <div class="flx gap-16 ai-c booked">
                     <div>
                         <strong v-if="is_super" class="fs-09">View all locations</strong>
                         <strong v-else-if="is_guide" class="fs-09">All climbers registered</strong>
                         <strong v-else-if="is_climber" class="fs-09">All booked guides</strong>
                         <div class="gray">{{ computedRegistered.length }}</div>
                     </div>
-                    <div>
+                    <!-- <div>
                         <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 11.775 20">
                             <path d="M8.228,22,6.453,20.225,14.678,12,6.453,3.775,8.228,2l10,10Z" transform="translate(-6.453 -2)" fill="#555555"/>
                         </svg>
-                    </div>
-                </a>
+                    </div> -->
+                </div>
             </div>
             <ul>
                 <dash-today-list v-for="event in events.slice(0, 5)" :key="event.id" :event="event" :bookings="bookings" :is_climber="is_climber" />
@@ -103,7 +103,7 @@ img, .counter {
     background-color: var(--gray-light);
 
 }
-a.booked {
+.booked {
     border-left: 1px solid #eee;
     padding-left: 16px;
 }
