@@ -26,7 +26,7 @@ export default {
     },
     computed: {
         ...mapState({
-            events: (state) => state.events
+            bookings: (state) => state.bookings
         }),
         computedNotiType() {
             let data = { message: '', buttonText: 'View'}
@@ -40,7 +40,7 @@ export default {
             return data
         },
         event() {
-            return this.events.find(data => data.id === this.notification.event_id)
+            return this.bookings.find(data => data.id === this.notification.event_id)
         },
         eventType() {
             const today = new Date()
