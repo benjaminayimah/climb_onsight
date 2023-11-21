@@ -2,10 +2,13 @@ import moment from "moment"
 export default {
     methods: {
         format_date(date) {
-            return moment(date).format('ddd, MMMM Do YYYY'); 
+            return moment(date).format('ddd, MMMM Do, YYYY'); 
+        },
+        format_date2(date) {
+          return moment(date).format('MMMM Do, YYYY'); 
         },
         format_date_short(date) {
-          return moment(date).format("MMM Do YY");  
+          return moment(date).format("MMM Do, YY");
         },
         format_date_short2(date) {
           return moment(date).format("MMMM YYYY"); 

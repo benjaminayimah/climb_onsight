@@ -34,7 +34,7 @@
                 </li>
             </ul>
             <div v-else>
-                <form @submit.prevent="">
+                <form @submit.prevent="" id="password_reset">
                     <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                         <span>{{ systemErr.message }}</span>
                     </div>

@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="" class="flx column gap-24">
+    <form @submit.prevent="" class="flx column gap-24" id="cal_stepper_1_form">
         <div class="form-row column">
             <label for="event_name">Event name</label>
             <div class="input-wrapper">
@@ -73,7 +73,7 @@ export default {
     props: {
         newEvent: Object,
         input2: Boolean,
-        editMode: Boolean,
+        editMode: String,
         user: Object
     },
     data() {
@@ -110,7 +110,7 @@ export default {
                 this.showErr(errors)
             }else {
                 this.validation.error ? this.clearErrs() : ''
-                this.editMode ? await this.$store.commit('updateTempStorage1', this.form) : await this.$store.commit('saveEventForm1', this.form)
+                this.editMode === 'event_edit' ? await this.$store.commit('updateTempStorage1', this.form) : await this.$store.commit('saveEventForm1', this.form)
                 this.$router.push({ name: this.$route.name, query: { stepper: '2', current: this.$route.query.current, origin: this.$route.query.origin }})
             }
         },
@@ -121,7 +121,7 @@ export default {
             this.newEvent && this.newEvent.start_time ? this.form.start_time = this.newEvent.start_time : ''
             this.newEvent && this.newEvent.repeat ? this.form.repeat = this.newEvent.repeat : false
             this.newEvent && this.newEvent.repeat_at ? this.form.repeat_at = this.newEvent.repeat_at : ''
-            if(this.editMode && this.newEvent.repeat_at) {
+            if(this.editMode === 'event_edit' && this.newEvent.repeat_at) {
                 this.form.repeat = true
             }else {
                 this.form.repeat = false

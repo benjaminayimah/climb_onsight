@@ -42,20 +42,20 @@
             <div class="br-16 flx column gap-24">
                 <div class="flx column gap-16">
                     <div>
-                        <label class="gray fs-09">Name</label>
+                        <div class="gray fs-09">Name</div>
                         <div>{{ guide.name }}</div>
                     </div>
                     <div>
-                        <label class="gray fs-09">Email</label>
+                        <div class="gray fs-09">Email</div>
                         <div>{{ guide.company_email }}</div>
                     </div>
                     <div>
-                        <label class="gray fs-09">Phone number</label>
+                        <div class="gray fs-09">Phone number</div>
                         <div>{{ guide.phone_number }}</div>
                     </div>
                     <div class="flx gap-24 flx-1 flx-wrap">
                         <div v-if="computedInsurance.length">
-                            <label class="gray fs-09">Guide Insurance</label>
+                            <div class="gray fs-09">Guide Insurance</div>
                             <div>
                                 <a class="a-link flx gap-4 ai-c" v-for="insurance in computedInsurance" :key="insurance.id" :href="s3bucket+'/'+insurance.url" target="_blank" onclick="return !window.open(this.href, 'Guide Insurance', 'width=700,height=800');">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 15.5 19.5">
@@ -69,7 +69,7 @@
                             </div>
                         </div>
                         <div v-if="computedCertificate.length">
-                            <label class="gray fs-09">Guide Certificates</label>
+                            <div class="gray fs-09">Guide Certificates</div>
                             <div>
                                 <a class="a-link flx gap-4 ai-c" v-for="certificate in computedCertificate" :key="certificate.id" :href="s3bucket+'/'+certificate.url" target="_blank" onclick="return !window.open(this.href, 'Guide Certificates', 'width=700,height=800');">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 15.5 19.5">
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="gray fs-09">Guide Terms & Conditions</label>
+                            <div class="gray fs-09">Guide Terms & Conditions</div>
                             <div>
                                 <a class="a-link flx gap-4 ai-c" :href="s3bucket+'/'+JSON.parse(guide.guide_terms).url" target="_blank" onclick="return !window.open(this.href, 'Terms & Conditions', 'width=700,height=800');">
                                     <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 15.5 19.5">
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="gray fs-09">Awards</label>
+                            <div class="gray fs-09">Awards</div>
                             <div class="flx gap-4">
                                 <li v-for="award in JSON.parse(guide.guide_awards)" :key="award.id" >
                                     {{ award }}
@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="gray fs-09">Link to review</label>
+                            <div class="gray fs-09">Link to review</div>
                             <div>
                                 <a class="a-link flx gap-4 ai-c" :href="guide.customer_reviews" target="_blank">
                                     <svg xmlns="http://www.w3.org/2000/svg"  height="16" viewBox="0 0 12.63 17.542">
@@ -119,7 +119,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="gray fs-09">Reference details</label>
+                            <div class="gray fs-09">Reference details</div>
                             <div>
                                 <div v-for="referee in JSON.parse(guide.referees)" :key="referee.id" class="flx gap-8 flx-wrap">
                                     <div class="flx gap-4">
@@ -139,9 +139,11 @@
                         </div>
                     </div>
                     <div>
-                        <label class="gray fs-09">Experiences</label>
-                        <div v-for="experience in JSON.parse(guide.guide_experience)" :key="experience.id">
-                            <div v-if="experience.value > 0">{{experience.value}} years in {{ experience.name }}</div>
+                        <div class="gray fs-09">Experiences</div>
+                        <div id="ng_exp">
+                            <div v-for="experience in JSON.parse(guide.guide_experience)" :key="experience.id">
+                                <div v-if="experience.value > 0">{{experience.value}} years in {{ experience.name }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>

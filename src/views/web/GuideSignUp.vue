@@ -10,7 +10,7 @@
                         <div class="fw-700 fs-3rem">Welcome</div>
                         <div>Create your login details</div>
                     </div>
-                    <form @submit.prevent="doSubmit">
+                    <form @submit.prevent="doSubmit" id="guide_signup_form">
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                             <span>{{ systemErr.message }}</span>
                         </div>

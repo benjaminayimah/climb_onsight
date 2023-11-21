@@ -702,6 +702,9 @@ h1, h2, h3, h4, h5 {
 .fs-102rem {
     font-size: 1.2rem;
 }
+.fs-108rem{
+    font-size: 1.8rem;
+}
 .fs-2rem {
     font-size: 2rem;
 }
@@ -746,7 +749,7 @@ h1, h2, h3, h4, h5 {
     color: var(--black);
 }
 form {
-    label:not([data-type=input-wrapper]) {
+    label:not([data-type=input-wrapper]), .label {
         font-size: 0.9rem;
         font-weight: 600;
     }
@@ -1246,6 +1249,12 @@ ul.tab {
         width: 100%;
         .comp-text{
             width: inherit;
+        }
+    }
+    .stat {
+        padding: 16px;
+        h1 {
+            font-size: 1rem;
         }
     }
     

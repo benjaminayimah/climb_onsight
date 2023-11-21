@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="chat-footer">
-                        <form @submit.prevent="" class="flx ai-c gap-8 flx-1 br-32">
+                        <form @submit.prevent="" class="flx ai-c gap-8 flx-1 br-32" id="compose_chat_form">
                             <div class="flx-1">
                                 <input type="text" class="form-control" placeholder="Type a message">
                             </div>

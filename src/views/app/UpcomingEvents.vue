@@ -100,6 +100,10 @@ section {
 .evt-card {
     flex-basis: calc(50% - 16px);
     height: 260px;
-    max-width: 275px;
+}
+.desktop, .tablet {
+    .evt-card {
+        max-width: 275px;
+    }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-    <form @submit.prevent="" class="flx column gap-16">
+    <form @submit.prevent="" class="flx column gap-16" id="cal_stepper_2_form">
         <div class="form-row column">
-            <label for="category">Event Category(Choose one)</label>
+            <div class="label">Event Category(Choose one)</div>
             <div class="input-wrapper">
                 <ul class="flx gap-8 flx-wrap">
                     <category-list v-for="category in categories" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#fff'"/>
@@ -12,7 +12,7 @@
             </span>
         </div>
         <div class="form-row column">
-            <label for="gallery">Add event images</label>
+            <div class="label">Add event images</div>
             <div class="gallery">
                 <div class="gallery-wrapper grid grid-col-3 gap-8 mb-8">
                     <gallery-image v-for="(image, index) in form.gallery" :key="index" :index="index" :image="image" @delete-image="deleteImage" />
@@ -55,7 +55,7 @@ export default {
     props: {
         newEvent: Object,
         input2: Boolean,
-        editMode: Boolean
+        editMode: String
     },
     computed: {
         ...mapState({
@@ -105,7 +105,7 @@ export default {
                 this.showErr(errors)
             }else {
                 this.validation.error ? this.clearErrs() : ''
-                this.editMode ? await this.$store.commit('updateTempStorage2', this.form) : await this.$store.commit('saveEventForm2', this.form)
+                this.editMode === 'event_edit' ? await this.$store.commit('updateTempStorage2', this.form) : await this.$store.commit('saveEventForm2', this.form)
                 this.$router.push({ name: this.$route.name, query: { stepper: '3', current: this.$route.query.current, origin: this.$route.query.origin }})
             }
         },
@@ -128,7 +128,7 @@ export default {
                 this.newEvent.latitude ? this.form.latitude = this.newEvent.latitude : ''
                 this.newEvent.longitude ? this.form.longitude = this.newEvent.longitude : ''
                 if (this.newEvent.gallery ) {
-                    if(this.editMode) {
+                    if(this.editMode === 'event_edit') {
                         this.form.gallery = JSON.parse(this.newEvent.gallery)
                     }else {
                         this.form.gallery = this.newEvent.gallery

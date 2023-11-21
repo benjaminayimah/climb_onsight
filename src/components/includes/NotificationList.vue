@@ -51,9 +51,9 @@ export default {
     methods: {
         doClick() {
             if(this.is_super) {
-                this.$store.commit('preloadNewGuide', this.notification)
+                this.$store.commit('preSetTempData', {data: this.notification, modal: 'new_guide'})
             }else if(this.is_guide) {
-                this.$store.commit('preloadBooking_request', this.notification)
+                this.$store.commit('preSetTempData', { data: this.notification, modal: 'booking_request'})
             }else if(this.is_climber) {
                 if (this.event ) {
                     this.$router.push({ name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } )

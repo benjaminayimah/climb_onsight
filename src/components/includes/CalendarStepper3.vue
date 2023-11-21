@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="" class="flx column gap-16">
+    <form id="cal_stepper_3_form" @submit.prevent="" class="flx column gap-16">
         <div class="form-row column">
             <label for="attendance_limit">Attendance range</label>
             <input v-model="form.attendance_limit" type="range" min="1" max="30" step="1" class="w-100 custom-range" />
@@ -23,7 +23,7 @@
         </div>
         <div class="form-row column">
             <div class="flx jc-sb ai-c">
-                <label for="gears">Gears</label>
+                <div class="label">Gears</div>
                 <span class="gray fs-08">Separate with a comma</span>
             </div>
             <div class="input-wrapper">
@@ -35,7 +35,7 @@
         </div>
         <div class="form-row column">
             <div class="flx jc-sb ai-c">
-                <label for="itinerary">Itinerary</label>
+                <div class="label">Itinerary</div>
                 <span class="gray fs-08">Optional</span>
             </div>
             <div class="input-wrapper">
@@ -56,7 +56,7 @@
         </div>
         <div class="form-row column">
             <div class="flx jc-sb ai-c">
-                <label for="question">Add Q & A</label>
+                <div class="label">Add Q & A</div>
                 <span class="gray fs-08">Optional</span>
             </div>
             <faq-input-row v-for="(faq, index) in form.faqs" 
@@ -101,7 +101,7 @@ export default {
     props: {
         newEvent: Object,
         input2: Boolean,
-        editMode: Boolean
+        editMode: String
     },
     computed: {
         ...mapState({
@@ -154,8 +154,8 @@ export default {
                 this.showErr(errors)
             }else {
                 this.validation.error ? this.clearErrs() : ''
-                this.editMode ? await this.$store.commit('updateTempStorage3', this.form) : await this.$store.commit('saveEventForm3', this.form)
-                this.editMode ? this.submitUpdate() : this.submitForm()
+                this.editMode === 'event_edit' ? await this.$store.commit('updateTempStorage3', this.form) : await this.$store.commit('saveEventForm3', this.form)
+                this.editMode === 'event_edit' ? this.submitUpdate() : this.submitForm()
             }
         },
         async submitForm() {
@@ -202,14 +202,14 @@ export default {
                 this.newEvent.itinerary ? this.form.itinerary = this.newEvent.itinerary : ''
                 this.newEvent.event_description ? this.form.event_description = this.newEvent.event_description : ''
                 if(this.newEvent.gears) {
-                    if(this.editMode) {
+                    if(this.editMode === 'event_edit') {
                         this.form.gears = JSON.parse(this.newEvent.gears).join(',')
                     }else {
                         this.form.gears = this.newEvent.gears.join(',')
                     }
                 }
                 if (this.newEvent.faqs ) {
-                    if(this.editMode) {
+                    if(this.editMode === 'event_edit') {
                         this.form.faqs = JSON.parse(this.newEvent.faqs )
                     }else {
                         this.form.faqs = this.newEvent.faqs 

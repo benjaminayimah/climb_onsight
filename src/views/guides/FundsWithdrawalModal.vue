@@ -4,7 +4,7 @@
     </teleport>
     <teleport to="#modal_content">
         <div class="modal-width">
-            <form @submit.prevent="" class="flx column gap-24">
+            <form @submit.prevent="" class="flx column gap-24" id="funds_withdral_form">
                 <div class="form-row column">
                     <label for="amount">Amount</label>
                     <div class="input-wrapper">

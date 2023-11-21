@@ -10,7 +10,7 @@
                         <div class="fw-700 fs-2rem">{{ successful ? 'Successful!' : 'Almost there!' }}</div>
                         <div v-if="!successful">Enter your new password</div>
                     </div>
-                    <form v-if="!successful" @submit.prevent="doSubmit">
+                    <form v-if="!successful" @submit.prevent="doSubmit" id="reset_pass_form">
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                             <span>{{ systemErr.message }}</span>
                         </div>

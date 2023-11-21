@@ -29,21 +29,20 @@
     </teleport>
     <teleport to="#modal_title">
         <div class="flx gap-8 ai-c">
-            <span>{{ result.type === 'event' ? 'Event details' : 'Guides\' profile' }}</span>
-            <div v-if="result.type === 'event' && bookingStatus">
+            <span>Event details</span>
+            <div v-if="bookingStatus">
                 <booking-status v-if="is_climber" :status="bookingStatus" />
             </div>
         </div>
     </teleport>
     <teleport to="#modal_content">
         <div class="modal-width">
-            <profile-body v-if="result.type === 'guide'" :user="result.data" :guest="true"/>
-            <event-body v-else-if="result.type === 'event'" :event="result.data" :guide="guide"/>
+            <event-body :event="result" :guide="guide"/>
         </div>
     </teleport>
     <teleport to="#modal_footer">
         <div class="flx jc-fe gap-8">
-            <booking-trigger-button :eventStatus="bookingStatus" :resultType="result.type" @booking-trigger="bookingTrigger" />
+            <booking-trigger-button :eventStatus="bookingStatus" @booking-trigger="bookingTrigger" />
         </div>
     </teleport>
 </template>
@@ -54,7 +53,6 @@ import userRolesMixin from '@/mixins/userRolesMixin'
 import alertMixin from '@/mixins/alertMixin'
 import formatDateTime from '@/mixins/formatDateTime'
 import inputValidation from '@/mixins/inputValidation'
-import ProfileBody from '@/components/layouts/ProfileBody.vue'
 import { mapState } from 'vuex'
 import EventBody from '@/components/layouts/EventBody.vue'
 import Backdrop from '@/components/includes/Backdrop.vue'
@@ -62,7 +60,7 @@ import Spinner from '@/components/includes/Spinner.vue'
 import BookingTriggerButton from '@/components/includes/BookingTriggerButton.vue'
 import BookingStatus from '@/components/includes/BookingStatus.vue'
 export default {
-    components: { ProfileBody, EventBody, Backdrop, Spinner, BookingTriggerButton, BookingStatus },
+    components: { EventBody, Backdrop, Spinner, BookingTriggerButton, BookingStatus },
     name: 'ResultsModal',
     mixins: [inputValidation, formatDateTime, alertMixin,  userRolesMixin],
     computed: {
@@ -73,7 +71,7 @@ export default {
             bookings: (state) => state.bookings
         }),
         bookingStatus() {
-            return this.bookings.find(event => event.event_id === this.result.data.id)
+            return this.bookings.find(event => event.event_id === this.result.id)
         }
     },
     data() {
@@ -105,7 +103,7 @@ export default {
         async submitPreBooking() {
             this.startSpinner()
             try {
-                const res = await axios.post(this.hostname+'/api/prebook-event/'+ this.result.data.id + '?token='+ this.token)
+                const res = await axios.post(this.hostname+'/api/prebook-event/'+ this.result.id + '?token='+ this.token)
                 this.showAlert('success', res.data.message)
                 this.stopSpinner()
                 this.prebook = false
@@ -119,7 +117,7 @@ export default {
     },
     mounted() {
         this.$store.commit('stopFormLoader')
-        this.getThisGuide(this.result.data.user_id)
+        this.getThisGuide(this.result.user_id)
 
     }
 }
@@ -129,7 +127,7 @@ export default {
 .modal-width {
     width: 900px;
 }
-.profile-body-wrapper, .main-details-wrapper {
+.main-details-wrapper {
     padding: 0;
 }
 .modal-container {

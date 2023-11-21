@@ -10,7 +10,7 @@
                                     <path d="M10.248,19.051a9.373,9.373,0,1,1,9.373-9.373A9.386,9.386,0,0,1,10.248,19.051Zm0-17.374a8,8,0,1,0,8,8A8.01,8.01,0,0,0,10.248,1.676Zm9.6,18.29a.678.678,0,0,1-.485-.2l-1.829-1.829a.685.685,0,0,1,.969-.969L20.334,18.8a.69.69,0,0,1,0,.969A.678.678,0,0,1,19.85,19.966Z" transform="translate(-0.875 -0.305)"/>
                                 </svg>
                             </i>
-                            <input v-model="form.searchInput" class="form-control" type="search" placeholder="Search by location, event name or guide">
+                            <input v-model="form.searchInput" class="form-control" type="search" id="search" placeholder="Search by location, event name or guide">
                         </div>
                         <button v-if="getDevice !== 'desktop'" @click="toggleFilter" class="button-outline btn-rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 27 18">
@@ -145,7 +145,7 @@ export default {
     },
     methods: {
         openModal(result) {
-            this.$store.commit('preloadSearchResult', result)
+            this.$store.commit('preSetTempData', { data: result, modal: 'search_result'})
         },
         selectCategory(category) {
             if(this.filter.category && this.filter.category === category.name) {
@@ -273,9 +273,13 @@ section {
 }
 .evt-card {
     flex-basis: calc(33.33% - 16px);
-    max-width: 310px;
     height: 250px;
     padding: 20px;
+}
+.desktop, .tablet {
+    .evt-card {
+        max-width: 310px;
+    }
 }
 .flx-wrap {
     .bg-img {

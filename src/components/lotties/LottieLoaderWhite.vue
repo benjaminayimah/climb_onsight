@@ -3,7 +3,7 @@
 </template>
 <script>
 import { Vue3Lottie } from 'vue3-lottie'
-import animationData from '@/assets/lottie/loader-gray.json';
+import animationData from '@/assets/lottie/loader-white.json';
 
 export default {
   components: {

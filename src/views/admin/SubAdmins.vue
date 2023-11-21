@@ -27,7 +27,7 @@
             </div>
             <div v-else>
                 <div class="grid-table">
-                    <div class="grid table-body">
+                    <div class="grid table-body overflow-y-scroll">
                         <div class="grid-item table-head grid-col-admins">
                             <h4 class="table-cell wrap-text wrap-line-1">Name</h4>
                             <h4 class="table-cell wrap-text wrap-line-1">Email</h4>

@@ -12,7 +12,7 @@
                     <avatar-uploader :status="status" :hostname="hostname" :dimension="140" :auth="true" @deleteTemp="deltmp" @upload-click="uploadClick" />
                     <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
                 </div>
-                <form >
+                <form @submit.prevent="" id="profile_edit_form">
                     <input class="hide" @change="uploadTemp('avatar_img')" name="image" id="avatar_img" type="file" ref="img"> 
                     <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                         <span>{{ systemErr.message }}</span>

@@ -96,7 +96,7 @@
                         There are no payouts due. Payouts will show up here, along with the date they're expected to arrive in your default bank.
                     </div>
                     <div v-if="payouts.data.length" class="grid-table">
-                        <div class="grid table-body">
+                        <div class="grid table-body overflow-y-scroll">
                             <div class="grid-item table-head grid-col-payout">
                                 <h4 class="table-cell"><span class="wrap-text wrap-line-1 uppercase">Gross amount</span></h4>
                                 <h4 class="table-cell"><span class="wrap-text wrap-line-1 uppercase">Net amount</span></h4>
@@ -105,6 +105,14 @@
                             </div>
                             <payout-table-row v-for="payout in payouts.data" :key="payout.id" :payout="payout" />
                         </div>
+                        <a @click.prevent="goToStripe" href="#" class="block centered a-link pd-16 mt-8">
+                            <span>
+                                See more details
+                                <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 14.5 14.5">
+                                    <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)" fill="#C69776"/>
+                                </svg>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -244,8 +252,14 @@ export default {
 .stats-wrapper {
     max-width: 1000px;
 }
+
 .table-cell {
     font-weight: 400;
+}
+.desktop {
+    .grid-table {
+    padding: 24px 0 40px 0;
+}
 }
 .mobile {
     .pd-32 {

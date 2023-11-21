@@ -30,11 +30,11 @@
                     <div class="gray">Phone number</div>
                     <span>{{ user.phone_number }}</span>
                 </li>
-                <form @submit.prevent="">
+                <form @submit.prevent="" id="img_hidden_form">
                     <input class="hide" @change="uploadTemp('avatar_img')" name="image" id="avatar_img" type="file" ref="img"> 
                 </form>
             </ul>
-            <form v-else @submit.prevent="submitUpdate">
+            <form v-else @submit.prevent="submitUpdate" id="profile_form">
                 <input class="hide" @change="uploadTemp('avatar_img')" name="image" id="avatar_img" type="file" ref="img"> 
                 <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                     <span>{{ systemErr.message }}</span>
@@ -84,8 +84,8 @@
             </div>
             <div v-if="guest" class="flx column gap-8">
                 <div>
-                    <label class="gray" for="status">Status</label>
-                    <div id="status" class="flx gap-4 ai-c">
+                    <div class="gray">Status</div>
+                    <div class="flx gap-4 ai-c">
                         <span>{{ user.is_approved ? 'Verified' : 'Unverified'}}</span>
                         <i class="br-50 centered pill-neutral">
                             <svg v-if="user.is_approved" xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 12 10" fill="none">
@@ -98,8 +98,8 @@
                     </div>
                 </div>
                 <div>
-                    <label class="gray" for="rating">Customer ratings</label>
-                    <div id="rating">
+                    <div class="gray">Customer ratings</div>
+                    <div>
                         <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 0 105 17" fill="none">
                             <path d="M7.54894 2.92705C7.8483 2.00574 9.1517 2.00574 9.45106 2.92705L10.1839 5.18237C10.3177 5.5944 10.7017 5.87336 11.1349 5.87336L13.5063 5.87336C14.475 5.87336 14.8778 7.11297 14.0941 7.68237L12.1756 9.07624C11.8251 9.33088 11.6784 9.78225 11.8123 10.1943L12.5451 12.4496C12.8445 13.3709 11.79 14.137 11.0063 13.5676L9.08778 12.1738C8.7373 11.9191 8.2627 11.9191 7.91221 12.1738L5.99372 13.5676C5.21001 14.137 4.15553 13.3709 4.45488 12.4496L5.18768 10.1943C5.32155 9.78225 5.1749 9.33088 4.82441 9.07624L2.90592 7.68237C2.1222 7.11297 2.52498 5.87336 3.4937 5.87336L5.86509 5.87336C6.29832 5.87336 6.68227 5.5944 6.81614 5.18237L7.54894 2.92705Z" fill="#F2C37B"/>
                             <path d="M29.5489 2.92705C29.8483 2.00574 31.1517 2.00574 31.4511 2.92705L32.1839 5.18237C32.3177 5.5944 32.7017 5.87336 33.1349 5.87336L35.5063 5.87336C36.475 5.87336 36.8778 7.11297 36.0941 7.68237L34.1756 9.07624C33.8251 9.33088 33.6784 9.78225 33.8123 10.1943L34.5451 12.4496C34.8445 13.3709 33.79 14.137 33.0063 13.5676L31.0878 12.1738C30.7373 11.9191 30.2627 11.9191 29.9122 12.1738L27.9937 13.5676C27.21 14.137 26.1555 13.3709 26.4549 12.4496L27.1877 10.1943C27.3216 9.78225 27.1749 9.33088 26.8244 9.07624L24.9059 7.68237C24.1222 7.11297 24.525 5.87336 25.4937 5.87336L27.8651 5.87336C28.2983 5.87336 28.6823 5.5944 28.8161 5.18237L29.5489 2.92705Z" fill="#F2C37B"/>
@@ -119,44 +119,44 @@
                 </button>
             </div>
             <div v-if="user.bio" class="mb-24">
-                <label class="gray">Climber fun facts</label>
+                <div class="gray">Climber fun facts</div>
                 <div>
                     {{ user.bio }}
                 </div>
             </div>
             <div class="flx gap-16 flx-wrap" :class="{'column' : is_guide}">
                 <div v-if="user.email">
-                    <label class="gray">Email</label>
+                    <div class="gray">Email</div>
                     <div>{{ user.email }}</div>
                 </div>
                 <div v-if="user.phone_number">
-                    <label class="gray">Phone</label>
+                    <div class="gray">Phone</div>
                     <div>{{ user.phone_number }}</div>
                 </div>
                 <div v-if="user.dob">
-                    <label class="gray">Age</label>
-                    <div>{{ calculateAge(user.dob) }}</div>
+                    <div class="gray">Age</div>
+                    <div id="ag">{{ calculateAge(user.dob) }}</div>
                 </div>
                 <div v-if="user.gender">
-                    <label class="gray">Sex</label>
+                    <div class="gray">Sex</div>
                     <div class="capitalize">{{ user.gender }}</div>
                 </div>
                 <div v-if="user.skills && user.skills.length" >
-                    <label class="gray">Proficiency</label>
+                    <div class="gray">Proficiency</div>
                     <div>
                         <li v-for="skill in user.skills" :key="skill">{{ skill }}</li>
                     </div>
                 </div>
                 <div v-if="user.activities && user.activities.length">
-                    <label class="gray">Activity</label>
-                    <div>
+                    <div class="gray">Activity</div>
+                    <div id="act">
                         <li v-for="activity in user.activities" :key="activity.name">
                             {{ activity.name }} ({{ activity.level }}%)
                         </li>
                     </div>
                 </div>
                 <div v-if="user.new_skills && user.new_skills.length" >
-                    <label class="gray">New skills</label>
+                    <div class="gray">New skills</div>
                     <div>
                         <li v-for="skill in user.new_skills" :key="skill">{{ skill }}</li>
                     </div>
@@ -183,12 +183,10 @@
                 </div>
             </div>
             <div v-if="guest && user.guide_experience">
-                <label class="gray" for="experience">Experiences</label>
-                <div id="experience">
-                    <div v-for="experience in JSON.parse(user.guide_experience)" :key="experience.id">
-                        <div v-if="experience.value > 0">
-                            <span>{{ experience.value }} years experience</span> in {{ experience.name }}
-                        </div>
+                <div class="gray">Experiences</div>
+                <div v-for="experience in JSON.parse(user.guide_experience)" :key="experience.id">
+                    <div v-if="experience.value > 0">
+                        <span>{{ experience.value }} years experience</span> in {{ experience.name }}
                     </div>
                 </div>
             </div>
@@ -303,7 +301,7 @@ export default {
         },
         triggerEdit() {
             this.$emit('close-modal')
-            this.$store.commit('preloadProfileEdit', this.user)
+            this.$store.commit('preSetTempData', {data: this.user, modal: 'profile_edit' })
         },
         switchTab(tab) {
             this.tab = tab

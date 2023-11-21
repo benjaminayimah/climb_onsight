@@ -7,7 +7,7 @@
             <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
         </div>
         <!-- <button @click="deltmp('f3M2P63h1JqO5xPLbSz8cRTBEpaYXchfvOYWidMe.jpg')">delete</button> -->
-        <form @submit.prevent="">
+        <form @submit.prevent="" id="climber_info_form">
             <input class="hide" @change="uploadTemp('avatar_img')" name="image" id="avatar_img" type="file" ref="img"> 
             <div class="form-wrapper flx column gap-24">
                 <div class="form-row column">

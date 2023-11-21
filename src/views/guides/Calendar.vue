@@ -7,7 +7,7 @@
             <div class="calendar-right flx bg-color br-8 flx-1 pd-24 gap-24">
                 <div class="right-col-1 relative">
                     <div class="flx jc-sb mb-16 ai-c">
-                        <div class="fs-2rem calendar-title wrap-text wrap-line-1">{{ format_date_short2(current_start_date)}}</div>
+                        <div class="fs-108rem calendar-title wrap-text wrap-line-1">{{ format_date2(current_start_date)}}</div>
                         <div>
                             <ul class="flx bg-white pd-8 br-32 tab">
                                 <li>

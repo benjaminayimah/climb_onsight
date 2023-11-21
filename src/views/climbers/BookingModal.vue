@@ -35,16 +35,16 @@
                     <h3>Summary</h3>
                     <div class="mt-24 mb-24">
                         <div class="flx column mb-8">
-                            <label class="gray">Event name</label>
-                            <div>{{ booking.data.event_name }}</div>
+                            <label for="bk_en" class="gray">Event name</label>
+                            <div id="bk_en">{{ booking.data.event_name }}</div>
                         </div>
                         <div class="flx column mb-8">
-                            <label class="gray">Event date</label>
-                            <div>{{ format_date(booking.data.start_date) }} <span class="gray">at</span> {{ format_time(booking.data.start_time)+'(EST)' }}</div>
+                            <label for="bk_ed" class="gray">Event date</label>
+                            <div id="bk_ed">{{ format_date(booking.data.start_date) }} <span class="gray">at</span> {{ format_time(booking.data.start_time)+'(EST)' }}</div>
                         </div>
                         <div class="flx column mb-8">
-                            <label class="gray">Event price</label>
-                            <strong>${{ booking.data.price }}</strong>
+                            <label for="bk_ep" class="gray">Event price</label>
+                            <strong id="bk_ep">${{ booking.data.price }}</strong>
                         </div>
                     </div>
                 </div>

@@ -5,43 +5,43 @@
                 <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
                 <h4>{{ event.event_name }}</h4>
                 <div v-if="event.event_description">
-                    <label for="details">Event details</label>
-                    <div id="details">
+                    <div class="gray">Event details</div>
+                    <div>
                         {{ event.event_description }}
                     </div>
                 </div>
                 <div class="flx gap-24">
                     <div>
-                        <label for="price">Event pricing</label>
-                        <div id="price"><strong>${{event.price}}</strong></div>
+                        <div class="gray">Event pricing</div>
+                        <div><strong>${{event.price}}</strong></div>
                     </div>
                     <div>
-                        <label for="date">Date</label>
-                        <div id="date">{{ format_date(event.start_date) }}</div>
+                        <div class="gray">Date</div>
+                        <div>{{ format_date(event.start_date) }}</div>
                     </div>
                     <div>
-                        <label for="time">Time</label>
-                        <div id="time">{{ format_time(event.start_time)+ '(EST)' }}</div>
+                        <div class="gray">Time</div>
+                        <div>{{ format_time(event.start_time)+ '(EST)' }}</div>
                     </div>
                     <div>
-                        <label for="time">Event location</label>
-                        <div id="time">{{ event.address }}</div>
+                        <div class="gray">Event location</div>
+                        <div>{{ event.address }}</div>
                     </div>
                 </div>
                 <div class="flx column gap-16">
                     <div v-if="event.itinerary">
-                        <label for="time">Itinerary</label>
-                        <div id="time">{{ event.itinerary }}</div>
+                        <div class="gray">Itinerary</div>
+                        <div>{{ event.itinerary }}</div>
                     </div>
                     <div v-if="computedGears.length">
-                        <label for="time">Gears</label>
-                        <div id="time">
+                        <div class="gray">Gears</div>
+                        <div>
                             <li v-for="(gear, index) in computedGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
                     <div v-if="computedFaqs.length">
-                        <label for="time">FAQ's</label>
-                        <div id="time">
+                        <div class="gray">FAQ's</div>
+                        <div>
                             <li v-for="faq in computedFaqs" :key="faq.id">
                                 <div>
                                     <i class="gray">Question: </i>
@@ -56,13 +56,13 @@
                     </div>
                 </div>
                 <div class="flx column gap-8">
-                    <label for="guide">Gallery</label>
+                    <div class="gray">Gallery</div>
                     <div class="flx gap-16 flx-wrap gallery" v-if="event.gallery && event.gallery.length">
                         <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
                     </div>
                 </div>
                 <div v-if="!is_guide" class="flx column gap-8">
-                    <label for="guide">Guide for event</label>
+                    <div class="gray">Guide for event</div>
                     <user-list :user="guide" :climber="true" :redirect="false" />
                 </div>
             </div>

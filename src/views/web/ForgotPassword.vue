@@ -10,7 +10,7 @@
                         <div class="fw-700 fs-2rem">{{ emailSent ? 'Check your email' : 'Forgot password' }}</div>
                         <div v-if="!emailSent">Enter your email to continue</div>
                     </div>
-                    <form v-if="!emailSent" @submit.prevent="submit">
+                    <form v-if="!emailSent" @submit.prevent="submit" id="forgot_pass_form">
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                             <span>{{ systemErr.message }}</span>
                         </div>

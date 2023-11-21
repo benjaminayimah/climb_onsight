@@ -42,7 +42,7 @@ export default {
     methods: {
         handleClick() {
             if(this.is_climber) {
-                this.$store.commit('preloadSearchResult', { type: 'event', data: this.event})
+                this.$store.commit('preSetTempData', { data: this.event, modal: 'search_result'})
             }else {
                 this.$router.push({name: 'UpcomingEvents', query: { current: this.event.id, origin: this.$route.name} } )
             }

@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="flx gap-8">
-                <button @click="$store.commit('preloadEventEdit', event)" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit trip details</button>
+                <button @click="$store.commit('preSetTempData', { data: event, modal: 'event_edit'})" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit trip details</button>
                 <button @click="$store.commit('setDeleteModal', {id: event.id, type: 'event'})"  class="button-danger btn-sm btn-rounded" v-if="is_guide">Delete trip</button>
             </div>
         </div>
@@ -17,18 +17,18 @@
                 <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
                 <h4>{{ event.event_name }}</h4>
                 <div v-if="event.event_description">
-                    <label for="details">Event details</label>
-                    <div id="details">
+                    <div class="gray">Event details</div>
+                    <div>
                         {{ event.event_description }}
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap" :class="is_guide ? 'column' : 'jc-sb'">
                     <div>
-                        <label for="price">Event pricing</label>
-                        <div id="price"><strong>${{event.price}}</strong></div>
+                        <div class="gray">Event pricing</div>
+                        <div><strong>${{event.price}}</strong></div>
                     </div>
                     <div>
-                        <label for="date">Date</label>
+                        <div class="gray">Date</div>
                         <div v-if="event.start_date !== event.end_date">
                             <i class="gray">from: </i><span id="date">{{ format_date(event.start_date) }}</span><br />
                             <i class="gray">to: </i><span>{{ format_date(event.end_date) }}</span>
@@ -38,32 +38,32 @@
                         </div>
                     </div>
                     <div>
-                        <label for="time">Time</label>
-                        <div id="time">{{ format_time(event.start_time)+'(EST)' }}</div>
+                        <div class="gray">Time</div>
+                        <div>{{ format_time(event.start_time)+'(EST)' }}</div>
                     </div>
                     <div>
-                        <label for="time">Max. attendance</label>
-                        <div id="time">{{ event.attendance_limit }}</div>
+                        <div class="gray">Max. attendance</div>
+                        <div>{{ event.attendance_limit }}</div>
                     </div>
                     <div>
-                        <label for="time">Event location</label>
-                        <div id="time">{{ event.address }}</div>
+                        <div class="gray">Event location</div>
+                        <div>{{ event.address }}</div>
                     </div>
                 </div>
                 <div class="flx column gap-16">
                     <div v-if="event.itinerary">
-                        <label for="time">Itinerary</label>
-                        <div id="time">{{ event.itinerary }}</div>
+                        <div class="gray">Itinerary</div>
+                        <div>{{ event.itinerary }}</div>
                     </div>
                     <div v-if="computedGears.length">
-                        <label for="time">Gears</label>
-                        <div id="time">
+                        <div class="gray">Gears</div>
+                        <div>
                             <li v-for="(gear, index) in computedGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
                     <div v-if="computedFaqs.length">
-                        <label for="faq">FAQ's</label>
-                        <div id="faq" class="flx gap-16 column">
+                        <div class="gray">FAQ's</div>
+                        <div class="flx gap-16 column">
                             <li v-for="faq in computedFaqs" :key="faq.id">
                                 <div>
                                     <i class="gray">Question: </i>
@@ -78,16 +78,14 @@
                     </div>
                 </div>
                 <div class="flx column gap-8 mb-16">
-                    <label for="guide">Gallery</label>
-                    <div class="flx gap-16 flx-wrap gallery" v-if="event.gallery && event.gallery.length">
+                    <div class="gray">Gallery</div>
+                    <div  class="flx gap-16 flx-wrap gallery" v-if="event.gallery && event.gallery.length">
                         <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
                     </div>
                 </div>
                 <div v-if="guide && !is_guide" class="flx column gap-8 guide">
-                    <label for="guide">Guide for event</label>
-                    <!-- <profile-avatar :avatar="guide.profile_picture" /> -->
+                    <div class="gray">Guide for event</div>
                     <user-list :user="guide" :climber="true" :redirect="false" />
-                    <!-- <div class="fs-102rem">{{ guide.name }}</div> -->
                 </div>
                 <div v-if="is_climber" class="sticky flx jc-fe">
                     <booking-trigger-button :eventStatus="bookingStatus" :resultType="'event'" @booking-trigger="bookingTrigger" />

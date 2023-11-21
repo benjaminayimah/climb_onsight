@@ -10,7 +10,7 @@
                         <div class="fw-700 fs-5rem">Welcome</div>
                         <div>Log in to Climb Onsight</div>
                     </div>
-                    <form @submit.prevent="submitSignIn">
+                    <form @submit.prevent="submitSignIn" id="signin_form">
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                             <span>{{ systemErr.message }}</span>
                         </div>

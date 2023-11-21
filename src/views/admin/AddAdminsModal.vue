@@ -1,14 +1,14 @@
 <template>
     <teleport to="#modal_title">
-        <span v-if="update && !updatePermissions">Edit info</span>
+        <span v-if="update && permissionsModal !== 'permissions'">Edit info</span>
         <span v-else-if="permissions">Assign permissions to user</span>
-        <span v-else-if="updatePermissions">Update permissions</span>
+        <span v-else-if="permissionsModal === 'permissions'">Update permissions</span>
         <span v-else>Add new admin</span>
     </teleport>
     <teleport to="#modal_content">
-        <div class="mb-16">{{ permissions || updatePermissions ? 'What would they have access to?' : 'Please fill out the form' }}</div>
-        <div v-if="!permissions && !updatePermissions" class="modal-width">
-            <form @submit.prevent="" class="flx column gap-24">
+        <div class="mb-16">{{ permissions || permissionsModal === 'permissions' ? 'What would they have access to?' : 'Please fill out the form' }}</div>
+        <div v-if="!permissions && permissionsModal !== 'permissions'" class="modal-width">
+            <form @submit.prevent="" class="flx column gap-24" id="add_admin_form">
                 <div class="form-row column">
                     <label for="name">Admin name</label>
                     <div class="input-wrapper">
@@ -63,11 +63,11 @@
     </teleport>
     <teleport to="#modal_footer">
         <div class="text-center flx jc-c">
-            <button @click="submitUpdate" v-if="update && !updatePermissions" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+            <button @click="submitUpdate" v-if="update && permissionsModal !== 'permissions'" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="18" />
                 <span>{{ submiting ? 'Submitting...' : 'Update'}}</span>
             </button>
-            <button v-else-if="permissions || updatePermissions" @click="submitPermissions" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+            <button v-else-if="permissions || permissionsModal === 'permissions'" @click="submitPermissions" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="18" />
                 <span>{{ submiting ? 'Submitting...' : 'Submit'}}</span>
             </button> 
@@ -96,7 +96,7 @@ export default {
             token: (state) => state.token,
             hostname: (state) => state.hostname,
             update: (state) => state.forms.tempStorage,
-            updatePermissions: (state) => state.forms.permissions
+            permissionsModal: (state) => state.forms.modal2
         })
     },
     data () {
@@ -173,10 +173,10 @@ export default {
             this.$store.commit('closeModal')
         },
         presetUpdate() {
-            if(this.update.name && this.update.email && !this.updatePermissions) {
+            if(this.update.name && this.update.email && this.permissionsModal !== 'permissions') {
                 this.form.name = this.update.name
                 this.form.email = this.update.email
-            }else if(this.updatePermissions) {
+            }else if(this.permissionsModal === 'permissions') {
                 this.adminAccess = JSON.parse(this.update.permissions)
                 this.user = this.update
             }

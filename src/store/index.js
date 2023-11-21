@@ -25,17 +25,8 @@ export default createStore({
     forms: { 
       active: false,
       loader: false,
-      new_payment: false,
-      withdraw_funds: false,
-      banks: false,
-      add_admin: false,
-      new_guide: false,
-      profile_edit: false,
-      search_result: false,
-      booking_request: false,
-      admin_password: false,
-      permissions: false,
-      event_edit: false,
+      modal: '',
+      modal2: '',
       tempStorage: '',
       searchResults: [],
       searchResultsGuides: []
@@ -212,79 +203,37 @@ export default createStore({
       state.forms.loader = true
       await this.commit('activateModal')
       document.body.classList.add('fixed-body')
-      if(payload === 'new_payment') {
-        state.forms.new_payment = true
-      }else if(payload === 'withdraw_funds') {
-        state.forms.withdraw_funds = true
-      }else if(payload === 'banks') {
-        state.forms.banks = true
-      }else if(payload === 'add_admin') {
-        state.forms.add_admin = true
-      }else if (payload === 'new_guide') {
-        state.forms.new_guide = true
-      }else if (payload === 'profile_edit') {
-        state.forms.profile_edit = true
-      }else if(payload === 'search_result') {
-        state.forms.search_result = true
-      }else if(payload === 'booking_request') {
-        state.forms.booking_request = true
-      }else if(payload === 'admin_password') {
-        state.forms.admin_password = true
-      }else if(payload === 'event_edit') {
-        state.forms.event_edit = true
-      }
+      state.forms.modal = payload
     },
     activateModal(state) {
       state.forms.active = true
     },
     closeModal(state) {
       state.forms.active = false
-      if(state.forms.event_edit) {
+      if(state.forms.modal === 'event_edit') {
         router.push({ name: 'UpcomingEvents', query: { current: state.forms.tempStorage.id, origin: 'UpcomingEvents'}})
       }
+      state.forms.modal = ''
+      state.forms.modal2 = ''
+      state.forms.tempStorage = ''
       document.body.classList.remove('fixed-body')
-      for (let i in state.forms)
-      state.forms[i] = false
     },
-    async preloadNewGuide(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'new_guide')
-    },
-    async preloadProfileEdit(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'profile_edit')
-    },
-    async preloadSearchResult(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'search_result')
-    },
-    async preloadBooking_request(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'booking_request')
-    },
-    async preloadAdmin_password(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'admin_password')
-    },
-    async preloadAdminInfo(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'add_admin')
-    },
-    async setUpdatePermissions(state, payload) {
-      await this.commit('setTempData', payload)
-      state.forms.permissions = true
-      this.commit('openModal', 'add_admin')
-    },
-    async preloadEventEdit(state, payload) {
-      await this.commit('setTempData', payload)
-      this.commit('openModal', 'event_edit')
-    },
-    updateNotifications(state, payload) {
-      state.notifications = state.notifications.filter(data => data.id !== payload)
+    async preSetTempData(state, payload) {
+      await this.commit('setTempData', payload.data)
+      this.commit('openModal', payload.modal)
     },
     setTempData(state, payload) {
       state.forms.tempStorage = payload
     },
+    async setUpdatePermissions(state, payload) {
+      await this.commit('setTempData', payload)
+      state.forms.modal2 = 'permissions'
+      this.commit('openModal', 'add_admin')
+    },
+    updateNotifications(state, payload) {
+      state.notifications = state.notifications.filter(data => data.id !== payload)
+    },
+    
     stopFormLoader(state) {
       state.forms.loader = false
     },

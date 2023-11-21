@@ -12,23 +12,23 @@
                 <span>{{ bank.bank_name || bank.brand }}</span>
                 <div class="fs-09 capitalize">
                     <div class="flx gap-8">
-                        <label class="gray">Account type:</label>
+                        <div class="gray">Account type:</div>
                         <div>{{ bank.object.replace(/_/g, ' ') }}</div>
                     </div>
                     <div v-if="bank.routing_number" class="flx gap-8">
-                        <label class="gray">Routing number:</label>
+                        <div class="gray">Routing number:</div>
                         <div>{{ bank.routing_number }}</div>
                     </div>
                     <div class="flx gap-8">
-                        <label class="gray">Country:</label>
+                        <div class="gray">Country:</div>
                         <div>{{ computedCountry }}</div>
                     </div>
                     <div class="flx gap-8">
-                        <label class="gray">Currency:</label>
+                        <div class="gray">Currency:</div>
                         <div class="uppercase">{{ bank.currency }}</div>
                     </div>
                     <div v-if="bank.object === 'card'" class="flx gap-8">
-                        <label class="gray">Expiry:</label>
+                        <div class="gray">Expiry:</div>
                         <div class="uppercase">{{ bank.exp_month +'/'+ bank.exp_year }}</div>
                     </div>
                 </div>

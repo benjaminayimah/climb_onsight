@@ -1,7 +1,7 @@
 <template>
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Fill the forms below</div>
-        <form @submit.prevent="">
+        <form @submit.prevent="" id="guide_com_form">
             <div class="form-wrapper flx column gap-24">
                 <div class="form-row column">
                     <label for="companyName">Company name</label>

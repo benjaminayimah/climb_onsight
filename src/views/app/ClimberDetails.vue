@@ -11,22 +11,22 @@
         </div>
         <div class="flx jc-sb ai-c">
             <div>
-                <label for="interest">Interest</label>
-                <div id="interest">Mountain climbing</div>
+                <div class="gray">Interest</div>
+                <div>Mountain climbing</div>
             </div>
             <div>
                 <button  class="pill pill-black">See All Events</button>
             </div>
         </div>
         <div>
-            <label for="bio">Guide Bio</label>
-            <div id="bio">
+            <div class="gray">Guide Bio</div>
+            <div>
                 Lorem ipsum dolor sit amet consectetur. Molestie erat vel suscipit lacinia vulputate. Viverra pulvinar sed nibh facilisi nisl mattis neque aliquam volutpat. Malesuada lacinia justo nisi et laoreet ac leo eget auctor. Eget elit nunc sit nam. In tellus laoreet nibh vestibulum.
             </div>
         </div>
         <div>
-            <label for="experience">Experiences</label>
-            <div id="experience">
+            <div class="gray">Experiences</div>
+            <div>
                 <div><span>6 years experience</span> in ice climbing</div>
                 <div><span>2 years experience</span> in mountain climbing</div>
             </div>

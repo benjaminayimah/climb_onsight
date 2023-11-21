@@ -20,16 +20,16 @@
             <div class="modal-bottom sticky" id="modal_footer"></div>
         </div>
     </div>
-    <add-payment-modal v-if="forms.new_payment" />
-    <funds-withdrawal-modal v-else-if="forms.withdraw_funds" />
-    <registered-banks-modal v-else-if="forms.banks" />
-    <add-admins-modal v-else-if="forms.add_admin" />
-    <new-guide-modal v-else-if="forms.new_guide" />
-    <profile-edit-modal v-else-if="forms.profile_edit" />
-    <results-modal v-else-if="forms.search_result"/>
-    <booking-request-modal v-else-if="forms.booking_request" />
-    <reset-admin-password v-else-if="forms.admin_password" />
-    <event-edit-modal v-else-if="forms.event_edit"/>
+    <add-payment-modal v-if="forms.modal === 'new_payment'" />
+    <funds-withdrawal-modal v-if="forms.modal ==='withdraw_funds'" />
+    <registered-banks-modal v-if="forms.modal === 'banks'" />
+    <add-admins-modal v-if="forms.modal === 'add_admin'" />
+    <new-guide-modal v-if="forms.modal === 'new_guide'" />
+    <profile-edit-modal v-if="forms.modal === 'profile_edit'" />
+    <results-modal v-if="forms.modal === 'search_result'"/>
+    <booking-request-modal v-if="forms.modal === 'booking_request'" />
+    <reset-admin-password v-if="forms.modal === 'admin_password'" />
+    <event-edit-modal v-if="forms.modal === 'event_edit'"/>
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';

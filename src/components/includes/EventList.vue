@@ -62,7 +62,7 @@ export default {
             if(this.redirect) {
                 this.$router.push(this.is_climber ? { name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } : { name: 'UpcomingEvents', query: { current: this.event.id, origin: this.$route.name} } )
             }else {
-                this.$emit('open-modal', { type: 'event', data: this.event})
+                this.$emit('open-modal', this.event)
             }
         }
     }

@@ -34,8 +34,8 @@
         </div>
         <div class="table-cell jc-sb">
             <div class="flx ai-c row-actions h-100" @click.prevent="">
-                <button @click="$store.commit('preloadAdminInfo', user)" class="t-pill-btn">Edit info</button>
-                <button @click="$store.commit('preloadAdmin_password', user)" class="wrap-text wrap-line-1 t-pill-btn">Reset password</button>
+                <button @click="$store.commit('preSetTempData', { data: user, modal: 'add_admin'})" class="t-pill-btn">Edit info</button>
+                <button @click="$store.commit('preSetTempData', { data: user, modal: 'admin_password'})" class="wrap-text wrap-line-1 t-pill-btn">Reset password</button>
                 <button @click="$store.commit('setDeleteModal', {id: user.id, type: 'admin'})" class="delete t-pill-btn">Delete</button>
             </div>
         </div>

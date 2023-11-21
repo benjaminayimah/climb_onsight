@@ -1,7 +1,7 @@
 <template>
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Terms & Conditions, Guide insurance, Certificates etc.</div>
-        <form @submit.prevent="">
+        <form @submit.prevent="" id="guide_doc_form">
             <div class="form-wrapper flx column gap-24">
                 <div class="form-row column">
                     <span class="gray fs-09">Required</span>
