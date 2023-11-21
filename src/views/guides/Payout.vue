@@ -120,7 +120,7 @@
                 <div class="text-center">
                     <h3>Payout menu</h3>
                 </div>
-                <div>Saved payout accounts</div>
+                <div>Saved payout methods</div>
                 <div class="flx column gap-16">
                     <saved-payment-list v-for="(bank, index) in payment_options" :key="bank.id" :bank="bank" :index="index" :length="payment_options.length" />
                 </div>
