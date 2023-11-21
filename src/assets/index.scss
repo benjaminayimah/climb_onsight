@@ -1190,6 +1190,12 @@ ul.tab {
     .modal-width{
         width: 430px !important;
     }
+    .booking-trigger-wrapper {
+        justify-content: center;
+        button {
+            width: 100%;
+        }
+    }
 }
 @media screen and (max-width: 486px){
     .modal-width {
@@ -1250,12 +1256,7 @@ ul.tab {
             font-size: 1rem;
         }
     }
-    .booking-trigger-wrapper {
-        justify-content: center;
-        button {
-            width: 100%;
-        }
-    }
+
     
 }
 //tablet
