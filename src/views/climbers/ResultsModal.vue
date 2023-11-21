@@ -41,7 +41,7 @@
         </div>
     </teleport>
     <teleport to="#modal_footer">
-        <div class="flx jc-fe gap-8">
+        <div class="flx jc-fe gap-8 booking-trigger-wrapper">
             <booking-trigger-button :eventStatus="bookingStatus" @booking-trigger="bookingTrigger" />
         </div>
     </teleport>

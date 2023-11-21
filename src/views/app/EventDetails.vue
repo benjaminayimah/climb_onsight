@@ -87,7 +87,7 @@
                     <div class="gray">Guide for event</div>
                     <user-list :user="guide" :climber="true" :redirect="false" />
                 </div>
-                <div v-if="is_climber" class="sticky flx jc-fe">
+                <div v-if="is_climber" class="sticky booking-trigger-wrapper flx jc-fe">
                     <booking-trigger-button :eventStatus="bookingStatus" :resultType="'event'" @booking-trigger="bookingTrigger" />
                 </div>
             </div>
@@ -200,6 +200,6 @@ export default {
     width: 150px;
 }
 .sticky {
-    bottom: -60px;
+    bottom: 0px;
 }
 </style>

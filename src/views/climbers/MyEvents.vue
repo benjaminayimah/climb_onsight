@@ -31,7 +31,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="body-content pd-l-24 bd-l-1 overflow-y-scroll">
+                    <div class="body-content pd-l-24 bd-l-1 overflow-y-scroll fixed-height">
                         <event-details :event="computedEvent" />
                     </div>
                 </div>
@@ -100,8 +100,17 @@ section {
 .body-content {
     border-top: 1px solid #e4e4e4;
     padding-top: 20px;
-    padding-bottom: 100px;
-    height: calc(100dvh - 218px);
+    padding-bottom: 32px;
+}
+.desktop {
+    .body-content {
+        height: calc(100dvh - 218px);
+    }
+}
+.mobile, .tablet {
+    .body-content {
+        height: calc(100dvh - 75px);
+    }
 }
 
 .evt-card {

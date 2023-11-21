@@ -181,22 +181,15 @@ button, .a-button{
         transition: var(--input-btn-transition);
     }
 }
-button:not(.button-disabled, .button-disabled2, .absolute) {
+button:not(.button-disabled, .absolute) {
     &:active {
         transform: scale(0.98);
     }
 }
 .button-disabled{
-    // background-color: #a1a1a1 !important;
+    background-color: #b0b0b0 !important;
     &:hover {
-        background-color: var(--black);
-        cursor: not-allowed
-    }
-}
-.button-disabled2{
-    background-color: #a1a1a1 !important;
-    &:hover {
-        background-color: #a1a1a1 !important;
+        background-color: #b0b0b0 !important;
         cursor: not-allowed
     }
 }
@@ -1257,6 +1250,12 @@ ul.tab {
             font-size: 1rem;
         }
     }
+    .booking-trigger-wrapper {
+        justify-content: center;
+        button {
+            width: 100%;
+        }
+    }
     
 }
 //tablet
@@ -1309,7 +1308,7 @@ ul.tab {
         margin-left: -20px;
         padding: 8px 20px;
         height: 100%;
-        .body-content {
+        .body-content:not(.fixed-height) {
             height: 100%;
         }
     }
