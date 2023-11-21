@@ -139,5 +139,10 @@ section.main {
 .evt-card {
     flex-basis: calc(33.33% - 16px);
 }
+.mobile {
+    .pd-24 {
+        padding: 16px;
+    }
+}
 
 </style>
