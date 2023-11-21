@@ -50,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="is_guide" class="flx-b-60 bg-white pd-24 br-16 flx column gap-8">
+                    <div v-if="is_guide" class="flx-b-60 bg-white pd-24 br-16 flx column gap-8 flx-1">
                         <vue-cal
                             :disable-views="['years', 'year']"
                             :active-view="'month'"
@@ -64,11 +64,11 @@
                     </div>
                     <dash-notification-card v-if="getDevice !== 'mobile'" />
                 </div>
-                <div class="flx flx-grow-1 gap-24">
-                    <div v-if="getDevice !== 'mobile'" class="flx-b-60 gap-8 flx column">
+                <div v-if="getDevice !== 'mobile'" class="flx flx-grow-1 gap-24">
+                    <div class="flx-b-60 gap-8 flx column">
                         <dash-message-card />
                     </div>
-                    <div v-if="getDevice !== 'mobile'" class="flx-grow-1 flx column gap-8">
+                    <div class="flx-grow-1 flx column gap-8">
                         <h3 class="title">Climbing Merchandise</h3>
                         <div class="bg-white flx-1 br-16 centered">
                             <a href="" target="_blank" class="gray a-link">Explore merchandise</a>
