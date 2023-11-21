@@ -34,7 +34,7 @@
                 </svg>
                 <h3>No Upcoming Events</h3>
                 <div class="mb-24">There are no events coming up</div>
-                <router-link v-if="is_guide" :to="{name: 'Calendar'}" class="button-primary btn-md  btn-rounded block">Add go to calendar</router-link>
+                <router-link v-if="is_guide" :to="{name: 'Calendar'}" class="button-primary btn-md  btn-rounded block">Add to calendar</router-link>
             </div>
         </div>
     </section>
