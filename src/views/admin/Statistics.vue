@@ -1,10 +1,14 @@
 <template>
     <section class="flx column gap-40 main">
         <div class="grid gap-24 grid-col-4 stats-wrapper">
-            <dashboard-stat-list :color="'#E8E2FF'" />
-            <dashboard-stat-list :color="'#d5ffd5'" />
-            <dashboard-stat-list :color="'#e0f2fe'" />
-            <dashboard-stat-list :color="'#ffe4e6'" />
+            <dashboard-stat-list v-for="(stat, index) in statsArray" :key="index"
+                :title="stat.title"
+                :value="stat.value || 0"
+                :color="stat.color"
+                :period="stat.period"
+                :amount="stat.amount"
+                :currency="stat.currency"
+            />
         </div>
         <div class="grid grid-col-2 gap-24 flx-1">
             <div class="bg-white br-16 pd-32">
@@ -33,11 +37,13 @@
 </template>
 
 <script>
+import statsMixin from '@/mixins/statsMixin';
 import DashboardStatList from '@/components/includes/DashboardStatList.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 export default {
-  components: { DashboardStatList, BarChart },
-    name: 'StatisticsView'
+    name: 'StatisticsView',
+    components: { DashboardStatList, BarChart },
+    mixins: [statsMixin]
 }
 </script>
 

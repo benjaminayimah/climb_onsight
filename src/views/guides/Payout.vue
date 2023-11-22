@@ -76,10 +76,14 @@
                 </div>
                 </div>
                 <div class="grid gap-24 grid-col-4 stats-wrapper">
-                    <payout-stats-list :amount="true" :value="computedGross || 0" :title="'Gross balance'" :period="'Last 7 days'" :currency="computedCurrency" :color="'#E8E2FF'" />
-                    <payout-stats-list :amount="true" :value="computedNet || 0" :title="'Net balance'" :period="'Last 7 days'" :color="'#d5ffd5'" :currency="computedCurrency" />
-                    <payout-stats-list :value="events.length || 0"  :title="'Total events'" :period="'All times'" :color="'#e0f2fe'"/>
-                    <payout-stats-list :value="bookings.length || 0" :title="'Total bookings'" :period="'All times'" :color="'#ffe4e6'" />
+                    <payout-stats-list v-for="(stat, index) in statsArray" :key="index"
+                        :value="stat.value || 0" 
+                        :title="stat.title"
+                        :period="stat.period"
+                        :color="stat.color"
+                        :amount="stat.amount"
+                        :currency="stat.currency"
+                    />
                 </div>
                 <div class="flx column gap-8">
                     <h3 class="mt-8">Upcoming Payouts</h3>
@@ -174,6 +178,14 @@ export default {
             }
             return data
         },
+        statsArray() {
+            let array = []
+            array.push({ title: 'Gross balance', value: this.computedGross, color: '#E8E2FF', period: 'Last 7 days', amount: true, currency: this.computedCurrency})
+            array.push({ title: 'Net balance', value: this.computedNet, color: '#d5ffd5', period: 'Last 7 days', amount: true, currency: this.computedCurrency})
+            array.push({ title: 'Total events', value: this.events.length, color: '#e0f2fe', period: 'All times', amount: false, currency: ''})
+            array.push({ title: 'Total bookings', value: this.bookings.length, color: '#ffe4e6', period: 'All times', amount: false, currency: ''})
+            return array
+        }
     },
     data() {
         return {
