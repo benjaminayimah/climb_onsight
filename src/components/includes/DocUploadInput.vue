@@ -22,7 +22,7 @@
                 @delete-file="deleteFile"
             />
         </div>
-        <div v-else-if="formInput2">
+        <div v-else-if="formInput2.name">
             <uploaded-file-list
                 :key="formInput2.name"
                 :file="formInput2"
@@ -51,7 +51,7 @@ export default {
         formInput2: Object,
         id: String,
         label: String,
-        validationError: String
+        validationError: Array
     },
     methods: {
         deleteFile(file) {

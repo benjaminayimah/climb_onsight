@@ -2,11 +2,16 @@
   <section class="flx gap-24 column main event-section">
         <div v-if="events.length" class="flx section-main-wrapper">
             <div class="section-main-left">
-                <div class="flx tap-height pd-r-24 ai-c">
+                <div class="flx tap-height pd-r-24 ai-c gap-24">
                     <h1 class="title">All upcoming events</h1>
+                    <search-button @perform-search="performSearch" />
+                </div>
+                <div v-if="searchParam" class="mt-8">
+                    <i>Search results for: </i>
+                    <strong>{{ searchParam }}</strong>
                 </div>
                 <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <event-list v-for="event in events" :key="event.id" :event="event" :redirect="true" />
+                    <event-list v-for="event in computedEvents" :key="event.id" :event="event" :redirect="true" />
                 </div>
             </div>
             <transition name="slide-from-right">
@@ -45,8 +50,9 @@ import userRolesMixin from '@/mixins/userRolesMixin'
 import EventList from '@/components/includes/EventList.vue'
 import { mapState } from 'vuex'
 import EventDetails from './EventDetails.vue'
+import SearchButton from '@/components/includes/SearchButton.vue'
 export default {
-    components: { EventDetails, EventList },
+    components: { EventDetails, EventList, SearchButton },
     name: 'UpcomingEvents',
     mixins: [userRolesMixin],
     computed: {
@@ -62,6 +68,20 @@ export default {
                 return {}
             }
             return {}
+        },
+        computedEvents() {
+            if(this.searchParam) {
+                return this.events.filter(item => {
+                    return item.event_name.toLowerCase().match(this.searchParam.replace(/[^\w\s]/gi, "").toLowerCase()) || item.address.toLowerCase().match(this.searchParam.replace(/[^\w\s]/gi, "").toLowerCase())
+                })
+            }else {
+                return this.events
+            }
+        },
+    },
+    data() {
+        return {
+            searchParam: ''
         }
     },
     methods: {
@@ -72,6 +92,9 @@ export default {
             else {
                 return this.$router.go(-1)
             }
+        },
+        performSearch(param) {
+            this.searchParam = param
         }
     }
 }
@@ -83,18 +106,18 @@ section {
 }
 .tap-height {
     height: var(--tap-height);
+    border-bottom: 1px solid #e4e4e4;
 }
 .section-main-left {
     flex-basis: 40%;
     min-width: 40%;
 }
 .body-content {
-    border-top: 1px solid #e4e4e4;
     padding-top: 20px;
     padding-bottom: 100px;
     height: calc(100dvh - 158px);
 }
-.empty-state, .not-found{
+.empty-state{
     height: 80vh;
 }
 .evt-card {

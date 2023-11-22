@@ -140,7 +140,7 @@
                     </div>
                     <div>
                         <div class="gray fs-09">Experiences</div>
-                        <div id="ng_exp">
+                        <div>
                             <div v-for="experience in JSON.parse(guide.guide_experience)" :key="experience.id">
                                 <div v-if="experience.value > 0">{{experience.value}} years in {{ experience.name }}</div>
                             </div>
@@ -228,7 +228,7 @@ export default {
             try {
                 await axios.put(this.hostname+'/api/decline-guide/'+this.guide.id+'?token='+this.token )
                 this.stopSpinner()
-                this.$store.commit('acceptGuide', this.guide.id)
+                this.$store.commit('declineGuide', this.guide.id)
                 this.acceptTrigger.active = false
                 this.$store.commit('closeModal')
                 // console.log(res.data)

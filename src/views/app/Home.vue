@@ -3,35 +3,13 @@
         <div class="left flx column gap-24">
             <h3 class="show-tab-mob title">Latest</h3>
             <div class="grid gap-24 grid-col-4 stats-wrapper">
-                <dashboard-stat-list v-if="is_guide"
-                    :title="'Total transactions'"
-                    :value="computedGross || 0"
-                    :color="'#E8E2FF'"
-                    :period="'Last 7 days'"
-                    :amount="true"
-                    :currency="computedCurrency"
-                />
-                <dashboard-stat-list v-if="is_guide"
-                    :title="'My payouts'"
-                    :value="computedNet || 0"
-                    :color="'#d5ffd5'"
-                    :period="'Last 7 days'"
-                    :amount="true"
-                    :currency="computedCurrency"
-                />
-                <dashboard-stat-list v-if="is_guide || is_super"
-                    :title="'Total events'"
-                    :value="events.length || 0"
-                    :color="'#e0f2fe'"
-                    :period="'All times'"
-                    :amount="false"
-                />
-                <dashboard-stat-list
-                    :title="'Current bookings'"
-                    :value="bookings.length || 0"
-                    :color="'#ffe4e6'"
-                    :period="'23% increase from last week'"
-                    :amount="false"
+                <dashboard-stat-list v-for="(stat, index) in statsArray" :key="index"
+                    :title="stat.title"
+                    :value="stat.value || 0"
+                    :color="stat.color"
+                    :period="stat.period"
+                    :amount="stat.amount"
+                    :currency="stat.currency"
                 />
             </div>
             <div class="flx column flx-grow-1 gap-16">
@@ -46,7 +24,8 @@
                         <div class="flx flx-1 gap-16 flx-wrap">
                             <event-list v-for="event in computedBooking.slice(0, 6)" :key="event.id" :event="event" :redirect="true" />
                             <div v-if="computedBooking.length < 6" class="flx-1 evt-card shadow-sm bg-white br-16 centered">
-                                <router-link  :to="{ name: 'ExploreEvents' }" class="button-primary btn-rounded btn-sm-lng">Explore more</router-link>
+                                <router-link v-if="is_climber" :to="{ name: 'ExploreEvents' }" class="button-primary btn-rounded btn-sm-lng wrap-text wrap-line-1">Explore more</router-link>
+                                <router-link v-else :to="{ name: 'UpcomingEvents' }" class="button-primary btn-rounded btn-sm-lng wrap-text wrap-line-1">See all</router-link>
                             </div>
                         </div>
                     </div>

@@ -118,7 +118,7 @@
             </div>
             <div class="payout-right sticky top-90 overflow-y-scroll bg-white br-16 flx-1 pd-32 flx column gap-16">
                 <div class="text-center">
-                    <h3>Payout menu</h3>
+                    <h3>Payout methods</h3>
                 </div>
                 <div>Saved payout methods</div>
                 <div class="flx column gap-16">

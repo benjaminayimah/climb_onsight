@@ -245,8 +245,11 @@ export default createStore({
       state.notifications.splice(k, 1);
     },
     declineGuide(state, payload) {
-      state.guides.filter(data => data.id !== payload)
-      state.notifications.filter(data => data.id !== payload)
+      state.notifications = state.notifications.filter(data => data.id !== payload)
+      state.guides = state.guides.filter(data => data.id !== payload)
+      if(router.currentRoute.value.query.origin === 'Guides' && router.currentRoute.value.query.id) {
+        router.push({ name: 'Guides'})
+      }
     },
     destroyToken(){
       localStorage.removeItem('auth')
@@ -270,6 +273,20 @@ export default createStore({
     deleteAdmin(state, payload) {
       const i = state.admins.findIndex(x => x.id == payload)
       state.admins.splice(i, 1);
+    },
+    deleteGuide(state, payload) {
+      const i = state.guides.findIndex(x => x.id == payload)
+      state.guides.splice(i, 1);
+      if(router.currentRoute.value.query.origin === 'Guides' && router.currentRoute.value.query.id) {
+        router.push({ name: 'Guides'})
+      }
+    },
+    deleteClimber(state, payload) {
+        const i = state.climbers.findIndex(x => x.id == payload)
+        state.climbers.splice(i, 1);
+        if(router.currentRoute.value.query.origin === 'Climbers' && router.currentRoute.value.query.id) {
+          router.push({ name: 'Climbers'})
+        }
     },
     async deleteEvent(state, payload) {
       router.push({ name: 'UpcomingEvents'})
@@ -320,8 +337,8 @@ export default createStore({
       state.deleteModal.deleting = true
       const id = state.deleteModal.id
       const type = state.deleteModal.type
-      if(type === 'admin'){
-        this.dispatch('deleteAdmin', id)
+      if(type === 'admin' || type === 'guide' || type === 'climber'){
+        this.dispatch('deleteUser', {id: id, type: type})
       }else if(type === 'event') {
         this.dispatch('deleteEvent', id)
       }
@@ -380,17 +397,22 @@ export default createStore({
           state.commit('setCurrentLocation', address)
         })
     },
-    async deleteAdmin(state, payload) {
+    async deleteUser(state, payload) {
       try {
-        const res = await axios.delete(this.getters.getHostname+'/api/delete-user/'+payload+'?token='+this.getters.getToken);
+        const res = await axios.delete(this.getters.getHostname+'/api/delete-user/'+payload.id+'?token='+this.getters.getToken);
         state.commit('closeDeleteModal')
         const alertPayload = {
             status: 'success',
-            body: res.data.message
+            body: payload.type.charAt(0).toUpperCase() + payload.type.slice(1) + ' is deleted'
         };
         state.commit('showAlert', alertPayload)
-        state.commit('deleteAdmin', res.data.id)
-      
+        if(payload.type === 'admin') {
+          state.commit('deleteAdmin', res.data)
+        }else if(payload.type === 'guide') {
+          state.commit('deleteGuide', res.data)
+        }else if(payload.type === 'climber') {
+          state.commit('deleteClimber', res.data)
+        }
       } catch (e) {
         const payload = {
             status: 'danger',

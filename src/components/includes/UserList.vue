@@ -1,9 +1,13 @@
 <template>
-    <a href="#" @click.prevent="doClick" class="bg-img br-16 flx-1 relative" :class="{'list-is-active' : $route.query.id == user.id}">
+    <a href="#" @click.prevent="doClick" class="bg-img br-16 flx-1 relative user-list" :class="{'list-is-active' : $route.query.id == user.id}">
         <img :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name" />
         <div class="user-footer absolute br-16 flx jc-sb ai-c">
             <div class="flx column">
-                <div class="fs-09">{{ user.name }}</div>
+                <div class="fs-09">
+                    <span class="wrap-text wrap-line-1">
+                        {{ user.name }}
+                    </span>
+                </div>
                 <span class="fs-08">View profile</span>
             </div>
             <div v-if="redirect">
@@ -49,9 +53,9 @@ export default {
 a {
     height: 220px;
     min-width: 180px;
-    max-width: 420px;
+    border: 1px solid transparent;
     &:hover {
-        box-shadow: 0 6px 20px 0 rgba(16, 16, 16, 0.3);
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
 }
 .user-footer{

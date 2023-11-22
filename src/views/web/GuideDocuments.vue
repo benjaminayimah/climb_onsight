@@ -53,7 +53,7 @@ export default {
             form: {
                 guide_insurance: [],
                 guide_certificate: [],
-                guide_terms: '',
+                guide_terms: {},
                 guide_awards: ''
             }
         }
@@ -61,10 +61,10 @@ export default {
     methods: {
         async updateNewGuide() {
             let errors = { guide_awards: ''}
-            if(this.form.guide_awards == '' || this.form.guide_terms == '') {
+            if(this.form.guide_awards == '' || !this.form.guide_terms.name ) {
                 if(this.form.guide_awards == '') {
                     errors.guide_awards = ['The awards field is required']
-                }if(this.form.guide_terms == '') {
+                }if(!this.form.guide_terms.name) {
                     errors.guide_terms = ['The terms and conditions field is required']
                 }
                 this.showErr(errors)
@@ -76,7 +76,7 @@ export default {
         presetForm() {
             this.newGUide.guide_insurance ? this.form.guide_insurance = this.newGUide.guide_insurance : ''
             this.newGUide.guide_certificate ? this.form.guide_certificate = this.newGUide.guide_certificate : ''
-            this.newGUide.guide_terms ? this.form.guide_terms = this.newGUide.guide_terms : ''
+            this.newGUide.guide_terms ? this.form.guide_terms = this.newGUide.guide_terms : {}
 
             if(this.newGUide.guide_awards) {
                 this.form.guide_awards = this.newGUide.guide_awards.join(',')
@@ -98,7 +98,7 @@ export default {
             }else if( payload.key === 'guide_certificate')  {
                 this.form.guide_certificate = this.form.guide_certificate.filter(data => data.url != payload.file)
             }else if( payload.key === 'guide_terms') {
-                this.form.guide_terms = ''
+                this.form.guide_terms = {}
             }
             this.$store.commit('updateGuideDoc', this.form)
         }
