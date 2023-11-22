@@ -39,7 +39,7 @@
             <ul>
                 <dash-today-list v-for="event in events.slice(0, 5)" :key="event.id" :event="event" :bookings="bookings" :is_climber="is_climber" />
             </ul>
-            <button v-if="events.length > 5" class="button-primary btn-md w-100">Show all</button>
+            <button v-if="events.length > 5" @click="showAll" class="button-primary btn-md w-100">Show all</button>
         </div>
         <div v-else class="flx-1 centered">
             <div class="flx column ai-c text-center gap-8">
@@ -87,6 +87,11 @@ export default {
         is_climber: Boolean,
         bookings: Array,
         events: Array
+    },
+    methods: {
+        showAll() {
+            this.is_climber ? this.$router.push({ name: 'ExploreEvents'})  : this.$router.push({ name: 'UpcomingEvents'})
+        }
     }
 }
 </script>
