@@ -1,5 +1,5 @@
 <template>
-    <a href="#" @click.prevent="doClick" class="flx-1 evt-card shadow-sm bg-white br-16 flx column gap-16" :class="{'list-is-active' : $route.query.current == event.id}">
+    <a href="#" @click.prevent="doClick" class="flx-1 evt-card bg-white br-16 flx column gap-16" :class="{'list-is-active' : $route.query.current == event.id}">
         <div class="evt-card-wrapper flx column gap-4">
             <div class="bg-img relative" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}">
                 <div v-if="bookingStatus" class="absolute status-wrapper">
@@ -8,7 +8,11 @@
             </div>
             <div class="foot flx column gap-4">
                 <div class="flx jc-sb">
-                    <h4 class="fs-09">{{ event.event_name }}</h4>
+                    <h4 class="fs-09">
+                        <span class="wrap-text wrap-line-1">
+                            {{ event.event_name }}
+                        </span>
+                    </h4>
                     <div class="fs-09">${{ event.price }}</div>
                 </div>
                 <div class="flx gap-8">

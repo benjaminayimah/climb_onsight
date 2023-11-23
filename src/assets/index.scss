@@ -295,8 +295,14 @@ button:not(.button-disabled, .absolute) {
 }
 a.user-list, a.evt-card {
     transition: 0.2s all;
+}
+a.user-list {
     border: 1px solid transparent;
 }
+a.evt-card {
+    border: 1px solid #f0f1f2;
+}
+
 .list-is-active {
     border-color: var(--black) !important;
 }
@@ -820,7 +826,7 @@ input:not([type=checkbox],[type=radio]), select, textarea {
     font-size: 1rem;
     transition: var(--input-btn-transition);
 }
-.form-control:not(.rounded),.div-input {
+.form-control:not(.rounded, .form-control2),.div-input {
     width: 100%;
     border: 1px solid #D9D9D9;
     border-radius: var(--border-radius);

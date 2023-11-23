@@ -2,7 +2,7 @@
     <form id="cal_stepper_3_form" @submit.prevent="" class="flx column gap-16">
         <div class="form-row column">
             <label for="attendance_limit">Attendance range</label>
-            <input v-model="form.attendance_limit" type="range" min="1" max="30" step="1" class="w-100 custom-range" />
+            <input v-model="form.attendance_limit" type="range" min="1" max="30" id="attendance_limit" name="attendance_limit" step="1" class="w-100 custom-range" />
             <div class="flx jc-sb">
                 <span class="fs-09 gray">Min(1)</span>
                 <span class="bg-white br-16 counter">{{ form.attendance_limit }}</span>

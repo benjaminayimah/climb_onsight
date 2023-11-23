@@ -33,7 +33,7 @@ export default {
 a {
     padding: 4px 4px 4px 12px;
     border: 1px solid transparent;
-    background-color: v-bind(computedColor);
+    background-color: v-bind(color);
 }
 img {
     height: 35px;

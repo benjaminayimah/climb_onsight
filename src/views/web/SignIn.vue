@@ -27,7 +27,7 @@
                             <div class="form-row column">
                                 <label for="password">Password</label>
                                 <div class="input-wrapper">
-                                    <input v-model="form.password" autocomplete="new-password" :type="showPass ? 'text' : 'password'" class="form-control" :class="{ 'error-border': validation.errors.password }" name="password" id="password" placeholder="*********">
+                                    <input v-model="form.password" :type="showPass ? 'text' : 'password'" class="form-control" :class="{ 'error-border': validation.errors.password }" name="password" id="password" placeholder="*********">
                                     <span class="hide-show-pass absolute centered br-50" :class="{ 'hide-pass-active' : showPass }" @click="togglePass">
                                         <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 26.364 26.364">
                                             <g transform="translate(1.182 1.182)">

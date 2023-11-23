@@ -4,7 +4,7 @@
             <div class="label">Event Category(Choose one)</div>
             <div class="input-wrapper">
                 <ul class="flx gap-8 flx-wrap">
-                    <category-list v-for="category in categories" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#fff'"/>
+                    <category-list v-for="category in categories" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="color"/>
                 </ul>
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.category">
@@ -55,7 +55,8 @@ export default {
     props: {
         newEvent: Object,
         input2: Boolean,
-        editMode: String
+        editMode: String,
+        color: String
     },
     computed: {
         ...mapState({
