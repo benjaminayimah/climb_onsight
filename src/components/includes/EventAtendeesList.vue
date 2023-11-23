@@ -1,11 +1,13 @@
 <template>
-     <div class="flx jc-sb ai-c gap-8 pd-16 br-16 attendees-list">
+     <a href="#" @click.prevent="$store.commit('preSetTempData', { data: computedClimber, modal: 'view_user'})" class="flx jc-sb ai-c gap-8 pd-16 br-16 attendees-list">
         <div class="flx gap-8">
             <profile-avatar :avatar="computedClimber.profile_picture" :name="computedClimber.name" />
             <div>
                 <div class="flx gap-4">
-                    {{  computedClimber.name }}
-                    <booking-status :guideView="true" :status="bookingStatus" />
+                    <span>{{ computedClimber.name }}</span>
+                    <span>
+                        <booking-status :guideView="true" :status="bookingStatus" />
+                    </span>
                 </div>
                 <div class="gray">{{ calculateAge(computedClimber.dob) }}</div>
             </div>
@@ -17,7 +19,7 @@
                 </svg>
             </button>
         </div>
-    </div>
+    </a>
 </template>
 
 <script>

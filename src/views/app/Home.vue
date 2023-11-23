@@ -64,7 +64,6 @@
 import { mapGetters } from 'vuex'
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
-import userRolesMixin from '@/mixins/userRolesMixin'
 import statsMixin from '@/mixins/statsMixin'
 import DashboardStatList from '@/components/includes/DashboardStatList.vue'
 import EventList from '@/components/includes/EventList.vue'
@@ -74,7 +73,7 @@ import DashTodaySection from '@/components/includes/DashTodaySection.vue'
 export default {
     components: { DashboardStatList, EventList, DashNotificationCard, DashMessageCard, DashTodaySection, VueCal },
     name: 'HomeView',
-    mixins: [userRolesMixin, statsMixin],
+    mixins: [statsMixin],
     computed: {
         ...mapGetters(['getDevice']),
         computedEvents() {

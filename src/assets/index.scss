@@ -293,8 +293,12 @@ button:not(.button-disabled, .absolute) {
         background-color: unset;
     }
 }
+a.user-list, a.evt-card {
+    transition: 0.2s all;
+    border: 1px solid transparent;
+}
 .list-is-active {
-    border-color: var(--black);
+    border-color: var(--black) !important;
 }
 .acc-footer{
     a {
@@ -717,13 +721,17 @@ h1, h2, h3, h4, h5 {
 
 //details-card
 .main-details-wrapper {
-    padding: 32px 24px;
     .profile-img {
-        height: 200px;
+        height: 250px;
     }
-    label {
-        color: var(--gray);
-    }
+}
+.details-padding {
+    padding: 32px 24px;
+}
+.list-row-shading {
+    background-color: #F9F9F9;
+    padding: 6px 12px;
+    border-radius: 14px;
 }
 #status{
     i {
@@ -1130,6 +1138,10 @@ $completionWidth: 440px;
         .bg-white {
             width: 100%;
         }
+    }
+    .collapsable {
+        flex-direction: column;
+        gap: 16px;
     }
 }
 .stack-cards {

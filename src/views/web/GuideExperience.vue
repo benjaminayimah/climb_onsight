@@ -1,7 +1,7 @@
 <template>
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Please list yours or your companies experience</div>
-        <form id="guide_exp_form">
+        <form id="guide_exp_form" @submit.prevent="">
             <div class="form-wrapper flx column gap-24">
                 <ul class="flx gap-8 flx-wrap">
                     <category-list v-for="category in computedCateries" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#F1F1F1'"/>

@@ -1,5 +1,7 @@
 import { mapState } from 'vuex';
+import userRolesMixin from '@/mixins/userRolesMixin'
 export default {
+    mixins: [userRolesMixin],
     computed: {
         ...mapState({
             payouts: (state) => state.payouts,

@@ -78,11 +78,11 @@
             </a>
         </div>
         <div class="flx column gap-8">
-            <button @click="saveForm3" class="button-primary gap-8 btn-md w-100" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+            <button @click.prevent="saveForm3" class="button-primary gap-8 btn-md w-100" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="18" />
                 <span>{{ submiting ? 'Submiting...' : 'Submit'}}</span>
             </button>
-            <button @click="previousPage" class="bg-transparent btn-sm w-100">Back</button>
+            <button @click.prevent="previousPage" class="bg-transparent btn-sm w-100">Back</button>
         </div>
     </form>
 </template>

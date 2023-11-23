@@ -42,7 +42,7 @@ export default {
                 this.$router.push({ name: this.climber ? 'Climbers' : 'Guides', query: { id: this.user.id, origin: this.$route.name}})
 
             }else {
-                this.$emit('open-modal', { type: 'guide', data: this.user})
+                this.$store.commit('preSetTempData', { data: this.user, modal: 'view_user'})
             }
         }
     }
@@ -53,7 +53,6 @@ export default {
 a {
     height: 220px;
     min-width: 180px;
-    border: 1px solid transparent;
     &:hover {
         box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
@@ -67,7 +66,7 @@ a {
     inset: auto 0 0 0;
 }
 span {
-    color: #ccc;
+    color: #ffffff;
     &:hover {
         color: #fff;
         text-decoration: underline;

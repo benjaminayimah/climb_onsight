@@ -79,7 +79,6 @@ export default {
             try {
                 const res = await axios.post(this.hostname+'/api/forgot-password', this.form)
                 this.signinSuccess(res.data)
-                console.log(res.data)
             } catch (e) {
                 this.errorResponse(e)
                 this.stopSpinner()

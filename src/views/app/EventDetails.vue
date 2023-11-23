@@ -1,5 +1,5 @@
 <template>
-    <div class="br-16 bg-white main-details-wrapper">
+    <div class="br-16 bg-white main-details-wrapper" :class="is_climber || is_super ? 'dynamic-padding' : 'details-padding'">
         <div class="flx jc-sb ai-c mb-16">
             <div class="flx gap-8 ai-c">
                 <h4>Event details</h4>
@@ -15,14 +15,19 @@
         <div class="gap-24 flx col-row">
             <div class="flx gap-16 column w-50 flx-grow-1">
                 <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
-                <h4>{{ event.event_name }}</h4>
+                <div class="flx jc-sb ai-c">
+                    <h3>{{ event.event_name }}</h3>
+                    <div>
+                        <span class="fs-09 badge badge-cyan br-24">{{ event.category }}</span>
+                    </div>
+                </div>
                 <div v-if="event.event_description">
                     <div class="gray">Event details</div>
                     <div>
                         {{ event.event_description }}
                     </div>
                 </div>
-                <div class="flx gap-16 flx-wrap" :class="is_guide ? 'column' : 'jc-sb'">
+                <div class="flx gap-16 flx-wrap column">
                     <div>
                         <div class="gray">Event pricing</div>
                         <div><strong>${{event.price}}</strong></div>
@@ -201,5 +206,8 @@ export default {
 }
 .sticky {
     bottom: 0px;
+}
+.dynamic-padding {
+    padding: 32px calc(12vw - 29px);
 }
 </style>

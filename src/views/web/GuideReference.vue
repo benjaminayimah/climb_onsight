@@ -25,7 +25,7 @@
                     </i>
                     Add more references
                 </button>
-                <button @click="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
+                <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <spinner v-if="submiting" :size="18"/>
                     <span>{{ submiting ? 'Submitting...' : 'Finish up'}}</span>
                 </button>

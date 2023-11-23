@@ -4,7 +4,7 @@
             <div class="section-main-left">
                 <div class="flx ai-c gap-24 tap-height pd-r-24">
                     <h1 class="title">Guides</h1>
-                    <search-button @perform-search="performSearch" />
+                    <search-input @perform-search="performSearch" />
                 </div>
                 <div v-if="searchParam" class="mt-8">
                     <i>Search results for: </i>
@@ -47,9 +47,9 @@
 import UserList from '@/components/includes/UserList.vue'
 import { mapState } from 'vuex'
 import GuideDetails from './GuideDetails.vue'
-import SearchButton from '@/components/includes/SearchButton.vue'
+import SearchInput from '@/components/includes/SearchInput.vue'
 export default {
-    components: { UserList, GuideDetails, SearchButton },
+    components: { UserList, GuideDetails, SearchInput },
     name: 'GuidesView',
     computed: {
         ...mapState({

@@ -69,7 +69,7 @@
                             <spinner v-if="submiting" :size="18" />
                             <span>{{ submiting ? 'Please wait...' : 'Submit'}}</span>
                         </button>
-                        <button @click="closeEditMode" class="button-outline w-100 bg-transparent btn-md">Cancel</button>
+                        <button @click.prevent="closeEditMode" class="button-outline w-100 bg-transparent btn-md">Cancel</button>
                     </div>
                 </div>
             </form>

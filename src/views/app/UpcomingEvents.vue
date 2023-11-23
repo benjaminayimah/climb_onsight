@@ -4,7 +4,7 @@
             <div class="section-main-left">
                 <div class="flx tap-height pd-r-24 ai-c gap-24">
                     <h1 class="title">All upcoming events</h1>
-                    <search-button @perform-search="performSearch" />
+                    <search-input @perform-search="performSearch" />
                 </div>
                 <div v-if="searchParam" class="mt-8">
                     <i>Search results for: </i>
@@ -50,9 +50,9 @@ import userRolesMixin from '@/mixins/userRolesMixin'
 import EventList from '@/components/includes/EventList.vue'
 import { mapState } from 'vuex'
 import EventDetails from './EventDetails.vue'
-import SearchButton from '@/components/includes/SearchButton.vue'
+import SearchInput from '@/components/includes/SearchInput.vue'
 export default {
-    components: { EventDetails, EventList, SearchButton },
+    components: { EventDetails, EventList, SearchInput },
     name: 'UpcomingEvents',
     mixins: [userRolesMixin],
     computed: {

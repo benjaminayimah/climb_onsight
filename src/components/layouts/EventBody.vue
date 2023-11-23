@@ -1,5 +1,5 @@
 <template>
-    <div class="br-16 bg-white main-details-wrapper">
+    <div class="br-16 bg-white main-details-wrapper details-padding">
         <div class="gap-24 flx col-row">
             <div class="flx gap-24 column w-50 flx-grow-1">
                 <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
@@ -10,7 +10,7 @@
                         {{ event.event_description }}
                     </div>
                 </div>
-                <div class="flx gap-24">
+                <div class="flx gap-24 collapsable">
                     <div>
                         <div class="gray">Event pricing</div>
                         <div><strong>${{event.price}}</strong></div>

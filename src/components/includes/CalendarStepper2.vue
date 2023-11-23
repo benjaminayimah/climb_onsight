@@ -35,8 +35,8 @@
             </span>
         </div>
         <div class="flx column gap-8">
-            <button @click="nextPage" class="button-primary btn-md w-100">Next</button>
-            <button @click="previousPage" class="bg-transparent btn-sm w-100">Back</button>
+            <button @click.prevent="nextPage" class="button-primary btn-md w-100">Next</button>
+            <button @click.prevent="previousPage" class="bg-transparent btn-sm w-100">Back</button>
         </div>
     </form>
 </template>

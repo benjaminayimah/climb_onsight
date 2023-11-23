@@ -127,7 +127,7 @@ export default {
 .modal-width {
     width: 900px;
 }
-.main-details-wrapper {
+.details-padding {
     padding: 0;
 }
 .modal-container {

@@ -42,7 +42,6 @@ export default {
                 await axios.post(this.hostname + '/api/delete-gallery-image?token='+this.token, { file })
                 this.deleting = false
                 this.$emit('delete-image', file)
-                console.log(file)
             } catch (e) {
                 this.deleting = false
             }
