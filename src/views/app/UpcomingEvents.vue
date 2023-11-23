@@ -2,7 +2,7 @@
   <section class="flx gap-24 column main event-section">
         <div v-if="events.length" class="flx section-main-wrapper">
             <div class="section-main-left">
-                <div class="flx tap-height pd-r-24 ai-c gap-24">
+                <div class="flx tap-height pd-r-24 ai-c gap-24 collapsible">
                     <h1 class="title">All upcoming events</h1>
                     <search-input @perform-search="performSearch" />
                 </div>

@@ -795,7 +795,7 @@ select{
 .input-wrapper.search {
     input[type=search] {
         padding: 8px 12px 8px 45px;
-        border-color: transparent;
+        border: 1px solid transparent;
         &:hover {
             border-color: transparent;
         }
@@ -829,7 +829,7 @@ input:not([type=checkbox],[type=radio]), select, textarea {
     border: 1px solid transparent;
     background-color: #fff;
 }
-.form-control, .form-control2, .div-input {
+.form-control:not(.search), .form-control2, .div-input {
     &:hover {
         border: 1px solid var(--black);
     }
@@ -1139,9 +1139,17 @@ $completionWidth: 440px;
             width: 100%;
         }
     }
-    .collapsable {
+    .collapsible {
         flex-direction: column;
         gap: 16px;
+    }
+    .tap-height.collapsible {
+        align-items: flex-start;
+        height: unset;
+        border-bottom: unset;
+        div, input {
+            width: 100%;
+        }
     }
 }
 .stack-cards {

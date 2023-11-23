@@ -10,7 +10,7 @@
                         {{ event.event_description }}
                     </div>
                 </div>
-                <div class="flx gap-24 collapsable">
+                <div class="flx gap-24 collapsible">
                     <div>
                         <div class="gray">Event pricing</div>
                         <div><strong>${{event.price}}</strong></div>

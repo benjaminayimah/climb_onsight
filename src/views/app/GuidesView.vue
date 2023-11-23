@@ -2,7 +2,7 @@
     <section class="flx gap-24 column main guide-section">
         <div v-if="guides.length" class="flx section-main-wrapper">
             <div class="section-main-left">
-                <div class="flx ai-c gap-24 tap-height pd-r-24">
+                <div class="flx ai-c gap-24 tap-height pd-r-24 collapsible">
                     <h1 class="title">Guides</h1>
                     <search-input @perform-search="performSearch" />
                 </div>
