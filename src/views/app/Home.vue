@@ -14,7 +14,7 @@
             </div>
             <div class="flx column flx-grow-1 gap-16">
                 <div class="flx md-top gap-24">
-                    <div v-if="is_super || is_climber" class="flx-b-60 flx column gap-8">
+                    <div v-if="is_super || is_climber" class="flx-b-60 flx column gap-8 flx-1">
                         <h3 class="title flx jc-sb ai-c">
                             <div>
                                 {{ is_super ? 'Top events across the country' : 'Confirmed Events' }}
