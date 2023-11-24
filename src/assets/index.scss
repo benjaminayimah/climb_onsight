@@ -117,9 +117,6 @@
 .vuecal__event.event-yellow {background-color: var(--bg-yellow)}
 .vuecal__event.event-brown {background-color: var(--bg-brown)}
 
-
-
-
 img {
     width: 100%;
     display: block;
@@ -135,7 +132,7 @@ img {
     overflow: hidden;
 }
 img, .bg-img {
-    background-color: var(--bg-color);
+    background-color: #F1F1F1;;
 }
 a, button {
     -webkit-tap-highlight-color: transparent;
@@ -1463,9 +1460,4 @@ ul.tab {
 .slide-from-right-enter-from,
 .slide-from-right-leave-to {
     transform: translateX(100%);
-}
-
-
-.bg-img {
-    background-color: #eee;
 }

@@ -13,7 +13,7 @@
         <div class="grid grid-col-2 gap-24 flx-1">
             <div class="bg-white br-16 pd-32">
                 <div class="flx jc-sb ai-c">
-                    <h1>Stats</h1>
+                    <h1>Events</h1>
                     <ul class="flx bg-color pd-8 br-32 tab">
                         <li>
                             <router-link :to="{ name: 'Statistics'}" :class="{'active': $route.query.state !== 'guides'}">Climbers</router-link>
@@ -24,13 +24,13 @@
                     </ul>
                 </div>
                 <div>
-                    <bar-chart :xAxis="'Climbers'" :title="'Climbers stats'" v-if="$route.query.state !== 'guides'" />
-                    <bar-chart :xAxis="'Guides'" :title="'Guides stats'" v-else/>
+                    <bar-chart :data="climbers" :yAxis="'No. of Climbers'" :xAxis="'Time period'" :title="'Climbers stats'" v-if="$route.query.state !== 'guides'" />
+                    <bar-chart :data="guides" :yAxis="'No. of Guides'" :xAxis="'Time period'" :title="'Guides stats'" v-else/>
                 </div>
             </div>
             <div class="bg-white br-16 pd-32">
-                <h1>Location stats</h1>
-                <bar-chart :xAxis="'Locations'" :title="'Location stats'" />
+                <h1>Bookings</h1>
+                <bar-chart :data="bookings" :yAxis="'Bookings'" :xAxis="'Time period'" :title="'Location stats'" />
             </div>
         </div>
     </section>
@@ -40,10 +40,18 @@
 import statsMixin from '@/mixins/statsMixin';
 import DashboardStatList from '@/components/includes/DashboardStatList.vue'
 import BarChart from '@/components/charts/BarChart.vue'
+import { mapState } from 'vuex';
 export default {
     name: 'StatisticsView',
     components: { DashboardStatList, BarChart },
-    mixins: [statsMixin]
+    mixins: [statsMixin],
+    computed: {
+        ...mapState({
+            bookings: (state) => state.bookings,
+            climbers: (state) => state.climbers,
+            guides: (state) => state.guides
+        })
+    }
 }
 </script>
 

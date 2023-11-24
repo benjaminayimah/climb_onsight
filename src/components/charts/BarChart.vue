@@ -8,6 +8,7 @@
     />
 </template>
 <script>
+import moment from "moment"
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
@@ -15,23 +16,34 @@ export default {
     name: 'BarChart',
     components: { Bar },
     props: {
+        data: Array,
         title: String,
-        xAxis: String
+        xAxis: String,
+        yAxis: String
     },
     computed: {
         computedData() {
             const chartData = {
-                labels: ['John', 'Mary', 'Sarah', 'Andre', 'Stephanie', 'Sane', 'Cole', 'August', 'Kelly', 'Walter', 'Sam', 'David'],
+                labels: [],
                 datasets: [ 
                     {
                         label: this.title,
-                        data: [40, 20, 12, 20, 32, 50, 34, 22, 19, 25, 30, 45],
+                        data: [],
                         backgroundColor: '#B58563',
                         borderRadius: 40,
                         borderSkipped: false,
                     }
                 ]
             }
+            this.data.forEach(element => {
+                let dateLabel = moment(element.created_at).format('MMM DD, YYYY')
+                let check = chartData.labels.find(data => data == dateLabel)
+                if(!check) {
+                    chartData.labels.push(dateLabel)
+                    let filterVal = this.data.filter(date => moment(date.created_at).format('MMM DD, YYYY') == moment(element.created_at).format('MMM DD, YYYY'))
+                    chartData.datasets[0].data.push(filterVal.length)
+                }
+            })
             return chartData
         }
     },
@@ -55,7 +67,7 @@ export default {
                         },
                         title: {
                             display: true,
-                            text: 'Events',
+                            text: this.yAxis,
                         },
                         
                     }
@@ -65,3 +77,37 @@ export default {
     }
 }
 </script>
+
+
+<!-- computed: {
+    computedStats() {
+        const chartData = {
+            labels: [],
+            datasets: [
+                {
+                    label: 'Earnings',
+                    data: [],
+                    backgroundColor: '#566ff4',
+                }
+            ],
+        }
+        this.results.forEach(element => {
+            let dateLabel = moment(element.created_at).format('MMM DD, YYYY')
+            let check = chartData.labels.find(data => data == dateLabel)
+            if(!check) {
+                chartData.labels.push(dateLabel)
+                let filterVal = this.results.filter(date => moment(date.created_at).format('MMM DD, YYYY') == moment(element.created_at).format('MMM DD, YYYY'))
+                let totalVal = filterVal.reduce((acc, item) => acc + Number(item.total_paid), 0)
+                chartData.datasets[0].data.push(totalVal)
+            }
+        })
+        return chartData
+    }
+},
+data() {
+    return {
+        chartOptions: {
+            responsive: true
+        }
+    }
+} -->
