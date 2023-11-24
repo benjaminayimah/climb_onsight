@@ -13,7 +13,7 @@
         <div class="grid grid-col-2 gap-24 flx-1">
             <div class="bg-white br-16 pd-32">
                 <div class="flx jc-sb ai-c">
-                    <h1>Events</h1>
+                    <h1>Sign ups</h1>
                     <ul class="flx bg-color pd-8 br-32 tab">
                         <li>
                             <router-link :to="{ name: 'Statistics'}" :class="{'active': $route.query.state !== 'guides'}">Climbers</router-link>
@@ -24,13 +24,13 @@
                     </ul>
                 </div>
                 <div>
-                    <bar-chart :data="climbers" :yAxis="'No. of Climbers'" :xAxis="'Time period'" :title="'Climbers stats'" v-if="$route.query.state !== 'guides'" />
-                    <bar-chart :data="guides" :yAxis="'No. of Guides'" :xAxis="'Time period'" :title="'Guides stats'" v-else/>
+                    <bar-chart :data="climbers" :yAxis="'No. of Climbers'" :xAxis="'Time period'" :title="'Climbers signup'" v-if="$route.query.state !== 'guides'" />
+                    <bar-chart :data="guides" :yAxis="'No. of Guides'" :xAxis="'Time period'" :title="'Guides signup'" v-else/>
                 </div>
             </div>
             <div class="bg-white br-16 pd-32">
                 <h1>Bookings</h1>
-                <bar-chart :data="bookings" :yAxis="'Bookings'" :xAxis="'Time period'" :title="'Location stats'" />
+                <bar-chart :data="bookings" :yAxis="'Bookings'" :xAxis="'Time period'" :title="'Bookings'" />
             </div>
         </div>
     </section>
