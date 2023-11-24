@@ -1071,16 +1071,25 @@ $completionWidth: 440px;
     }
 }
 .table-row{
-    button:not(.t-pill-btn) {
-        height: 55px;
-        padding: 8px 24px;
-        margin-left: 40px;
-    }
-    .t-pill-btn {
-        padding: 6px 12px;
-        border-radius: 30px;
+    // button:not(.t-pill-btn) {
+    //     height: 55px;
+    //     padding: 8px 24px;
+    //     margin-left: 40px;
+    // }
+    button {
         height: 36px;
         min-width: 36px;
+        border-radius: 30px;
+    }
+    button.t-pill-btn {
+        padding: 6px 12px;
+        background-color: var(--bg-color);
+    }
+    .t-pill-btn:not(.delete) {
+        &:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
     }
     .delete{
         color: var(--danger);

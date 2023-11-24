@@ -1,7 +1,7 @@
 <template>
     <h4 v-if="editForm !== 'event_edit'" class="text-center mb-24">Add to your calendar</h4>
     <calendar-stepper-2 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-if="$route.query.stepper === '2'"  :color="this.editForm === 'event_edit' ? '#f1f1f1' : '#fff'"/>
-    <calendar-stepper-3 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else-if="$route.query.stepper === '3'" @go-to-event="$emit('go-to-event')" />
+    <calendar-stepper-3 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else-if="$route.query.stepper === '3'" @go-to-event="gotoEvent" />
     <calendar-stepper-1 :user="user" :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else />
 </template>
 
@@ -31,6 +31,11 @@ export default {
             return this.newEvent
         }
 
+    },
+    methods: {
+        gotoEvent(date) {
+            this.$emit('go-to-event', date)
+        }
     }
 }
 </script>

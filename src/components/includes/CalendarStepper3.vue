@@ -172,10 +172,10 @@ export default {
         },
         async successResponse(res) {
             this.showAlert('success', res.message)
-            await this.$store.commit('addToEvent', res.data)
+            await this.$store.commit('addToEvent', res.event)
             await this.$store.commit('clearNewEvent')
             this.$router.push({ name: 'Calendar'})
-            this.$emit('go-to-event', res.data.date)
+            this.$emit('go-to-event', res.event.start_date)
         },
         async submitUpdate() {
             try {

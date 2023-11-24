@@ -14,7 +14,7 @@
             </div>
             <div class="flx column flx-grow-1 gap-16">
                 <div class="flx md-top gap-24">
-                    <div v-if="is_super || is_climber" class="flx-b-60 flx column gap-8 flx-1">
+                    <div v-if="is_super || is_climber || is_admin" class="flx-b-60 flx column gap-8 flx-1">
                         <h3 class="title flx jc-sb ai-c">
                             <div>
                                 {{ is_super ? 'Top events across the country' : 'Confirmed Events' }}
@@ -23,9 +23,9 @@
                         </h3>
                         <div class="flx flx-1 gap-16 flx-wrap">
                             <event-list v-for="event in computedBooking.slice(0, 6)" :key="event.id" :event="event" :redirect="true" />
-                            <div v-if="computedBooking.length < 6" class="flx-1 evt-card shadow-sm bg-white br-16 centered">
-                                <router-link v-if="is_climber" :to="{ name: 'ExploreEvents' }" class="button-primary btn-rounded btn-sm-lng wrap-text wrap-line-1">Explore more</router-link>
-                                <router-link v-else :to="{ name: 'UpcomingEvents' }" class="button-primary btn-rounded btn-sm-lng wrap-text wrap-line-1">See all</router-link>
+                            <div v-if="computedBooking.length < 6" class="flx-1 evt-card pd-16 bg-white br-16 centered">
+                                <router-link v-if="is_climber" :to="{ name: 'ExploreEvents' }" class="button-primary btn-rounded btn-sm-lng"><span class="wrap-text wrap-line-1">Explore more</span></router-link>
+                                <router-link v-else :to="{ name: 'UpcomingEvents' }" class="button-primary btn-rounded btn-sm-lng"><span class="wrap-text wrap-line-1">See all</span></router-link>
                             </div>
                         </div>
                     </div>
