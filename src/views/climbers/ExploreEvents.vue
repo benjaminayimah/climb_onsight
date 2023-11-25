@@ -10,7 +10,7 @@
                                     <path d="M10.248,19.051a9.373,9.373,0,1,1,9.373-9.373A9.386,9.386,0,0,1,10.248,19.051Zm0-17.374a8,8,0,1,0,8,8A8.01,8.01,0,0,0,10.248,1.676Zm9.6,18.29a.678.678,0,0,1-.485-.2l-1.829-1.829a.685.685,0,0,1,.969-.969L20.334,18.8a.69.69,0,0,1,0,.969A.678.678,0,0,1,19.85,19.966Z" transform="translate(-0.875 -0.305)"/>
                                 </svg>
                             </i>
-                            <input v-model="form.searchInput" class="form-control" type="search" id="search" placeholder="Search by location, event name or guide">
+                            <input v-model="form.searchInput" class="form-control" type="search" id="search" placeholder="Search by event name or location">
                         </div>
                         <button v-if="getDevice !== 'desktop'" @click="toggleFilter" class="button-outline btn-rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 27 18">
@@ -19,7 +19,6 @@
                         </button>
                         <button @click="submitSearch"  class="button-primary btn-sm-lng btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">Go</button>
                     </div>
-                    
                     <button @click="fetchNearByEvents" class="button-secondary btn-sm btn-rounded gap-4" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                         <svg xmlns="http://www.w3.org/2000/svg" height="21" viewBox="0 0 21.01 21.013">
                             <path d="M-1980.365,20.138v-3.5c-3.99-.133-5.142-1.285-5.275-5.276h-3.486a.875.875,0,0,1-.875-.875.875.875,0,0,1,.875-.875h3.486c.133-3.987,1.286-5.138,5.275-5.271V.875A.875.875,0,0,1-1979.49,0a.875.875,0,0,1,.875.875V4.345c3.987.133,5.14,1.285,5.273,5.271h3.478a.875.875,0,0,1,.875.875.875.875,0,0,1-.875.875h-3.478c-.133,3.99-1.285,5.142-5.273,5.276v3.5a.875.875,0,0,1-.875.875A.875.875,0,0,1-1980.365,20.138Zm-2.846-13.365c-.473.472-.692,1.654-.692,3.72s.22,3.248.692,3.721,1.654.692,3.72.692,3.247-.22,3.72-.692.692-1.654.692-3.721-.22-3.247-.692-3.72-1.654-.692-3.72-.692S-1982.738,6.3-1983.21,6.773Zm1.1,3.719a2.627,2.627,0,0,1,2.624-2.624,2.628,2.628,0,0,1,2.625,2.624,2.629,2.629,0,0,1-2.625,2.625A2.628,2.628,0,0,1-1982.114,10.492Zm1.75,0a.876.876,0,0,0,.875.875.876.876,0,0,0,.875-.875.876.876,0,0,0-.875-.875A.876.876,0,0,0-1980.365,10.492Z" transform="translate(1990)" fill="#fff"/>
@@ -28,15 +27,20 @@
                     </button>
                 </div>
                 <!-- {{ computedFilters }} -->
-
                 <div class="ft-danger" v-if="systemErr.error">{{ systemErr.message }}</div>
-                <div v-if="completed && !submiting">
+                <div v-if="completed && !submiting" class="flx jc-sb">
                     <div v-if="locationSearch ">
-                        <div>Events near your current location: <strong>{{ $route.query.addr }}</strong></div>
+                        <div><i>Events near your current location:</i> <strong>{{ $route.query.addr }}</strong></div>
                     </div>
                     <div v-else>
-                        <div>Search results for: <strong>{{ $route.query.query }}</strong></div>
+                        <div><i>Search results for:</i> <strong>{{ $route.query.query }}</strong></div>
                     </div>
+                    <a href="#" @click.prevent="resetSearch" class="a-link flx ai-c gap-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="13" viewBox="0 0 13.587 13.587">
+                            <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"></path>
+                        </svg>
+                        Reset
+                    </a>
                 </div>
                 <div v-if="submiting" class="centered empty">
                     <spinner v-if="submiting" :size="24" />
@@ -233,6 +237,11 @@ export default {
             }else {
                 this.$store.commit('setSomeEvents')
             }
+        },
+        resetSearch() {
+            this.$router.push({ name: 'ExploreEvents', query: null})
+            this.completed = false
+            // this.checkSearch()
         },
         toggleFilter() {
             this.showFilter = !this.showFilter

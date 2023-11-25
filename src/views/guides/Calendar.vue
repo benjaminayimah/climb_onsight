@@ -49,7 +49,7 @@
                 <div class="right-col-2 flx-1 flx column gap-16 overflow-y-scroll">
                     <div class="bg-white pd-12 br-16 flx ai-c gap-16">
                         <span class="wrap-text wrap-line-1">Total events</span>
-                        <div class="centered count br-50 flx-shrink-0">{{ events.length }}</div>
+                        <div class="centered count br-50 flx-shrink-0 fs-09">{{ events.length }}</div>
                     </div>
                     <event-vertical-items v-for="event in computedEvents" :key="event.title" :event="event" @go-to-event="goToEvent"/>
                 </div>

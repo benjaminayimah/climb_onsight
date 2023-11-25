@@ -13,7 +13,7 @@
                             {{ event.event_name }}
                         </span>
                     </h4>
-                    <div class="fs-09">${{ event.price }}</div>
+                    <div class="fs-09">CA${{ event.price }}</div>
                 </div>
                 <div class="flx gap-8">
                     <div class="flx column">

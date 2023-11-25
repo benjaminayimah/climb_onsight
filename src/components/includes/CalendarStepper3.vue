@@ -13,7 +13,7 @@
             </span>
         </div>
         <div class="form-row column">
-            <label for="price">Price(USD)</label>
+            <label for="price">Price(CAD)</label>
             <div class="input-wrapper">
                 <input v-model="form.price" @input="checkNumberInput" class="br-16 w-100" type="number" min="1" id="price" name="price"  :class="[{'error-border': validation.errors.price }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter event price" />
             </div>
