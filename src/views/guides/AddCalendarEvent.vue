@@ -2,6 +2,7 @@
     <h4 v-if="editForm !== 'event_edit'" class="text-center mb-24">Add to your calendar</h4>
     <calendar-stepper-2 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-if="$route.query.stepper === '2'"  :color="this.editForm === 'event_edit' ? '#f1f1f1' : '#fff'"/>
     <calendar-stepper-3 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else-if="$route.query.stepper === '3'" @go-to-event="gotoEvent" />
+    <calendar-stepper-4 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else-if="$route.query.stepper === '4'" />
     <calendar-stepper-1 :user="user" :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else />
 </template>
 
@@ -9,11 +10,12 @@
 import CalendarStepper1 from '@/components/includes/CalendarStepper1.vue'
 import CalendarStepper2 from '@/components/includes/CalendarStepper2.vue'
 import CalendarStepper3 from '@/components/includes/CalendarStepper3.vue'
+import CalendarStepper4 from '@/components/includes/CalendarStepper4.vue'
 import { mapState } from 'vuex'
 export default {
     inheritAttrs: false,
     name: 'AddCalendarEvent',
-    components: { CalendarStepper1, CalendarStepper2, CalendarStepper3 },
+    components: { CalendarStepper1, CalendarStepper2, CalendarStepper3, CalendarStepper4 },
     props: {
         input2: Boolean
     },

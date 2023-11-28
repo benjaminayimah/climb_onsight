@@ -7,10 +7,13 @@
                     <div>
                         <ul class="flx bg-white pd-8 br-32 tab">
                             <li>
-                                <router-link :to="{ name: 'MyEvents', query: { type: 'registered'} }" :class="{'active' : $route.query.type === 'registered'}">Registered</router-link>
+                                <router-link :to="{ query: { type: 'all'} }" :class="{'active' : $route.query.type === 'all'}">All</router-link>
                             </li>
                             <li>
-                                <router-link :to="{ name: 'MyEvents', query: { type: 'past'} }" :class="{'active' : $route.query.type === 'past'}">Past</router-link>
+                                <router-link :to="{ query: { type: 'registered'} }" :class="{'active' : $route.query.type === 'registered'}">Registered</router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{ query: { type: 'past'} }" :class="{'active' : $route.query.type === 'past'}">Past</router-link>
                             </li>
                         </ul>
                     </div>
@@ -59,7 +62,7 @@ export default {
                 return this.bookings.filter(event => new Date(event.start_date) >= today)
             }
             else {
-                return []
+                return this.bookings
             }
         },
         computedEvent() {
@@ -76,7 +79,7 @@ export default {
     methods: {
         goBack() {
             if(this.$route.query.origin === this.$route.name) {
-                this.$router.push({ name: 'MyEvents', query: {type: this.$route.query.type}})
+                this.$router.push({ query: {type: this.$route.query.type}})
             }
             else {
                 return this.$router.go(-1)

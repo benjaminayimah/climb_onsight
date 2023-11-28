@@ -41,12 +41,7 @@ export default {
         },
         event() {
             return this.bookings.find(data => data.id === this.notification.event_id)
-        },
-        eventType() {
-            const today = new Date()
-            const eventDate = new Date(this.event.start_date)
-            return today > eventDate ? 'past' : 'registered'
-        },
+        }
     },
     methods: {
         doClick() {
@@ -55,8 +50,8 @@ export default {
             }else if(this.is_guide) {
                 this.$store.commit('preSetTempData', { data: this.notification, modal: 'booking_request'})
             }else if(this.is_climber) {
-                if (this.event ) {
-                    this.$router.push({ name: 'MyEvents', query: { type: this.eventType, current: this.event.id, origin: this.$route.name } } )
+                if (this.event) {
+                    this.$router.push({ name: 'MyEvents', query: { type: 'all', current: this.event.id, origin: this.$route.name } } )
                 } else {
                     const alertPayload = {
                         status: 'danger',

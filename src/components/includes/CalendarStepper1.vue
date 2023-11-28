@@ -3,14 +3,42 @@
         <div class="form-row column">
             <label for="event_name">Event name</label>
             <div class="input-wrapper">
-                <input v-model="form.event_name" class="br-16 w-100 form-control" type="text" id="event_name" name="event_name"  :class="[{ 'error-border': validation.errors.event_name }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter your event name" />
+                <input v-model="form.event_name" class="br-16 w-100" type="text" id="event_name" name="event_name"  :class="[{ 'error-border': validation.errors.event_name }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter your event name" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.event_name">
                 {{ validation.errors.event_name[0] }}
             </span>
         </div>
         <div class="form-row column">
-            <label for="start_date">Start date</label>
+            <label for="event_duration">Duration</label>
+            <div class="input-wrapper">
+                <input v-model="form.event_duration" @input="sliceInput" class="br-16 w-100" type="text" maxlength="10" id="event_duration" name="event_duration"  :class="[{ 'error-border': validation.errors.event_duration }, input2 ? 'form-control2' : 'form-control']" placeholder="E.g 4 hours, half day, 2 days..." />
+            </div>
+            <span class="input-error" v-if="validation.error && validation.errors.event_duration">
+                {{ validation.errors.event_duration[0] }}
+            </span>
+        </div>
+        <div class="form-row flx jc-sb">
+            <div>
+                Repeat this event?
+            </div>
+            <div class="flx gap-8 ai-c">
+                <label for="repeat_yes" class="flx gap-4" data-type="input-wapper">
+                    <input v-model="form.repeat" type="radio" id="repeat_yes" :value="true">
+                    <span>
+                        Yes
+                    </span>
+                </label>
+                <label for="repeat_no" class="flx gap-4" data-type="input-wapper">
+                    <input v-model="form.repeat" type="radio" id="repeat_no" :value="false">
+                    <span>
+                        No
+                    </span>
+                </label>
+            </div>
+        </div>
+        <div class="form-row column">
+            <label for="start_date">{{ form.repeat ? 'Start date' : 'Select date' }}</label>
             <div class="input-wrapper">
                 <input v-model="form.start_date" class="br-16 w-100" type="date" id="start_date" name="start_date" :class="[{'error-border': validation.errors.start_date }, input2 ? 'form-control2' : 'form-control']" />
             </div>
@@ -18,7 +46,7 @@
                 {{ validation.errors.start_date[0] }}
             </span>
         </div>
-        <div class="form-row column">
+        <div v-if="form.repeat" class="form-row column">
             <label for="end_date">End date</label>
             <div class="input-wrapper">
                 <input v-model="form.end_date" class="br-16 w-100" type="date" id="end_date" name="end_date" :class="[{'error-border': validation.errors.end_date }, input2 ? 'form-control2' : 'form-control']" />
@@ -27,35 +55,21 @@
                 {{ validation.errors.end_date[0] }}
             </span>
         </div>
-        <div class="form-row column">
-            <label for="start_time">Event time (EST)</label>
-            <div class="input-wrapper">
-                <input v-model="form.start_time" class="br-16 w-100" type="time" id="start_time" name="start_time" :class="[{'error-border': validation.errors.start_time }, input2 ? 'form-control2' : 'form-control']" />
-            </div>
-            <span class="input-error" v-if="validation.error && validation.errors.start_time">
-                {{ validation.errors.start_time[0] }}
-            </span>
-        </div>
-        <div class="form-row column">
-            <label for="repeat" class="flx gap-8 ai-fs" data-type="input-wapper">
-                <input v-model="form.repeat" type="checkbox" id="repeat">
-                <span>
-                    Repeat this event?
-                </span>
-            </label>
-        </div>
         <div v-if="form.repeat" class="form-row column">
-            <label for="repeat_at">Select repeat range</label>
+            <label for="repeat_at">Frequency</label>
             <div class="input-wrapper">
-                <select v-model="form.repeat_at" name="repeat_at" id="repeat_at" class="form-control">
-                    <option>weekly</option>
-                    <option>monthly</option>
+                <select v-model="form.repeat_at" name="repeat_at" id="repeat_at" class="w-100 br-16" :class="input2 ? 'form-control2' : 'form-control'">
                     <option>daily</option>
+                    <option>weekly</option>
+                    <option>weekdays</option>
+                    <option>weekends</option>
+                    <option>monthly</option>
                 </select>
             </div>
         </div>
-        <div>
-            <button @click.prevent="nextPage" class="button-primary btn-md w-100" :class="{ 'button-disabled' : !user.details_submitted && !user.payouts_enabled }" :disabled="!user.details_submitted && !user.payouts_enabled ? true : false">
+        <error-display-card v-if="validation.error" :errors="validation.errors"/>
+        <div class="calendar-btn-wrapper">
+            <button @click.prevent="nextPage" class="button-primary btn-lg w-100" :class="{ 'button-disabled' : !user.details_submitted && !user.payouts_enabled }" :disabled="!user.details_submitted && !user.payouts_enabled ? true : false">
                 Next
             </button>
             <div class="mt-8 fs-09 text-center" v-if="!user.details_submitted && !user.payouts_enabled">
@@ -67,7 +81,9 @@
 
 <script>
 import inputValidationMixin from '@/mixins/inputValidation'
+import ErrorDisplayCard from './ErrorDisplayCard.vue'
 export default {
+    components: { ErrorDisplayCard },
     name: 'CalendarStepper1',
     mixins: [inputValidationMixin],
     props: {
@@ -80,9 +96,9 @@ export default {
         return {
             form: {
                 event_name: '',
+                event_duration: '',
                 start_date: new Date().toISOString().slice(0, 10),
                 end_date: new Date().toISOString().slice(0, 10),
-                start_time: '',
                 repeat: false,
                 repeat_at: 'weekly'
             }
@@ -92,39 +108,43 @@ export default {
         dateInput(date) {
             this.form.date = new Date(date).toISOString().slice(0, 10)
         },
+        sliceInput() {
+            let input = this.form.event_duration
+            if (input.length > 10) {
+                this.form.event_duration = input.slice(0, 10);
+            }
+        },
         async nextPage() {
-            let errors = { event_name: '', start_date: '', end_date: '', start_time: '',}
-            if(this.form.event_name == '' || this.form.start_date == '' || this.form.end_date == '' || this.form.start_time == '') {
+            this.validation.error ? this.clearErrs() : ''
+            let errors = { event_name: '', start_date: '', end_date: '', event_duration: ''}
+            if(this.form.event_name == '' || this.form.start_date == '' || this.form.end_date == '' || this.form.event_duration == '') {
                 if(this.form.event_name == '') {
-                    errors.event_name = ['The Event name field is required']
+                    errors.event_name = ['The Event name field is required.']
                 }
                 if(this.form.start_date == '') {
-                    errors.start_date = ['Please select a start date']
+                    errors.start_date = ['Please select a date.']
                 }
-                if(this.form.end_date == '') {
-                    errors.end_date = ['Please select an end date']
+                if(this.form.repeat && this.form.end_date == '') {
+                    errors.end_date = ['Please select an end date.']
                 }
-                if(this.form.start_time == '') {
-                    errors.start_time = ['Please select event start time']
+                if(this.form.event_duration == '') {
+                    errors.event_duration = ['Please enter event duration.']
                 }
                 this.showErr(errors)
             }else {
-                this.validation.error ? this.clearErrs() : ''
                 this.editMode === 'event_edit' ? await this.$store.commit('updateTempStorage1', this.form) : await this.$store.commit('saveEventForm1', this.form)
-                this.$router.push({ name: this.$route.name, query: { stepper: '2', current: this.$route.query.current, origin: this.$route.query.origin }})
+                this.$router.push({ query: { stepper: '2', current: this.$route.query.current, origin: this.$route.query.origin }})
             }
         },
         presetForm() {
             this.newEvent && this.newEvent.event_name ? this.form.event_name = this.newEvent.event_name : ''
+            this.newEvent && this.newEvent.event_duration ? this.form.event_duration = this.newEvent.event_duration : ''
             this.newEvent && this.newEvent.start_date ? this.form.start_date = this.newEvent.start_date : new Date().toISOString().slice(0, 10)
             this.newEvent && this.newEvent.end_date ? this.form.end_date = this.newEvent.end_date : new Date().toISOString().slice(0, 10)
-            this.newEvent && this.newEvent.start_time ? this.form.start_time = this.newEvent.start_time : ''
-            this.newEvent && this.newEvent.repeat ? this.form.repeat = this.newEvent.repeat : false
+            this.newEvent && this.newEvent.repeat ? this.form.repeat = this.newEvent.repeat : this.form.repeat = false
             this.newEvent && this.newEvent.repeat_at ? this.form.repeat_at = this.newEvent.repeat_at : ''
             if(this.editMode === 'event_edit' && this.newEvent.repeat_at) {
                 this.form.repeat = true
-            }else {
-                this.form.repeat = false
             }
         }, 
     },

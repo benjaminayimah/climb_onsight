@@ -49,7 +49,7 @@
                     </div>
                     <div class="flx-grow-1 flx column gap-8">
                         <h3 class="title">Climbing Merchandise</h3>
-                        <div class="bg-white flx-1 br-16 centered">
+                        <div class="bg-white flx-1 br-16 centered pd-16">
                             <a href="" target="_blank" class="gray a-link">Explore merchandise</a>
                         </div>
                     </div>

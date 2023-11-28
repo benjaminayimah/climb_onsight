@@ -82,7 +82,7 @@ export default {
                     id: element.id,
                     start: element.start_date,
                     end: element.end_date,
-                    start_time: element.start_time,
+                    duration: element.event_duration,
                     title: element.event_name,
                     color: element.color_class,
                     class: element.color_class

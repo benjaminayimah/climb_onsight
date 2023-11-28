@@ -6,10 +6,11 @@
         <div id="main_modal" class="modal overflow-y-scroll scroll-hidden flx column relative">
             <div class="modal-top flx jc-sb ai-c sticky">
                 <h3 id="modal_title"></h3>
-                <button @click="$store.commit('closeModal')" class="btn-close scale-in bg-transparent">
+                <button data-tooltip="Close" @click="$store.commit('closeModal')" class="btn-close scale-in bg-transparent tooltip">
                     <svg xmlns="http://www.w3.org/2000/svg" height="10" viewBox="0 0 13.587 13.587">
                         <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
                     </svg>
+                    <tool-tip />
                 </button>
             </div>
             <div class="modal-body">
@@ -50,8 +51,9 @@ const UserModal = defineAsyncComponent(() => import(/* webpackChunkName: UserMod
 import { mapState } from 'vuex';
 import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
+import ToolTip from '../includes/ToolTip.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal, ResetAdminPassword, EventEditModal, UserModal  },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal, ResetAdminPassword, EventEditModal, UserModal, ToolTip  },
     name: 'MainModal',
     computed: {
         ...mapState({

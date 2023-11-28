@@ -9,7 +9,7 @@
                     <div class="fw-700 fs-5rem">Welcome</div>
                     <div>Apply to be listed on Climb Onsight by filling out the following information</div>
                     <button @click="goToApply" class="button-primary gap-8 w-100 btn-lg ai-c">
-                        <span>Apply</span>
+                        <span>Get started</span>
                     </button>
                     <a href="#" class="a-link" @click.prevent="$router.go(-1)">Back</a>
                 </div>

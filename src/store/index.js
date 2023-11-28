@@ -288,8 +288,8 @@ export default createStore({
           router.push({ name: 'Climbers'})
         }
     },
-    async deleteEvent(state, payload) {
-      router.push({ name: 'UpcomingEvents'})
+    deleteEvent(state, payload) {
+      router.push({ name: 'UpcomingEvents', query: { type: 'all'}})
       const i = state.events.findIndex(x => x.id == payload)
       state.events.splice(i, 1);
     },
@@ -299,7 +299,7 @@ export default createStore({
       state.updateForm.event_name = payload.event_name
       state.updateForm.start_date = payload.start_date
       state.updateForm.end_date = payload.end_date
-      state.updateForm.start_time = payload.start_time
+      state.updateForm.event_duration = payload.event_duration
       state.updateForm.repeat = payload.repeat
       state.updateForm.repeat_at = payload.repeat_at
     },
@@ -312,13 +312,31 @@ export default createStore({
     },
     updateTempStorage3(state, payload) {
       state.updateForm.attendance_limit = payload.attendance_limit
-      let gearsString = payload.gears
-      let gearsArray = gearsString.split(',')
-      state.updateForm.gears = gearsArray
-      state.updateForm.faqs = payload.faqs
+      state.updateForm.event_type = payload.event_type
       state.updateForm.price = payload.price
-      state.updateForm.itinerary = payload.itinerary
+      state.updateForm.price_range = payload.price_range
       state.updateForm.event_description = payload.event_description
+
+
+
+
+      // let gearsString = payload.gears
+      // let gearsArray = gearsString.split(',')
+      // state.updateForm.faqs = payload.faqs
+      // state.updateForm.itinerary = payload.itinerary
+      // state.updateForm.event_description = payload.event_description
+    },
+    updateTempStorage4(state, payload) {
+      let guideGearString = payload.guide_gears
+      let guideGearArray = guideGearString.split(',')
+      let climberGearString = payload.guide_gears
+      let climberGearArray = climberGearString.split(',')
+      state.updateForm.guide_gears = guideGearArray
+      state.updateForm.climber_gears = climberGearArray
+      state.updateForm.faqs = payload.faqs
+      state.updateForm.experience_required = payload.experience_required
+      state.updateForm.itinerary = payload.itinerary
+      state.updateForm.event_terms = payload.event_terms
     },
     //set delete
     setDeleteModal(state, payload) {

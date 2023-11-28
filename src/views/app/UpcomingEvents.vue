@@ -4,7 +4,20 @@
             <div class="section-main-left">
                 <div class="flx tap-height pd-r-24 ai-c gap-24 collapsible">
                     <h1 class="title">All events</h1>
-                    <search-input @perform-search="performSearch" />
+                    <!-- <search-input @perform-search="performSearch" /> -->
+                    <div class="flx">
+                        <ul class="flx bg-white pd-8 br-32 tab">
+                            <li>
+                                <router-link :to="{ query: { type: 'all'} }" :class="{'active' : $route.query.type === 'all'}">All</router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{ query: { type: 'booked'} }" :class="{'active' : $route.query.type === 'booked'}">Booked</router-link>
+                            </li>
+                            <li>
+                                <router-link :to="{ query: { type: 'past'} }" :class="{'active' : $route.query.type === 'past'}">Past</router-link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div v-if="searchParam" class="mt-8">
                     <i>Search results for: </i>
@@ -50,9 +63,9 @@ import userRolesMixin from '@/mixins/userRolesMixin'
 import EventList from '@/components/includes/EventList.vue'
 import { mapState } from 'vuex'
 import EventDetails from './EventDetails.vue'
-import SearchInput from '@/components/includes/SearchInput.vue'
+// import SearchInput from '@/components/includes/SearchInput.vue'
 export default {
-    components: { EventDetails, EventList, SearchInput },
+    components: { EventDetails, EventList },
     name: 'UpcomingEvents',
     mixins: [userRolesMixin],
     computed: {

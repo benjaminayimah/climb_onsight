@@ -15,7 +15,9 @@
                     <div class="text-center comp-text">
                         Thank you for booking this event.
                     </div>
-                    <a href="/" class="button-primary w-100 a-button btn-md">Done</a>
+                    <div>
+                        <a href="/" class="button-primary a-button btn-rounded btn-md-lng">Done</a>
+                    </div>
                 </div>
             </div>
             <div v-else-if="error" class="flx column ai-c gap-16">

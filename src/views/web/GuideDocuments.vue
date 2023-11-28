@@ -77,7 +77,6 @@ export default {
             this.newGUide.guide_insurance ? this.form.guide_insurance = this.newGUide.guide_insurance : ''
             this.newGUide.guide_certificate ? this.form.guide_certificate = this.newGUide.guide_certificate : ''
             this.newGUide.guide_terms ? this.form.guide_terms = this.newGUide.guide_terms : {}
-
             if(this.newGUide.guide_awards) {
                 this.form.guide_awards = this.newGUide.guide_awards.join(',')
             }

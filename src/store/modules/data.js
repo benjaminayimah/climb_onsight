@@ -12,8 +12,8 @@ export default {
             {id: 3, name: 'Mixed Climbing', value: 0, image: require('@/assets/images/lead.png')},
             {id: 4, name: 'Mountaineering', value: 0, image: require('@/assets/images/mountaineering.png')},
             {id: 5, name: 'Other', value: 0, image: require('@/assets/images/trad.png')}
-
-        ]
+        ],
+        experience_required: ['Beginner', 'Intermediate', 'Advanced']
     },
     mutations: {
         updateCompanyInfo(state, payload) {
@@ -85,14 +85,14 @@ export default {
                 stored.event_name = payload.event_name
                 stored.start_date = payload.start_date
                 stored.end_date = payload.end_date
-                stored.start_time = payload.start_time
+                stored.event_duration = payload.event_duration
                 stored.repeat = payload.repeat
                 stored.repeat_at = payload.repeat_at
                 localStorage.setItem('newEvent', JSON.stringify(stored))
                 state.newEvent.event_name = payload.event_name
                 state.newEvent.start_date = payload.start_date
                 state.newEvent.end_date = payload.end_date
-                state.newEvent.start_time = payload.start_time
+                state.newEvent.event_duration = payload.event_duration
                 state.newEvent.repeat = payload.repeat
                 state.newEvent.repeat_at = payload.repeat_at
             }else {
@@ -116,27 +116,53 @@ export default {
         },
         saveEventForm3(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))
-            stored.attendance_limit = payload.attendance_limit
-            if(payload.gears) {
-                let gearsString = payload.gears
-                let gearsArray = gearsString.split(',')
-                stored.gears = gearsArray
-                state.newEvent.gears = gearsArray
-            }else {
-                stored.gears = []
-                state.newEvent.gears = []
-            }
-            stored.faqs = payload.faqs
+            stored.event_type = payload.event_type
             stored.price = payload.price
-            stored.itinerary = payload.itinerary
+            stored.price_range = payload.price_range
+            stored.attendance_limit = payload.attendance_limit
             stored.event_description = payload.event_description
             localStorage.setItem('newEvent', JSON.stringify(stored))
+            state.newEvent.event_type = payload.event_type
             state.newEvent.attendance_limit = payload.attendance_limit
-            state.newEvent.faqs = payload.faqs
             state.newEvent.price = payload.price
-            state.newEvent.itinerary = payload.itinerary
+            state.newEvent.price_range = payload.price_range
             state.newEvent.event_description = payload.event_description
+        },
+        saveEventForm4(state, payload) {
+            let stored = JSON.parse(localStorage.getItem('newEvent'))
+            if(payload.guide_gears) {
+                let gearsString = payload.guide_gears
+                let gearsArray = gearsString.split(',')
+                stored.guide_gears = gearsArray
+                state.newEvent.guide_gears = gearsArray
+            }else {
+                stored.guide_gears = []
+                state.newEvent.guide_gears = []
+            }
+            if(payload.climber_gears) {
+                let gearsString = payload.climber_gears
+                let gearsArray = gearsString.split(',')
+                stored.climber_gears = gearsArray
+                state.newEvent.climber_gears = gearsArray
+            }else {
+                stored.climber_gears = []
+                state.newEvent.climber_gears = []
+            }
+            stored.faqs = payload.faqs
+            stored.experience_required = payload.experience_required
+            stored.itinerary = payload.itinerary
+            stored.event_terms = payload.event_terms
+            localStorage.setItem('newEvent', JSON.stringify(stored))
+            state.newEvent.faqs = payload.faqs
+            state.newEvent.experience_required = payload.experience_required
+            state.newEvent.itinerary = payload.itinerary
+            state.newEvent.event_terms = payload.event_terms
             state.newEvent.color = payload.color
+        },
+        updateEventTerms(state, payload) {
+            let stored = JSON.parse(localStorage.getItem('newEvent'))
+            stored.event_terms = payload
+            localStorage.setItem('newEvent', JSON.stringify(stored))
         },
         updateEventGallery(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))

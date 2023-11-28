@@ -3,9 +3,14 @@
         <div class="gap-24 flx col-row">
             <div class="flx gap-24 column w-50 flx-grow-1">
                 <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
-                <h4>{{ event.event_name }}</h4>
+                <div class="flx gap-8">
+                    <h3>{{ event.event_name }}</h3>
+                    <div>
+                        <event-type :eventType="event.event_type" />
+                    </div>
+                </div>
                 <div v-if="event.event_description">
-                    <div class="gray">Event details</div>
+                    <div class="gray">Event description</div>
                     <div>
                         {{ event.event_description }}
                     </div>
@@ -13,15 +18,16 @@
                 <div class="flx gap-24 collapsible">
                     <div>
                         <div class="gray">Event pricing</div>
-                        <div><strong>${{event.price}}</strong></div>
+                        <div v-if="event.event_type === 'public'"><strong>CA${{ event.price }}</strong></div>
+                        <div v-else><span class="gray">From </span><strong>CA${{ computedPriceRange }}</strong></div>
                     </div>
                     <div>
                         <div class="gray">Date</div>
                         <div>{{ format_date(event.start_date) }}</div>
                     </div>
                     <div>
-                        <div class="gray">Time</div>
-                        <div>{{ format_time(event.start_time)+ '(EST)' }}</div>
+                        <div class="gray">Event duration</div>
+                        <div>{{ event.event_duration }}</div>
                     </div>
                     <div>
                         <div class="gray">Event location</div>
@@ -33,10 +39,22 @@
                         <div class="gray">Itinerary</div>
                         <div>{{ event.itinerary }}</div>
                     </div>
-                    <div v-if="computedGears.length">
-                        <div class="gray">Gears</div>
+                    <div v-if="computedClimberGears.length">
+                        <div class="gray">Gears required for trip</div>
                         <div>
-                            <li v-for="(gear, index) in computedGears" :key="index">{{ gear }}</li>
+                            <li class="list-style" v-for="(gear, index) in computedClimberGears" :key="index">{{ gear }}</li>
+                        </div>
+                    </div>
+                    <div v-if="computedGuideGears.length">
+                        <div class="gray">Gears provided by Guide</div>
+                        <div>
+                            <li class="list-style" v-for="(gear, index) in computedGuideGears" :key="index">{{ gear }}</li>
+                        </div>
+                    </div>
+                    <div v-if="computedExperienceLevel.length">
+                        <div class="gray">Experience level required</div>
+                        <div>
+                            <li class="list-style" v-for="(experience, index) in computedExperienceLevel" :key="index">{{ experience }}</li>
                         </div>
                     </div>
                     <div v-if="computedFaqs.length">
@@ -75,8 +93,9 @@ import userRolesMixin from '@/mixins/userRolesMixin'
 import formatDateTime from '@/mixins/formatDateTime'
 import { mapState, mapGetters } from 'vuex'
 import UserList from '../includes/UserList.vue'
+import EventType from '../includes/EventType.vue'
 export default {
-    components: { UserList },
+    components: { UserList, EventType },
     name: 'EventBody',
     props: {
         event: Object,
@@ -88,6 +107,14 @@ export default {
         ...mapState({
             s3bucket: (state) => state.s3bucket
         }),
+        computedPriceRange() {
+            if(this.event && this.event.price && JSON.parse(this.event.price).length) {
+                const priceArray = JSON.parse(this.event.price)
+                return priceArray[priceArray.length - 1].price
+            }
+            else
+            return null
+        },
         computedFaqs() {
             if(this.event.faqs) {
                 return JSON.parse(this.event.faqs).filter(data => data.question || data.answer)
@@ -95,13 +122,27 @@ export default {
             else
             return []
         },
-        computedGears() {
-            if(this.event.gears && Array.isArray(JSON.parse(this.event.gears))) {
-                return JSON.parse(this.event.gears)
+        computedClimberGears() {
+            if(this.event.climber_gears && Array.isArray(JSON.parse(this.event.climber_gears))) {
+                return JSON.parse(this.event.climber_gears)
             }
             else
             return []
         },
+        computedGuideGears() {
+            if(this.event.guide_gears && Array.isArray(JSON.parse(this.event.guide_gears))) {
+                return JSON.parse(this.event.guide_gears)
+            }
+            else
+            return []
+        },
+        computedExperienceLevel() {
+            if(this.event.experience_required && Array.isArray(JSON.parse(this.event.experience_required))) {
+                return JSON.parse(this.event.experience_required)
+            }
+            else
+            return []
+        }
     }
 }
 </script>

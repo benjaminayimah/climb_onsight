@@ -25,7 +25,7 @@ export default {
     this.$store.commit('computeWindow')
     localStorage.getItem('auth') ? this.$store.dispatch('getAuthUser', localStorage.getItem('auth')) : ''
     window.addEventListener('resize', this.windowSize)
-    document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    // document.addEventListener('visibilitychange', this.handleVisibilityChange);
   },
   methods: {
     windowSize() {
@@ -33,17 +33,17 @@ export default {
         this.$store.commit('computeWindow')
       }, 100)
     },
-    handleVisibilityChange() {
-      if (!document.hidden) {
-        console.log(document.hidden)
-        console.log(document.visibilityState)
-        // window.location.reload();
-      }
-    }
+    // handleVisibilityChange() {
+    //   if (!document.hidden) {
+    //     console.log(document.hidden)
+    //     console.log(document.visibilityState)
+    //     // window.location.reload();
+    //   }
+    // }
   },
   beforeUnmount() {
     document.removeEventListener('resize', this.windowSize);
-    document.removeEventListener('visibilitychange', this.handleVisibilityChange)
+    // document.removeEventListener('visibilitychange', this.handleVisibilityChange)
   },
 }
 </script>

@@ -17,7 +17,7 @@
             </div>
         </a>
     </div>
-    <div v-else class="bg-white flx-1 br-16 centered">
+    <div v-else class="bg-white flx-1 br-16 centered pd-16">
         <div class="text-center">
             <div>No Messages</div>
             <span class="gray">New Messages will appear here</span>

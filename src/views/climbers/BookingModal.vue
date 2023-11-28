@@ -35,16 +35,17 @@
                     <h3>Summary</h3>
                     <div class="mt-24 mb-24">
                         <div class="flx column mb-8">
-                            <label for="bk_en" class="gray">Event name</label>
-                            <div id="bk_en">{{ booking.data.event_name }}</div>
+                            <div class="gray">Event name</div>
+                            <div>{{ booking.data.event_name }}</div>
                         </div>
                         <div class="flx column mb-8">
-                            <label for="bk_ed" class="gray">Event date</label>
-                            <div id="bk_ed">{{ format_date(booking.data.start_date) }} <span class="gray">at</span> {{ format_time(booking.data.start_time)+'(EST)' }}</div>
+                            <div class="gray">Event date</div>
+                            <div>{{ format_date(booking.data.start_date) }} <span class="gray">at</span> {{ booking.data.event_duration }}</div>
                         </div>
                         <div class="flx column mb-8">
-                            <label for="bk_ep" class="gray">Event price</label>
-                            <strong id="bk_ep">${{ booking.data.price }}</strong>
+                            <div class="gray">Event price</div>
+                            <strong v-if="booking.data.event_type === 'public'">CA${{ booking.data.price }}</strong>
+                            <div v-else><span class="gray">From </span><strong>CA${{ computedPriceRange }}</strong></div>
                         </div>
                     </div>
                 </div>
@@ -88,6 +89,14 @@ export default {
             token: (state) => state.token,
             booking: (state) => state.bookingModal
         }),
+        computedPriceRange() {
+            if(this.event && this.event.price && JSON.parse(this.event.price).length) {
+                const priceArray = JSON.parse(this.event.price)
+                return priceArray[priceArray.length - 1].price
+            }
+            else
+            return null
+        },
         computedGuide() {
             if(this.guide.guide_terms) {
                 return JSON.parse(this.guide.guide_terms).url
