@@ -5,7 +5,7 @@
                 <add-calendar-event @go-to-event="goToEvent" :input2="true" />
             </div>
             <div class="calendar-right flx bg-color br-8 flx-1 pd-24 gap-24">
-                <div class="right-col-1 relative">
+                <div class="right-col-1 relative flx-1">
                     <div class="flx jc-sb mb-16 ai-c">
                         <div class="fs-108rem calendar-title wrap-text wrap-line-1">{{ format_date2(current_start_date)}}</div>
                         <div>
@@ -46,7 +46,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="right-col-2 flx-1 flx column gap-16 overflow-y-scroll">
+                <div v-if="events.length" class="right-col-2 flx-1 flx column gap-16 overflow-y-scroll">
                     <div class="bg-white pd-12 br-16 flx ai-c gap-16">
                         <span class="wrap-text wrap-line-1">Total events</span>
                         <div class="centered count br-50 flx-shrink-0 fs-09">{{ events.length }}</div>
@@ -138,5 +138,8 @@ section {
 }
 .right-col-1 {
     flex-basis: 75%;
+}
+.right-col-2 {
+    min-width: 220px;
 }
 </style>
