@@ -1,7 +1,7 @@
 <template>
     <section class="main" id="add_calendar">
         <div class="bg-white br-24 flx section-main-wrapper pd-16 gap-16">
-            <div class="calendar-left bg-color br-8 pd-32 overflow-y-scroll">
+            <div class="calendar-left bg-color br-8 pd-32 overflow-y-scroll relative">
                 <add-calendar-event @go-to-event="goToEvent" :input2="true" />
             </div>
             <div class="calendar-right flx bg-color br-8 flx-1 pd-24 gap-24">

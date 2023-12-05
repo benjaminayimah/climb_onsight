@@ -11,6 +11,7 @@
     --white: #ffffff;
     --danger: #f13c3c;
     --danger-hover: #e32525;
+    --warning: #f79928;
     --success: #32D49D;
     --gray: #7f7f7f;
     --gray-light: #E6E6E6;
@@ -32,7 +33,8 @@
     --bg-blue: #bbe4fe;
     --bg-pink: #ffc4ed;
     --bg-yellow: #fff4b2;
-    --bg-brown: var(--secondary-light)
+    --bg-brown: var(--secondary-light);
+    --vuecal-blue: #0c59ed;
 }
 
 .bg-purple {
@@ -70,6 +72,12 @@
 }
 .ft-white {
     color: var(--white);
+}
+.ft-warning {
+    color: var(--warning);
+}
+.ft-vuecal {
+    color: var(--vuecal-blue);
 }
 
 //calendar colors
@@ -147,29 +155,77 @@
         font-size: 0.8rem;
         text-transform: uppercase;
     }
-}
-.vuecal__cell--today.vuecal__cell--today, .vuecal__cell--current.vuecal__cell--current {
-    background-color: transparent;
-    .vuecal__flex {
-        align-items: center;
+    .vuecal__cell--today.vuecal__cell--today, .vuecal__cell--current.vuecal__cell--current {
+        background-color: transparent;
+        .vuecal__flex {
+            align-items: center;
+        }
+        .vuecal__cell-date {
+            display: flex;
+            background-color: #000;
+            color: #fff;
+            border-radius: 50%;
+            height: 21px;
+            width: 21px;
+            font-size: 13px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+    
     }
-    .vuecal__cell-date {
+    .vuecal__cell--selected.vuecal__cell--selected {
+        background-color: rgba(251, 242, 230, 0.50);
+    }
+}
+
+.vuecal-small.vuecal {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 14px;
+    overflow: hidden;
+    .vuecal__cell--today.vuecal__cell--today, .vuecal__cell--current.vuecal__cell--current {
+        background-color: transparent;
+        .vuecal__flex {
+            align-items: center;
+        }
+        .vuecal__cell-date {
+            color: #fff;
+        }
+        .vuecal__cell-content {
+            background-color: #000;
+        }
+    }
+    .vuecal__cell--selected.vuecal__cell--selected {
+        .vuecal__cell-content{
+            background-color: var(--vuecal-blue);
+            color: #fff;
+        }
+    }
+    .vuecal__cell:not(.vuecal__cell--disabled) {
+        cursor: pointer;
+    }
+    .vuecal__cell-content {
         display: flex;
-        background-color: #000;
-        color: #fff;
         border-radius: 50%;
-        height: 21px;
-        width: 21px;
         font-size: 13px;
         justify-content: center;
         align-items: center;
-        margin-bottom: 2px;
+        background-color: #d8e6ff;
+        color: var(--vuecal-blue);
     }
-
+    .vuecal__title-bar {
+        background-color: transparent;
+        span {
+            font-weight: 700;
+        }
+    }
+    .vuecal__cell--disabled {
+        .vuecal__cell-content {
+            background-color: #ffffff !important;
+            color: var(--gray) !important;
+        }
+    }
     
-}
-.vuecal__cell--selected.vuecal__cell--selected {
-    background-color: rgba(251, 242, 230, 0.50);
 }
 
 img {
@@ -345,7 +401,7 @@ button:not(.button-disabled, .absolute) {
         background-color: unset;
     }
 }
-a.user-list, a.evt-card {
+.transition-sm{
     transition: 0.2s all;
 }
 a.user-list {
@@ -529,6 +585,9 @@ a.evt-card {
 .fixed-body{
     overflow: hidden; overscroll-behavior-y: none;
 }
+.inline-block {
+    display: inline-block;
+}
 //grid
 .grid {
     display: grid;
@@ -591,6 +650,12 @@ a.evt-card {
 }
 .ov-hidden {
     overflow: hidden;
+}
+hr {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    width: 100%;
 }
 ul {
     padding: 0;
@@ -705,6 +770,10 @@ h1, h2, h3, h4, h5 {
 .bd-l-1 {
     border-left: 1px solid #e4e4e4;
 }
+.bd-bt-dashed {
+    border-bottom: 1px dashed #d9d9d9;
+}
+
 
 //border-radius
 
@@ -896,7 +965,7 @@ select{
         border-color: transparent;
     }
 }
-input:not([type=checkbox],[type=radio]), select, textarea {
+input:not([type=checkbox],[type=radio]), select, textarea, .div-input {
     appearance: none;
     outline: 0;
     font-family: inherit;

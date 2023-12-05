@@ -1,15 +1,25 @@
 <template>
-     <a href="#" @click.prevent="$store.commit('preSetTempData', { data: computedClimber, modal: 'view_user'})" class="flx jc-sb ai-c gap-8 pd-16 br-16 attendees-list">
+     <a href="#" @click.prevent="$store.commit('preSetTempData', { data: computedClimber, modal: 'view_user'})" class="flx jc-sb ai-c gap-8 pd-16 br-16 attendees-list transition-sm">
         <div class="flx gap-8">
             <profile-avatar :avatar="computedClimber.profile_picture" :name="computedClimber.name" />
             <div>
                 <div class="flx gap-4">
-                    <span>{{ computedClimber.name }}</span>
+                    <span class="wrap-text wrap-line-1">{{ computedClimber.name }}</span>
                     <span>
                         <booking-status :guideView="true" :status="bookingStatus" />
                     </span>
                 </div>
-                <div class="gray">{{ calculateAge(computedClimber.dob) }}</div>
+                <div v-if="computedClimber.quantity > 1">
+                    <span class="gray inline-block mr-4">with</span>
+                    <span class="inline-block">{{ computedClimber.quantity - 1 }} others</span>
+                </div>
+                <div v-else class="gray">{{ calculateAge(computedClimber.dob) }}</div>
+                <span v-if="computedClimber.date_selected" class="fs-08 flx gap-4 ai-c">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 24 26">
+                        <path d="M-3300-660c0-.707.011-1.372.035-2q.019-.516.051-1,.034-.518.083-1c.5-4.965,2.267-7.018,6.832-7.707V-673a1,1,0,0,1,1-1,1,1,0,0,1,1,1v1.085c.911-.059,1.908-.086,3-.086s2.09.026,3,.086V-673a1,1,0,0,1,1-1,1,1,0,0,1,1,1v1.293c4.566.688,6.327,2.741,6.832,7.707.033.321.06.654.083,1,.022.322.038.655.052,1,.023.629.034,1.3.034,2,0,9.882-2.118,12-12,12S-3300-650.118-3300-660Zm2,0a26.907,26.907,0,0,0,.438,5.61,5.206,5.206,0,0,0,1.271,2.681,5.214,5.214,0,0,0,2.681,1.271A26.852,26.852,0,0,0-3288-650a26.842,26.842,0,0,0,5.61-.438,5.214,5.214,0,0,0,2.682-1.271,5.214,5.214,0,0,0,1.27-2.681A26.831,26.831,0,0,0-3278-660c0-.716-.011-1.381-.036-2h-19.928C-3297.989-661.38-3298-660.715-3298-660Zm2.108-8.634c-.944.692-1.625,1.908-1.929,4.633h19.642c-.3-2.725-.985-3.941-1.93-4.633a6.7,6.7,0,0,0-2.892-1.048V-669a1,1,0,0,1-1,1,1,1,0,0,1-1-1v-.909c-.869-.061-1.861-.091-3-.091s-2.132.03-3,.091V-669a1,1,0,0,1-1,1,1,1,0,0,1-1-1v-.681A6.7,6.7,0,0,0-3295.892-668.633Zm10.5,14.27a1,1,0,0,1-1-1,1,1,0,0,1,1-1h3a1,1,0,0,1,1,1,1,1,0,0,1-1,1Zm-8.61,0a1,1,0,0,1-1-1,1,1,0,0,1,1-1h3a1,1,0,0,1,1,1,1,1,0,0,1-1,1Z" transform="translate(3300 674)" fill="#a7a7a7"/>
+                    </svg>
+                    {{ format_date_short(computedClimber.date_selected) }}
+                </span>
             </div>
         </div>
         <div>
@@ -36,11 +46,10 @@ export default {
     },
     computed: {
         ...mapState({
-            climbers: (state) => state.climbers,
             bookings: (state) => state.bookings
         }),
         computedClimber() {
-            return this.climbers.flat().find(data => data.id === this.booking.user_id)
+            return this.bookings.flat().find(data => data.id === this.booking.id)
         },
         bookingStatus() {
             return this.bookings.find(event => event.id === this.booking.id)
@@ -57,5 +66,10 @@ img {
 }
 .attendees-list{
     border: 1px solid #eee;
+}
+a {
+    &:hover {
+        background-color: #f7f7f7;
+    }
 }
 </style>

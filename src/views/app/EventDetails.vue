@@ -3,8 +3,8 @@
         <div class="flx jc-sb ai-c mb-16">
             <div class="flx gap-8 ai-c">
                 <h3>Event details</h3>
-                <div v-if="bookingStatus">
-                    <booking-status v-if="is_climber" :status="bookingStatus" />
+                <div>
+                    <booking-status v-if="is_climber" :status="event" />
                 </div>
             </div>
             <div class="flx gap-8">
@@ -15,7 +15,7 @@
         <div class="gap-24 flx col-row">
             <div class="flx gap-16 column w-50 flx-grow-1">
                 <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
-                <div class="flx jc-sb ai-c">
+                <div class="flx jc-sb">
                     <div class="flx gap-8">
                         <h3>{{ event.event_name }}</h3>
                         <div>
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div>
-                        <span class="fs-09 badge badge-cyan br-24">{{ event.category }}</span>
+                        <span class="fs-09 badge badge-cyan br-24 wrap-text wrap-line-1">{{ event.category }}</span>
                     </div>
                 </div>
                 <div v-if="event.event_description">
@@ -41,18 +41,18 @@
                     <div>
                         <div class="gray">Date</div>
                         <div v-if="event.start_date !== event.end_date">
-                            <i class="gray">from: </i><span id="date">{{ format_date(event.start_date) }}</span><br />
-                            <i class="gray">to: </i><span>{{ format_date(event.end_date) }}</span>
+                            <i class="gray">From: </i><span>{{ format_date(event.start_date) }}</span><br />
+                            <i class="gray">To: </i><span>{{ format_date(event.end_date) }}</span>
                         </div>
                         <div v-else>
-                            <span id="date">{{ format_date(event.start_date) }}</span>
+                            <span>{{ format_date(event.start_date) }}</span>
                         </div>
                     </div>
                     <div>
                         <div class="gray">Event duration</div>
                         <div>{{ event.event_duration }}</div>
                     </div>
-                    <div>
+                    <div v-if="is_guide">
                         <div class="gray">Max. attendance</div>
                         <div>{{ event.attendance_limit }}</div>
                     </div>
@@ -111,7 +111,7 @@
                     <user-list :user="guide" :climber="true" :redirect="false" />
                 </div>
                 <div v-if="is_climber" class="sticky booking-trigger-wrapper flx jc-fe">
-                    <booking-trigger-button :eventStatus="bookingStatus" :resultType="'event'" @booking-trigger="bookingTrigger" />
+                    <booking-trigger-button :eventStatus="event" :resultType="'event'" @booking-trigger="bookingTrigger" />
                 </div>
             </div>
             <div class="w-50" v-if="is_guide">
@@ -190,9 +190,6 @@ export default {
             else
             return []
         },
-        bookingStatus() {
-            return this.bookings.find(event => event.event_id === this.event.id)
-        },
         computedBookings() {
             return this.bookings.length ? this.bookings.filter(booking => booking.event_id === this.event.id ) : []
         }
@@ -209,7 +206,7 @@ export default {
     },
     methods: {
         bookingTrigger() {
-            this.$store.commit('triggerBooking', this.bookingStatus)
+            this.$store.commit('triggerBooking', this.event)
         },
         getThisGuide(guide) {
             if(guide) {

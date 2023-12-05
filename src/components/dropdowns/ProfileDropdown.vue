@@ -45,9 +45,6 @@ export default {
             user.new_skills = JSON.parse(user.new_skills)
             return user
         },
-        // computedWidth() {
-        //     return this.is_super || this.is_climber  ? '420px' : '60%'
-        // },
         computedHeight() {
             return this.is_super ? '70dvh' : '80dvh'
         }

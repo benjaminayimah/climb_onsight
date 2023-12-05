@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <event-list v-for="event in computedEvents" :key="event.id" :event="event" :redirect="true"  />
+                    <event-list v-for="event in computedEvents" :key="event.id" :event="event" :event_id="event.event_id" :redirect="true"  />
                 </div>
             </div>
             <transition name="slide-from-right">
@@ -57,9 +57,9 @@ export default {
         computedEvents() {
             const today = new Date()
             if(this.$route.query.type === 'past') {
-                return this.bookings.filter(event => new Date(event.start_date) < today)
+                return this.bookings.filter(event => new Date(event.end_date) < today)
             }else if(this.$route.query.type === 'registered') {
-                return this.bookings.filter(event => new Date(event.start_date) >= today)
+                return this.bookings.filter(event => new Date(event.end_date) >= today)
             }
             else {
                 return this.bookings
@@ -67,7 +67,7 @@ export default {
         },
         computedEvent() {
             if(this.bookings && this.bookings.length) {
-                const event = this.bookings.find(event => event.id == this.$route.query.current)
+                const event = this.bookings.find(event => event.event_id == this.$route.query.current)
                 if(event)
                 return event
                 else

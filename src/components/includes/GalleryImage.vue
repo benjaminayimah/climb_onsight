@@ -15,7 +15,7 @@ import axios from 'axios'
 import { mapState } from 'vuex'
 import Spinner from './Spinner.vue'
 export default {
-  components: { Spinner },
+    components: { Spinner },
     name: 'GalleryImage',
     props: {
         image: String,

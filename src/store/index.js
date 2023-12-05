@@ -138,7 +138,7 @@ export default createStore({
       state.bookings = payload
     },
     updateBooking(state, payload) {
-      const i =  state.bookings.findIndex(x => x.receipt_no == payload.receipt_no) 
+      const i =  state.bookings.findIndex(x => x.id == payload.id) 
       if(i > -1)
       state.bookings[i].paid = payload.paid
       state.bookings[i].accepted = payload.accepted
@@ -289,7 +289,7 @@ export default createStore({
         }
     },
     deleteEvent(state, payload) {
-      router.push({ name: 'UpcomingEvents', query: { type: 'all'}})
+      router.push({ name: 'UpcomingEvents', query: { type: router.currentRoute.value.query.type}})
       const i = state.events.findIndex(x => x.id == payload)
       state.events.splice(i, 1);
     },

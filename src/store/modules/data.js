@@ -13,7 +13,14 @@ export default {
             {id: 4, name: 'Mountaineering', value: 0, image: require('@/assets/images/mountaineering.png')},
             {id: 5, name: 'Other', value: 0, image: require('@/assets/images/trad.png')}
         ],
-        experience_required: ['Beginner', 'Intermediate', 'Advanced']
+        experience_required: ['Beginner', 'Intermediate', 'Advanced'],
+        repeat_at: [
+            { label: 'Daily', value: 'daily' },
+            { label: 'Weekly', value: 'weekly' },
+            { label: 'Weekdays', value: 'weekdays' },
+            { label: 'Weekends', value: 'weekends' },
+            { label: 'Monthly', value: 'monthly' }
+        ]
     },
     mutations: {
         updateCompanyInfo(state, payload) {

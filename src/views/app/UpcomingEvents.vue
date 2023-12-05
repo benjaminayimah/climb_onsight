@@ -11,7 +11,7 @@
                                 <router-link :to="{ query: { type: 'all'} }" :class="{'active' : $route.query.type === 'all'}">All</router-link>
                             </li>
                             <li>
-                                <router-link :to="{ query: { type: 'booked'} }" :class="{'active' : $route.query.type === 'booked'}">Booked</router-link>
+                                <router-link :to="{ query: { type: 'registered'} }" :class="{'active' : $route.query.type === 'registered'}">Registered</router-link>
                             </li>
                             <li>
                                 <router-link :to="{ query: { type: 'past'} }" :class="{'active' : $route.query.type === 'past'}">Past</router-link>
@@ -88,9 +88,18 @@ export default {
                     return item.event_name.toLowerCase().match(this.searchParam.replace(/[^\w\s]/gi, "").toLowerCase()) || item.address.toLowerCase().match(this.searchParam.replace(/[^\w\s]/gi, "").toLowerCase())
                 })
             }else {
-                return this.events
+                const today = new Date()
+                if(this.$route.query.type === 'past') {
+                    return this.events.filter(event => new Date(event.end_date) < today)
+                }else if(this.$route.query.type === 'registered') {
+                    return this.events.filter(event => new Date(event.end_date) >= today)
+                }
+                else {
+                    return this.events
+                }
             }
         },
+        
     },
     data() {
         return {
@@ -100,7 +109,7 @@ export default {
     methods: {
         goBack() {
             if(this.$route.query.origin === this.$route.name) {
-                this.$router.push({ name: 'UpcomingEvents'})
+                this.$router.push({ name: 'UpcomingEvents', query: { type: this.$route.query.type}})
             }
             else {
                 return this.$router.go(-1)

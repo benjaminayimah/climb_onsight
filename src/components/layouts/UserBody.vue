@@ -1,4 +1,11 @@
 <template>
+    <div>
+        <div class="uppercase mb-8 fs-09"><strong>Account profile</strong></div>
+        <div class="list-row-shading">
+            <div class="gray">Name</div>
+            <div>{{ user.name }}</div>
+        </div>
+    </div>
     <div class="list-row-shading">
         <div class="gray">Email</div>
         <div>{{ user.email || user.company_email }}</div>
@@ -6,6 +13,38 @@
     <div class="list-row-shading">
         <div class="gray">Phone number</div>
         <div>{{ user.phone_number }}</div>
+    </div>
+    <div v-if="computedAttendees.length > 1 && is_guide">
+        <div class="uppercase mb-8 mt-8 fs-09"><strong>All registered attendees</strong></div>
+        <div class="list-row-shading">
+            <div class="grid-table">
+                <div class="grid table-body">
+                    <div class="grid-col-attendees grid">
+                        <span class="gray">Name</span>
+                        <span class="gray">Email</span>
+                        <span class="gray">Age</span>
+                    </div>
+                    <div v-for="attendee in computedAttendees" :key="attendee.id" class="grid-col-attendees grid">
+                        <span>{{ attendee.name }}</span>
+                        <a class="a-link" :href="'mailto:'+ attendee.email">{{ attendee.email }}</a>
+                        <span>{{ calculateAge(attendee.dob) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="uppercase mt-8 fs-09"><strong>Other information</strong></div>
+    <div class="list-row-shading" v-if="user.event_name">
+        <div class="gray">Event name</div>
+        <div>{{ user.event_name }}</div>
+    </div>
+    <div class="list-row-shading" v-if="user.date_selected">
+        <div class="gray">Due date</div>
+        <div>{{ format_date(user.date_selected) }}</div>
+    </div>
+    <div class="list-row-shading" v-if="user.event_type">
+        <div class="gray">Event type</div>
+        <event-type :eventType="user.event_type" />
     </div>
     <div class="list-row-shading" v-if="user.dob">
         <div class="gray">Age</div>
@@ -83,7 +122,7 @@
             </a>
         </div>
     </div>
-    <div v-if="user.guide_terms" class="flx column gap-4 list-row-shading">
+    <div v-if="user.guide_awards" class="flx column gap-4 list-row-shading">
         <div class="gray">Awards</div>
         <div class="flx gap-4">
             <li v-for="award in JSON.parse(user.guide_awards)" :key="award.id" >
@@ -138,7 +177,9 @@
 import userRolesMixin from '@/mixins/userRolesMixin'
 import formatDateTime from '@/mixins/formatDateTime'
 import { mapState } from 'vuex'
+import EventType from '../includes/EventType.vue'
 export default {
+  components: { EventType },
     name: 'UserBody',
     mixins: [formatDateTime, userRolesMixin],
     props: {
@@ -162,6 +203,19 @@ export default {
             else
             return []
         },
+        computedAttendees() {
+            if(this.user.attendees && Array.isArray(JSON.parse(this.user.attendees))) {
+                return JSON.parse(this.user.attendees)
+            }
+            else
+            return []
+        },
     }
 }
 </script>
+<style lang="css" scoped>
+.grid-col-attendees{
+    place-content: center;
+    grid-template-columns: 1fr 1fr .4fr;
+}
+</style>

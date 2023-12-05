@@ -22,10 +22,10 @@
                             <a href="#" class="fs-1rem a-link">See all</a>
                         </h3>
                         <div class="flx flx-1 gap-16 flx-wrap">
-                            <event-list v-for="event in computedBooking.slice(0, 6)" :key="event.id" :event="event" :redirect="true" />
+                            <event-list v-for="event in computedBooking.slice(0, 6)" :key="event.id" :event="event" :event_id="event.event_id" :redirect="true" />
                             <div v-if="computedBooking.length < 6" class="flx-1 evt-card pd-16 bg-white br-16 centered">
                                 <router-link v-if="is_climber" :to="{ name: 'ExploreEvents' }" class="button-primary btn-rounded btn-sm-lng"><span class="wrap-text wrap-line-1">Explore more</span></router-link>
-                                <router-link v-else :to="{ name: 'UpcomingEvents' }" class="button-primary btn-rounded btn-sm-lng"><span class="wrap-text wrap-line-1">See all</span></router-link>
+                                <router-link v-else :to="{ name: 'UpcomingEvents', query: { type: 'all'} }" class="button-primary btn-rounded btn-sm-lng"><span class="wrap-text wrap-line-1">See all</span></router-link>
                             </div>
                         </div>
                     </div>

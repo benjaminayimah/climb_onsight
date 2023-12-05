@@ -28,7 +28,6 @@
     <new-guide-modal v-if="forms.modal === 'new_guide'" />
     <profile-edit-modal v-if="forms.modal === 'profile_edit'" />
     <results-modal v-if="forms.modal === 'search_result'"/>
-    <booking-request-modal v-if="forms.modal === 'booking_request'" />
     <reset-admin-password v-if="forms.modal === 'admin_password'" />
     <event-edit-modal v-if="forms.modal === 'event_edit'"/>
     <user-modal v-if="forms.modal === 'view_user'" />
@@ -42,7 +41,6 @@ const FundsWithdrawalModal = defineAsyncComponent(() => import(/* webpackChunkNa
 const NewGuideModal = defineAsyncComponent(() => import(/* webpackChunkName: NewGuideModal */ '@/views/admin/NewGuideModal.vue'));
 const ProfileEditModal = defineAsyncComponent(() => import(/* webpackChunkName: ProfileEditModal */ '@/views/app/ProfileEditModal.vue'))
 const ResultsModal = defineAsyncComponent(() => import(/* webpackChunkName: ResultsModal */ '@/views/climbers/ResultsModal.vue'))
-const BookingRequestModal = defineAsyncComponent(() => import(/* webpackChunkName: BookingRequestModal */ '@/views/app/BookingRequestModal.vue'))
 const ResetAdminPassword = defineAsyncComponent(() => import(/* webpackChunkName: ResetAdminPassword */ '@/views/admin/ResetAdminPassword.vue'))
 const EventEditModal = defineAsyncComponent(() => import(/* webpackChunkName: EventEditModal */ '@/views/guides/EventEditModal.vue'))
 const UserModal = defineAsyncComponent(() => import(/* webpackChunkName: UserModal */ '@/views/app/UserModal.vue'))
@@ -53,7 +51,7 @@ import Backdrop from '../includes/Backdrop.vue';
 import LottieLoader from '../lotties/LottieLoader.vue';
 import ToolTip from '../includes/ToolTip.vue';
 export default {
-    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, BookingRequestModal, ResetAdminPassword, EventEditModal, UserModal, ToolTip  },
+    components: { Backdrop, LottieLoader, AddPaymentModal, FundsWithdrawalModal, RegisteredBanksModal, AddAdminsModal, NewGuideModal, ProfileEditModal, ResultsModal, ResetAdminPassword, EventEditModal, UserModal, ToolTip  },
     name: 'MainModal',
     computed: {
         ...mapState({

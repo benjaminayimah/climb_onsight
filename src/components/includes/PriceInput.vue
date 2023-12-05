@@ -37,7 +37,6 @@ export default {
     methods: {
         handleInput() {
             this.$emit('add-price-input', this.thisForm)
-            
         }
     },
     mounted() {

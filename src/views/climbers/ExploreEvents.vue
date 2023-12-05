@@ -48,7 +48,7 @@
                 <div v-else-if="computedResults.length">
                     <div class="title">Events</div>
                     <div class="flx-wrap flx gap-24">
-                        <event-list v-for="event in computedResults" :key="event.id" :event="event" :redirect="false" @open-modal="openModal" />
+                        <event-list v-for="event in computedResults" :key="event.id" :event="event" :event_id="event.id" :redirect="false" @open-modal="openModal" />
                     </div>
                 </div>
                 <div v-else class="centered empty">

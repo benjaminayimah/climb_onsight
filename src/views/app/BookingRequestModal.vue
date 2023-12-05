@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <teleport to="#modal_title">
         Approve request
     </teleport>
@@ -9,6 +9,7 @@
                 <strong>{{ climber.name }}</strong>
                 <span class="gray">Climber</span>
             </div>
+            {{ climber }}
         </div>
     </teleport>
     <teleport to="#modal_footer">
@@ -95,4 +96,4 @@ img {
     width: 360px;
 }
 
-</style>
+</style> -->

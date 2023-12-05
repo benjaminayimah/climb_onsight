@@ -90,7 +90,7 @@ export default {
     },
     methods: {
         showAll() {
-            this.is_climber ? this.$router.push({ name: 'ExploreEvents'})  : this.$router.push({ name: 'UpcomingEvents'})
+            this.is_climber ? this.$router.push({ name: 'ExploreEvents'})  : this.$router.push({ name: 'UpcomingEvents', query: { type: 'all'}})
         }
     }
 }

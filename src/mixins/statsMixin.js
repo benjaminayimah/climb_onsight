@@ -21,10 +21,28 @@ export default {
         computedCurrency() {
             return this.account.default_currency
         },
+        computedPendingApproval() {
+            return this.bookings && this.bookings.length ? this.bookings.filter(item => !item.accepted && !item.paid) : []
+        },
+        computedPendingPayment() {
+            return this.bookings && this.bookings.length ? this.bookings.filter(item => item.accepted && !item.paid) : []
+        },
+        computedAmountSpent() {
+            if(this.bookings.length) {
+                const arr = this.bookings.filter(item => item.accepted && item.paid)
+                return arr.reduce((acc, item) => acc + item.total_price, 0)
+            }
+            else
+            return ''
+        },
         statsArray() {
             let array = []
             if(this.is_climber) {
-                array.push({ title: 'Current bookings', value: this.bookings.length, color: '#ffe4e6', period: '23% increase from last week', amount: false, currency: ''})
+                array.push({ title: 'Bookings', value: this.bookings.length, color: '#E8E2FF', period: 'All bookings', amount: false, currency: ''})
+                array.push({ title: 'Bookings', value: this.computedPendingApproval.length, color: '#ffe4e6', period: 'Pending approval', amount: false, currency: ''})
+                array.push({ title: 'Bookings', value: this.computedPendingPayment.length, color: '#d5ffd5', period: 'Awaiting payment', amount: false, currency: ''})
+                array.push({ title: 'Amount spent', value: this.computedAmountSpent, color: '#e0f2fe', period: 'All bookings', amount: true, currency: ''})
+
             }else if (this.is_guide) {
                 array.push({ title: 'Total transactions', value: this.computedGross, color: '#E8E2FF', period: 'Last 7 days', amount: true, currency: this.computedCurrency})
                 array.push({ title: 'My payouts', value: this.computedNet, color: '#d5ffd5', period: 'Last 7 days', amount: true, currency: this.computedCurrency})

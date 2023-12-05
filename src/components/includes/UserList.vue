@@ -1,5 +1,5 @@
 <template>
-    <a href="#" @click.prevent="doClick" class="bg-img br-16 flx-1 relative user-list" :class="{'list-is-active' : $route.query.id == user.id}">
+    <a href="#" @click.prevent="doClick" class="bg-img br-16 flx-1 relative user-list transition-sm" :class="{'list-is-active' : $route.query.id == user.id}">
         <img :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name" />
         <div class="user-footer absolute br-16 flx jc-sb ai-c">
             <div class="flx column">

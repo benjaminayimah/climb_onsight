@@ -23,7 +23,13 @@
                     </div>
                     <div>
                         <div class="gray">Date</div>
-                        <div>{{ format_date(event.start_date) }}</div>
+                        <div v-if="event.start_date !== event.end_date">
+                            <i class="gray">From: </i><span>{{ format_date(event.start_date) }}</span><br />
+                            <i class="gray">To: </i><span>{{ format_date(event.end_date) }}</span>
+                        </div>
+                        <div v-else>
+                            <span>{{ format_date(event.start_date) }}</span>
+                        </div>
                     </div>
                     <div>
                         <div class="gray">Event duration</div>

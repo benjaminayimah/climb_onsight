@@ -26,7 +26,8 @@ export default {
     },
     computed: {
         ...mapState({
-            bookings: (state) => state.bookings
+            bookings: (state) => state.bookings,
+            climbers: (state) => state.climbers
         }),
         computedNotiType() {
             let data = { message: '', buttonText: 'View'}
@@ -40,18 +41,18 @@ export default {
             return data
         },
         event() {
-            return this.bookings.find(data => data.id === this.notification.event_id)
-        }
+            return this.bookings.find(data => data.event_id === this.notification.event_id)
+        },
     },
     methods: {
         doClick() {
             if(this.is_super) {
                 this.$store.commit('preSetTempData', {data: this.notification, modal: 'new_guide'})
             }else if(this.is_guide) {
-                this.$store.commit('preSetTempData', { data: this.notification, modal: 'booking_request'})
+                this.$store.commit('preSetTempData', { data: this.notification, modal: 'view_user'})
             }else if(this.is_climber) {
                 if (this.event) {
-                    this.$router.push({ name: 'MyEvents', query: { type: 'all', current: this.event.id, origin: this.$route.name } } )
+                    this.$router.push({ name: 'MyEvents', query: { type: 'all', current: this.event.event_id, origin: this.$route.name } } )
                 } else {
                     const alertPayload = {
                         status: 'danger',

@@ -101,12 +101,12 @@ export default {
 .container {
     container: payout / inline-size;
 }
-@container payout (width < 332px) {
+@container payout (width <= 332px) {
     .content-left {
         flex-direction: column;
     }
 }
-@container payout (width < 285px) {
+@container payout (width <= 285px) {
     .content-right {
         position: absolute;
         right: 16px;

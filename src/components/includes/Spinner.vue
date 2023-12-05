@@ -21,7 +21,7 @@ export default {
     --dimension: v-bind(dimension);
     width: var(--dimension);
     height: var(--dimension);
-    border: 2px solid #FFF;
+    border: 2px solid #ffa3a3;
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -39,7 +39,7 @@ export default {
     height: calc(var(--dimension) + 8px);
     border-radius: 50%;
     border: 2px solid transparent;
-    border-bottom-color: #ffffff;
+    border-bottom-color: #fdc9c9;
 }
 
 @keyframes rotation {

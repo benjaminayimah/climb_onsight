@@ -59,11 +59,7 @@
             <label for="repeat_at">Frequency</label>
             <div class="input-wrapper">
                 <select v-model="form.repeat_at" name="repeat_at" id="repeat_at" class="w-100 br-16" :class="input2 ? 'form-control2' : 'form-control'">
-                    <option>daily</option>
-                    <option>weekly</option>
-                    <option>weekdays</option>
-                    <option>weekends</option>
-                    <option>monthly</option>
+                    <option v-for="(repeat, index) in repeat_at" :key="index" :value="repeat.value">{{ repeat.label }}</option>
                 </select>
             </div>
         </div>
@@ -82,10 +78,16 @@
 <script>
 import inputValidationMixin from '@/mixins/inputValidation'
 import ErrorDisplayCard from './ErrorDisplayCard.vue'
+import { mapState } from 'vuex'
 export default {
     components: { ErrorDisplayCard },
     name: 'CalendarStepper1',
     mixins: [inputValidationMixin],
+    computed: {
+        ...mapState({
+            repeat_at: (state) => state.data.repeat_at
+        })
+    },
     props: {
         newEvent: Object,
         input2: Boolean,
@@ -100,7 +102,7 @@ export default {
                 start_date: new Date().toISOString().slice(0, 10),
                 end_date: new Date().toISOString().slice(0, 10),
                 repeat: false,
-                repeat_at: 'weekly'
+                repeat_at: 'daily'
             }
         }
     },

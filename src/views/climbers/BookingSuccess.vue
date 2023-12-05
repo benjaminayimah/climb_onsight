@@ -54,6 +54,8 @@ export default {
                 const res = await axios.post(this.hostname + '/api/complete-booking?token='+this.token, {session_id: this.$route.params.session_id})
                 this.completed = true
                 this.$store.commit('updateBooking', res.data.booking)
+                this.$store.commit('updateNotifications', res.data.booking.id)
+
             } catch (e) {
                 this.showAlert('danger', e.response.data.message)
             }
