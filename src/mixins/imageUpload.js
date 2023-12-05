@@ -53,9 +53,7 @@ export default {
                             this.clrOldfile(id)
                         }).catch((e) => {
                             this.stopLoader()
-                            if(e.response.status == 400) {
-                                // this.$store.commit('setExpSession')
-                            }
+                            this.errorResponse(e)
                         })
                     }else {
                         return this.showError('This file is too large. The file size must be less than 800KB', id);
@@ -96,9 +94,7 @@ export default {
                 this.afterDeletion()
             }).catch((e) => {
                 this.stopLoader()
-                if(e.response.status == 400) {
-                    // this.$store.commit('setExpSession')
-                }
+                this.errorResponse(e)
             });
         },
         uploadPDF(id) {
@@ -128,9 +124,6 @@ export default {
                     this.stopLoader()
                     this.errorResponse(e)
                     this.clrOldfile(id)
-                    if(e.response.status == 400) {
-                        // this.$store.commit('setExpSession')
-                    }
                 })
 
             }

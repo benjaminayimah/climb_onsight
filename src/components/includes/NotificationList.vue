@@ -52,7 +52,7 @@ export default {
                 this.$store.commit('preSetTempData', { data: this.notification, modal: 'view_user'})
             }else if(this.is_climber) {
                 if (this.event) {
-                    this.$router.push({ name: 'MyEvents', query: { type: 'all', current: this.event.event_id, origin: this.$route.name } } )
+                    this.$router.push({ name: 'MyEvents', query: { current: this.event.event_id, origin: this.$route.name } } )
                 } else {
                     const alertPayload = {
                         status: 'danger',

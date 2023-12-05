@@ -104,7 +104,7 @@ export default {
                 if (this.$route.name === route_name && this.$route.query.type !== 'all') {
                     this.$router.push({ name: route_name, query: { type: this.eventType, current: id, origin: this.$route.name } } )
                 }else {
-                    this.$router.push({ name: route_name, query: { type: 'all', current:id, origin: this.$route.name } } )
+                    this.$router.push({ name: route_name, query: { current:id, origin: this.$route.name } } )
                 }
             }else {
                 this.$emit('open-modal', this.event)

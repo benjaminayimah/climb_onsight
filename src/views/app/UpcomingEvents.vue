@@ -8,7 +8,7 @@
                     <div class="flx">
                         <ul class="flx bg-white pd-8 br-32 tab">
                             <li>
-                                <router-link :to="{ query: { type: 'all'} }" :class="{'active' : $route.query.type === 'all'}">All</router-link>
+                                <router-link :to="{ query: { type: 'all'} }" :class="{'active' : !$route.query.type || $route.query.type === 'all'}">All</router-link>
                             </li>
                             <li>
                                 <router-link :to="{ query: { type: 'registered'} }" :class="{'active' : $route.query.type === 'registered'}">Registered</router-link>

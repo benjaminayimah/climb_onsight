@@ -44,7 +44,7 @@ export default {
             if(this.is_climber) {
                 this.$store.commit('preSetTempData', { data: this.event, modal: 'search_result'})
             }else {
-                this.$router.push({name: 'UpcomingEvents', query: { type: 'all', current: this.event.id, origin: this.$route.name} } )
+                this.$router.push({name: 'UpcomingEvents', query: { current: this.event.id, origin: this.$route.name} } )
             }
         }
     }

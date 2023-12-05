@@ -381,6 +381,8 @@ export default createStore({
         if(e.response) {
           if(e.response.status == 400 || e.response.status == 404 ) {
             state.commit('destroyToken')
+          }else {
+            state.commit('showAlert', {status: 'danger', body: 'Unable to fetch user data'})
           }
         }else {
           const payload = {
