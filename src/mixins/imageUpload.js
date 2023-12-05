@@ -54,6 +54,7 @@ export default {
                         }).catch((e) => {
                             this.stopLoader()
                             this.$store.commit('showAlert', {status: 'danger', body: e.response.data.message})
+                            this.clrOldfile(id)
                         })
                     }else {
                         return this.showError('This file is too large. The file size must be less than 800KB', id);
@@ -95,6 +96,7 @@ export default {
             }).catch((e) => {
                 this.stopLoader()
                 this.$store.commit('showAlert', {status: 'danger', body: e.response.data.message})
+                this.afterDeletion
             });
         },
         uploadPDF(id) {
