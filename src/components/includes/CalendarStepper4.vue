@@ -168,7 +168,7 @@ export default {
         },
         async saveForm4() {
             this.validation.error ? this.clearErrs() : ''
-            let errors = { category: '', faq: '', experience_required: ''}
+            let errors = {}
             if(!this.form.event_terms.name || !this.validateQnA() || !this.form.experience_required.length) {
                 if(!this.form.event_terms.name) {
                     errors.event_terms = ['The terms and conditions field is required.']

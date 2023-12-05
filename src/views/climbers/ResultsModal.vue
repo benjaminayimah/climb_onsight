@@ -241,7 +241,7 @@ export default {
         },
         async submitPreBooking() {
             this.validation.error ? this.clearErrs() : ''
-            let errors = { date: '', quantity: '', attendees: ''}
+            let errors = {}
             if(this.result.repeat_at && this.form.date == '' || this.form.quantity == '' || this.form.quantity < 1 || (!this.validateAttendees() || this.form.quantity != this.form.attendees.length)) {
                 if(this.form.date == '' && this.result.repeat_at) {
                     errors.date = ['Please pick a date from the calendar.']

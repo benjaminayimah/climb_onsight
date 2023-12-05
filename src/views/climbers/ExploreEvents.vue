@@ -28,8 +28,11 @@
                 </div>
                 <!-- {{ computedFilters }} -->
                 <div class="ft-danger" v-if="systemErr.error">{{ systemErr.message }}</div>
-                <div v-if="completed && !submiting" class="flx jc-sb">
-                    <div v-if="locationSearch ">
+                <div v-if="(completed && !submiting) || $route.query.filter_category || $route.query.filter_date" class="flx jc-sb">
+                    <div v-if="$route.query.filter_category || $route.query.filter_date">
+                        <div><i>Filters:</i> <strong v-if="$route.query.filter_category">[{{ $route.query.filter_category }}]</strong> <strong v-if="$route.query.filter_date">[{{ $route.query.filter_date }}]</strong></div>
+                    </div>
+                    <div v-else-if="locationSearch">
                         <div><i>Events near your current location:</i> <strong>{{ $route.query.addr }}</strong></div>
                     </div>
                     <div v-else>
@@ -43,12 +46,12 @@
                     </a>
                 </div>
                 <div v-if="submiting" class="centered empty">
-                    <spinner v-if="submiting" :size="24" />
+                    <lottie-loader :size="50" v-if="submiting"/>
                 </div>
-                <div v-else-if="computedResults.length">
+                <div v-else-if="computedFilters.length">
                     <div class="title">Events</div>
                     <div class="flx-wrap flx gap-24">
-                        <event-list v-for="event in computedResults" :key="event.id" :event="event" :event_id="event.id" :redirect="false" @open-modal="openModal" />
+                        <event-list v-for="event in computedFilters" :key="event.id" :event="event" :event_id="event.id" :redirect="false" @open-modal="openModal" />
                     </div>
                 </div>
                 <div v-else class="centered empty">
@@ -72,11 +75,11 @@
                     <h5 class="mb-8">What type of events are you interested in?</h5>
                     <div class="mb-8">Select event type</div>
                     <div class="flx flx-wrap gap-8">
-                        <category-list v-for="category in categories" :key="category.id" :category="category" :selected="filter.category" @select-category="selectCategory" :color="'#F1F1F1'"/>
+                        <category-list v-for="category in categories.slice(0, -1)" :key="category.id" :category="category" :selected="filter.category" @select-category="selectCategory" :color="'#F1F1F1'"/>
                     </div>
                 </div>
                 <div class="pd-24 br-16 bg-white">
-                    <h5 class="mb-8">What's your preferred time?</h5>
+                    <h5 class="mb-8">What's your preferred date?</h5>
                     <div class="mb-8">Select date</div>
                     <div class="input-wrapper">
                         <input v-model="filter.date" type="date" class="w-100 form-control">
@@ -95,9 +98,9 @@ import inputValidation from '@/mixins/inputValidation'
 import EventList from '@/components/includes/EventList.vue'
 import { mapState, mapGetters } from 'vuex'
 import CategoryList from '@/components/includes/CategoryList.vue'
-import Spinner from '@/components/includes/Spinner.vue'
+import LottieLoader from '@/components/lotties/LottieLoader.vue'
 export default {
-    components: { EventList, CategoryList, Spinner },
+    components: { EventList, CategoryList, LottieLoader },
     name: 'ExploreEvents',
     mixins: [inputValidation],
     computed: {
@@ -118,17 +121,23 @@ export default {
             return result
         },
         computedFilters() {
-            const query = this.$route.query
-            let result = this.computedResults
-            if(result.length) {
-                if(query === 'filter_category') {
-                    result = 'filter_category'
+            const query = this.$route.query;
+            let result = this.computedResults.slice(); // Create a copy to avoid mutation
+
+            let filteredCategory = [];
+            let filteredDate = [];
+
+            if (result.length && (query.filter_category || query.filter_date)) {
+                if (query.filter_category) {
+                    filteredCategory = result.filter(item => item.category === query.filter_category);
                 }
-                if(query === 'filter_date') {
-                    result = 'filter_date'
+                if (query.filter_date) {
+                    filteredDate = result.filter(item => item.start_date === query.filter_date);
                 }
+                result = [...filteredCategory, ...filteredDate];
+
             }
-            return result
+            return result;
         }
     },
     data() {
@@ -247,14 +256,15 @@ export default {
             this.showFilter = !this.showFilter
         },
         applyFilter() {
-            let newQuery = {}
-            if(this.filter.category) {
-                newQuery = { filter_category: this.filter.category }
-            }if(this.filter.date) {
-                newQuery = { filter_date: this.filter.date }
+            let newQuery = {};
+            if (this.filter.category) {
+                newQuery.filter_category = this.filter.category;
+            }
+            if (this.filter.date) {
+                newQuery.filter_date = this.filter.date;
             }
             this.$router.push({ query: newQuery });
-            this.toggleFilter()
+            this.toggleFilter();
         }
     },
     mounted() {

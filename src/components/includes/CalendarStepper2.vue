@@ -97,7 +97,7 @@ export default {
         },
         async nextPage() {
             this.validation.error ? this.clearErrs() : ''
-            let errors = { category: '', address: '', gallery: []}
+            let errors = {}
             if(this.form.category == '' || this.form.address == '' || this.form.gallery.length < 1 || (this.form.category.toLowerCase() === 'other' && this.otherCategory == '')) {
                 if(this.form.category == '' || (this.form.category.toLowerCase() === 'other' && this.otherCategory == '')) {
                     errors.category = ['The Category field is required.']

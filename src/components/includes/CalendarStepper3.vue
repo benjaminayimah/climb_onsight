@@ -110,7 +110,7 @@ export default {
         },
         async nextPage() {
             this.validation.error ? this.clearErrs() : ''
-            let errors = { price: ''}
+            let errors = {}
             if(this.form.event_type === 'private') {
                 this.form.price_range = this.form.price_range.slice(0, Number(this.form.attendance_limit))
             }

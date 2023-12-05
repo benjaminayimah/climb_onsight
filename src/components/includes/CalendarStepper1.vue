@@ -118,7 +118,7 @@ export default {
         },
         async nextPage() {
             this.validation.error ? this.clearErrs() : ''
-            let errors = { event_name: '', start_date: '', end_date: '', event_duration: ''}
+            let errors = {}
             if(this.form.event_name == '' || this.form.start_date == '' || this.form.end_date == '' || this.form.event_duration == '') {
                 if(this.form.event_name == '') {
                     errors.event_name = ['The Event name field is required.']
