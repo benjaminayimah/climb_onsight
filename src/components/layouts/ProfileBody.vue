@@ -18,15 +18,15 @@
         </div>
         <div>
             <ul v-if="!editMode" class="flx column gap-16">
-                <li class="flx jc-sb bg-color br-32">
+                <li class="flx jc-sb list-row-shading">
                     <div class="gray">Name</div>
                     <span>{{ user.name }}</span>
                 </li>
-                <li class="flx jc-sb bg-color br-32">
+                <li class="flx jc-sb list-row-shading">
                     <div class="gray">Email</div>
                     <span>{{ user.email }}</span>
                 </li>
-                <li class="flx jc-sb bg-color br-32">
+                <li class="flx jc-sb list-row-shading">
                     <div class="gray">Phone number</div>
                     <span>{{ user.phone_number }}</span>
                 </li>
