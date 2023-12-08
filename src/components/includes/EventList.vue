@@ -13,8 +13,8 @@
                             {{ event.event_name }}
                         </div>
                     </h4>
-                    <div v-if="event.event_type === 'public'" class="fs-09"><strong>CA${{ event.price }}</strong></div>
-                    <div v-else class="fs-09"><span class="gray">From </span><strong>CA${{ computedPriceRange }}</strong></div>
+                    <div v-if="event.event_type === 'public'" class="fs-09 no-wrap"><strong>CA${{ event.price }}</strong></div>
+                    <div v-else class="fs-09 no-wrap"><span class="gray">From </span><strong>CA${{ computedPriceRange }}</strong></div>
                 </div>
                 <div class="flx jc-sb ai-fe gap-8">
                     <div class="flx gap-8">
