@@ -150,7 +150,7 @@ export default {
                 date: '',
             },
             searchResultEvents: [],
-            radius: 10,
+            radius: 100,
             locationSearch: false,
             completed: false,
             showFilter: false
