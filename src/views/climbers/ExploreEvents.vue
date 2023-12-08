@@ -28,7 +28,7 @@
                 </div>
                 <!-- {{ computedFilters }} -->
                 <div class="ft-danger" v-if="systemErr.error">{{ systemErr.message }}</div>
-                <div v-if="(completed && !submiting) || $route.query.filter_category || $route.query.filter_date" class="flx jc-sb">
+                <div v-if="(completed && !submiting) || $route.query.filter_category || $route.query.filter_date" class="flx gap-50">
                     <div v-if="$route.query.filter_category || $route.query.filter_date">
                         <div><i>Filters:</i> <strong v-if="$route.query.filter_category">[{{ $route.query.filter_category }}]</strong> <strong v-if="$route.query.filter_date">[{{ $route.query.filter_date }}]</strong></div>
                     </div>
@@ -42,7 +42,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" height="13" viewBox="0 0 13.587 13.587">
                             <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"></path>
                         </svg>
-                        Reset
+                        Clear
                     </a>
                 </div>
                 <div v-if="submiting" class="centered empty">

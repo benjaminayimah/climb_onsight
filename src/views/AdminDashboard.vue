@@ -2,7 +2,7 @@
     <main class="home" :class="getDevice">
         <snack-bar-alert />
         <main-menu :user="user.id" :device="getDevice"/>
-        <top-nav-bar :user="user" :device="getDevice" :notificaion_count="notificaion_count"/>
+        <top-nav-bar :user="user" :device="getDevice" :notification_count="notification_count"/>
         <router-view />
     </main>
 </template>
@@ -19,7 +19,7 @@ export default {
             user: (state) => state.user,
             hostname: (state) => state.hostname,
             token: (state) => state.token,
-            notificaion_count: (state) => state.notifications.length
+            notification_count: (state) => state.notifications.length
         }),
         ...mapGetters(['getDevice'])
     }
