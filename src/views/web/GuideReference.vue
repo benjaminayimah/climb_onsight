@@ -1,6 +1,9 @@
 <template>
     <div class="stepper-wrapper w-100 flx column gap-24">
         <div class="stepper-title">Referees</div>
+        <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
+            <span>{{ systemErr.message }}</span>
+        </div>
         <form @submit.prevent="" id="guide_ref_form">
             <div class="form-wrapper flx column gap-24">
                 <div>
