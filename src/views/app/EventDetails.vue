@@ -203,6 +203,9 @@ export default {
         },
         computedBookings() {
             return this.bookings.length ? this.bookings.filter(booking => booking.event_id === this.event.id ) : []
+        },
+        computedGuideId() {
+            return this.is_super ? this.event.user_id : this.event.guide_id
         }
     },
     data() {
@@ -212,7 +215,7 @@ export default {
     },
     watch: {
         event(newEvent) {
-            this.getThisGuide(newEvent.guide_id)
+            this.getThisGuide(this.is_super ? newEvent.user_id : newEvent.guide_id)
         }
     },
     methods: {
@@ -231,7 +234,7 @@ export default {
     },
     mounted() {
         this.getDevice == 'mobile' ? document.body.classList.add('fixed-body') : ''
-        this.event.user_id ? this.getThisGuide(this.event.guide_id) : ''
+        this.event.user_id ? this.getThisGuide(this.computedGuideId) : ''
     },
     unmounted() {
         document.body.classList.remove('fixed-body')
