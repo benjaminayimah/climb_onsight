@@ -2,7 +2,6 @@
     <section class="pd-32 flx jc-c">
         <div class="wrapper centered">
             <div v-if="submitting">
-                <!-- <spinner :size="20" :color="'#0c59ed'" /> -->
                 <lottie-loader :size="50" />
                 <div>Please wait...</div>
             </div>
@@ -19,7 +18,6 @@
 
 <script>
 import axios from 'axios'
-// import Spinner from '@/components/includes/Spinner.vue'
 import { mapState } from 'vuex'
 import LottieLoader from '@/components/lotties/LottieLoader.vue'
 export default {
@@ -59,7 +57,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .wrapper{
     max-width: 500px;
     height: 100%;
