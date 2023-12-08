@@ -64,15 +64,15 @@
     <teleport to="#modal_footer">
         <div class="text-center flx jc-c">
             <button @click="submitUpdate" v-if="update && permissionsModal !== 'permissions'" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="20" />
+                <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Submitting...' : 'Update'}}</span>
             </button>
             <button v-else-if="permissions || permissionsModal === 'permissions'" @click="submitPermissions" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="20" />
+                <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Submitting...' : 'Submit'}}</span>
             </button> 
             <button v-else @click="submitSignUp" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="20" />
+                <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Submitting...' : 'Submit'}}</span>
             </button>
         </div>

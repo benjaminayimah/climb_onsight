@@ -31,8 +31,8 @@
             />
         </div>
         <div v-if="status.spin" class="flx gap-8 ai-c">
-            <spinner :size="10" />
-            <span class="fs-8">uploading...</span>
+            <spinner :size="14" :color="'#000'" />
+            <span class="fs-8">Uploading...</span>
         </div>
     </div>
 </template>

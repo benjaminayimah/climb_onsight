@@ -55,7 +55,7 @@
     </teleport>
     <teleport to="#modal_footer">
         <button class="button-primary w-100 gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-            <spinner v-if="submiting" :size="20" />
+            <spinner v-if="submiting" :size="20" :color="'#fff'" />
             <span>{{ submiting ? 'Submitting...' : 'Add bank details'}}</span>
         </button> 
     </teleport>

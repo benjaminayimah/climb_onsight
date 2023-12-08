@@ -28,7 +28,7 @@
                 </button>
                 <error-display-card v-if="validation.error && referees.length > 1" :errors="validation.errors"/>
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
-                    <spinner v-if="submiting" :size="20"/>
+                    <spinner v-if="submiting" :size="20" :color="'#fff'"/>
                     <span>{{ submiting ? 'Submitting...' : 'Finish up'}}</span>
                 </button>
             </div>

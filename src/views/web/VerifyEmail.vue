@@ -1,15 +1,16 @@
 <template>
     <section class="pd-32 flx jc-c">
-        <div class="wrapper">
-            <div class="centered" v-if="submitting">
-                <spinner :size="20" />
+        <div class="wrapper centered">
+            <div v-if="submitting">
+                <!-- <spinner :size="20" :color="'#0c59ed'" /> -->
+                <lottie-loader :size="50" />
                 <div>Please wait...</div>
             </div>
-            <div v-else>
+            <div v-else class="flx column ai-c">
                 <div class="response-message mb-32" :class="response.status =='success' ? 'success-response' : 'invalid-credentials'">
                     <span>{{ response.message }}</span>
                 </div>
-                <button v-if="response.status =='success'" @click="$router.push({name: 'Home'})" class="button-primary w-100 gap-8 btn-lg">Proceed to dashboard</button>
+                <button v-if="response.status =='success'" @click="$router.push({name: 'Home'})" class="button-primary btn-rounded btn-md-lng">Proceed to dashboard</button>
                 <button v-else @click="verifyAccount" class="button-primary w-100 btn-lg">Try again</button>
             </div>
         </div>
@@ -18,10 +19,11 @@
 
 <script>
 import axios from 'axios'
-import Spinner from '@/components/includes/Spinner.vue'
+// import Spinner from '@/components/includes/Spinner.vue'
 import { mapState } from 'vuex'
+import LottieLoader from '@/components/lotties/LottieLoader.vue'
 export default {
-    components: { Spinner },
+    components: { LottieLoader },
     computed: {
         ...mapState({
             hostname: (state) => state.hostname
@@ -60,5 +62,9 @@ export default {
 <style>
 .wrapper{
     max-width: 500px;
+    height: 100%;
+}
+section {
+    height: 100dvh;
 }
 </style>

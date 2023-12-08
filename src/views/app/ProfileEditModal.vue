@@ -56,7 +56,7 @@
                 <span>Revert</span>
             </button>
             <button @click="submitUpdate" class="button-primary btn-rounded btn-md gap-8" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="20" />
+                <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Please wait...' : 'Save changes'}}</span>
             </button>
         </div>

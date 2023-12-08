@@ -4,7 +4,7 @@
             <div class="flx gap-8 ai-c">
                 <span>{{ date || 'Pick a date' }}</span>
                 <span v-if="date" class="gray">|</span>
-                <spinner v-if="fetching_slots" :size="12" />
+                <spinner v-if="fetching_slots" :size="16" :color="'#0c59ed'" />
                 <span v-else-if="date" :class="limit > 0 ? 'ft-vuecal' : 'ft-danger'">
                     <strong>{{ limit > 0 ? limit : 'No' }}</strong> slots available on this date
                 </span>

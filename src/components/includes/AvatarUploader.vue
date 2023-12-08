@@ -1,7 +1,7 @@
 <template>
     <div class="centered br-50 relative wrapper mb-8">
         <div v-if="status.spin" class="avt-overlay absolute centered">
-            <spinner :size="20" />
+            <spinner :size="20" :color="'#fff'" />
         </div>
         <div v-if="status.tempImage == null && !auth" @click="$emit('upload-click', 'avatar_img')" class="br-50 centered avatar-upload-trigger">
             <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 0 15.132 15.132">

@@ -1,7 +1,7 @@
 <template>
     <teleport v-if="logingOut" to="body">
         <div class="overlay centered">
-            <spinner :size="28" />
+            <spinner :size="30" :color="'#fff'" />
         </div>
     </teleport>
     <aside id="menus" class="flx" :class="{ 'expanded' : menu }">

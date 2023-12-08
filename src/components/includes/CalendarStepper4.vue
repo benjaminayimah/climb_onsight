@@ -82,7 +82,7 @@
         <error-display-card v-if="validation.error" :errors="validation.errors"/>
         <div class="flx column gap-8 calendar-btn-wrapper">
             <button @click.prevent="saveForm4" class="button-primary gap-8 btn-lg w-100" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="20" />
+                <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Submiting...' : 'Submit'}}</span>
             </button>
             <button v-if="editMode === ''" @click.prevent="previousPage" class="bg-transparent btn-sm w-100">Back</button>

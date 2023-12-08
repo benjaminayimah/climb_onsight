@@ -70,7 +70,7 @@
                     <error-display-card v-if="validation.error" :errors="validation.errors"/>
                     <div class="centered gap-8">
                         <button @click="submitPreBooking" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled' : submiting || computedBookingLimit < 1 }" :disabled="submiting || computedBookingLimit < 1">
-                            <spinner v-if="submiting" :size="20" />
+                            <spinner v-if="submiting" :size="20" :color="'#fff'" />
                             <span>{{ submiting ? 'Submitting...' : 'Submit request' }}</span>
                         </button>
                         <button @click="cancelPreBooking" class="btn-rounded ft-danger btn-md bg-transparent">Cancel</button>

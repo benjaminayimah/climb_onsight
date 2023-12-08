@@ -10,7 +10,7 @@
                 </span>
             </div>
             <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="20" />
+                <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Please wait...' : 'Finish'}}</span>
             </button>
         </div>
