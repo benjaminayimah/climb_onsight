@@ -295,6 +295,14 @@ button:not(.button-disabled, .absolute) {
     }
 }
 .button-disabled{
+    // background-color: #b0b0b0 !important;
+    opacity: .8;
+    &:hover {
+        // background-color: #b0b0b0 !important;
+        cursor: not-allowed
+    }
+}
+.button-disabled2{
     background-color: #b0b0b0 !important;
     &:hover {
         background-color: #b0b0b0 !important;

@@ -65,7 +65,7 @@
         </div>
         <error-display-card v-if="validation.error" :errors="validation.errors"/>
         <div class="calendar-btn-wrapper">
-            <button @click.prevent="nextPage" class="button-primary btn-lg w-100" :class="{ 'button-disabled' : !user.details_submitted && !user.payouts_enabled }" :disabled="!user.details_submitted && !user.payouts_enabled ? true : false">
+            <button @click.prevent="nextPage" class="button-primary btn-lg w-100" :class="{ 'button-disabled2' : !user.details_submitted && !user.payouts_enabled }" :disabled="!user.details_submitted && !user.payouts_enabled ? true : false">
                 Next
             </button>
             <div class="mt-8 fs-09 text-center" v-if="!user.details_submitted && !user.payouts_enabled">
