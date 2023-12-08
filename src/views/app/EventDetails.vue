@@ -212,7 +212,7 @@ export default {
     },
     watch: {
         event(newEvent) {
-            this.getThisGuide(newEvent.user_id)
+            this.getThisGuide(newEvent.guide_id)
         }
     },
     methods: {
@@ -231,7 +231,7 @@ export default {
     },
     mounted() {
         this.getDevice == 'mobile' ? document.body.classList.add('fixed-body') : ''
-        this.event.user_id ? this.getThisGuide(this.event.user_id) : ''
+        this.event.user_id ? this.getThisGuide(this.event.guide_id) : ''
     },
     unmounted() {
         document.body.classList.remove('fixed-body')

@@ -74,7 +74,7 @@
     </div>
     <div v-if="user.activities && JSON.parse(user.activities).length" class="list-row-shading">
         <div class="gray">Activity</div>
-        <div id="act">
+        <div>
             <li v-for="activity in JSON.parse(user.activities)" :key="activity.name">
                 {{ activity.name }} ({{ activity.level }}%)
             </li>
@@ -125,7 +125,7 @@
     <div v-if="user.guide_awards" class="flx column gap-4 list-row-shading">
         <div class="gray">Awards</div>
         <div class="flx gap-4 column">
-            <li v-for="award in JSON.parse(user.guide_awards)" :key="award.id" >
+            <li class="list-style" v-for="award in JSON.parse(user.guide_awards)" :key="award.id" >
                 {{ award }}
             </li>
         </div>
