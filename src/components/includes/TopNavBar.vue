@@ -14,7 +14,7 @@
             <div class="flx gap-70">
                 <ul class="flx gap-16 ai-c">
                     <settings-dropdown :id="'settings_dropdown'"/>
-                    <notification-dropdown :id="'notification_dropdown'" :notificaion_count="notificaion_count" />
+                    <notification-dropdown :id="'notification_dropdown'" :notification_count="notification_count" />
                     <profile-dropdown :id="'profile_dropdown'" :avatar="user.profile_picture" />
                 </ul>
             </div>
@@ -33,7 +33,7 @@ export default {
     props: {
         device: String,
         user: Object,
-        notificaion_count: Number
+        notification_count: Number
     },
     mixins: [userNameMixin],
 }
