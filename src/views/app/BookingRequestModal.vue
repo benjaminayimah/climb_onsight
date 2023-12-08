@@ -15,11 +15,11 @@
     <teleport to="#modal_footer">
         <div class="flx gap-8">
             <button @click="acceptBooking" class="button-primary w-50 btn-md gap-8" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <spinner v-if="submiting" :size="18" />
+                <spinner v-if="submiting" :size="20" />
                 <span>{{ submiting ? 'Please wait...' : 'Accept' }}</span>
             </button>
             <button @click="declineBooking" class="button-outline w-50 btn-md gap-8 bg-transparent" :class="{ 'button-disabled' : declining }" :disabled="declining ? true : false">
-                <spinner v-if="declining" :size="18" />
+                <spinner v-if="declining" :size="20" />
                 <span>{{ declining ? 'Please wait...' : 'Decline' }}</span>
             </button>
         </div>

@@ -12,7 +12,7 @@
                 </div>
                 <div class="flx gap-8 column">
                     <button @click="$store.commit('doDelete', 'admin')" class="button-danger btn-md gap-8 w-100 btn-rounded" :class="{ 'button-disabled' : deleteModal.deleting }" :disabled="deleteModal.deleting ? true : false">
-                        <spinner v-if="deleteModal.deleting" :size="18" />
+                        <spinner v-if="deleteModal.deleting" :size="20" />
                         <span>{{ deleteModal.deleting ? 'Deleting...' : 'Yes, Delete' }}</span>
                     </button>
                     <button  @click="$store.commit('closeDeleteModal')" class="button-outline w-100 btn-rounded btn-md bg-transparent">Cancel</button>

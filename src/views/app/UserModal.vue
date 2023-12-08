@@ -20,11 +20,11 @@
         <div class="text-center flx jc-c">
             <div v-if="is_guide && !user.paid && !user.accepted" class="flx gap-8">
                 <button @click="acceptBooking" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                    <spinner v-if="submiting" :size="18" />
+                    <spinner v-if="submiting" :size="20" />
                     <span>{{ submiting ? 'Please wait...' : 'Accept' }}</span>
                 </button>
                 <button @click="declineBooking" class="button-outline btn-md gap-8 bg-transparent btn-rounded" :class="{ 'button-disabled' : declining }" :disabled="declining ? true : false">
-                    <spinner v-if="declining" :size="18" />
+                    <spinner v-if="declining" :size="20" />
                     <span>{{ declining ? 'Please wait...' : 'Decline' }}</span>
                 </button>
             </div>

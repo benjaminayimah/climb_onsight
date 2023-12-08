@@ -36,7 +36,7 @@
     </teleport>
     <teleport to="#modal_footer">
         <button @click="submitUpdate" class="button-primary w-100 btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-            <spinner v-if="submiting" :size="18" />
+            <spinner v-if="submiting" :size="20" />
             <span>{{ submiting ? 'Submitting...' : 'Submit'}}</span>
         </button> 
     </teleport>

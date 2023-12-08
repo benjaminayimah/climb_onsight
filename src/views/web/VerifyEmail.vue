@@ -2,7 +2,7 @@
     <section class="pd-32 flx jc-c">
         <div class="wrapper">
             <div class="centered" v-if="submitting">
-                <spinner :size="18" />
+                <spinner :size="20" />
                 <div>Please wait...</div>
             </div>
             <div v-else>

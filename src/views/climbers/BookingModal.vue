@@ -120,7 +120,7 @@
                         <span>No</span>
                     </button>
                     <button v-if="booking.page === 3" @click="submitBooking" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                        <spinner v-if="submiting" :size="18" />
+                        <spinner v-if="submiting" :size="20" />
                         <span>{{ submiting ? 'Redirecting...' : 'Proceed to payment' }}</span>
                     </button>
                     <button v-if="booking.page === 1 || booking.page === 3" @click="cancelBooking" class="btn-rounded btn-sm bg-transparent">Cancel</button>

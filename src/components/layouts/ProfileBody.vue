@@ -66,7 +66,7 @@
                     </div>
                     <div>
                         <button class="button-primary gap-8 w-100 btn-md ai-c mb-16" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                            <spinner v-if="submiting" :size="18" />
+                            <spinner v-if="submiting" :size="20" />
                             <span>{{ submiting ? 'Please wait...' : 'Submit'}}</span>
                         </button>
                         <button @click.prevent="closeEditMode" class="button-outline w-100 bg-transparent btn-md">Cancel</button>
