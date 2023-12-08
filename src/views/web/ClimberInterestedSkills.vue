@@ -1,10 +1,13 @@
 <template>
-    <div class="stepper-wrapper w-100 flx column gap-32">
+    <div v-if="!signedUp" class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">New skills</div>
         <div>
             <div class="mb-8">Add new skills you would like to learn. Separate items by a comma(",")</div>
             <div class="input-wrapper mb-16">
-                <textarea v-model="form.new_skills" class="w-100 form-control" name="newskill" rows="4" placeholder="Type here..."></textarea>
+                <textarea v-model="form.new_skills" class="w-100 form-control" name="newskill" rows="4" placeholder="Type here..." :class="{ 'error-border': validation.errors.new_skills }"></textarea>
+                <span class="input-error" v-if="validation.error && validation.errors.new_skills">
+                    {{ validation.errors.new_skills[0] }}
+                </span>
             </div>
             <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="18" />
@@ -12,46 +15,33 @@
             </button>
         </div>
     </div>
-    <teleport to="body" v-if="completed">
-        <backdrop :index="999" :opacity="0.7" />
-        <div class="fixed profile-summary bg-white br-16">
-            <div class="flx jc-sb">
-                <h3>Review your profile</h3>
-                <button @click="close" class="btn-close scale-in bg-transparent">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="13" viewBox="0 0 13.587 13.587">
-                        <path d="M7.163,19.188,5.8,17.83,11.239,12.4,5.8,6.96,7.163,5.6,12.6,11.036,18.033,5.6,19.392,6.96,13.957,12.4l5.435,5.435-1.359,1.359L12.6,13.754Z" transform="translate(-5.805 -5.602)" fill="#1c1b1f"/>
-                    </svg>
-                </button>
-            </div>
-            <div>
-                <profile-body :user="user" />
-                <div class="absolute flx jc-c botton-bar">
-                    <button @click="fetchUser" class="button-primary gap-8 btn-md login-btn" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                        <spinner v-if="submiting" :size="18" />
-                        <span>{{ submiting ? 'Loging in...' : 'Log in'}}</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </teleport>
+    <div v-else class="flx ai-c w-100 column gap-16">
+        <svg xmlns="http://www.w3.org/2000/svg" height="4" viewBox="0 0 204 4">
+            <g transform="translate(-831 -590.5)">
+                <line x2="200" transform="translate(833 592.5)" fill="none" stroke="rgba(0,0,0,0.2)" stroke-linecap="round" stroke-width="4"/>
+                <line :x2="progressFill" transform="translate(833 592.5)" fill="none" stroke="#000" stroke-linecap="round" stroke-width="4"/>
+            </g>
+        </svg>
+        <span>Signing in...</span>
+    </div>
 </template>
 
 <script>
 import axios from 'axios'
 import inputValidation from '@/mixins/inputValidation'
+import signupLoaderMixin from '@/mixins/signupLoaderMixin'
 import { mapState } from 'vuex'
 import Spinner from '@/components/includes/Spinner.vue'
-import Backdrop from '@/components/includes/Backdrop.vue'
-import ProfileBody from '@/components/layouts/ProfileBody.vue'
 export default {
-    components: { Spinner, Backdrop, ProfileBody },
+    components: { Spinner },
     name: 'ClimberInterestedNewSkills',
-    mixins: [inputValidation],
+    mixins: [inputValidation, signupLoaderMixin],
     computed: {
         ...mapState({
             hostname: (state) => state.hostname,
-            newUser: (state) => state.newUser.form,
-            user: (state) => state.user
+            newUser: (state) => state.newUser,
+            user: (state) => state.user,
+            token: (state) => state.token
         })
     },
     data() {
@@ -59,41 +49,44 @@ export default {
             form: {
                 new_skills: '',
             },
-            token: JSON.parse(localStorage.getItem('newUser')).token,
-            completed: false,
+            newToken: JSON.parse(localStorage.getItem('newToken')),
         }
     },
     methods: {
         async updateNewUser() {
+            this.validation.error ? this.clearErrs() : ''
             this.startSpinner()
-            await this.$store.commit('updateNewSkills', this.form)
-            this.submitUpdates()
+            let errors = {}
+            if(this.form.new_skills == '') {
+                errors.new_skills = ['The New skill field is required']
+                this.showErr(errors)
+                this.stopSpinner()
+            }else {
+                await this.$store.commit('updateNewSkills', this.form)
+                this.submitUpdates()
+            }
         },
         submitUpdates() {
+            this.$store.commit('handleSignedUp')
+            this.startProgress()
             const form = this.newUser
-            const url = this.hostname + '/api/user/'+this.user.id +'?token=' + this.token
+            const url = this.hostname + '/api/user/'+this.user.id +'?token=' + this.newToken
             axios.put(url, form)
             .then((res) => {
-                this.signUpSuccessful(res.data)    
+                this.stopSpinner()
+                this.signUpSuccessful(res.data)
             })
             .catch(() => {
                 this.stopSpinner()
+                this.stopProgress()
             })
         },
         signUpSuccessful(res) {
-            this.$store.commit('updateClimber', res)
-            this.stopSpinner()
-            this.completed = true
-        },
-        close() {
-            this.completed = false
-        },
-        async fetchUser() {
-            this.startSpinner()
-            await this.$store.dispatch('getAuthUser', this.token)
-            await this.$store.commit('setToken', this.token)
-            this.$router.push({ name: 'Home' })
-            this.stopSpinner()
+            const payload = {
+                user: res,
+                token: this.newToken
+            }
+            this.signinSuccess(payload)
         },
         presetForm() {
             if(this.newUser.new_skills) {

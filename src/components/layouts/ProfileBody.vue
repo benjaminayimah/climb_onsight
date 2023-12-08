@@ -80,7 +80,6 @@
             <div class="bg-img br-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} "></div>
             <div class="flx jc-sb">
                 <h3>{{ user.name }}</h3>
-                <div class="pill pill-neutral">0 Completed Events</div>
             </div>
             <div v-if="guest" class="flx column gap-8">
                 <div>
@@ -162,7 +161,7 @@
                     </div>
                 </div>
                 <div v-if="is_guide" class="mt-16 terms">
-                    <div v-if="computedGuide" class="flx jc-sb ai-c">
+                    <!-- <div v-if="computedGuide" class="flx jc-sb ai-c">
                         <a :href="s3bucket+'/'+computedGuide" class=" a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
                             Terms & Conditions
                         </a>
@@ -179,7 +178,7 @@
                             </svg>
                             Upload terms & conditions
                         </a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div v-if="guest && user.guide_experience">
@@ -249,13 +248,13 @@ export default {
             hostname: (state) => state.hostname,
             token: (state) => state.token
         }),
-        computedGuide() {
-            if(this.user && this.user.guide_terms) {
-                return JSON.parse(this.user.guide_terms).url
-            }else {
-                return ''
-            }
-        }
+        // computedGuide() {
+        //     if(this.user && this.user.guide_terms) {
+        //         return JSON.parse(this.user.guide_terms).url
+        //     }else {
+        //         return ''
+        //     }
+        // }
     },
     data() {
         return {

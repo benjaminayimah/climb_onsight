@@ -82,6 +82,15 @@ const climbersGuard = (to, from, next) => {
   }
 };
 //climber signup guards
+const climberSignUpStepper1 = (to, from, next) => {
+  if (store.getters.climber_token_isSet) {
+    next();
+  } else {
+    next({
+      name: 'SignUp'
+    });
+  }
+};
 const climberSignUpStepper2 = (to, from, next) => {
   if (store.getters.climber_step1_isSet) {
     next();
@@ -204,7 +213,7 @@ const routes = [
       { path: '/signup-personal-info', component: SignUpClimberView,
         meta: {requiresNewUser: true},
         children: [
-          { path: '/signup-personal-info', name: 'ClimberPersonalInfo', component: ClimberPersonalInfo },
+          { path: '/signup-personal-info', name: 'ClimberPersonalInfo', component: ClimberPersonalInfo, beforeEnter: climberSignUpStepper1 },
           { path: '/signup-climbing-experience', name: 'ClimberClimbingExp', component: ClimberClimbingExp, beforeEnter: climberSignUpStepper2 },
           { path: '/signup-fun-facts', name: 'ClimberFunFacts', component: ClimberFunFacts, beforeEnter: climberSignUpStepper3 },
           { path: '/signup-interested-new-skills', name: 'ClimberInterestedSkills', component: ClimberInterestedSkills, beforeEnter: climberSignUpStepper4 },

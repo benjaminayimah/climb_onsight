@@ -40,7 +40,7 @@ export default {
     },
     methods: {
         async updateNewGuide() {
-            let errors = { customer_reviews: ''}
+            let errors = {}
             if(this.form.customer_reviews == '') {
                 if(this.form.customer_reviews == '') {
                     errors.customer_reviews = ['The reviews field is required']

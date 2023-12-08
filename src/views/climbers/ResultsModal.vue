@@ -59,11 +59,11 @@
                             <h3>Price</h3>
                             <div class="flx jc-sb ai-c bd-bt-dashed">
                                 <div>Price per person</div>
-                                <div>CA$ {{ computedPrice }}</div>
+                                <div>{{ formatAmount(computedPrice) }}</div>
                             </div>
                             <div class="flx jc-sb ai-c bd-bt-dashed">
                                 <div>Total price</div>
-                                <div class="fs-102rem"><strong>CA$ {{ Number(computedPrice * form.quantity) }}</strong> + tax</div>
+                                <div class="fs-102rem"><strong>{{ formatAmount(Number(computedPrice * form.quantity)) }}</strong> + tax</div>
                             </div>
                         </div>  
                     </div> 
@@ -117,6 +117,7 @@ import userRolesMixin from '@/mixins/userRolesMixin'
 import alertMixin from '@/mixins/alertMixin'
 import formatDateTime from '@/mixins/formatDateTime'
 import inputValidation from '@/mixins/inputValidation'
+import amountFormatter from '@/mixins/amountFormatter'
 import { mapState } from 'vuex'
 import EventBody from '@/components/layouts/EventBody.vue'
 import Backdrop from '@/components/includes/Backdrop.vue'
@@ -129,7 +130,7 @@ import ErrorDisplayCard from '@/components/includes/ErrorDisplayCard.vue'
 export default {
     components: { EventBody, Backdrop, Spinner, BookingTriggerButton, BookingStatus, CalendarDropdown, AttendeeBookingRow, ErrorDisplayCard },
     name: 'ResultsModal',
-    mixins: [inputValidation, formatDateTime, alertMixin,  userRolesMixin],
+    mixins: [inputValidation, formatDateTime, alertMixin,  userRolesMixin, amountFormatter],
     computed: {
         ...mapState({
             result: (state) => state.forms.tempStorage,
@@ -148,11 +149,11 @@ export default {
             if(this.result.event_type === 'private') {
                 const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1)
                 if(price)
-                return price.price
+                return Number(price.price)
                 else
                 return 0
             }else {
-                return this.result.price
+                return Number(this.result.price)
             }
         },
         computedBookingLimit() {

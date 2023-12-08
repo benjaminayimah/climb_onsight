@@ -30,7 +30,7 @@
                             </button>
                         </div>
                     </form>
-                    <div v-else class="email-sent br-16">
+                    <div v-else class="email-sent br-16 text-center">
                         <p>An email has been sent to <strong>{{ form.email }}</strong>, open the mail and follow the link to reset your password.</p>
                         <p>
                             <span>Haven't received the email?</span>

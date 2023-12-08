@@ -4,7 +4,7 @@
             <div>
                 <logo />
             </div>
-            <div class="w-100 flx ai-c flx-1">
+            <div class="flx ai-c flx-1">
                 <div class="flx-1 flx column gap-60 text-center">
                     <div class="fw-700 fs-5rem">Welcome</div>
                     <div>Apply to be listed on Climb Onsight by filling out the following information</div>
@@ -26,7 +26,7 @@ export default {
     methods: {
         async goToApply() {
             if(localStorage.getItem('newGuide')) {
-                localStorage.removeItem('newGuide')
+                this.$store.commit('removeNewUsers')
                 this.$store.commit('removeNewGuide')
             }
             this.$router.push({ name: 'GuideCompanyInfo' })

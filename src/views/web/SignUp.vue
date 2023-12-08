@@ -4,7 +4,7 @@
             <div>
                 <logo />
             </div>
-            <div class="w-100 flx ai-c flx-1">
+            <div class="w-100 flx ai-c flx-1 pb-80">
                 <div class="flx-1 flx column gap-40">
                     <div class="text-center">
                         <div class="fw-700 fs-2rem">Welcome</div>

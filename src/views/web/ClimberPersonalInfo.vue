@@ -50,7 +50,7 @@ export default {
     computed: {
         ...mapState({
             hostname: (state) => state.hostname,
-            newUser: (state) => state.newUser.form
+            newUser: (state) => state.newUser
         })
     },
     data() {
@@ -60,12 +60,13 @@ export default {
                 gender: '',
                 tempImage: ''
             },
-            token: JSON.parse(localStorage.getItem('newUser')).token
+            token: JSON.parse(localStorage.getItem('newToken'))
         }
     },
     methods: {
         async updateNewUser() {
-            let errors = { dob: '', gender: ''}
+            this.validation.error ? this.clearErrs() : ''
+            let errors = {}
             if(this.form.dob == '' || this.form.gender == '') {
                 if(this.form.dob == '') {
                     errors.dob = ['The Date of Birth field is required']

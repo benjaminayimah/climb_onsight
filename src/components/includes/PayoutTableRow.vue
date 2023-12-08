@@ -1,9 +1,9 @@
 <template>
     <div class="grid-item table-row grid-col-payout">
         <div class="table-cell gap-8">
-            <span class="wrap-text wrap-line-1">{{ formatAmount(payout.amount, payout.currency ) }}</span>
+            <span class="wrap-text wrap-line-1">{{ formatStripeAmount(payout.amount, payout.currency ) }}</span>
         </div>
-        <div class="table-cell"><strong>{{ formatAmount(computedNet, payout.currency) }}</strong></div>
+        <div class="table-cell"><strong>{{ formatStripeAmount(computedNet, payout.currency) }}</strong></div>
         <div class="table-cell"><span class="wrap-text wrap-line-1">{{ payout.description || 'n/a' }}</span></div>
         <div class="table-cell">
             <span class="wrap-text wrap-line-1">{{ format_date_short(computedDate) }}</span>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import stripeAmountFormatter from '@/mixins/stripeAmountFormatter';
+import stripeAmountFormatter from '@/mixins/amountFormatter';
 import formatDateTime from '@/mixins/formatDateTime';
 export default {
     name: 'PayoutTableRow',

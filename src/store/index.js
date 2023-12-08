@@ -10,7 +10,8 @@ export default createStore({
   state: {
     token: localStorage.getItem('auth') || null,
     user: JSON.parse(localStorage.getItem('user')) || {},
-    newUser: JSON.parse(localStorage.getItem('newUser')) || null,
+    newUser: JSON.parse(localStorage.getItem('newUser')) || '',
+    newToken: localStorage.getItem('newToken') || null,
     alert: { status: { show: false, success: false, danger: false, warning: false, info: false }, body: '' },
     deleteModal: { active: false, deleting: false, id: '', type: '' },
     // hostname: 'http://127.0.0.1:8000',
@@ -54,12 +55,17 @@ export default createStore({
     },
     async signUpSuccess(state, payload) {
       this.commit('setAuthUser', payload.user)
-      this.commit('setNewUser', payload.token)
+      this.commit('setNewToken', payload.token)
     },
     setToken(state, payload) {
       localStorage.setItem('auth', payload)
-      localStorage.getItem('newUser') ? localStorage.removeItem('newUser') : ''
+      this.commit('removeNewUsers')
       state.token = payload
+    },
+    removeNewUsers() {
+      localStorage.getItem('newUser') ? localStorage.removeItem('newUser') : ''
+      localStorage.getItem('newGuide') ? localStorage.removeItem('newGuide') : ''
+      localStorage.getItem('newToken') ? localStorage.removeItem('newToken') : ''
     },
     setAuthUser(state, payload) {
       localStorage.setItem('user', JSON.stringify(payload))
@@ -80,11 +86,9 @@ export default createStore({
       
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
     },
-    setNewUser(state, payload) {
-      const data = { token: payload, form: {}}
-      localStorage.setItem('newUser', JSON.stringify(data))
-      state.newUser = data
-
+    setNewToken(state, payload) {
+      localStorage.setItem('newToken', JSON.stringify(payload))
+      state.newToken = payload
     },
     updateUser(state, payload) {
       state.user = payload
@@ -96,37 +100,44 @@ export default createStore({
     //signup climber
     updatePersonalInfo(state, payload) {
       let stored = JSON.parse(localStorage.getItem('newUser'))
-      stored.form.dob = payload.dob
-      stored.form.gender = payload.gender
-      stored.form.tempImage = payload.tempImage
-      localStorage.setItem('newUser', JSON.stringify(stored))
-      state.newUser.form.dob = payload.dob
-      state.newUser.form.gender = payload.gender
-      state.newUser.form.tempImage = payload.tempImage
-
+      if(stored) {
+        stored.dob = payload.dob
+        stored.gender = payload.gender
+        stored.tempImage = payload.tempImage
+        localStorage.setItem('newUser', JSON.stringify(stored))
+        state.newUser.dob = payload.dob
+        state.newUser.gender = payload.gender
+        state.newUser.tempImage = payload.tempImage
+      }else {
+          localStorage.setItem('newUser', JSON.stringify(payload))
+          state.newUser = payload
+      }
     },
     updateClimbingExp(state, payload) {
         let stored = JSON.parse(localStorage.getItem('newUser'))
-        stored.form.skills = payload.skills
-        stored.form.activities = payload.activities
+        stored.skills = payload.skills
+        stored.activities = payload.activities
+        stored.type_yours = payload.type_yours
         localStorage.setItem('newUser', JSON.stringify(stored))
-        state.newUser.form.skills = payload.skills
-        state.newUser.form.activities = payload.activities
+        state.newUser.skills = payload.skills
+        state.newUser.activities = payload.activities
+        state.newUser.type_yours = payload.type_yours
+
     },
     updateBio(state, payload) {
         let stored = JSON.parse(localStorage.getItem('newUser'))
-        stored.form.bio = payload.bio
+        stored.bio = payload.bio
         localStorage.setItem('newUser', JSON.stringify(stored))
-        state.newUser.form.bio = payload.bio
+        state.newUser.bio = payload.bio
 
     },
     updateNewSkills(state, payload) {
         let inputString = payload.new_skills
         let dataArray = inputString.split(',')
         let stored = JSON.parse(localStorage.getItem('newUser'))
-        stored.form.new_skills = dataArray
+        stored.new_skills = dataArray
         localStorage.setItem('newUser', JSON.stringify(stored))
-        state.newUser.form.new_skills = dataArray
+        state.newUser.new_skills = dataArray
     },
     setCurrentLocation(state, payload) {
       state.current_location = payload
@@ -146,10 +157,6 @@ export default createStore({
     deleteBooking(state, payload) {
       state.bookings = state.bookings.filter(data => data.id !== payload.id)
  
-    },
-    updateClimber(state, payload) {
-      this.commit('setAuthUser', payload)
-      state.user = payload
     },
     addToEvent(state, payload) {
       state.events.push(payload)
@@ -316,15 +323,6 @@ export default createStore({
       state.updateForm.price = payload.price
       state.updateForm.price_range = payload.price_range
       state.updateForm.event_description = payload.event_description
-
-
-
-
-      // let gearsString = payload.gears
-      // let gearsArray = gearsString.split(',')
-      // state.updateForm.faqs = payload.faqs
-      // state.updateForm.itinerary = payload.itinerary
-      // state.updateForm.event_description = payload.event_description
     },
     updateTempStorage4(state, payload) {
       let guideGearString = payload.guide_gears
@@ -494,14 +492,17 @@ export default createStore({
     is_climber(state) {
       return state.user.role === 'climber' ? true : false
     },
+    climber_token_isSet(state) {
+      return state.newToken ? true : false
+    },
     climber_step1_isSet(state) {
-      return state.newUser.form.dob ? true : false
+      return state.newUser && state.newUser.dob ? true : false
     },
     climber_step2_isSet(state) {
-        return state.newUser.form.skills && state.newUser.form.skills.length ? true : false
+        return (state.newUser.skills && state.newUser.skills.length) || state.newUser.type_yours ? true : false
     },
     climber_step3_isSet(state) {
-        return state.newUser.form.bio ? true : false
+        return state.newUser.bio ? true : false
     }
   },
   modules: {

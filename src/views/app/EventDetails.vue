@@ -33,19 +33,29 @@
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap column">
-                    <div>
+                    <div v-if="event.accepted">
+                        <div class="gray">{{ event.paid ? 'Amount paid' : 'Amount to be paid'}}</div>
+                        <div><strong>{{ formatAmount(Number(this.event.total_price))   }}</strong></div>
+                    </div>
+                    <div v-else>
                         <div class="gray">Event pricing</div>
-                        <div v-if="event.event_type === 'public'"><strong>CA${{ this.event.price }}</strong></div>
-                        <div v-else><span class="gray">From </span><strong>CA${{ computedPriceRange }}</strong></div>
+                        <div v-if="event.event_type === 'public'"><strong>{{ formatAmount(Number(event.price)) }}</strong></div>
+                        <div v-else><span class="gray">From </span><strong>{{ formatAmount(Number(computedPriceRange))  }}</strong></div>
                     </div>
                     <div>
                         <div class="gray">Date</div>
-                        <div v-if="event.start_date !== event.end_date">
-                            <i class="gray">From: </i><span>{{ format_date(event.start_date) }}</span><br />
-                            <i class="gray">To: </i><span>{{ format_date(event.end_date) }}</span>
+                        <div v-if="event.accepted">
+                            <span v-if="event.event_type === 'public'">{{ format_date(event.start_date) }}</span>
+                            <span v-else>{{ format_date(event.date_selected) }}</span>
                         </div>
                         <div v-else>
-                            <span>{{ format_date(event.start_date) }}</span>
+                            <div v-if="event.start_date !== event.end_date">
+                                <i class="gray">From: </i><span>{{ format_date(event.start_date) }}</span><br />
+                                <i class="gray">To: </i><span>{{ format_date(event.end_date) }}</span>
+                            </div>
+                            <div v-else>
+                                <span>{{ format_date(event.start_date) }}</span>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -133,6 +143,7 @@
 <script>
 import formatDateTime from '@/mixins/formatDateTime'
 import userRolesMixin from '@/mixins/userRolesMixin'
+import amountFormatter from '@/mixins/amountFormatter'
 import { mapState, mapGetters } from 'vuex'
 import BookingTriggerButton from '@/components/includes/BookingTriggerButton.vue'
 import UserList from '@/components/includes/UserList.vue'
@@ -145,7 +156,7 @@ export default {
     props: {
         event: Object
     },
-    mixins: [userRolesMixin, formatDateTime],
+    mixins: [userRolesMixin, formatDateTime, amountFormatter],
     computed: {
         ...mapGetters(['getDevice']),
         ...mapState({

@@ -764,6 +764,9 @@ h1, h2, h3, h4, h5 {
 .pd-r-24 {
     padding-right: 24px;
 }
+.pb-80 {
+    padding-bottom: 80px;
+}
 .bd-r-1 {
     border-right: 1px solid #e4e4e4;
 }
@@ -773,6 +776,7 @@ h1, h2, h3, h4, h5 {
 .bd-bt-dashed {
     border-bottom: 1px dashed #d9d9d9;
 }
+
 
 
 //border-radius
@@ -1048,6 +1052,7 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-input {
         width: 70%;
     }
 }
+
 .stepper-title {
     text-align: center;
     font-size: 1.3rem;

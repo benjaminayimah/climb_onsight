@@ -6,7 +6,7 @@
                 <ul class="flx gap-8 flx-wrap">
                     <category-list v-for="category in categories" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="color"/>
                 </ul>
-                <input v-if="form.category.toLowerCase() === 'other'" v-model="otherCategory" type="text" maxlength="15" class="br-16 w-100 mt-8" name="other_category" id="other_category" placeholder="Type a category" :class="[{'error-border': validation.errors.category }, input2 ? 'form-control2' : 'form-control']">
+                <input v-if="form.category.toLowerCase() === 'other'" v-model="otherCategory" type="text" maxlength="18" class="br-16 w-100 mt-8" name="other_category" id="other_category" placeholder="Type a category" :class="[{'error-border': validation.errors.category }, input2 ? 'form-control2' : 'form-control']">
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.category">
                 {{ validation.errors.category[0] }}
@@ -112,8 +112,8 @@ export default {
             }else {
                 if (this.form.category.toLowerCase() === 'other') {
                     let input = this.otherCategory
-                    if (input.length > 15) {
-                        input = input.slice(0, 15);
+                    if (input.length > 18) {
+                        input = input.slice(0, 18);
                     }
                     this.form.category = input
                 }

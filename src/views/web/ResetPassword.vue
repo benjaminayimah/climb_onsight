@@ -39,7 +39,7 @@
                             </button>
                         </div>
                     </form>
-                    <div v-else class="email-sent">
+                    <div v-else class="email-sent text-center">
                         <p>The password for your account has been changed.</p>
                         <p><span>You can now sign in with your new password. </span><router-link :to="{ name: 'SignIn' }" >Sign in now</router-link></p>
                     </div>

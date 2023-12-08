@@ -9,15 +9,12 @@
                 <div v-if="form.category" class="form-row column">
                     <label for="years">Years of expirience</label>
                     <div class="input-wrapper">
-                        <input v-model="form.input" @input="enterCategoryValue(form.category, form.input)" type="number" name="years" id="years" class="form-control" :placeholder="'Number of years of experience in '+ form.category">
+                        <input v-model="form.input" @input="enterCategoryValue(form.category, form.input)" type="number" min="0" name="years" id="years" class="form-control" :placeholder="'Number of years of experience in '+ form.category">
                     </div>
                 </div>
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
                 </button>
-                <!-- <router-link :to="{ name: 'GuideReference'}" class="button-primary a-button gap-8 w-100 btn-lg ai-c">
-                    <span>Continue</span>
-                </router-link> -->
             </div>
         </form>
     </div>
@@ -68,9 +65,6 @@ export default {
             await this.$store.commit('updateGuideExperience', this.categories)
             this.$router.push({ name: 'GuideReference' })
         },
-    },
-    mounted() {
-        // this.presetForm()
     }
 }
 </script>

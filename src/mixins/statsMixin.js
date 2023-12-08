@@ -27,13 +27,27 @@ export default {
         computedPendingPayment() {
             return this.bookings && this.bookings.length ? this.bookings.filter(item => item.accepted && !item.paid) : []
         },
+        // computedAmountSpent() {
+        //     if(this.bookings.length) {
+        //         const arr = this.bookings.filter(item => item.accepted && item.paid)
+        //         let me = arr.reduce((acc, item) => acc + item.total_price, 0)
+        //         // return Intl.NumberFormat('en-US').format(me.toFixed(2))
+        //         return Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(totalAmount.toFixed(2));
+        //     }
+        //     else
+        //     return ''
+        // },
         computedAmountSpent() {
-            if(this.bookings.length) {
-                const arr = this.bookings.filter(item => item.accepted && item.paid)
-                return arr.reduce((acc, item) => acc + item.total_price, 0)
+            if (this.bookings.length) {
+              const totalAmount = this.bookings
+                .filter(item => item.accepted && item.paid)
+                .reduce((acc, item) => acc + item.total_price, 0);
+          
+              if (totalAmount > 0) {
+                return Number(totalAmount)
+              }
             }
-            else
-            return ''
+            return '';
         },
         statsArray() {
             let array = []

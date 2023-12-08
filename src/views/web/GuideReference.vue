@@ -2,9 +2,6 @@
     <div class="stepper-wrapper w-100 flx column gap-24">
         <div class="stepper-title">Referees</div>
         <form @submit.prevent="" id="guide_ref_form">
-            <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
-                <span>{{ systemErr.message }}</span>
-            </div>
             <div class="form-wrapper flx column gap-24">
                 <div>
                     <guide-referees-input-row v-for="(referee, index) in referees"
@@ -14,6 +11,7 @@
                         :length="referees.length"
                         @remove-row="removeRow"
                         @add-form-input="addFormInput"
+                        :validation="validation"
                         :class="{'bt' : referees.length > 1}"
                     />
                 </div>
@@ -25,6 +23,7 @@
                     </i>
                     Add more references
                 </button>
+                <error-display-card v-if="validation.error && referees.length > 1" :errors="validation.errors"/>
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <spinner v-if="submiting" :size="18"/>
                     <span>{{ submiting ? 'Submitting...' : 'Finish up'}}</span>
@@ -40,8 +39,9 @@ import inputValidation from '@/mixins/inputValidation'
 import { mapState } from 'vuex'
 import GuideRefereesInputRow from '@/components/includes/GuideRefereesInputRow.vue'
 import Spinner from '@/components/includes/Spinner.vue'
+import ErrorDisplayCard from '@/components/includes/ErrorDisplayCard.vue'
 export default {
-    components: { GuideRefereesInputRow, Spinner },
+    components: { GuideRefereesInputRow, Spinner, ErrorDisplayCard },
     name: 'GuideReference',
     mixins: [inputValidation],
     computed: {
@@ -52,8 +52,7 @@ export default {
     },
     data() {
         return {
-            referees: [],
-            errors: []
+            referees: []
         }
     },
     methods: {
@@ -70,16 +69,42 @@ export default {
             this.referees.splice(i, 1, payload)
         },
         async updateNewGuide() {
-            this.systemErr.error ? this.clearErrs() : ''
-            this.referees.forEach(form => {
-                if(!form.name || !form.email || !form.phone) {
-                    this.errorResponse({response: { data: 'Please fill out all referee\'s fields!'}})
+            this.validation.error ? this.clearErrs() : ''
+            let errors = {}
+            if(!this.validateRefereeName() || !this.validateRefereeEmail() || !this.validateRefereePhone()) {
+                if(!this.validateRefereeName()) {
+                    errors.name = ['The Name field is required.']
+                }if(!this.validateRefereeEmail()) {
+                    errors.email = ['The Email field is required.']
+                }if(!this.validateRefereePhone()) {
+                    errors.phone = ['The Phone field is required.']
                 }
-            })
-            if(!this.systemErr.error) {
+                this.showErr(errors)
+            }else {
                 await this.$store.commit('updateGuideReferees', this.referees)
                 this.submitGuide()
             }
+
+
+            // this.systemErr.error ? this.clearErrs() : ''
+            // this.referees.forEach(form => {
+            //     if(!form.name || !form.email || !form.phone) {
+            //         this.errorResponse({response: { data: 'Please fill out all referee\'s fields!'}})
+            //     }
+            // })
+            // if(!this.systemErr.error) {
+            //     await this.$store.commit('updateGuideReferees', this.referees)
+            //     this.submitGuide()
+            // }
+        },
+        validateRefereeName() {
+            return this.referees.every(item => item.name && item.name !== undefined && item.name !== '' && item.name !== null)
+        },
+        validateRefereeEmail() {
+            return this.referees.every(item => item.email && item.email !== undefined && item.email !== '' && item.email !== null)
+        },
+        validateRefereePhone() {
+            return this.referees.every(item => item.phone && item.phone !== undefined && item.phone !== '' && item.phone !== null)
         },
         async submitGuide() {
             this.startSpinner()

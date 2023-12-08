@@ -4,9 +4,9 @@
             <div class="mb-32">
                 <logo />
             </div>
-            <div class="w-100 flx ai-c flx-1">
+            <div class="flx ai-c flx-1 pb-80">
                 <div class="flx-1 flx column gap-24 ai-c">
-                    <ul class="flx gap-8 logon-stepper mb-24">
+                    <ul v-if="!signedUp" class="flx gap-8 logon-stepper mb-24">
                         <li :class="[{'active' : $route.path === '/signup-personal-info'}, {'completed' : newUser.dob}]">
                             <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                                 <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
@@ -18,7 +18,7 @@
                             </a>
                             <span>Personal information</span>
                         </li>
-                        <li :class="[{'active' : $route.path === '/signup-climbing-experience'}, {'completed': ((newUser.skills && newUser.skills.length) || newUser.activities) }]">
+                        <li :class="[{'active' : $route.path === '/signup-climbing-experience'}, {'completed': ((newUser.skills && newUser.skills.length) || newUser.activities || newUser.type_yours) }]">
                             <svg  class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                                 <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                             </svg>
@@ -68,7 +68,8 @@ export default {
     name: 'SignUpClimberView',
     computed: {
         ...mapState({
-            newUser: (state) => state.newUser.form,
+            newUser: (state) => state.newUser,
+            signedUp: (state) => state.data.signedUp
         })
     }
 }

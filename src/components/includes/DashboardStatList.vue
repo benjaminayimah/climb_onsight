@@ -3,15 +3,16 @@
         <svg class="absolute" xmlns="http://www.w3.org/2000/svg"  height="10" viewBox="0 0 20.69 11.82">
             <path d="M22.238,9H16.66a.683.683,0,1,0,0,1.367h3.865l-6.372,6.566-3.966-3.883a.7.7,0,0,0-.494-.2.706.706,0,0,0-.494.2L2.444,19.657a.668.668,0,0,0-.194.494.627.627,0,0,0,.194.471.7.7,0,0,0,.494.2.706.706,0,0,0,.494-.2l6.261-6.127,3.966,3.883a.7.7,0,0,0,.494.2.706.706,0,0,0,.494-.2l6.9-7.014v3.772a.7.7,0,0,0,1.394,0V9.683A.7.7,0,0,0,22.238,9Z" transform="translate(-2.25 -9)" fill="#07b923"/>
         </svg>
-        <h1 v-if="amount && currency">{{ formatAmount(value, currency) }}</h1>
-        <h1 v-else-if="amount">{{ 'CA$' + value }}</h1>
+        <h1 v-if="amount && currency">{{ formatStripeAmount(value, currency) }}</h1>
+        <h1 v-else-if="amount">{{ Intl.NumberFormat('en-US', { style: 'currency', currency: 'CAD' }).format(value.toFixed(2)) }}</h1>
         <h1 v-else>{{ value  }}</h1>
         <div>{{ title }}</div>
         <span>{{ period }}</span>
+
     </div>
 </template>
 <script>
-import stripeAmountFormatter from '@/mixins/stripeAmountFormatter'
+import stripeAmountFormatter from '@/mixins/amountFormatter'
 export default {
     name: 'DashboardStatList',
     mixins: [stripeAmountFormatter],

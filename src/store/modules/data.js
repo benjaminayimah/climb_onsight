@@ -5,6 +5,7 @@ export default {
         climberSkills: ['Top rope', 'Leading', 'Multi pitch'],
         newGuide: JSON.parse(localStorage.getItem('newGuide')) || '',
         newEvent: JSON.parse(localStorage.getItem('newEvent')) || {},
+        signedUp: false,
         categories: [
             {id: 1, name: 'Ice Climbing', value: 0, image: require('@/assets/images/ice_climbing.png')},
             {id: 2, name: 'Rock Climbing', value: 0, image: require('@/assets/images/mountain_climbing.png')},
@@ -23,6 +24,12 @@ export default {
         ]
     },
     mutations: {
+        handleSignedUp(state) {
+            state.signedUp = true
+        },
+        stopProgress(state) {
+            state.signedUp = false
+        },
         updateCompanyInfo(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newGuide'))
             if(stored) {
@@ -48,12 +55,10 @@ export default {
             stored.guide_awards = dataArray
             stored.guide_insurance = payload.guide_insurance
             stored.guide_certificate = payload.guide_certificate
-            stored.guide_terms = payload.guide_terms
             localStorage.setItem('newGuide', JSON.stringify(stored))
             state.newGuide.guide_awards = dataArray
             state.newGuide.guide_insurance = payload.guide_insurance
             state.newGuide.guide_certificate = payload.guide_certificate
-            state.newGuide.guide_terms = payload.guide_terms
         },
         updateGuideReviews(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newGuide'))

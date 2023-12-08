@@ -4,7 +4,7 @@
             <div>
                 <logo />
             </div>
-            <div class="w-100 flx ai-c flx-1">
+            <div class="w-100 flx ai-c flx-1 pb-80">
                 <div v-if="!signedUp" class="flx-1 flx column gap-100">
                     <div class="text-center">
                         <div class="fw-700 fs-3rem">Welcome</div>
@@ -67,12 +67,13 @@
 import axios from 'axios'
 import { mapState } from 'vuex';
 import inputValidationMixin from '@/mixins/inputValidation';
+import signupLoaderMixin from '@/mixins/signupLoaderMixin';
 import Spinner from '@/components/includes/Spinner.vue'
 import Logo from '@/components/includes/Logo.vue';
 export default {
     components: { Spinner, Logo },
     name: 'GuideSignUp',
-    mixins: [inputValidationMixin],
+    mixins: [inputValidationMixin, signupLoaderMixin],
     computed: {
         ...mapState({
             hostname: (state) => state.hostname,
@@ -86,10 +87,7 @@ export default {
                 password: '',
                 password_confirmation: '',
                 token: ''
-            },
-            signedUp: false,
-            signedIn: false,
-            progressFill: 1,
+            }
         }
     },
     methods: {
@@ -100,7 +98,7 @@ export default {
             axios.post(url, this.form)
             .then(() => {
                 this.stopSpinner()
-                this.signedUp = true
+                this.$store.commit('handleSignedUp')
                 this.startProgress()
                 this.submitSignin()
             })
@@ -118,25 +116,28 @@ export default {
                 this.errorResponse(e)
             }
         },
-        async signinSuccess(res) {
-            this.signedIn = true
-            await this.$store.commit('signInSuccess', res)
-            this.$router.push({ name: 'Home' })
-            this.$store.dispatch('getAuthUser', this.token)
-        },
-        startProgress() {
-            var interval = setInterval(() => {
-                if(!this.signedIn && this.progressFill < 180 ) {
-                    this.progressFill++
-                }
-                if(this.signedIn) {
-                    this.progressFill = 200
-                    setTimeout(()=> {
-                        clearInterval(interval);
-                    }, 200)
-                }
-            }, 20)
-        },
+
+
+
+        // async signinSuccess(res) {
+        //     this.signedIn = true
+        //     await this.$store.commit('signInSuccess', res)
+        //     this.$router.push({ name: 'Home' })
+        //     this.$store.dispatch('getAuthUser', this.token)
+        // },
+        // startProgress() {
+        //     var interval = setInterval(() => {
+        //         if(!this.signedIn && this.progressFill < 180 ) {
+        //             this.progressFill++
+        //         }
+        //         if(this.signedIn) {
+        //             this.progressFill = 200
+        //             setTimeout(()=> {
+        //                 clearInterval(interval);
+        //             }, 200)
+        //         }
+        //     }, 20)
+        // }
     },
     mounted() {
         this.form.token = this.$route.params.payload
@@ -144,6 +145,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

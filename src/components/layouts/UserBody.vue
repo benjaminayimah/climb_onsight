@@ -39,7 +39,7 @@
         <div>{{ user.event_name }}</div>
     </div>
     <div class="list-row-shading" v-if="user.date_selected">
-        <div class="gray">Due date</div>
+        <div class="gray">Due chosen</div>
         <div>{{ format_date(user.date_selected) }}</div>
     </div>
     <div class="list-row-shading" v-if="user.event_type">
@@ -108,7 +108,7 @@
             </a>
         </div>
     </div>
-    <div v-if="user.guide_terms" class="flx column gap-4 list-row-shading">
+    <!-- <div v-if="user.guide_terms" class="flx column gap-4 list-row-shading">
         <div class="gray">Guide Terms & Conditions</div>
         <div>
             <a class="a-link flx gap-4 ai-c" :href="s3bucket+'/'+JSON.parse(user.guide_terms).url" target="_blank" onclick="return !window.open(this.href, 'Terms & Conditions', 'width=700,height=800');">
@@ -121,7 +121,7 @@
                 </svg>
             </a>
         </div>
-    </div>
+    </div> -->
     <div v-if="user.guide_awards" class="flx column gap-4 list-row-shading">
         <div class="gray">Awards</div>
         <div class="flx gap-4">

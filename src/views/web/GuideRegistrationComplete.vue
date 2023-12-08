@@ -36,6 +36,7 @@ export default {
     methods: {
         goBack() {
             localStorage.removeItem('newGuide')
+            this.$store.commit('removeNewUsers')
             window.location = '/'
         }
     }

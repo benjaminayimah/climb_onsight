@@ -2,11 +2,11 @@
     <div class="stat br-16 flx column gap-4">
         <strong>{{ title }}</strong>
         <span class="gray">{{ period }}</span>
-        <h1 class="mt-8">{{ amount && currency ? formatAmount(value, currency) : value }}</h1>
+        <h1 class="mt-8">{{ amount && currency ? formatStripeAmount(value, currency) : value }}</h1>
     </div>
 </template>
 <script>
-import stripeAmountFormatter from '@/mixins/stripeAmountFormatter'
+import stripeAmountFormatter from '@/mixins/amountFormatter'
 export default {
     name: 'PayoutStatList',
     mixins: [stripeAmountFormatter],

@@ -75,7 +75,7 @@ export default {
     },
     methods: {
         async updateNewGuide() {
-            let errors = { name: '', email: '', phone_number: ''}
+            let errors = {}
             if(this.form.name == '' || this.form.email == '' || this.form.phone_number == '' || this.form.country == '') {
                 if(this.form.name == '') {
                     errors.name = ['The name field is required']

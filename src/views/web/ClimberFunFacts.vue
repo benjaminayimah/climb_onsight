@@ -24,7 +24,7 @@ export default {
     mixins: [inputValidation],
     computed: {
         ...mapState({
-            newUser: (state) => state.newUser.form
+            newUser: (state) => state.newUser
         })
     },
     data() {
@@ -36,7 +36,8 @@ export default {
     },
     methods: {
         async updateNewUser() {
-            let errors = { bio: ''}
+            this.validation.error ? this.clearErrs() : ''
+            let errors = {}
             if(this.form.bio == '') {
                 errors.bio = ['This field is required']
                 this.showErr(errors)
