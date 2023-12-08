@@ -23,8 +23,12 @@
                     <i>Search results for: </i>
                     <strong>{{ searchParam }}</strong>
                 </div>
-                <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
+                <div v-if="computedEvents.length" class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
                     <event-list v-for="event in computedEvents" :key="event.id" :event="event" :redirect="true" />
+                </div>
+                <div v-else class="mt-24">
+                    <h3>No {{ $route.query.type }} event found</h3>
+                    <span>No event was found</span>
                 </div>
             </div>
             <transition name="slide-from-right">

@@ -18,8 +18,12 @@
                         </ul>
                     </div>
                 </div>
-                <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
+                <div v-if="computedEvents.length" class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
                     <event-list v-for="event in computedEvents" :key="event.id" :event="event" :event_id="event.event_id" :redirect="true"  />
+                </div>
+                <div v-else>
+                    <h3>No {{ $route.query.type }} event found</h3>
+                    <span>No event was found</span>
                 </div>
             </div>
             <transition name="slide-from-right">
