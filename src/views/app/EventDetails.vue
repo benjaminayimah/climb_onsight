@@ -26,23 +26,23 @@
                         <span class="fs-09 badge badge-cyan br-24 wrap-text wrap-line-1">{{ event.category }}</span>
                     </div>
                 </div>
-                <div v-if="event.event_description">
+                <div class="list-row-shading" v-if="event.event_description">
                     <div class="gray">Event description</div>
                     <div>
                         {{ event.event_description }}
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap column">
-                    <div v-if="event.accepted">
+                    <div v-if="event.accepted" class="list-row-shading">
                         <div class="gray">{{ event.paid ? 'Amount paid' : 'Amount to be paid'}}</div>
                         <div><strong>{{ formatAmount(Number(this.event.total_price))   }}</strong></div>
                     </div>
-                    <div v-else>
+                    <div v-else class="list-row-shading">
                         <div class="gray">Event pricing</div>
                         <div v-if="event.event_type === 'public'"><strong>{{ formatAmount(Number(event.price)) }}</strong></div>
                         <div v-else><span class="gray">From </span><strong>{{ formatAmount(Number(computedPriceRange))  }}</strong></div>
                     </div>
-                    <div>
+                    <div class="list-row-shading">
                         <div class="gray">Date</div>
                         <div v-if="event.accepted">
                             <span v-if="event.event_type === 'public'">{{ format_date(event.start_date) }}</span>
@@ -58,43 +58,43 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="list-row-shading">
                         <div class="gray">Event duration</div>
                         <div>{{ event.event_duration }}</div>
                     </div>
-                    <div v-if="is_guide">
+                    <div v-if="is_guide" class="list-row-shading">
                         <div class="gray">Max. attendance</div>
                         <div>{{ event.attendance_limit }}</div>
                     </div>
-                    <div>
+                    <div class="list-row-shading">
                         <div class="gray">Event location</div>
                         <div>{{ event.address }}</div>
                     </div>
                 </div>
                 <div class="flx column gap-16">
-                    <div v-if="event.itinerary">
+                    <div v-if="event.itinerary" class="list-row-shading">
                         <div class="gray">Itinerary</div>
                         <div>{{ event.itinerary }}</div>
                     </div>
-                    <div v-if="computedClimberGears.length">
+                    <div v-if="computedClimberGears.length" class="list-row-shading">
                         <div class="gray">Gears required for trip</div>
                         <div>
                             <li class="list-style" v-for="(gear, index) in computedClimberGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
-                    <div v-if="computedGuideGears.length">
+                    <div v-if="computedGuideGears.length" class="list-row-shading">
                         <div class="gray">Gears provided by Guide</div>
                         <div>
                             <li class="list-style" v-for="(gear, index) in computedGuideGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
-                    <div v-if="computedExperienceLevel.length">
+                    <div v-if="computedExperienceLevel.length" class="list-row-shading">
                         <div class="gray">Experience level required</div>
                         <div>
                             <li class="list-style" v-for="(experience, index) in computedExperienceLevel" :key="index">{{ experience }}</li>
                         </div>
                     </div>
-                    <div v-if="computedFaqs.length">
+                    <div v-if="computedFaqs.length" class="list-row-shading">
                         <div class="gray">FAQ's</div>
                         <div class="flx gap-16 column">
                             <li v-for="faq in computedFaqs" :key="faq.id">
