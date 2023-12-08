@@ -117,69 +117,67 @@
                     Edit profile
                 </button>
             </div>
-            <div v-if="user.bio" class="mb-24">
+            <div v-if="user.bio">
                 <div class="gray">Climber fun facts</div>
                 <div>
                     {{ user.bio }}
                 </div>
             </div>
-            <div class="flx gap-16 flx-wrap" :class="{'column' : is_guide}">
-                <div v-if="user.email">
-                    <div class="gray">Email</div>
-                    <div>{{ user.email }}</div>
+            <div v-if="user.email">
+                <div class="gray">Email</div>
+                <div>{{ user.email }}</div>
+            </div>
+            <div v-if="user.phone_number">
+                <div class="gray">Phone</div>
+                <div>{{ user.phone_number }}</div>
+            </div>
+            <div v-if="user.dob">
+                <div class="gray">Age</div>
+                <div id="ag">{{ calculateAge(user.dob) }}</div>
+            </div>
+            <div v-if="user.gender">
+                <div class="gray">Sex</div>
+                <div class="capitalize">{{ user.gender }}</div>
+            </div>
+            <div v-if="user.skills && user.skills.length" >
+                <div class="gray">Proficiency</div>
+                <div>
+                    <li v-for="skill in user.skills" :key="skill">{{ skill }}</li>
                 </div>
-                <div v-if="user.phone_number">
-                    <div class="gray">Phone</div>
-                    <div>{{ user.phone_number }}</div>
+            </div>
+            <div v-if="user.activities && user.activities.length">
+                <div class="gray">Activity</div>
+                <div id="act">
+                    <li v-for="activity in user.activities" :key="activity.name">
+                        {{ activity.name }} ({{ activity.level }}%)
+                    </li>
                 </div>
-                <div v-if="user.dob">
-                    <div class="gray">Age</div>
-                    <div id="ag">{{ calculateAge(user.dob) }}</div>
+            </div>
+            <div v-if="user.new_skills && user.new_skills.length" >
+                <div class="gray">New skills</div>
+                <div>
+                    <li v-for="skill in user.new_skills" :key="skill">{{ skill }}</li>
                 </div>
-                <div v-if="user.gender">
-                    <div class="gray">Sex</div>
-                    <div class="capitalize">{{ user.gender }}</div>
+            </div>
+            <div v-if="is_guide" class="mt-16 terms">
+                <!-- <div v-if="computedGuide" class="flx jc-sb ai-c">
+                    <a :href="s3bucket+'/'+computedGuide" class=" a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
+                        Terms & Conditions
+                    </a>
+                    <button @click.prevent="changeTerms" class="br-50 btn-close scale-in bg-transparent">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 16.919 16.166">
+                            <path d="M-3593.823-882.342a.749.749,0,0,1-.2-.713l.857-3.427a.75.75,0,0,1,.2-.348l10.708-10.708a2.555,2.555,0,0,1,1.816-.751,2.55,2.55,0,0,1,1.815.751,2.57,2.57,0,0,1,0,3.631l-10.708,10.708a.749.749,0,0,1-.348.2l-3.427.857a.753.753,0,0,1-.181.022A.751.751,0,0,1-3593.823-882.342Zm12.624-14.134-10.561,10.561-.5,2.012,2.012-.5,10.561-10.561a1.067,1.067,0,0,0,0-1.509,1.059,1.059,0,0,0-.754-.312A1.063,1.063,0,0,0-3581.2-896.476Zm-4.385,14.353a.75.75,0,0,1-.75-.75.75.75,0,0,1,.75-.75h7.709a.75.75,0,0,1,.75.75.75.75,0,0,1-.75.75Z" transform="translate(3594.043 898.288)" fill="#333"/>
+                        </svg>
+                    </button>
                 </div>
-                <div v-if="user.skills && user.skills.length" >
-                    <div class="gray">Proficiency</div>
-                    <div>
-                        <li v-for="skill in user.skills" :key="skill">{{ skill }}</li>
-                    </div>
-                </div>
-                <div v-if="user.activities && user.activities.length">
-                    <div class="gray">Activity</div>
-                    <div id="act">
-                        <li v-for="activity in user.activities" :key="activity.name">
-                            {{ activity.name }} ({{ activity.level }}%)
-                        </li>
-                    </div>
-                </div>
-                <div v-if="user.new_skills && user.new_skills.length" >
-                    <div class="gray">New skills</div>
-                    <div>
-                        <li v-for="skill in user.new_skills" :key="skill">{{ skill }}</li>
-                    </div>
-                </div>
-                <div v-if="is_guide" class="mt-16 terms">
-                    <!-- <div v-if="computedGuide" class="flx jc-sb ai-c">
-                        <a :href="s3bucket+'/'+computedGuide" class=" a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
-                            Terms & Conditions
-                        </a>
-                        <button @click.prevent="changeTerms" class="br-50 btn-close scale-in bg-transparent">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 16.919 16.166">
-                                <path d="M-3593.823-882.342a.749.749,0,0,1-.2-.713l.857-3.427a.75.75,0,0,1,.2-.348l10.708-10.708a2.555,2.555,0,0,1,1.816-.751,2.55,2.55,0,0,1,1.815.751,2.57,2.57,0,0,1,0,3.631l-10.708,10.708a.749.749,0,0,1-.348.2l-3.427.857a.753.753,0,0,1-.181.022A.751.751,0,0,1-3593.823-882.342Zm12.624-14.134-10.561,10.561-.5,2.012,2.012-.5,10.561-10.561a1.067,1.067,0,0,0,0-1.509,1.059,1.059,0,0,0-.754-.312A1.063,1.063,0,0,0-3581.2-896.476Zm-4.385,14.353a.75.75,0,0,1-.75-.75.75.75,0,0,1,.75-.75h7.709a.75.75,0,0,1,.75.75.75.75,0,0,1-.75.75Z" transform="translate(3594.043 898.288)" fill="#333"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <div v-else class="centered">
-                        <a href="#" class="block flx gap-8 ai-c">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 15.132 15.132">
-                                <path d="M-1983.684,13.883V8.816h-5.066a1.25,1.25,0,0,1-1.25-1.25,1.25,1.25,0,0,1,1.25-1.25h5.066V1.25a1.25,1.25,0,0,1,1.25-1.25,1.25,1.25,0,0,1,1.249,1.25V6.316h5.066a1.25,1.25,0,0,1,1.25,1.25,1.25,1.25,0,0,1-1.25,1.25h-5.066v5.066a1.249,1.249,0,0,1-1.249,1.249A1.249,1.249,0,0,1-1983.684,13.883Z" transform="translate(1990)" fill="#222"/>
-                            </svg>
-                            Upload terms & conditions
-                        </a>
-                    </div> -->
-                </div>
+                <div v-else class="centered">
+                    <a href="#" class="block flx gap-8 ai-c">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 15.132 15.132">
+                            <path d="M-1983.684,13.883V8.816h-5.066a1.25,1.25,0,0,1-1.25-1.25,1.25,1.25,0,0,1,1.25-1.25h5.066V1.25a1.25,1.25,0,0,1,1.25-1.25,1.25,1.25,0,0,1,1.249,1.25V6.316h5.066a1.25,1.25,0,0,1,1.25,1.25,1.25,1.25,0,0,1-1.25,1.25h-5.066v5.066a1.249,1.249,0,0,1-1.249,1.249A1.249,1.249,0,0,1-1983.684,13.883Z" transform="translate(1990)" fill="#222"/>
+                        </svg>
+                        Upload terms & conditions
+                    </a>
+                </div> -->
             </div>
             <div v-if="guest && user.guide_experience">
                 <div class="gray">Experiences</div>
