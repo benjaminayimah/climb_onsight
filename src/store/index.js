@@ -368,6 +368,7 @@ export default createStore({
         return await axios.post(this.getters.getHostname + '/api/sign-in', payload)
     },
     getAuthUser(state, token) {
+      state.commit('dismisAlert')
       state.commit('startPageLoader')
       const url = this.getters.getHostname + '/api/user?token=' + token
       axios.get(url)
