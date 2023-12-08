@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="flx gap-8 mb-16" :class="{ 'column' : booking.page !== 2}">
-                    <button v-if="booking.page === 1" @click="booking.data.event_type === 'private' ? nextPage(2) : nextPage(3)" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled' : !form.sign.signature || !form.sign.name || !form.sign.date }" :disabled="!form.sign.signature || !form.sign.name || !form.sign.date ? true : false">
+                    <button v-if="booking.page === 1" @click="booking.data.event_type === 'private' ? nextPage(2) : nextPage(3)" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled2' : !form.sign.signature || !form.sign.name || !form.sign.date }" :disabled="!form.sign.signature || !form.sign.name || !form.sign.date ? true : false">
                         <span>Continue</span>
                     </button>
                     <button v-if="booking.page === 2" @click="relist(true)" class="button-primary w-100 btn-md gap-8 btn-rounded">
