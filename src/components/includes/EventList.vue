@@ -128,7 +128,7 @@ export default {
         font-size: 0.9rem;
         color: var(--gray);
     }
-    &:hover {
+    &:hover:not(.list-is-active) {
         box-shadow: 0 4px 12px 0 rgba(15,41,77,.08);
     }
 }

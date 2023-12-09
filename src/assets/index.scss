@@ -420,7 +420,7 @@ a.evt-card {
 }
 
 .list-is-active {
-    border-color: var(--black) !important;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 0px 3px;
 }
 .acc-footer{
     a {
@@ -1480,11 +1480,17 @@ ul.tab {
 
     
 }
+.desktop {
+    .body-content {
+        padding-left: 3px;
+    }
+}
 //tablet
 .tablet {
     .section-main-right {
         width: calc(100% - 140px);
     }
+    
     
 }
 .tablet, .mobile {
@@ -1562,6 +1568,7 @@ ul.tab {
     .hide-filter {
         right: -100%;
     }
+    
 }
 
 
