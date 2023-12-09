@@ -5,7 +5,7 @@
             <button v-if="guide.is_approved" @click="$store.commit('setDeleteModal', {id: guide.id, type: 'guide'})" class="button-danger btn-rounded btn-sm">Delete Guide</button>
             <button v-else @click="$store.commit('preSetTempData', {data: guide, modal: 'new_guide'})" class="button-primary btn-rounded btn-sm">Approve guide</button>
         </div>
-        <img class="br-16 profile-img" :src="guide.profile_picture ? s3bucket+'/'+guide.profile_picture : default_avatar" :alt="guide.name">
+        <img class="br-16 profile-img" :class="{'custom-color' : !guide.profile_picture}" :src="guide.profile_picture ? s3bucket+'/'+guide.profile_picture : default_avatar" :alt="guide.name">
         <div class="flx jc-sb ai-c">
             <h3>{{ guide.name }}</h3>
             <div>
@@ -60,7 +60,10 @@ export default {
         ...mapState({
             s3bucket: (state) => state.s3bucket,
             default_avatar: (state) => state.data.default_avatar
-        })
+        }),
+        computedColor() {
+            return this.guide.color
+        }
     },
     props: {
         guide: Object
@@ -75,4 +78,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img.custom-color {
+    background-color: v-bind(computedColor);
+}
 </style>

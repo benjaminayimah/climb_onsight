@@ -1,6 +1,6 @@
 <template>
     <a href="#" :id="id" @click.prevent="openDropdown(id)" class="u-a">
-        <profile-avatar :avatar="avatar" />
+        <profile-avatar :avatar="avatar" :color="user.color" />
     </a>
     <teleport to="body">
         <backdrop v-if="toggleMenu" @click="closeDropdown(id)" :index="100" :opacity="0.4" />

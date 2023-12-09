@@ -9,7 +9,15 @@
                     <button class="absolute fs-09">Change profile picture</button>
                 </div> -->
                 <div class="centered">
-                    <avatar-uploader :status="status" :hostname="hostname" :dimension="140" :auth="true" @deleteTemp="deltmp" @upload-click="uploadClick" />
+                    <avatar-uploader
+                        :status="status"
+                        :hostname="hostname"
+                        :dimension="140"
+                        :auth="true"
+                        :color="user.color"
+                        @deleteTemp="deltmp"
+                        @upload-click="uploadClick"
+                    />
                     <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
                 </div>
                 <form @submit.prevent="" id="profile_edit_form">

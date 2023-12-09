@@ -1,6 +1,6 @@
 <template>
     <a href="#" @click.prevent="doClick" class="bg-img br-16 flx-1 relative user-list transition-sm" :class="{'list-is-active' : $route.query.id == user.id}">
-        <img :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name" />
+        <img :class="{'custom-color' : !user.profile_picture}" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name" />
         <div class="user-footer absolute br-16 flx jc-sb ai-c">
             <div class="flx column">
                 <div class="fs-09">
@@ -34,7 +34,10 @@ export default {
         ...mapState({
             s3bucket: (state) => state.s3bucket,
             default_avatar: (state) => state.data.default_avatar
-        })
+        }),
+        computedColor() {
+            return this.user.color
+        }
     },
     methods: {
         doClick() {
@@ -71,5 +74,8 @@ span {
         color: #fff;
         text-decoration: underline;
     }
+}
+img.custom-color {
+    background-color: v-bind(computedColor);
 }
 </style>

@@ -19,7 +19,7 @@
             <strong v-else-if="is_climber">Top events around you</strong>
             <div v-if="computedRegistered.length" class="flx jc-sb">
                 <div class="stack-cards">
-                    <profile-avatar v-for="climber in computedRegistered.slice(0, 5)" :key="climber.id" :avatar="climber.profile_picture" :name="climber.name" />
+                    <profile-avatar v-for="climber in computedRegistered.slice(0, 5)" :key="climber.id" :avatar="climber.profile_picture" :name="climber.name" :color="climber.color" />
                     <div v-if="computedRegistered.length > 5" class="fw-700 counter centered br-24">+{{ computedRegistered.length - 5 }}</div>
                 </div>
                 <div class="flx gap-16 ai-c booked">

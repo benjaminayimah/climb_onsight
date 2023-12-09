@@ -4,7 +4,7 @@
             <h4>Climber Details</h4>
             <button  @click="$store.commit('setDeleteModal', {id: climber.id, type: 'climber'})" class="button-danger btn-rounded btn-sm">Delete Climber</button>
         </div>
-        <img class="br-16 profile-img" :src="climber.profile_picture ? s3bucket+'/'+climber.profile_picture : default_avatar" :alt="climber.name">
+        <img class="br-16 profile-img" :class="{'custom-color' : !climber.profile_picture}" :src="climber.profile_picture ? s3bucket+'/'+climber.profile_picture : default_avatar" :alt="climber.name">
         <h3>{{ climber.name }}</h3>
         <user-body :user="climber" />
         <!-- <send-message-button /> -->
@@ -22,11 +22,14 @@ export default {
     // components: { SendMessageButton },
     mixins: [formatDateTime],
     computed: {
+        ...mapGetters(['getDevice']),
         ...mapState({
             s3bucket: (state) => state.s3bucket,
             default_avatar: (state) => state.data.default_avatar
         }),
-        ...mapGetters(['getDevice'])
+        computedColor() {
+            return this.climber.color
+        }
     },
     props: {
         climber: Object
@@ -41,4 +44,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+img.custom-color {
+    background-color: v-bind(computedColor);
+}
 </style>

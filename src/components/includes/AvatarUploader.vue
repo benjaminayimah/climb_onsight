@@ -38,7 +38,8 @@ export default {
         status: Object,
         hostname: String,
         dimension: Number,
-        auth: Boolean
+        auth: Boolean,
+        color: String
     },
     computed: {
         ...mapState({
@@ -59,7 +60,7 @@ $dimension: v-bind(computedDimension);
     color: #fff;
 }
 .default-avatar{
-    background-color: #B58563;
+    background-color: v-bind(color);
     height: inherit;
     width: inherit;
     cursor: pointer;

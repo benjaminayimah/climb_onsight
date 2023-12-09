@@ -1,7 +1,7 @@
 <template>
     <li>
         <a href="#" class="flx gap-8 br-16">
-            <profile-avatar :avatar="user.image"/>
+            <profile-avatar :avatar="user.image" :color="user.color" :name="user.name"/>
             <div class="flx flx-1 column">
                 <div class="flx jc-sb ai-c">
                     <div class="wrap-text wrap-line-1 fw-600 fs-09 capitalize">{{ user.name }}</div>

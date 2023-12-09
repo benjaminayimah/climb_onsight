@@ -11,7 +11,7 @@
     <teleport to="#modal_content">
         <div class="modal-width flx column gap-16 main-details-wrapper">
             <div class="flx jc-c">
-                <img class="br-50 profile-img" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
+                <img class="br-50 profile-img" :class="{'custom-color' : !user.profile_picture}" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
             </div>
             <user-body :user="user" />
         </div>
@@ -55,7 +55,10 @@ export default {
             default_avatar: (state) => state.data.default_avatar,
             hostname: (state) => state.hostname,
             token: (state) => state.token
-        })
+        }),
+        computedColor() {
+            return this.user.color
+        }
     },
     data() {
         return {
@@ -104,5 +107,8 @@ export default {
 .profile-img {
     width: 200px;
     height: 200px !important;
+}
+img.custom-color {
+    background-color: v-bind(computedColor);
 }
 </style>

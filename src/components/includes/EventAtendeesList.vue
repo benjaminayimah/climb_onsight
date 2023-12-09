@@ -1,7 +1,7 @@
 <template>
      <a href="#" @click.prevent="$store.commit('preSetTempData', { data: computedClimber, modal: 'view_user'})" class="flx jc-sb ai-c gap-8 pd-16 br-16 attendees-list transition-sm">
         <div class="flx gap-8">
-            <profile-avatar :avatar="computedClimber.profile_picture" :name="computedClimber.name" />
+            <profile-avatar :avatar="computedClimber.profile_picture" :name="computedClimber.name" :color="computedClimber.color" />
             <div>
                 <div class="flx gap-4">
                     <span class="wrap-text wrap-line-1">{{ computedClimber.name }}</span>

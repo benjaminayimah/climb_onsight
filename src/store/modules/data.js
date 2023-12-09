@@ -1,7 +1,7 @@
 export default {
     state: {
         bannerImage: '/temp/banner_image.png',
-        default_avatar: require('@/assets/images/avatar.png'),
+        default_avatar: require('@/assets/svg/avatar.svg'),
         climberSkills: ['Top rope', 'Leading', 'Multi pitch'],
         newGuide: JSON.parse(localStorage.getItem('newGuide')) || '',
         newEvent: JSON.parse(localStorage.getItem('newEvent')) || {},

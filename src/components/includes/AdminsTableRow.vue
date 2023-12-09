@@ -1,7 +1,7 @@
 <template>
     <a href="#" @click.prevent="" class="grid-item table-row table-row grid-col-admins">
         <div class="table-cell gap-8">
-            <profile-avatar :id="user.id" :image="user.image"/>
+            <profile-avatar :name="user.name" :avatar="user.image" :color="user.color"/>
             <span class="wrap-text wrap-line-1 capitalize">{{ user.name }}</span>
         </div>
         <div class="table-cell flx gap-32 cell-hover-show">

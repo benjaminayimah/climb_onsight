@@ -1,8 +1,17 @@
 <template>
     <div v-if="is_super" class="flx column gap-24 profile-body-wrapper overflow-y-scroll scroll-hidden">
         <div class="centered text-center">
-            <avatar-uploader v-if="editMode" :status="status" :hostname="hostname" :dimension="90" :auth="true" @deleteTemp="deltmp" @upload-click="uploadClick" />
-            <img v-else class="br-50 mb-8" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
+            <avatar-uploader
+                v-if="editMode"
+                :status="status"
+                :hostname="hostname"
+                :dimension="90"
+                :auth="true"
+                :color="user.color"
+                @deleteTemp="deltmp"
+                @upload-click="uploadClick"
+            />
+            <img v-else class="br-50 mb-8" :class="{'custom-color' : !user.profile_picture }" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
             <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
             <div class="fs-102rem">{{ user.name }}</div>
             <span class="gray capitalize">{{ user.role.replace(/_/g, ' ') }}</span>
@@ -77,7 +86,7 @@
     </div>
     <div v-else class="flx gap-32 profile-body-wrapper overflow-y-scroll scroll-hidden" :class="is_guide ? 'column' : ''">
         <div class="w-50 flx column gap-16">
-            <div class="bg-img br-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} "></div>
+            <img class="bg-img br-16" :class="{'custom-color' : !user.profile_picture }" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
             <div class="flx jc-sb">
                 <h3>{{ user.name }}</h3>
             </div>
@@ -246,6 +255,9 @@ export default {
             hostname: (state) => state.hostname,
             token: (state) => state.token
         }),
+        computedColor() {
+            return this.user.color
+        }
         // computedGuide() {
         //     if(this.user && this.user.guide_terms) {
         //         return JSON.parse(this.user.guide_terms).url
@@ -317,8 +329,8 @@ img {
     width: 90px;
 }
 .bg-img {
-    border-radius: 16px;
     height: 180px;
+    width: 100%;
 }
 .grid-item {
     min-width: 135px;
@@ -358,5 +370,8 @@ ul.tab {
     .grid-col-2 {
         grid-template-columns: 1fr !important;
     }
+}
+img.custom-color {
+    background-color: v-bind(computedColor);
 }
 </style>
