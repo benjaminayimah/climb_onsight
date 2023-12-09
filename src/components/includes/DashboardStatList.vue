@@ -23,7 +23,6 @@ export default {
         period: String,
         currency: String,
         amount: Boolean
-
     }
 }
 </script>
