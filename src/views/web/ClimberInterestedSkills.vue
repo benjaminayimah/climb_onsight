@@ -68,11 +68,11 @@ export default {
         },
         submitUpdates() {
             this.$store.commit('handleSignedUp')
+            this.startProgress()
             const form = this.newUser
             const url = this.hostname + '/api/user/'+this.user.id +'?token=' + this.newToken
             axios.put(url, form)
             .then((res) => {
-                this.startProgress()
                 this.stopSpinner()
                 this.signUpSuccessful(res.data)
             })
