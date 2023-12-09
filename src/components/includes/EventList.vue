@@ -1,5 +1,5 @@
 <template>
-    <a href="#" @click.prevent="doClick" class="flx-1 evt-card bg-white br-16 flx column gap-16 transition-sm" :class="{'list-is-active' : $route.query.current == event.id}">
+    <a href="#" @click.prevent="doClick" class="flx-1 evt-card bg-white br-16 flx column gap-16 transition-sm" :class=" $route.query.current == event.id || $route.query.current && $route.query.current == event.event_id ? 'list-is-active' : ''">
         <div class="evt-card-wrapper flx column gap-4">
             <div class="bg-img relative" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}">
                 <div v-if="bookingStatus && is_climber" class="absolute status-wrapper">
