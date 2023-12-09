@@ -56,7 +56,7 @@ export default {
                 } else {
                     const alertPayload = {
                         status: 'danger',
-                        body: 'Sorry, this event cannot be found. It may have been deleted by the guide.'
+                        body: 'Sorry, this event cannot be found. It may have been deleted by the guide. Please contact Climb Onsight support'
                     };
                     this.$store.commit('showAlert', alertPayload)
                 }

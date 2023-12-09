@@ -69,7 +69,7 @@
             </button>
             <button v-else-if="permissions || permissionsModal === 'permissions'" @click="submitPermissions" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="20" :color="'#fff'" />
-                <span>{{ submiting ? 'Submitting...' : 'Submit'}}</span>
+                <span>{{ submiting ? 'Updating...' : 'Done'}}</span>
             </button> 
             <button v-else @click="submitSignUp" class="button-primary btn-rounded gap-8 btn-lg" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="20" :color="'#fff'" />
