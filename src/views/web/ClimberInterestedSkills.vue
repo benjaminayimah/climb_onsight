@@ -55,24 +55,23 @@ export default {
     methods: {
         async updateNewUser() {
             this.validation.error ? this.clearErrs() : ''
-            this.startSpinner()
             let errors = {}
             if(this.form.new_skills == '') {
                 errors.new_skills = ['The New skill field is required']
                 this.showErr(errors)
-                this.stopSpinner()
             }else {
+                this.startSpinner()
                 await this.$store.commit('updateNewSkills', this.form)
                 this.submitUpdates()
             }
         },
         submitUpdates() {
-            this.$store.commit('handleSignedUp')
-            this.startProgress()
             const form = this.newUser
             const url = this.hostname + '/api/user/'+this.user.id +'?token=' + this.newToken
             axios.put(url, form)
             .then((res) => {
+                this.startProgress()
+                this.$store.commit('handleSignedUp')
                 this.stopSpinner()
                 this.signUpSuccessful(res.data)
             })
@@ -86,7 +85,9 @@ export default {
                 user: res,
                 token: this.newToken
             }
-            this.signinSuccess(payload)
+            setTimeout(()=> {
+                this.signinSuccess(payload)
+            }, 2000)
         },
         presetForm() {
             if(this.newUser.new_skills) {
