@@ -81,7 +81,7 @@
                 </div>
                 <div class="flx column gap-8">
                     <div class="gray">Gallery</div>
-                    <div class="flx gap-16 flx-wrap gallery" v-if="event.gallery && event.gallery.length">
+                    <div class="grid gap-16 gallery" v-if="event.gallery && event.gallery.length">
                         <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
                     </div>
                 </div>
@@ -155,9 +155,10 @@ export default {
 
 <style lang="scss" scoped>
 .gallery img {
-    width: calc(33.33% - 16px);
-    max-width: 33.33%;
     max-height: 155px;
+}
+.grid {
+    grid-template-columns: 1fr 1fr 1fr;
 }
 .bg-img {
     width: 180px;
