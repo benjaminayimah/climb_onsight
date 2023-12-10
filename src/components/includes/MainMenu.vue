@@ -32,8 +32,8 @@
                         </button>
                     </div>
                 </div>
-                <a href="#" class="u-a" @mouseup="$store.commit('toggleMenu')">
-                    <img class="br-50" :src="avatar ? s3bucket+'/'+avatar : default_avatar" />
+                <a href="#" class="u-a" @click.prevent="" @mouseup="$store.commit('toggleMenu')">
+                    <img class="br-50" :class="{'custom-color' : !user.profile_picture}" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" />
                 </a>
             </div>
             <div class="flx column nav-wrapper" @mouseup="device == 'mobile' ? $store.commit('toggleMenu') : ''">
@@ -149,16 +149,18 @@ export default {
     name: 'MainMenu',
     mixins: [userRolesMixin],
     props: {
-        user: Number,
-        device: String,
-        avatar: String
+        user: Object,
+        device: String
     },
     computed: {
         ...mapState({
             menu: (state) => state.menu,
             s3bucket: (state) => state.s3bucket,
             default_avatar: (state) => state.data.default_avatar
-        })
+        }),
+        computedColor() {
+            return this.user.color
+        }
     },
     data() {
         return {
@@ -422,5 +424,8 @@ img{
     width: 100%;
     height: 100%;
     z-index: 999;
+}
+img.custom-color {
+    background-color: v-bind(computedColor);
 }
 </style>

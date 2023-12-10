@@ -27,42 +27,9 @@ export default {
     radial-gradient(farthest-side,v-bind(color) 94%,#0000) top/3px 3px no-repeat,
     conic-gradient(#0000 30%,v-bind(color));
   -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 0);
-  animation: l13 1s infinite linear;
+  animation: spin 1s infinite linear;
 }
-@keyframes l13{ 
+@keyframes spin{ 
   100%{transform: rotate(1turn)}
 }
-/* .loader {
-    --dimension: v-bind(dimension);
-    width: var(--dimension);
-    height: var(--dimension);
-    border: 2px solid #ffa3a3;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-} 
-.loader::after {
-    content: '';  
-    box-sizing: border-box;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: calc(var(--dimension) + 8px);
-    height: calc(var(--dimension) + 8px);
-    border-radius: 50%;
-    border: 2px solid transparent;
-    border-bottom-color: #fdc9c9;
-}
-
-@keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}  */
 </style>

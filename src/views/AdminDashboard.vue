@@ -1,8 +1,8 @@
 <template>
     <main class="home" :class="getDevice">
         <snack-bar-alert />
-        <main-menu :user="user.id" :device="getDevice"/>
-        <top-nav-bar :user="user" :device="getDevice" :notification_count="notification_count"/>
+        <main-menu :user="user" :device="getDevice"/>
+        <top-nav-bar :user="user" :device="getDevice" :notification_count="notification_count" :token="token"/>
         <router-view />
     </main>
 </template>
