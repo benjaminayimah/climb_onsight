@@ -418,7 +418,7 @@ export default createStore({
     },
     async deleteUser(state, payload) {
       try {
-        const res = await axios.delete(this.getters.getHostname+'/api/delete-user/'+payload.id+'?token='+this.getters.getToken);
+        const res = await axios.delete(this.getters.getHostname+'/api/delete-user/'+payload.id+'?token='+this.getters.getToken)
         state.commit('closeDeleteModal')
         const alertPayload = {
             status: 'success',

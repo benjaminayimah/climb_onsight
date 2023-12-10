@@ -22,7 +22,7 @@
                 </p>
                 <div class="flx column gap-8">
                     <button v-if="acceptTrigger.type === 'accept'" @click="acceptGuide" class="button-secondary btn-md gap-8 w-100 btn-rounded">
-                        <spinner v-if="submiting" :size="20" :color="'#000'" />
+                        <spinner v-if="submiting" :size="20" :color="'#fff'" />
                         <span>{{ submiting ? 'Please wait...' : 'Yes, proceed' }}</span>
                     </button>
                     <button v-else-if="acceptTrigger.type === 'decline'" @click="declineGuide" class="btn-danger btn-md gap-8 w-100 btn-rounded">
