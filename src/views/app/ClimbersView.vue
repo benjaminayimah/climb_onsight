@@ -125,7 +125,7 @@ a.bg-img {
 }
 .desktop, .tablet {
     a.user-list {
-        max-width: 25%;
+        max-width: calc(25% - 12px);
     }
 }
 .empty-state{
