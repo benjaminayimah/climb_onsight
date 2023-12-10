@@ -129,6 +129,11 @@
 .vuecal__event.event-red {background-color: var(--bg-red)}
 .vuecal__event.event-yellow {background-color: var(--bg-yellow)}
 .vuecal__event.event-brown {background-color: var(--bg-brown)}
+.vuecal__event {
+    .vuecal__event-title.vuecal__event-title {
+        text-align: center;
+    }
+}
 
 .cal-dark-theme {
     .vuecal__title-bar {
