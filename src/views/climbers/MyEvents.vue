@@ -18,8 +18,10 @@
                         </ul>
                     </div>
                 </div>
-                <div v-if="computedEvents.length" class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <event-list v-for="event in computedEvents" :key="event.id" :event="event" :event_id="event.event_id" :redirect="true"  />
+                <div v-if="computedEvents.length" class="body-content pd-r-24 overflow-y-scroll">
+                    <div class="flx gap-16 flx-wrap">
+                        <event-list v-for="event in computedEvents" :key="event.id" :event="event" :event_id="event.event_id" :redirect="true"  />
+                    </div>
                 </div>
                 <div v-else>
                     <h3>No {{ $route.query.type }} event found</h3>

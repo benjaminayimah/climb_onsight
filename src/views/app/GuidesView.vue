@@ -10,8 +10,10 @@
                     <i>Search results for: </i>
                     <strong>{{ searchParam }}</strong>
                 </div>
-                <div class="flx gap-16 flx-wrap body-content pd-r-24 overflow-y-scroll">
-                    <user-list v-for="user in computedGuides" :key="user.id" :user="user" :redirect="true" />
+                <div class="body-content pd-r-24 overflow-y-scroll">
+                    <div class="flx gap-16 flx-wrap">
+                        <user-list v-for="user in computedGuides" :key="user.id" :user="user" :redirect="true" />
+                    </div>
                 </div>
             </div>
             <transition name="slide-from-right">
