@@ -1481,7 +1481,7 @@ ul.tab {
     
 }
 .desktop {
-    .body-content {
+    .body-content:not(.bd-l-1) {
         padding-left: 3px;
     }
 }
