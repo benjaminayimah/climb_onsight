@@ -39,7 +39,7 @@
         <div>{{ user.event_name }}</div>
     </div>
     <div class="list-row-shading" v-if="user.date_selected">
-        <div class="gray">Due chosen</div>
+        <div class="gray">Date chosen</div>
         <div>{{ format_date(user.date_selected) }}</div>
     </div>
     <div class="list-row-shading" v-if="user.event_type">
