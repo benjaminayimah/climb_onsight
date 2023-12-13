@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="uppercase mt-8 fs-09"><strong>Other information</strong></div>
+    <div v-if="user.gender || user.dob" class="uppercase mt-8 fs-09"><strong>Other information</strong></div>
     <div class="list-row-shading" v-if="user.event_name">
         <div class="gray">Event name</div>
         <div>{{ user.event_name }}</div>
