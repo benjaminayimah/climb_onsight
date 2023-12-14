@@ -87,7 +87,7 @@
                         </div>
                         <div class="flx column mb-8">
                             <div class="gray">Event date</div>
-                            <div>{{ format_date(booking.data.start_date) }} <span class="gray">at</span> {{ booking.data.event_duration }}</div>
+                            <div>{{ format_date(booking.data.start_date) }}</div>
                         </div>
                         <div class="flx column mb-8">
                             <div class="gray">Duration</div>
