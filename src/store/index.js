@@ -5,7 +5,6 @@ import country from './modules/country'
 import color from './modules/color'
 import dropdown from './modules/dropdown'
 import router from '@/router'
-
 export default createStore({
   state: {
     token: localStorage.getItem('auth') || null,
@@ -23,7 +22,7 @@ export default createStore({
     pageLoader: false,
     bookingModal: { active: false, page: 1, data: {} },
     updateForm: {},
-    forms: { 
+    forms: {
       active: false,
       loader: false,
       modal: '',
@@ -83,7 +82,6 @@ export default createStore({
       state.balance = payload.balance
       state.account = payload.account
       payload.account ? state.payment_options = payload.account.external_accounts.data : ''
-      
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
     },
     setNewToken(state, payload) {
