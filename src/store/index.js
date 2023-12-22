@@ -375,6 +375,7 @@ export default createStore({
         state.commit('stopPageLoader')
       })
       .catch(e => {
+        state.commit('destroyToken')
         if(e.response) {
           if(e.response.status == 400 || e.response.status == 404 ) {
             state.commit('destroyToken')
