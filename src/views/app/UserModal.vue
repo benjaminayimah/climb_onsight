@@ -19,16 +19,16 @@
     <teleport to="#modal_footer">
         <div class="text-center flx jc-c">
             <div v-if="is_guide && !user.paid && !user.accepted" class="flx gap-8">
-                <button @click="acceptBooking" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+                <button @click="acceptBooking" class="button-primary btn-md gap-8" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                     <spinner v-if="submiting" :size="20" :color="'#fff'" />
                     <span>{{ submiting ? 'Please wait...' : 'Accept' }}</span>
                 </button>
-                <button @click="declineBooking" class="button-outline btn-md gap-8 bg-transparent btn-rounded" :class="{ 'button-disabled' : declining }" :disabled="declining ? true : false">
+                <button @click="declineBooking" class="button-outline btn-md gap-8 bg-transparent" :class="{ 'button-disabled' : declining }" :disabled="declining ? true : false">
                     <spinner v-if="declining" :size="20" :color="'#000'" />
                     <span>{{ declining ? 'Please wait...' : 'Decline' }}</span>
                 </button>
             </div>
-            <button v-else @click="$store.commit('closeModal')" class="button-primary btn-rounded btn-md-lng ">
+            <button v-else @click="$store.commit('closeModal')" class="button-primary btn-md-lng ">
                 <span>Close</span>
             </button>
         </div>

@@ -32,13 +32,13 @@
                         class="event-cal-theme ov-hidden br-16"
                     />
                     <div class="jc-sb flx mt-32">
-                        <button class="btn-sm btn-rounded bg-white gap-4" @click="$refs.vuecal.previous()">
+                        <button class="btn-sm bg-white gap-4" @click="$refs.vuecal.previous()">
                             <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 15.086 15.086">
                                 <path d="M4.421,12.09l7.543,7.543,1.344-1.32-5.28-5.28H19.507V11.147H8.028l5.28-5.28-1.344-1.32Z" transform="translate(-4.421 -4.547)" fill="#1c1b1f"/>
                             </svg>
                             {{ previous_month }}
                         </button>
-                        <button class="btn-sm btn-rounded bg-white gap-4" @click="$refs.vuecal.next()">
+                        <button class="btn-sm bg-white gap-4" @click="$refs.vuecal.next()">
                             {{ next_month }}
                             <svg xmlns="http://www.w3.org/2000/svg" height="15" viewBox="0 0 15 15">
                                 <path id="Path_2364" data-name="Path 2364" d="M4.421,12.047l7.5,7.5,1.336-1.313-5.25-5.25H19.421V11.11H8.007l5.25-5.25L11.921,4.547Z" transform="translate(19.421 19.547) rotate(180)" fill="#1c1b1f"/>

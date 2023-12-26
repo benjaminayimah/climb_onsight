@@ -2,8 +2,8 @@
     <div class="br-16 bg-white main-details-wrapper details-padding flx column gap-16">
         <div class="flx jc-sb ai-c">
             <h4>Guide Details</h4>
-            <button v-if="guide.is_approved" @click="$store.commit('setDeleteModal', {id: guide.id, type: 'guide'})" class="button-danger btn-rounded btn-sm">Delete Guide</button>
-            <button v-else @click="$store.commit('preSetTempData', {data: guide, modal: 'new_guide'})" class="button-primary btn-rounded btn-sm">Approve guide</button>
+            <button v-if="guide.is_approved" @click="$store.commit('setDeleteModal', {id: guide.id, type: 'guide'})" class="button-danger btn-sm">Delete Guide</button>
+            <button v-else @click="$store.commit('preSetTempData', {data: guide, modal: 'new_guide'})" class="button-primary btn-sm">Approve guide</button>
         </div>
         <img class="br-16 profile-img" :class="{'custom-color' : !guide.profile_picture}" :src="guide.profile_picture ? s3bucket+'/'+guide.profile_picture : default_avatar" :alt="guide.name">
         <div class="flx jc-sb ai-c">

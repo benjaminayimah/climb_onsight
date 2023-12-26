@@ -2,7 +2,7 @@
     <div class="br-16 bg-white main-details-wrapper details-padding flx column gap-16">
         <div class="flx jc-sb ai-c">
             <h4>Climber Details</h4>
-            <button  @click="$store.commit('setDeleteModal', {id: climber.id, type: 'climber'})" class="button-danger btn-rounded btn-sm">Delete Climber</button>
+            <button @click="$store.commit('setDeleteModal', {id: climber.id, type: 'climber'})" class="button-danger btn-sm">Delete Climber</button>
         </div>
         <img class="br-16 profile-img" :class="{'custom-color' : !climber.profile_picture}" :src="climber.profile_picture ? s3bucket+'/'+climber.profile_picture : default_avatar" :alt="climber.name">
         <h3>{{ climber.name }}</h3>

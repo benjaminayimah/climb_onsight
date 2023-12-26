@@ -21,15 +21,15 @@
                     Are you sure you want to {{ acceptTrigger.type === 'accept' ? 'accept' : 'decline' }} this guide?
                 </p>
                 <div class="flx column gap-8">
-                    <button v-if="acceptTrigger.type === 'accept'" @click="acceptGuide" class="button-secondary btn-md gap-8 w-100 btn-rounded">
+                    <button v-if="acceptTrigger.type === 'accept'" @click="acceptGuide" class="button-secondary btn-md gap-8 w-100 ">
                         <spinner v-if="submiting" :size="20" :color="'#fff'" />
                         <span>{{ submiting ? 'Please wait...' : 'Yes, proceed' }}</span>
                     </button>
-                    <button v-else-if="acceptTrigger.type === 'decline'" @click="declineGuide" class="btn-danger btn-md gap-8 w-100 btn-rounded">
+                    <button v-else-if="acceptTrigger.type === 'decline'" @click="declineGuide" class="btn-danger btn-md gap-8 w-100 ">
                         <spinner v-if="submiting" :size="20" :color="'#fff'" />
                         <span>{{ submiting ? 'Please wait...' : 'Delete Guide' }}</span>
                     </button>
-                    <button @click="triggerCancel" class="button-outline w-100 btn-rounded btn-md bg-transparent">Cancel</button>
+                    <button @click="triggerCancel" class="button-outline w-100  btn-md bg-transparent">Cancel</button>
                 </div>
             </div>
         </div>
@@ -138,10 +138,10 @@
     </teleport>
     <teleport to="#modal_footer">
         <div class="flx jc-fe gap-8">
-            <button @click="triggerAccept('accept')" class="button-primary btn-rounded btn-md" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+            <button @click="triggerAccept('accept')" class="button-primary btn-md" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <span>Accept</span>
             </button>
-            <button @click="triggerAccept('decline')" class="btn-rounded btn-md btn-danger">
+            <button @click="triggerAccept('decline')" class="btn-md btn-danger">
                 <span>Decline</span>
             </button> 
         </div>

@@ -12,14 +12,14 @@
                             </i>
                             <input v-model="form.searchInput" class="form-control" type="search" id="search" placeholder="Search by event name or location">
                         </div>
-                        <button v-if="getDevice !== 'desktop'" @click="toggleFilter" class="button-outline btn-rounded">
+                        <button v-if="getDevice !== 'desktop'" @click="toggleFilter" class="button-outline">
                             <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 27 18">
                                 <path d="M15,27h6V24H15ZM4.5,9v3h27V9ZM9,19.5H27v-3H9Z" transform="translate(-4.5 -9)"/>
                             </svg>
                         </button>
-                        <button @click="submitSearch"  class="button-primary btn-sm-lng btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">Go</button>
+                        <button @click="submitSearch"  class="button-primary btn-sm-lng" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">Go</button>
                     </div>
-                    <button @click="fetchNearByEvents" class="button-secondary btn-sm btn-rounded gap-4" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+                    <button @click="fetchNearByEvents" class="button-secondary btn-sm gap-4" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                         <svg xmlns="http://www.w3.org/2000/svg" height="21" viewBox="0 0 21.01 21.013">
                             <path d="M-1980.365,20.138v-3.5c-3.99-.133-5.142-1.285-5.275-5.276h-3.486a.875.875,0,0,1-.875-.875.875.875,0,0,1,.875-.875h3.486c.133-3.987,1.286-5.138,5.275-5.271V.875A.875.875,0,0,1-1979.49,0a.875.875,0,0,1,.875.875V4.345c3.987.133,5.14,1.285,5.273,5.271h3.478a.875.875,0,0,1,.875.875.875.875,0,0,1-.875.875h-3.478c-.133,3.99-1.285,5.142-5.273,5.276v3.5a.875.875,0,0,1-.875.875A.875.875,0,0,1-1980.365,20.138Zm-2.846-13.365c-.473.472-.692,1.654-.692,3.72s.22,3.248.692,3.721,1.654.692,3.72.692,3.247-.22,3.72-.692.692-1.654.692-3.721-.22-3.247-.692-3.72-1.654-.692-3.72-.692S-1982.738,6.3-1983.21,6.773Zm1.1,3.719a2.627,2.627,0,0,1,2.624-2.624,2.628,2.628,0,0,1,2.625,2.624,2.629,2.629,0,0,1-2.625,2.625A2.628,2.628,0,0,1-1982.114,10.492Zm1.75,0a.876.876,0,0,0,.875.875.876.876,0,0,0,.875-.875.876.876,0,0,0-.875-.875A.876.876,0,0,0-1980.365,10.492Z" transform="translate(1990)" fill="#fff"/>
                         </svg>

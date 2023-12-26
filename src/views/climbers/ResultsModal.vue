@@ -69,11 +69,11 @@
                     </div> 
                     <error-display-card v-if="validation.error" :errors="validation.errors"/>
                     <div class="centered gap-8">
-                        <button @click="submitPreBooking" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled' : submiting || computedBookingLimit < 1 }" :disabled="submiting || computedBookingLimit < 1">
+                        <button @click="submitPreBooking" class="button-primary btn-md gap-8" :class="{ 'button-disabled' : submiting || computedBookingLimit < 1 }" :disabled="submiting || computedBookingLimit < 1">
                             <spinner v-if="submiting" :size="20" :color="'#fff'" />
                             <span>{{ submiting ? 'Submitting...' : 'Submit request' }}</span>
                         </button>
-                        <button @click="cancelPreBooking" class="btn-rounded ft-danger btn-md bg-transparent">Cancel</button>
+                        <button @click="cancelPreBooking" class="ft-danger btn-md bg-transparent">Cancel</button>
                     </div>
                 </div>
                 <div v-else class="text-center fs-102rem pd-l-24 pd-r-24">
@@ -84,7 +84,7 @@
                         Climb Onsight is here to ensure a seamless experience for you. If you have any questions, feel free to contact us via the chat or by emailing <a class="a-link ft-secondary" href="mailto:support@climbonsight.ca">support@climbonsight.ca</a>.
                     </p>
                     <p class="flx jc-c mt-32">
-                        <button @click="closeAllModal" class="button-primary btn-md gap-8 btn-rounded">Close</button>
+                        <button @click="closeAllModal" class="button-primary btn-md gap-8">Close</button>
                     </p>
                 </div>
             </div>

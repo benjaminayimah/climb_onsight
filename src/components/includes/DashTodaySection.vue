@@ -45,7 +45,7 @@
             <div class="flx column ai-c text-center gap-8">
                 <div>No upcoming event</div>
                 <span class="gray">Upcoming events will appear here together with their locations</span>
-                <router-link v-if="is_guide" :to="{ name: 'Calendar'}" class="button-primary a-button gap-8 btn-rounded btn-sm-lng">
+                <router-link v-if="is_guide" :to="{ name: 'Calendar'}" class="button-primary a-button gap-8 btn-sm-lng">
                     <svg xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 11.521 11.521">
                         <path d="M19.678,26.263V21.326H14.74V19.68h4.938V14.742h1.646V19.68h4.938v1.646H21.324v4.938Z" transform="translate(-14.74 -14.742)" fill="#fff"/>
                     </svg>

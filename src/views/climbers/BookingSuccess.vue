@@ -16,7 +16,7 @@
                         Thank you for booking this event.
                     </div>
                     <div>
-                        <a href="/" class="button-primary a-button btn-rounded btn-md-lng">Done</a>
+                        <a href="/" class="button-primary a-button btn-md-lng">Done</a>
                     </div>
                 </div>
             </div>

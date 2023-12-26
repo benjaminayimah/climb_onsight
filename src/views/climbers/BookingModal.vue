@@ -110,20 +110,20 @@
                     </div>
                 </div>
                 <div class="flx gap-8 mb-16" :class="{ 'column' : booking.page !== 2}">
-                    <button v-if="booking.page === 1" @click="booking.data.event_type === 'private' ? nextPage(2) : nextPage(3)" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled2' : !form.sign.signature || !form.sign.name || !form.sign.date }" :disabled="!form.sign.signature || !form.sign.name || !form.sign.date ? true : false">
+                    <button v-if="booking.page === 1" @click="booking.data.event_type === 'private' ? nextPage(2) : nextPage(3)" class="button-primary btn-md gap-8" :class="{ 'button-disabled2' : !form.sign.signature || !form.sign.name || !form.sign.date }" :disabled="!form.sign.signature || !form.sign.name || !form.sign.date ? true : false">
                         <span>Continue</span>
                     </button>
-                    <button v-if="booking.page === 2" @click="relist(true)" class="button-primary w-100 btn-md gap-8 btn-rounded">
+                    <button v-if="booking.page === 2" @click="relist(true)" class="button-primary w-100 btn-md gap-8">
                         <span>Yes</span>
                     </button>
-                    <button v-if="booking.page === 2" @click="relist(false)" class="button-neutral w-100  btn-md gap-8 btn-rounded">
+                    <button v-if="booking.page === 2" @click="relist(false)" class="button-neutral w-100  btn-md gap-8">
                         <span>No</span>
                     </button>
-                    <button v-if="booking.page === 3" @click="submitBooking" class="button-primary btn-md gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+                    <button v-if="booking.page === 3" @click="submitBooking" class="button-primary btn-md gap-8" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                         <spinner v-if="submiting" :size="20" :color="'#fff'" />
                         <span>{{ submiting ? 'Initiating payment...' : 'Proceed to payment' }}</span>
                     </button>
-                    <button v-if="booking.page === 1 || booking.page === 3" @click="cancelBooking" class="btn-rounded btn-sm bg-transparent">Cancel</button>
+                    <button v-if="booking.page === 1 || booking.page === 3" @click="cancelBooking" class="btn-sm bg-transparent">Cancel</button>
                 </div>
             </div>
         </div>

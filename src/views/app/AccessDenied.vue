@@ -9,7 +9,7 @@
                 <div>It looks like you cannot access this page</div>
                 <div>Contact your administrator.</div>
             </div>
-            <a class="ai-c a-button button-primary btn-sm btn-rounded" href="#" @click.prevent="$router.go(-1)">
+            <a class="ai-c a-button button-primary btn-sm" href="#" @click.prevent="$router.go(-1)">
                 Go back
             </a>
         </div>

@@ -8,8 +8,8 @@
                 </div>
             </div>
             <div class="flx gap-8">
-                <button @click="$store.commit('preSetTempData', { data: event, modal: 'event_edit'})" v-if="is_guide" class="button-primary btn-sm btn-rounded">Edit event</button>
-                <button @click="$store.commit('setDeleteModal', {id: event.id, type: 'event'})"  class="button-danger btn-sm btn-rounded" v-if="is_guide">Delete</button>
+                <button @click="$store.commit('preSetTempData', { data: event, modal: 'event_edit'})" v-if="is_guide" class="button-primary btn-sm">Edit event</button>
+                <button @click="$store.commit('setDeleteModal', {id: event.id, type: 'event'})"  class="button-danger btn-sm" v-if="is_guide">Delete</button>
             </div>
         </div>
         <div class="gap-24 flx col-row">

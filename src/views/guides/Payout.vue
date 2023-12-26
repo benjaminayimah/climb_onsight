@@ -10,7 +10,7 @@
             </svg>
             <h3>Setup Payout Account</h3>
             <div class="mb-24">In order to accept payment and receive payouts, you will need to setup a stripe connected account. Click the button below to get started.</div>
-            <button @click="setupStripe" class="button-primary btn-md-lng gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+            <button @click="setupStripe" class="button-primary btn-md-lng gap-8" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Please wait...' : 'Get started'}}</span>
             </button>
@@ -28,7 +28,7 @@
                 </span>
             </div>
             <div>
-                <button @click="finishSetupStripe" class="button-primary btn-md-lng gap-8 btn-rounded" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+                <button @click="finishSetupStripe" class="button-primary btn-md-lng gap-8" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                     <spinner v-if="submiting" :size="20" :color="'#fff'" />
                     <span>{{ submiting ? 'Please wait...' : 'Finish setup'}}</span>
                 </button>

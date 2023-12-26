@@ -9,7 +9,7 @@
                 <div class="response-message mb-32" :class="response.status =='success' ? 'success-response' : 'invalid-credentials'">
                     <span>{{ response.message }}</span>
                 </div>
-                <button v-if="response.status =='success'" @click="$router.push({name: 'Home'})" class="button-primary btn-rounded btn-md-lng">Proceed to dashboard</button>
+                <button v-if="response.status =='success'" @click="$router.push({name: 'Home'})" class="button-primary btn-md-lng">Proceed to dashboard</button>
                 <button v-else @click="verifyAccount" class="button-primary w-100 btn-lg">Try again</button>
             </div>
         </div>
