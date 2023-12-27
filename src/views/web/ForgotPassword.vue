@@ -39,7 +39,7 @@
                     </div>
                     <div class="flx column gap-4 ai-c acc-footer">
                         <div class="text-center">
-                            <router-link :to="{ name: 'SignIn'}" class="a-link" href="#">Back to login page</router-link>
+                            <router-link :to="{ name: 'SignIn'}" class="a-link">Back to login page</router-link>
                         </div>
                     </div>
                 </div>
