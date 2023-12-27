@@ -53,7 +53,7 @@
                     <div class="flx column gap-4 ai-c acc-footer">
                         <div class="text-center">
                             <span>Don't have an account? </span>
-                            <router-link :to="{ name: 'SignUp'}" class="a-link" href="#">Sign up</router-link>
+                            <router-link :to="{ name: 'SignUp'}" class="a-link">Sign up</router-link>
                         </div>
                         <div class="flx gap-8">
                             <span>Or</span><router-link :to="{ name: 'ApplyAsGuide' }" class="a-link">Apply as a Guide</router-link>
