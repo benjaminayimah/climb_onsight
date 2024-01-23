@@ -43,18 +43,17 @@
             </div>
         </div> -->
         <user-body :user="guide" />
-        <!-- <send-message-button /> -->
+        <send-message-button :user="guide" />
     </div>
 </template>
 
 <script>
 import UserBody from '@/components/layouts/UserBody.vue'
-// import SendMessageButton from '@/components/includes/SendMessageButton.vue'
+import SendMessageButton from '@/components/includes/SendMessageButton.vue'
 import { mapState, mapGetters } from 'vuex'
 export default {
-    // components: { SendMessageButton },
     name: 'GuideDetails',
-    components: { UserBody },
+    components: { UserBody, SendMessageButton },
     computed: {
         ...mapGetters(['getDevice']),
         ...mapState({

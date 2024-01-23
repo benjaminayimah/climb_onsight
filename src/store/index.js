@@ -41,7 +41,11 @@ export default createStore({
     payment_options: [],
     admins: [],
     notifications: [],
-    messages: []
+    messages: [],
+    messageTab: 'recent',
+    contactOnly: false,
+    chatUserDetails: false,
+    loadingChats: false
   },
   mutations: {
     computeWindow(state) {
@@ -81,6 +85,7 @@ export default createStore({
       state.payouts = payload.payouts
       state.balance = payload.balance
       state.account = payload.account
+      state.messages = payload.messages
       payload.account ? state.payment_options = payload.account.external_accounts.data : ''
       this.commit('setEventResults', { guides: payload.guides, events: payload.events })
     },
@@ -154,7 +159,6 @@ export default createStore({
     },
     deleteBooking(state, payload) {
       state.bookings = state.bookings.filter(data => data.id !== payload.id)
- 
     },
     addToEvent(state, payload) {
       state.events.push(payload)
@@ -183,6 +187,29 @@ export default createStore({
     stopPageLoader(state) {
       state.pageLoader = false
     },
+    setMessageTab(state, payload) {
+      state.messageTab = payload
+      if(payload !== 'recent') {
+          state.contactOnly = true
+      }else {
+          state.contactOnly = false
+      }
+    },
+    setMessages(state, payload) {
+      state.messages = payload
+    },
+    updateMessages(state, payload) {
+      if (state.messages.length) {
+        const i = state.messages.findIndex(x => x.message.id == payload.id)
+        state.messages[i].message = payload
+      }
+    },
+    toggleChatUserDetails(state) {
+      state.chatUserDetails = !state.chatUserDetails
+    },
+    closeChatUserDetails(state) {
+      state.chatUserDetails = false
+    },
     //alerts
     showAlert(state, payload) {
       this.commit('dismisAlert')
@@ -202,6 +229,12 @@ export default createStore({
       for (let i in state.alert.status)
       state.alert.status[i] = false
       state.alert.body = ''
+    },
+    startLoadingChats(state) {
+      state.loadingChats = true
+    },
+    stopLoadingChats(state) {
+      state.loadingChats = false
     },
     // modals
     async openModal(state, payload) {

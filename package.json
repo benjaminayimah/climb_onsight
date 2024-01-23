@@ -12,6 +12,7 @@
     "chart.js": "^4.4.0",
     "core-js": "^3.8.3",
     "moment": "^2.29.4",
+    "pusher-js": "^8.4.0-rc2",
     "vue": "^3.2.13",
     "vue-cal": "^4.8.1",
     "vue-chartjs": "^5.2.0",

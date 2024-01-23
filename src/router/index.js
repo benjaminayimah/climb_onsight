@@ -26,6 +26,7 @@ import MyEvents from '../views/climbers/MyEvents.vue'
 import ExploreEvents from '../views/climbers/ExploreEvents.vue'
 
 import Chats from '../views/app/ChatsView.vue'
+import ChatDetails from '../views/app/ChatDetails.vue'
 import Calendar from '../views/guides/Calendar.vue'
 import Payout from '../views/guides/Payout.vue'
 import Guides from '../views/app/GuidesView.vue'
@@ -177,7 +178,11 @@ const routes = [
       { path: '/', component: Home, name: 'Home' },
       { path: '/my-events', component: MyEvents, name: 'MyEvents', beforeEnter: climbersGuard},
       { path: '/explore-events', component: ExploreEvents, name: 'ExploreEvents', beforeEnter: climbersGuard},
-      { path: '/chats', component: Chats, name: 'Chats'},
+      { path: '/chats', component: Chats,
+        children: [
+          { path: '/chats/:recipient_id/:recipient_name', name: 'ChatDetails', component: ChatDetails },
+        ]
+      },
       { path: '/calendar', component: Calendar, name: 'Calendar', beforeEnter: guidesGuard},
       { path: '/payout', component: Payout, name: 'Payout', beforeEnter: guidesGuard},
       { path: '/guides', component: Guides, name: 'Guides', beforeEnter: superGuard},

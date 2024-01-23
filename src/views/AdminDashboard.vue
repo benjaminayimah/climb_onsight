@@ -7,6 +7,8 @@
     </main>
 </template>
 <script>
+// import Pusher from 'pusher-js';
+
 import { mapState, mapGetters } from 'vuex';
 import MainMenu from '@/components/includes/MainMenu.vue';
 import TopNavBar from '@/components/includes/TopNavBar.vue';
@@ -22,6 +24,24 @@ export default {
             notification_count: (state) => state.notifications.length
         }),
         ...mapGetters(['getDevice'])
+    },
+    mounted() {
+        // Pusher.logToConsole = true;
+        // const pusher = new Pusher('1945afb0db773039f050', {
+        //     cluster: 'mt1',
+        //     encrypted: true,
+        // });
+       
+        // const channel = pusher.subscribe('chat-message')
+        // channel.bind('NewChatMessage', data => {
+        //     console.log('Received new chat message:', data)
+        //     console.log('me')
+        // })
+
+        // setTimeout(()=> {
+        //     console.log('Pusher connection status:', pusher.connection.state);
+        //     console.log('Channel subscription status:', channel.subscribed);
+        // }, 6000)
     }
     
 }

@@ -76,6 +76,9 @@
 .ft-warning {
     color: var(--warning);
 }
+.ft-gray {
+    color: var(--gray);
+}
 .ft-vuecal {
     color: var(--vuecal-blue);
 }
@@ -856,6 +859,9 @@ h1, h2, h3, h4, h5 {
 .fs-09 {
     font-size: 0.9rem;
 }
+.fs-07 {
+    font-size: 0.7rem;
+}
 .fs-1rem {
     font-size: 1rem;
 }
@@ -1002,7 +1008,7 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-input {
     border: 1px solid transparent;
     background-color: #fff;
 }
-.form-control:not(.search), .form-control2, .div-input {
+.form-control:not(.search, .chat-input), .form-control2, .div-input {
     &:hover {
         border: 1px solid rgba(0, 0, 0, 0.4);
     }

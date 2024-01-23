@@ -1,21 +1,36 @@
 <template>
     <h3 class="title flx jc-sb ai-c">
         <div>New Messages({{ messages.length }})</div>
-        <a href="#" class="fs-1rem a-link">See all</a>
+        <router-link  to="/chats" class="fs-1rem a-link">See all</router-link>
     </h3>
     <div v-if="messages.length" class="grid grid-col-2 bg-white br-16">
-        <a v-for="message in messages.slice(0, 4)" :key="message.id" href="" class="flx jc-sb msg-list gap-4">
+        <router-link :to="{ name: 'ChatDetails', params: { recipient_id: message.id, recipient_name: message.name}, replace: true}"  v-for="message in computedMessages.slice(0, 4)" :key="message.id" class="flx jc-sb msg-list gap-4">
             <div class="flx gap-8">
                 <div class="bg-img br-50"></div>
+                <profile-avatar :avatar="message.profile_picture" :color="message.color" :name="message.name"/>
                 <div>
-                    <div class="name">Andrey Finn</div>
-                    <div class="wrap-text wrap-line-1 gray fs-09">Hello, Good day i would love to make an enquiry as regards your timing</div>
+                    <div class="name">{{ message.name }}</div>
+                    <div class="wrap-text wrap-line-1 gray fs-09">{{ message.preview }}</div>
                 </div>
             </div>
             <div>
-                <span class="count br-50 flx jc-c ai-c fs-09">3</span>
+                <span class="count br-50 flx jc-c ai-c fs-09" v-if="message.unread > 0">{{ message.unread }}</span>
             </div>
-        </a>
+        </router-link>
+
+        <!-- <router-link :to="{ name: 'ChatDetails', params: { recipient_id: user.id, recipient_name: user.name}, replace: true}" class="flx gap-8 br-16">
+            <profile-avatar :avatar="null" :color="user.color" :name="user.name"/>
+            <div class="flx flx-1" :class="{'column' : !contactOnly}">
+                <div class="flx jc-sb ai-c">
+                    <div class="wrap-text wrap-line-1 fw-600 fs-09 capitalize">{{ user.name }}</div>
+                    <span v-if="!contactOnly" class="gray fs-08 wrap-text wrap-line-1">{{ ago_time(user.time) }}</span>
+                </div>
+                <div v-if="!contactOnly" class="flx jc-sb">
+                    <span class="fs-09 wrap-text wrap-line-1 gray highlight">{{ user.preview }}</span>
+                    <span class="count flx-shrink-0 br-50 centered fs-08" v-if="user.unread > 0">{{ user.unread }}</span>
+                </div>
+            </div>
+        </router-link> -->
     </div>
     <div v-else class="bg-white flx-1 br-16 centered pd-16">
         <div class="text-center">
@@ -26,12 +41,27 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import ProfileAvatar from './ProfileAvatar.vue';
 export default {
+  components: { ProfileAvatar },
     name: 'DashMessageCard',
     computed: {
         ...mapState({
             messages: (state) => state.messages
-        })
+        }),
+        computedMessages() {
+            return this.messages.map(element => {
+                return {
+                    id: element.sender.id,
+                    name: element.sender.name,
+                    profile_picture: element.sender.profile_picture,
+                    preview: element.message.preview,
+                    color: element.sender.color,
+                    time: element.message.updated_at,
+                    unread: element.unread
+                };
+            });
+        }
     }
 }
 </script>
@@ -48,7 +78,7 @@ export default {
         }
     }
 }
-.bg-img {
+img {
     height: 40px;
     width: 40px;
 }

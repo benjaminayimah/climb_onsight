@@ -7,19 +7,18 @@
         <img class="br-16 profile-img" :class="{'custom-color' : !climber.profile_picture}" :src="climber.profile_picture ? s3bucket+'/'+climber.profile_picture : default_avatar" :alt="climber.name">
         <h3>{{ climber.name }}</h3>
         <user-body :user="climber" />
-        <!-- <send-message-button /> -->
+        <send-message-button :user="climber" />
     </div>
 </template>
 
 <script>
 import formatDateTime from '@/mixins/formatDateTime'
-// import SendMessageButton from '@/components/includes/SendMessageButton.vue'
+import SendMessageButton from '@/components/includes/SendMessageButton.vue'
 import { mapState, mapGetters } from 'vuex'
 import UserBody from '@/components/layouts/UserBody.vue'
 export default {
     name: 'ClimberDetails',
-    components: { UserBody },
-    // components: { SendMessageButton },
+    components: { UserBody, SendMessageButton },
     mixins: [formatDateTime],
     computed: {
         ...mapGetters(['getDevice']),
