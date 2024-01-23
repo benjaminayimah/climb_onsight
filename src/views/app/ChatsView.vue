@@ -97,6 +97,9 @@ export default {
         toggleDisplay(tab) {
             this.$store.commit('setMessageTab', tab)
         }
+    },
+    mounted() {
+        this.$store.commit('closeModal')
     }
 
 }

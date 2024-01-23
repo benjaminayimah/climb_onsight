@@ -10,8 +10,9 @@
     </teleport>
     <teleport to="#modal_content">
         <div class="modal-width flx column gap-16 main-details-wrapper">
-            <div class="flx jc-c">
+            <div class="flx jc-c column ai-c">
                 <img class="br-50 profile-img" :class="{'custom-color' : !user.profile_picture}" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
+                <send-message-button :user="user" />
             </div>
             <user-body :user="user" />
         </div>
@@ -44,9 +45,10 @@ import BookingStatus from '@/components/includes/BookingStatus.vue'
 import Spinner from '@/components/includes/Spinner.vue'
 import alertMixin from '@/mixins/alertMixin';
 import inputValidation from '@/mixins/inputValidation';
+import SendMessageButton from '@/components/includes/SendMessageButton.vue'
 export default {
     name: 'UserModal',
-    components: { UserBody, BookingStatus, Spinner },
+    components: { UserBody, BookingStatus, Spinner, SendMessageButton },
     mixins: [userRolesMixin, inputValidation, alertMixin],
     computed: {
         ...mapState({
