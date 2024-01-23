@@ -12,7 +12,7 @@
         <div class="modal-width flx column gap-16 main-details-wrapper">
             <div class="flx jc-c column ai-c">
                 <img class="br-50 profile-img" :class="{'custom-color' : !user.profile_picture}" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
-                <send-message-button :user="user" />
+                <send-message-button :user="{ id: user.user_id, name: user.name}" />
             </div>
             <user-body :user="user" />
         </div>
