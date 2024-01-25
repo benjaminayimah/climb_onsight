@@ -42,4 +42,7 @@ a {
         border: 1px solid rgba(0, 0, 0, 0.5);
     }
 }
+.flx-1 {
+    width: calc(100% - 70px);
+}
 </style>
