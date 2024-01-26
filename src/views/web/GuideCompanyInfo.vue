@@ -76,12 +76,15 @@ export default {
     methods: {
         async updateNewGuide() {
             let errors = {}
-            if(this.form.name == '' || this.form.email == '' || this.form.phone_number == '' || this.form.country == '') {
+            if(this.form.name == '' || this.form.email == '' || !this.validateEmail(this.form.email) || this.form.phone_number == '' || this.form.country == '') {
                 if(this.form.name == '') {
                     errors.name = ['The name field is required']
                 }
                 if(this.form.email == '') {
                     errors.email = ['The email field is required']
+                }
+                else if (!this.validateEmail(this.form.email)) {
+                    errors.email = ['Please provide a valid email']
                 }
                 if(this.form.phone_number == '') {
                     errors.phone_number = ['The phone number field is required']
@@ -94,12 +97,15 @@ export default {
                 this.$router.push({ name: 'GuideDocuments' })
             }
         },
+        validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email)
+        },
         presetForm() {
             this.newGUide && this.newGUide.name ? this.form.name = this.newGUide.name : ''
             this.newGUide && this.newGUide.email ? this.form.email = this.newGUide.email : ''
             this.newGUide && this.newGUide.phone_number ? this.form.phone_number = this.newGUide.phone_number : ''
             this.newGUide && this.newGUide.country ? this.form.country = this.newGUide.country : ''
-
         }
     },
     mounted() {
