@@ -116,7 +116,7 @@ export default {
             }
             if((this.form.price == '' && this.form.event_type === 'public') || (this.form.event_type === 'private' && (!this.validatePriceRange() || this.form.attendance_limit != this.form.price_range.length)) ) {
                 if(this.form.price == '') {
-                    errors.price = ['The Price field is required.']
+                    errors.price = ['The price field is required.']
                 }if (!this.validatePriceRange() || this.form.attendance_limit != this.form.price_range.length) {
                     errors.price = ['Please specify the price for all persons.']
                 }

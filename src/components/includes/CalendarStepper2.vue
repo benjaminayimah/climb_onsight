@@ -100,7 +100,7 @@ export default {
             let errors = {}
             if(this.form.category == '' || this.form.address == '' || this.form.gallery.length < 1 || (this.form.category.toLowerCase() === 'other' && this.otherCategory == '')) {
                 if(this.form.category == '' || (this.form.category.toLowerCase() === 'other' && this.otherCategory == '')) {
-                    errors.category = ['The Category field is required.']
+                    errors.category = ['The category field is required.']
                 }
                 if(this.form.address == '') {
                     errors.address = ['Type and then select the location from the dropdown.']

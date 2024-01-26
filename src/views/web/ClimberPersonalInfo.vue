@@ -80,7 +80,7 @@ export default {
             let errors = {}
             if(this.form.dob == '' || this.form.gender == '') {
                 if(this.form.dob == '') {
-                    errors.dob = ['The Date of Birth field is required']
+                    errors.dob = ['The date of birth field is required']
                 }
                 if(this.form.gender == '') {
                     errors.gender = ['The gender field is required']

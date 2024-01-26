@@ -76,11 +76,11 @@ export default {
             let errors = {}
             if(!this.validateRefereeName() || !this.validateRefereeEmail() || !this.validateRefereePhone()) {
                 if(!this.validateRefereeName()) {
-                    errors.name = ['The Name field is required.']
+                    errors.name = ['The name field is required.']
                 }if(!this.validateRefereeEmail()) {
-                    errors.email = ['The Email field is required.']
+                    errors.email = ['The email field is required.']
                 }if(!this.validateRefereePhone()) {
-                    errors.phone = ['The Phone field is required.']
+                    errors.phone = ['The phone number field is required.']
                 }
                 this.showErr(errors)
             }else {

@@ -19,7 +19,7 @@
             </span>
         </div>
         <div class="form-row column">
-            <label :for="'phone'+index">Phone</label>
+            <label :for="'phone'+index">Phone number</label>
             <div class="input-wrapper">
                 <input @input="formData" v-model="thisForm.phone" type="tel" :name="'phone'+index" :id="'phone'+index" class="form-control" placeholder="Phone number" :class="{ 'error-border': validation.errors.phone }">
             </div>

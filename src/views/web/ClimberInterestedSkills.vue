@@ -57,7 +57,7 @@ export default {
             this.validation.error ? this.clearErrs() : ''
             let errors = {}
             if(this.form.new_skills == '') {
-                errors.new_skills = ['The New skill field is required']
+                errors.new_skills = ['The new skill field is required']
                 this.showErr(errors)
             }else {
                 this.startSpinner()
