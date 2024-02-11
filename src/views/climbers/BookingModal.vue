@@ -53,7 +53,7 @@
                     <div v-else class="mt-16 mb-16">
                         <div class="terms-banner br-16 centered pd-24">
                             <div class="text-center">
-                                <h4>Guide's Waiver</h4>
+                                <h4>Guide Waiver</h4>
                                 <div class="fs-09">
                                     Please sign and accept the waiver below to continue the process. If you have any questions please contact your Guide.<br />
                                     <li>
