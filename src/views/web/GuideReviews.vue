@@ -15,6 +15,7 @@
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
                 </button>
+                <router-link :to="{ name: 'GuideDocuments'}" class="w-100 a-button">Back</router-link>
             </div>
         </form>
     </div>

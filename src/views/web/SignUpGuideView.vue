@@ -89,4 +89,9 @@ export default {
     padding-top: 60px;
     padding-bottom: 60px;
 }
+.active {
+    span {
+        font-weight: 700;
+    }
+}
 </style>

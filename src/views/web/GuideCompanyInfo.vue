@@ -45,6 +45,7 @@
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
                 </button>
+                <router-link :to="{ name: 'SignIn'}" class="w-100 a-button">Cancel</router-link>
             </div>
         </form>
     </div>

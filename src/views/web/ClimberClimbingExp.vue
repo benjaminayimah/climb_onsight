@@ -14,7 +14,7 @@
             </ul>
             <div class="flx jc-sb ai-c mb-8">
                 <div class="label">Add more</div>
-                <span class="gray fs-08">Separated by a comma</span>
+                <span class="gray fs-08">Separate by a comma</span>
             </div>
             <div class="input-wrapper">
                 <input v-model="form.type_yours" type="text" name="skills" id="skills" placeholder="Add more" class="form-control">
@@ -24,6 +24,7 @@
         <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c">
             <span>Continue</span>
         </button>
+        <router-link :to="{ name: 'ClimberPersonalInfo'}" class="w-100 a-button">Back</router-link>
     </div>
 </template>
 

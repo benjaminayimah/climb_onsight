@@ -83,5 +83,10 @@ export default {
 li::after{
     top: 38% !important;
 }
+.active {
+    span {
+        font-weight: 700;
+    }
+}
 
 </style>

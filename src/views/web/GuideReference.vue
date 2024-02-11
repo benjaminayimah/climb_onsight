@@ -31,6 +31,7 @@
                     <spinner v-if="submiting" :size="20" :color="'#fff'"/>
                     <span>{{ submiting ? 'Submitting...' : 'Finish up'}}</span>
                 </button>
+                <router-link :to="{ name: 'GuideExperience'}" class="w-100 a-button">Back</router-link>
             </div>
         </form>
     </div>

@@ -13,6 +13,7 @@
                 <spinner v-if="submiting" :size="20" :color="'#fff'" />
                 <span>{{ submiting ? 'Please wait...' : 'Finish'}}</span>
             </button>
+            <router-link :to="{ name: 'ClimberFunFacts'}" class="w-100 a-button mt-16">Back</router-link>
         </div>
     </div>
     <div v-else class="flx ai-c w-100 column gap-16">
