@@ -58,6 +58,16 @@ export default {
         },
         stopSpinner() {
             this.submiting = false
-        }
+        },
+        // validateYear(validateYear) {
+        //     let dateInput = document.getElementById(validateYear).value;
+        //     let year = (new Date(dateInput)).getFullYear();
+        //     if (year <= 9999) {
+        //         console.log("Valid year input: " + year);
+        //     } else {
+        //         console.log("Invalid year input. Please enter a four-digit year.");
+        //         // You can choose to alert the user or perform other actions here
+        //     }
+        // }
     },
 }
