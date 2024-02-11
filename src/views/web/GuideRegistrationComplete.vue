@@ -14,7 +14,7 @@
                     Thank you for your submission. We will review your documents and reach out to you shortly through email to set up a phone call.
                 </p>
                 <p>
-                    After the phone call we will let you know if we accept your application, once approved you would be sent out a link to fill out your own profile and lkist climbing lists on our platform.
+                    After the phone call we will let you know if we accept your application. If approved, we will send you a link to fill out your own profile and add events.
                 </p>
                 <p>
                     If you have any questions in the meantime, please contact us at:
