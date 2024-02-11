@@ -17,7 +17,7 @@
                                 <path d="M15,27h6V24H15ZM4.5,9v3h27V9ZM9,19.5H27v-3H9Z" transform="translate(-4.5 -9)"/>
                             </svg>
                         </button>
-                        <button @click="submitSearch"  class="button-primary btn-sm-lng" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">Go</button>
+                        <button @click="submitSearch"  class="button-primary btn-sm-lng" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">Let's Go</button>
                     </div>
                     <button @click="fetchNearByEvents" class="button-secondary btn-sm gap-4" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                         <svg xmlns="http://www.w3.org/2000/svg" height="21" viewBox="0 0 21.01 21.013">
