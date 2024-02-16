@@ -24,7 +24,7 @@
                 <div class="form-row column">
                     <label for="phone">Phone</label>
                     <div class="input-wrapper">
-                        <input @input="formatPhoneNumber" v-model="form.phone_number" :class="{ 'error-border': validation.errors.phone_number }" type="tel" name="phone" id="phone" class="form-control" placeholder="Company Phone">
+                        <input @input="formatPhoneNumber" v-model="form.phone_number" :class="{ 'error-border': validation.errors.phone_number }" type="tel" name="phone" id="phone" class="form-control" placeholder="+1 (123) 456 7890">
                     </div>
                     <span class="input-error" v-if="validation.error && validation.errors.phone_number">
                         {{ validation.errors.phone_number[0] }}

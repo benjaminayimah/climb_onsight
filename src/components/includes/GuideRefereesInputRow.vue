@@ -21,7 +21,7 @@
         <div class="form-row column">
             <label :for="'phone'+index">Phone number</label>
             <div class="input-wrapper">
-                <input @input="formData" v-model="thisForm.phone" type="tel" :name="'phone'+index" :id="'phone'+index" class="form-control" placeholder="Phone number" :class="{ 'error-border': validation.errors.phone }">
+                <input @input="formData" v-model="thisForm.phone" type="tel" :name="'phone'+index" :id="'phone'+index" class="form-control" placeholder="+1 (123) 456 7890" :class="{ 'error-border': validation.errors.phone }">
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.phone">
                 {{ validation.errors.phone[0] }}
