@@ -47,7 +47,7 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <span class="country-code absolute gray">+1</span>
+                                    <span class="country-code absolute">+1</span>
                                     <input v-model="form.phone_number" @input="formatPhoneNumber" class="form-control" :class="{ 'error-border': validation.errors.phone_number }" type="tel" name="phone" id="phone" placeholder="123 456 7890">
                                 </div>
                                 <span class="input-error" v-if="validation.error && validation.errors.phone_number">
