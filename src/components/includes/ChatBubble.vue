@@ -63,6 +63,7 @@ export default {
     max-width: 65%;
     color: var(--white);
     margin-bottom: 4px;
+    overflow: hidden;
 }
 .guest{
     border-bottom-left-radius: 0;
