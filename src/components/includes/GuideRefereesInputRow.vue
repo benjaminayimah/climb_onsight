@@ -1,9 +1,9 @@
 <template>
     <div class="flx column gap-16 ref-column">
         <div class="form-row column">
-            <label :for="'referenceName'+index">Referee's name</label>
+            <label :for="'referenceName'+index">Name</label>
             <div class="input-wrapper">
-                <input @input="formData" v-model="thisForm.name" type="text" :name="'referenceName'+index" :id="'referenceName'+index" class="form-control" :class="{ 'error-border': validation.errors.name }" placeholder="Referees name">
+                <input @input="formData" v-model="thisForm.name" type="text" :name="'referenceName'+index" :id="'referenceName'+index" class="form-control" :class="{ 'error-border': validation.errors.name }" placeholder="Name">
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.name">
                 {{ validation.errors.name[0] }}

@@ -1,6 +1,6 @@
 <template>
     <div class="stepper-wrapper w-100 flx column gap-32">
-        <div class="stepper-title">Please list yours or your companies experience</div>
+        <div class="stepper-title">Please list all your experiences in the following</div>
         <form id="guide_exp_form" @submit.prevent="">
             <div class="form-wrapper flx column gap-24">
                 <ul class="flx gap-8 flx-wrap">

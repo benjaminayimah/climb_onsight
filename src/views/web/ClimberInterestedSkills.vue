@@ -2,7 +2,9 @@
     <div v-if="!signedUp" class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">New skills</div>
         <div>
-            <div class="mb-8">Add new skills you would like to learn. Separate items by a comma(",")</div>
+            <div class="mb-8">
+                Add any new skills you would like to learn. Separate items with a comma ","
+            </div>
             <div class="input-wrapper mb-16">
                 <textarea v-model="form.new_skills" class="w-100 form-control" name="newskill" rows="4" placeholder="Type here..." :class="{ 'error-border': validation.errors.new_skills }"></textarea>
                 <span class="input-error" v-if="validation.error && validation.errors.new_skills">
