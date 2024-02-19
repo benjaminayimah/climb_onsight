@@ -35,13 +35,26 @@
                             </div>
                             <div class="form-row column">
                                 <label for="phone">Phone number</label>
-                                <div class="input-wrapper">
-                                    <input v-model="form.phone_number" @input="formatPhoneNumber" class="form-control" :class="{ 'error-border': validation.errors.phone_number }" type="tel" name="phone" id="phone" placeholder="+1 (123) 456 7890">
+                                <div class="input-wrapper flx gap-8 ai-c">
+                                    <div class="div-input">
+                                        <div class="flx ai-c gap-4">
+                                            <div class="flag">
+                                                <img class="br-50" :src="require('@/assets/images/canada.png')" alt="canada"/>
+                                            </div>
+                                            <span>CA</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="13.529" height="8.144" viewBox="0 0 13.529 8.144">
+                                                <path id="icon-chevron-down" d="M50.372,23.642h-.01a1,1,0,0,1-.726-.323l-5.644-6.144a1,1,0,1,1,1.473-1.353l4.923,5.359,5.147-5.374a1,1,0,0,1,1.444,1.383l-5.885,6.144A1,1,0,0,1,50.372,23.642Z" transform="translate(-43.729 -15.498)" fill="#666"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <span class="country-code absolute gray">+1</span>
+                                    <input v-model="form.phone_number" @input="formatPhoneNumber" class="form-control" :class="{ 'error-border': validation.errors.phone_number }" type="tel" name="phone" id="phone" placeholder="123 456 7890">
                                 </div>
                                 <span class="input-error" v-if="validation.error && validation.errors.phone_number">
                                     {{ validation.errors.phone_number[0] }}
                                 </span>
                             </div>
+                            
                             <div class="form-row column">
                                 <label for="password">Password</label>
                                 <div class="input-wrapper">
@@ -131,6 +144,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.input-wrapper .div-input{
+    width: auto;
+    padding: 16px 16px;
+}
 
 </style>
