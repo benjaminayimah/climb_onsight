@@ -10,6 +10,11 @@
                 </div>
                 <span class="fs-08">View profile</span>
             </div>
+            <div v-if="user.role === 'guide' && !user.is_approved" class="flx guide-status gap-4 ai-c br-16">
+                <svg xmlns="http://www.w3.org/2000/svg" height="13" viewBox="0 0 16.195 16.195">
+                    <path d="M10.668,3.4l6.786,13.525H3.882L10.668,3.4Zm0-1.467a1.171,1.171,0,0,0-.963.706L2.793,16.411c-.53.942-.079,1.712,1,1.712H17.542c1.08,0,1.531-.77,1-1.712h0L11.631,2.634A1.17,1.17,0,0,0,10.668,1.928ZM11.68,15.086a1.012,1.012,0,1,1-1.012-1.012A1.012,1.012,0,0,1,11.68,15.086Zm-1.012-2.024A1.012,1.012,0,0,1,9.656,12.05V9.013a1.012,1.012,0,1,1,2.024,0V12.05A1.012,1.012,0,0,1,10.668,13.062Z" transform="translate(-2.571 -1.928)" fill="#ff3b3b"/>
+                </svg>
+            </div>
             <!-- <div v-if="redirect">
                 <button @click.prevent="handleChat" class="br-50 bg-black centered send-msg-button__icon">
                     <svg xmlns="http://www.w3.org/2000/svg" height="11.389" viewBox="0 0 12.324 11.389">
@@ -80,5 +85,10 @@ span {
 }
 img.custom-color {
     background-color: v-bind(computedColor);
+}
+.guide-status {
+    background-color: #fff;
+    padding-top: 4px;
+    padding-bottom: 5px;
 }
 </style>
