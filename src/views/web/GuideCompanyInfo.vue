@@ -82,7 +82,7 @@ export default {
                 name: '',
                 email: '',
                 phone_number: '',
-                country: ''
+                country: 'CA'
             }
         }
     },
