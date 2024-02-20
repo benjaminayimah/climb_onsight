@@ -6,11 +6,23 @@
                 <ul class="flx gap-8 flx-wrap">
                     <category-list v-for="category in computedCateries" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#F1F1F1'"/>
                 </ul>
+                <div v-if="form.category.toLowerCase() === 'other'" class="form-row column">
+                    <label for="other_category">Description</label>
+                    <div class="input-wrapper">
+                        <input v-model="otherCategory" type="text" maxlength="18" class="form-control" name="other_category" id="other_category" placeholder="Other experience" :class="{'error-border': validation.errors.category }">
+                    </div>
+                    <span class="input-error" v-if="validation.error && validation.errors.category">
+                        {{ validation.errors.category[0] }}
+                    </span>
+                </div>
                 <div v-if="form.category" class="form-row column">
                     <label for="years">Years of expirience</label>
                     <div class="input-wrapper">
-                        <input v-model="form.input" @input="enterCategoryValue(form.category, form.input)" type="number" min="0" name="years" id="years" class="form-control" :placeholder="'Number of years of experience in '+ form.category">
+                        <input v-model="form.input" @input="enterCategoryValue(form.category, form.input)" type="number" min="0" name="years" id="years" class="form-control" :placeholder="'Number of years of experience in '+ form.category" :class="{'error-border': validation.errors.experience_level }">
                     </div>
+                    <span class="input-error" v-if="validation.error && validation.errors.experience_level">
+                        {{ validation.errors.experience_level[0] }}
+                    </span>
                 </div>
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
@@ -23,10 +35,12 @@
 
 <script>
 import CategoryList from '@/components/includes/CategoryList.vue'
+import inputValidationMixin from '@/mixins/inputValidation'
 import { mapState } from 'vuex'
 export default {
     components: { CategoryList },
     name: 'GuideExperience',
+    mixins: [inputValidationMixin],
     computed: {
         ...mapState({
             categories: (state) => state.data.categories,
@@ -42,6 +56,7 @@ export default {
                 category: '',
                 input: ''
             },
+            otherCategory: ''
         }
     },
     methods: {
@@ -57,15 +72,37 @@ export default {
                 }
                 this.form.category = category.name
             }
+            if(category.name.toLowerCase() === 'other') {
+                this.otherCategory = category.alias
+            }
         },
         enterCategoryValue(category, input) {
-            let payload = { name: category, value: input}
+            let payload = { name: category, alias: this.otherCategory, value: input}
             this.$store.commit('updateCategoryValue', payload)
         },
         async updateNewGuide() {
-            await this.$store.commit('updateGuideExperience', this.categories)
-            this.$router.push({ name: 'GuideReference' })
-        },
+            this.validation.error ? this.clearErrs() : ''
+            let errors = {}
+            if(this.form.category.toLowerCase() === 'other' && (this.form.input && this.otherCategory == '' || this.otherCategory && this.form.input == '')) {
+                if(this.form.input && this.otherCategory == '') {
+                    errors.category = ['This field is required.']
+                }
+                if(this.otherCategory && this.form.input == '') {
+                    errors.experience_level = ['Enter number of years of expirience']
+                }
+                this.showErr(errors)
+            }else {
+                if (this.form.category.toLowerCase() === 'other') {
+                    let input = this.otherCategory
+                    if (input.length > 18) {
+                        input = input.slice(0, 18);
+                    }
+                    this.form.category = input
+                }
+                await this.$store.commit('updateGuideExperience', this.categories)
+                this.$router.push({ name: 'GuideReference' })
+            }
+        }
     }
 }
 </script>

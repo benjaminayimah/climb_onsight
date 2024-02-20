@@ -191,9 +191,8 @@
             <div v-if="guest && user.guide_experience">
                 <div class="gray">Experiences</div>
                 <div v-for="experience in JSON.parse(user.guide_experience)" :key="experience.id">
-                    <div v-if="experience.value > 0">
-                        <span>{{ experience.value }} years experience</span> in {{ experience.name }}
-                    </div>
+                    <div v-if="experience.value > 0 && experience.name.toLowerCase() !== 'other'"><span>{{ experience.value }} years experience</span> in {{ experience.name }}</div>
+                    <div v-else-if="experience.name.toLowerCase() === 'other'"><span>{{ experience.value }} years experience</span> in {{ experience.alias }}</div>
                 </div>
             </div>
         </div>

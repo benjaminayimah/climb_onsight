@@ -2,7 +2,7 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Climbing Experiences</div>
         <div>
-            <div class="mb-8">Select your proficiency with the following activities</div>
+            <div class="mb-8">Rate your proficiency in the following activities</div>
             <ul class="list br-16">
                 <sign-up-activities-list v-for="activity in form.activities" :key="activity.id" :activity="activity" @change-val="changeVal" />
             </ul>
@@ -14,7 +14,7 @@
             </ul>
             <div class="flx jc-sb ai-c mb-8">
                 <div class="label">Add more</div>
-                <span class="gray fs-08">Separate by a comma</span>
+                <span class="gray fs-08">Seperated with a comma</span>
             </div>
             <div class="input-wrapper">
                 <input v-model="form.type_yours" type="text" name="skills" id="skills" placeholder="Add more" class="form-control">

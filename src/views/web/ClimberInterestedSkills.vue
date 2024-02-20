@@ -6,10 +6,7 @@
                 Add any new skills you would like to learn. Separate items with a comma ","
             </div>
             <div class="input-wrapper mb-16">
-                <textarea v-model="form.new_skills" class="w-100 form-control" name="newskill" rows="4" placeholder="Type here..." :class="{ 'error-border': validation.errors.new_skills }"></textarea>
-                <span class="input-error" v-if="validation.error && validation.errors.new_skills">
-                    {{ validation.errors.new_skills[0] }}
-                </span>
+                <textarea v-model="form.new_skills" class="w-100 form-control" name="newskill" rows="4" placeholder="Type here..."></textarea>
             </div>
             <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                 <spinner v-if="submiting" :size="20" :color="'#fff'" />
@@ -57,16 +54,17 @@ export default {
     },
     methods: {
         async updateNewUser() {
-            this.validation.error ? this.clearErrs() : ''
-            let errors = {}
-            if(this.form.new_skills == '') {
-                errors.new_skills = ['The new skill field is required']
-                this.showErr(errors)
-            }else {
-                this.startSpinner()
-                await this.$store.commit('updateNewSkills', this.form)
-                this.submitUpdates()
-            }
+            // this.validation.error ? this.clearErrs() : ''
+            // let errors = {}
+            // if(this.form.new_skills == '') {
+            //     errors.new_skills = ['The new skill field is required']
+            //     this.showErr(errors)
+            // }else {
+                
+            // }
+            this.startSpinner()
+            await this.$store.commit('updateNewSkills', this.form)
+            this.submitUpdates()
         },
         submitUpdates() {
             const form = this.newUser

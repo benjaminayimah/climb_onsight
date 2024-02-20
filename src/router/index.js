@@ -110,15 +110,15 @@ const climberSignUpStepper3 = (to, from, next) => {
     });
   }
 };
-const climberSignUpStepper4 = (to, from, next) => {
-  if (store.getters.climber_step3_isSet) {
-    next();
-  } else {
-    next({
-      name: 'ClimberFunFacts'
-    });
-  }
-};
+// const climberSignUpStepper4 = (to, from, next) => {
+//   if (store.getters.climber_step3_isSet) {
+//     next();
+//   } else {
+//     next({
+//       name: 'ClimberFunFacts'
+//     });
+//   }
+// };
 
 //guide signup guards
 
@@ -140,15 +140,15 @@ const guideSignUpStepper3 = (to, from, next) => {
     });
   }
 };
-const guideSignUpStepper4 = (to, from, next) => {
-  if (store.getters.guide_step3_isSet) {
-    next();
-  } else {
-    next({
-      name: 'GuideReviews'
-    });
-  }
-};
+// const guideSignUpStepper4 = (to, from, next) => {
+//   if (store.getters.guide_step3_isSet) {
+//     next();
+//   } else {
+//     next({
+//       name: 'GuideReviews'
+//     });
+//   }
+// };
 const guideSignUpStepper5 = (to, from, next) => {
   if (store.getters.guide_step4_isSet) {
     next();
@@ -210,7 +210,7 @@ const routes = [
           { path: '/company-info', component: GuideCompanyInfo, name: 'GuideCompanyInfo' },
           { path: '/guide-documents', component: GuideDocuments, name: 'GuideDocuments', beforeEnter: guideSignUpStepper2 },
           { path: '/guide-reviews', component: GuideReviews, name: 'GuideReviews', beforeEnter: guideSignUpStepper3 },
-          { path: '/guide-experience', component: GuideExperience, name: 'GuideExperience', beforeEnter: guideSignUpStepper4 },
+          { path: '/guide-experience', component: GuideExperience, name: 'GuideExperience', beforeEnter: guideSignUpStepper3 },
           { path: '/guide-reference', component: GuideReference, name: 'GuideReference', beforeEnter: guideSignUpStepper5 }
         ]
        },
@@ -221,7 +221,7 @@ const routes = [
           { path: '/signup-personal-info', name: 'ClimberPersonalInfo', component: ClimberPersonalInfo, beforeEnter: climberSignUpStepper1 },
           { path: '/signup-climbing-experience', name: 'ClimberClimbingExp', component: ClimberClimbingExp, beforeEnter: climberSignUpStepper2 },
           { path: '/signup-fun-facts', name: 'ClimberFunFacts', component: ClimberFunFacts, beforeEnter: climberSignUpStepper3 },
-          { path: '/signup-interested-new-skills', name: 'ClimberInterestedSkills', component: ClimberInterestedSkills, beforeEnter: climberSignUpStepper4 },
+          { path: '/signup-interested-new-skills', name: 'ClimberInterestedSkills', component: ClimberInterestedSkills, beforeEnter: climberSignUpStepper3 },
         ]
       },
     ]

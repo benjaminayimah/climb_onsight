@@ -12,7 +12,7 @@ export default {
             // {id: 3, name: 'Trad', value: 0, image: require('@/assets/images/trad.png')},
             {id: 3, name: 'Mixed Climbing', value: 0, image: require('@/assets/images/lead.png')},
             {id: 4, name: 'Mountaineering', value: 0, image: require('@/assets/images/mountaineering.png')},
-            {id: 5, name: 'Other', value: 0, image: require('@/assets/images/trad.png')}
+            {id: 5, name: 'Other', alias: '', value: 0, image: require('@/assets/images/trad.png')}
         ],
         experience_required: ['Beginner', 'Intermediate', 'Advanced'],
         repeat_at: [
@@ -68,7 +68,12 @@ export default {
         },
         updateCategoryValue(state, payload) {
             const i = state.categories.findIndex(x => x.name === payload.name)
-            state.categories[i].value = payload.value
+            if(payload.name.toLowerCase() === 'other') {
+                state.categories[i].value = payload.value
+                state.categories[i].alias = payload.alias
+            }else {
+                state.categories[i].value = payload.value
+            }
         },
         updateGuideExperience(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newGuide'))
@@ -192,9 +197,9 @@ export default {
         guide_step2_isSet(state) {
             return state.newGuide.guide_awards || state.newGuide.guide_insurance || state.newGuide.guide_certificate ? true : false
         },
-        guide_step3_isSet(state) {
-            return state.newGuide.customer_reviews ? true : false
-        },
+        // guide_step3_isSet(state) {
+        //     return state.newGuide.customer_reviews ? true : false
+        // },
         guide_step4_isSet(state) {
             return state.newGuide.guide_experience ? true : false
         },

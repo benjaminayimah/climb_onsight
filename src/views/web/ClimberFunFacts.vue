@@ -4,10 +4,7 @@
         <div>
             <div class="mb-8">Tell us fun facts about your climbing experience</div>
             <div class="input-wrapper mb-16">
-                <textarea v-model="form.bio" class="w-100 form-control" name="funfact" rows="4" placeholder="Type here..." :class="{ 'error-border': validation.errors.bio }"></textarea>
-                <span class="input-error" v-if="validation.error && validation.errors.bio">
-                    {{ validation.errors.bio[0] }}
-                </span>
+                <textarea v-model="form.bio" class="w-100 form-control" name="funfact" rows="4" placeholder="Type here..."></textarea>
             </div>
             <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c">
                 <span>Continue</span>
@@ -19,10 +16,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import inputValidation from '@/mixins/inputValidation'
 export default {
     name: 'ClimberFunFacts',
-    mixins: [inputValidation],
     computed: {
         ...mapState({
             newUser: (state) => state.newUser
@@ -37,19 +32,8 @@ export default {
     },
     methods: {
         async updateNewUser() {
-            this.validation.error ? this.clearErrs() : ''
-            let errors = {}
-            if(this.form.bio == '') {
-                errors.bio = ['This field is required']
-                this.showErr(errors)
-            }else {
-                await this.$store.commit('updateBio', this.form)
-                this.$router.push({ name: 'ClimberInterestedSkills' })
-            }
-        },
-        showErr(payload) {
-            this.validation.error = true
-            this.validation.errors = payload
+            await this.$store.commit('updateBio', this.form)
+            this.$router.push({ name: 'ClimberInterestedSkills' })
         },
         presetForm() {
             this.newUser.bio ? this.form.bio = this.newUser.bio : ''

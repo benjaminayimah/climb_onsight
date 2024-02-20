@@ -132,7 +132,6 @@ export default createStore({
         stored.bio = payload.bio
         localStorage.setItem('newUser', JSON.stringify(stored))
         state.newUser.bio = payload.bio
-
     },
     updateNewSkills(state, payload) {
         let inputString = payload.new_skills
@@ -533,9 +532,9 @@ export default createStore({
     climber_step2_isSet(state) {
         return (state.newUser.skills && state.newUser.skills.length) || state.newUser.type_yours ? true : false
     },
-    climber_step3_isSet(state) {
-        return state.newUser.bio ? true : false
-    }
+    // climber_step3_isSet(state) {
+    //     return state.newUser.bio ? true : false
+    // }
   },
   modules: {
     data,
