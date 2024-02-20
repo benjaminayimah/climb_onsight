@@ -144,12 +144,12 @@
             </a>
         </div>
     </div>
-    <div v-if="user.guide_experience" class="flx column gap-4 list-row-shading">
+    <div v-if="computedExperience.length" class="flx column gap-4 list-row-shading">
         <div class="gray">Experiences</div>
         <div>
-            <div v-for="experience in JSON.parse(user.guide_experience)" :key="experience.id">
-                <div v-if="experience.value > 0 && experience.name.toLowerCase() !== 'other'">{{experience.value}} years in {{ experience.name }}</div>
-                <div v-else-if="experience.value > 0 && experience.name.toLowerCase() === 'other'">{{experience.value}} years in {{ experience.alias }}</div>
+            <div v-for="experience in computedExperience" :key="experience.id">
+                <div v-if="experience.name.toLowerCase() !== 'other'">{{experience.value}} years in {{ experience.name }}</div>
+                <div v-else-if="experience.name.toLowerCase() === 'other'">{{experience.value}} years in {{ experience.alias }}</div>
             </div>
         </div>
     </div>
@@ -211,6 +211,13 @@ export default {
             else
             return []
         },
+        computedExperience() {
+            let experiences = []
+            if(this.user.guide_experience) {
+                experiences = JSON.parse(this.user.guide_experience).filter(data => data.value > 0)
+            }
+            return experiences
+        }
     }
 }
 </script>

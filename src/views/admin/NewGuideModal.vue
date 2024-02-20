@@ -124,12 +124,12 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div v-if="computedExperience.length">
                         <div class="gray fs-09">Experiences</div>
                         <div>
-                            <div v-for="experience in JSON.parse(guide.guide_experience)" :key="experience.id">
-                                <div v-if="experience.value > 0 && experience.name.toLowerCase() !== 'other'">{{experience.value}} years in {{ experience.name }}</div>
-                                <div v-else-if="experience.value > 0 && experience.name.toLowerCase() === 'other'">{{experience.value}} years in {{ experience.alias }}</div>
+                            <div v-for="experience in computedExperience" :key="experience.id">
+                                <div v-if="experience.name.toLowerCase() !== 'other'">{{experience.value}} years in {{ experience.name }}</div>
+                                <div v-else-if="experience.name.toLowerCase() === 'other'">{{experience.value}} years in {{ experience.alias }}</div>
                             </div>
                         </div>
                     </div>
@@ -181,6 +181,13 @@ export default {
             else
             return []
         },
+        computedExperience() {
+            let experiences = []
+            if(this.guide.guide_experience) {
+                experiences = JSON.parse(this.guide.guide_experience).filter(data => data.value > 0)
+            }
+            return experiences
+        }
     },
     data() {
         return {

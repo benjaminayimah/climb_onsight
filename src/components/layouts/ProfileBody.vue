@@ -188,11 +188,11 @@
                     </a>
                 </div> -->
             </div>
-            <div v-if="guest && user.guide_experience">
+            <div v-if="guest && computedExperience.length">
                 <div class="gray">Experiences</div>
-                <div v-for="experience in JSON.parse(user.guide_experience)" :key="experience.id">
-                    <div v-if="experience.value > 0 && experience.name.toLowerCase() !== 'other'"><span>{{ experience.value }} years experience</span> in {{ experience.name }}</div>
-                    <div v-else-if="experience.value > 0 && experience.name.toLowerCase() === 'other'"><span>{{ experience.value }} years experience</span> in {{ experience.alias }}</div>
+                <div v-for="experience in computedExperience" :key="experience.id">
+                    <div v-if="experience.name.toLowerCase() !== 'other'"><span>{{ experience.value }} years experience</span> in {{ experience.name }}</div>
+                    <div v-else-if="experience.name.toLowerCase() === 'other'"><span>{{ experience.value }} years experience</span> in {{ experience.alias }}</div>
                 </div>
             </div>
         </div>
@@ -256,14 +256,14 @@ export default {
         }),
         computedColor() {
             return this.user.color
+        },
+        computedExperience() {
+            let experiences = []
+            if(this.user.guide_experience) {
+                experiences = JSON.parse(this.user.guide_experience).filter(data => data.value > 0)
+            }
+            return experiences
         }
-        // computedGuide() {
-        //     if(this.user && this.user.guide_terms) {
-        //         return JSON.parse(this.user.guide_terms).url
-        //     }else {
-        //         return ''
-        //     }
-        // }
     },
     data() {
         return {
@@ -313,9 +313,6 @@ export default {
         },
         switchTab(tab) {
             this.tab = tab
-        },
-        changeTerms() {
-            console.log('me')
         }
         
     }
