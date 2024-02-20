@@ -12,6 +12,10 @@
                     <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile" :id="'guide_certificate'" :formInput="form.guide_certificate" :label="'Guide certifications (i.e certificates from  PCGI, CMGE etc.)'" />
                 </div>
                 <div class="form-row column">
+                    <span class="gray fs-09">Optional</span>
+                    <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile" :id="'guide_license'" :formInput="form.guide_license" :label="'Permit or license'" />
+                </div>
+                <div class="form-row column">
                     <label for="award">Awards</label>
                     <div class="input-wrapper">
                         <input v-model="form.guide_awards" type="text" name="award" id="award" class="form-control" placeholder="List Awards (Add a comma to differentiate)" :class="{ 'error-border': validation.errors.guide_awards }">
@@ -47,6 +51,7 @@ export default {
             form: {
                 guide_insurance: [],
                 guide_certificate: [],
+                guide_license: [],
                 guide_awards: ''
             }
         }
@@ -67,6 +72,7 @@ export default {
         presetForm() {
             this.newGUide.guide_insurance ? this.form.guide_insurance = this.newGUide.guide_insurance : ''
             this.newGUide.guide_certificate ? this.form.guide_certificate = this.newGUide.guide_certificate : ''
+            this.newGUide.guide_license ? this.form.guide_license = this.newGUide.guide_license : ''
             if(this.newGUide.guide_awards) {
                 this.form.guide_awards = this.newGUide.guide_awards.join(',')
             }
@@ -76,14 +82,19 @@ export default {
                 this.form.guide_insurance.push(payload)
             }else if( payload.key === 'guide_certificate') {
                 this.form.guide_certificate.push(payload)
+            }else if( payload.key === 'guide_license') {
+                this.form.guide_license.push(payload)
             }
             this.$store.commit('updateGuideDoc', this.form)
         },
         delFile(payload) {
             if(payload.key === 'guide_insurance') {
                 this.form.guide_insurance = this.form.guide_insurance.filter(data => data.url != payload.file)
-            }else if( payload.key === 'guide_certificate')  {
+            }else if(payload.key === 'guide_certificate')  {
                 this.form.guide_certificate = this.form.guide_certificate.filter(data => data.url != payload.file)
+            }
+            else if(payload.key === 'guide_license')  {
+                this.form.guide_license = this.form.guide_license.filter(data => data.url != payload.file)
             }
             this.$store.commit('updateGuideDoc', this.form)
         }

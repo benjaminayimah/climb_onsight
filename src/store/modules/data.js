@@ -55,10 +55,12 @@ export default {
             stored.guide_awards = dataArray
             stored.guide_insurance = payload.guide_insurance
             stored.guide_certificate = payload.guide_certificate
+            stored.guide_license = payload.guide_license
             localStorage.setItem('newGuide', JSON.stringify(stored))
             state.newGuide.guide_awards = dataArray
             state.newGuide.guide_insurance = payload.guide_insurance
             state.newGuide.guide_certificate = payload.guide_certificate
+            state.newGuide.guide_license = payload.guide_license
         },
         updateGuideReviews(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newGuide'))
