@@ -72,7 +72,7 @@ export default {
                         if (currentDate.getDay() !== new Date(this.event.start_date).getDay()) {
                             dateArray.push(new Date(currentDate).format());
                         }
-                        currentDate.setDate(currentDate.getDate() + 1); 
+                        currentDate.setDate(currentDate.getDate() + 1);
                     }
                 }else if(this.event.repeat_at === 'weekdays') {
                     while (currentDate <= endDate) {

@@ -41,8 +41,7 @@ export default {
             if (this.bookings.length) {
               const totalAmount = this.bookings
                 .filter(item => item.accepted && item.paid)
-                .reduce((acc, item) => acc + item.total_price, 0);
-          
+                .reduce((acc, item) => acc + Number(item.total_price), 0);
               if (totalAmount > 0) {
                 return Number(totalAmount)
               }
