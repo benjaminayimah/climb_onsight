@@ -16,7 +16,7 @@
                     </span>
                 </div>
                 <div v-if="form.category" class="form-row column">
-                    <label for="years">Years of expirience</label>
+                    <label for="years">Years of experience</label>
                     <div class="input-wrapper">
                         <input v-model="form.input" @input="enterCategoryValue(form.category, form.input)" type="number" min="0" name="years" id="years" class="form-control" :placeholder="'Number of years of experience in '+ form.category" :class="{'error-border': validation.errors.experience_level }">
                     </div>
