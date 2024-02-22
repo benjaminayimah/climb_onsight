@@ -16,36 +16,6 @@
                 {{ validation.errors.experience_required[0] }}
             </span>
         </div>
-        <div class="form-row column">
-            <div class="flx jc-sb ai-c">
-                <div class="label">Climber responsibilities</div>
-                <span class="gray fs-08">Separate with a comma</span>
-            </div>
-            <div class="input-wrapper">
-                <input v-model="form.climber_gears" class="br-16 w-100" type="text" id="climber_gears" name="climber_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Gears they are required to have..." />
-            </div>
-        </div>
-        <div class="form-row column">
-            <div class="flx jc-sb ai-c">
-                <div class="label">Gears you will provide</div>
-                <span class="gray fs-08">Separate with a comma</span>
-            </div>
-            <div class="input-wrapper">
-                <input v-model="form.guide_gears" class="br-16 w-100" type="text" id="guide_gears" name="guide_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Enter Gears" />
-            </div>
-        </div>
-        <div class="form-row column">
-            <div class="flx jc-sb ai-c">
-                <div class="label">Itinerary</div>
-                <span class="gray fs-08">Optional</span>
-            </div>
-            <div class="input-wrapper">
-                <input v-model="form.itinerary" class="br-16 w-100" type="text" id="itinerary" name="itinerary"  :class="[{'error-border': validation.errors.itinerary }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter itinerary" />
-            </div>
-            <span class="input-error" v-if="validation.error && validation.errors.itinerary">
-                {{ validation.errors.itinerary[0] }}
-            </span>
-        </div>
         <div class="flx column gap-16">
             <div class="label">Terms & conditions or waiver</div>
             <div class="form-row flx jc-sb">
@@ -78,6 +48,36 @@
                     {{ validation.errors.terms_link[0] }}
                 </span>
             </div>
+        </div>
+        <div class="form-row column">
+            <div class="flx jc-sb ai-c">
+                <div class="label">Climber responsibilities</div>
+                <span class="gray fs-08">Separate with a comma</span>
+            </div>
+            <div class="input-wrapper">
+                <input v-model="form.climber_gears" class="br-16 w-100" type="text" id="climber_gears" name="climber_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Gears they are required to have..." />
+            </div>
+        </div>
+        <div class="form-row column">
+            <div class="flx jc-sb ai-c">
+                <div class="label">Gears you will provide</div>
+                <span class="gray fs-08">Separate with a comma</span>
+            </div>
+            <div class="input-wrapper">
+                <input v-model="form.guide_gears" class="br-16 w-100" type="text" id="guide_gears" name="guide_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Enter Gears" />
+            </div>
+        </div>
+        <div class="form-row column">
+            <div class="flx jc-sb ai-c">
+                <div class="label">Itinerary</div>
+                <span class="gray fs-08">Optional</span>
+            </div>
+            <div class="input-wrapper">
+                <input v-model="form.itinerary" class="br-16 w-100" type="text" id="itinerary" name="itinerary"  :class="[{'error-border': validation.errors.itinerary }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter itinerary" />
+            </div>
+            <span class="input-error" v-if="validation.error && validation.errors.itinerary">
+                {{ validation.errors.itinerary[0] }}
+            </span>
         </div>
         <div class="form-row column">
             <div class="flx jc-sb ai-c">
