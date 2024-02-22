@@ -208,6 +208,7 @@ export default {
             if (input > this.computedBookingLimit) {
                 this.form.quantity = this.computedBookingLimit
             }
+            this.form.attendees = this.form.attendees.slice(0, input)
         },
         addAttendeeInput(attendee) {
             const i = this.form.attendees.findIndex(x => x.id === attendee.id)
@@ -218,7 +219,7 @@ export default {
             }
         },
         validateAttendees() {
-            return this.form.attendees.every(item => item.name !== '' && item.email !== '' && item.dob !== '')
+            return this.form.attendees.every(item => item.name !== '' && item.name !== null && item.email !== '' && item.email !== null && item.dob !== '' && item.dob !== null)
         },
         bookingTrigger() {
             if(this.bookingStatus && this.bookingStatus.accepted) {
@@ -251,7 +252,7 @@ export default {
                     errors.quantity = ['Please type in a valid quantity.']
                 }
                 if (!this.validateAttendees() || this.form.quantity != this.form.attendees.length) {
-                    errors.attendees = ['Please fill out all Attendees information']
+                    errors.attendees = ['Please fill out all attendees information']
                 }
                 this.showErr(errors)
             }else {

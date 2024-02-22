@@ -365,6 +365,9 @@ export default createStore({
       state.updateForm.experience_required = payload.experience_required
       state.updateForm.itinerary = payload.itinerary
       state.updateForm.event_terms = payload.event_terms
+      state.updateForm.terms_type = payload.terms_type
+      state.updateForm.terms_link = payload.terms_link
+      
     },
     //set delete
     setDeleteModal(state, payload) {

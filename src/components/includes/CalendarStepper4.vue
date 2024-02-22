@@ -46,12 +46,38 @@
                 {{ validation.errors.itinerary[0] }}
             </span>
         </div>
-        <div class="form-row column">
+        <div class="flx column gap-16">
             <div class="label">Terms & conditions or waiver</div>
-            <doc-upload-input @add-to-formArr="addEventTerms" @del-file="delFile"  :id="'event_terms'" :formInput2="form.event_terms" :label="'Upload as PDF'" :validationError="validation.errors.event_terms"/>
-            <span class="input-error" v-if="validation.error && validation.errors.event_terms">
-                {{ validation.errors.event_terms[0] }}
-            </span>
+            <div class="form-row flx jc-sb">
+                <div class="flx gap-8 ai-c">
+                    <label for="upload_pdf" class="flx gap-4 fs-09" data-type="input-wrapper">
+                        <input v-model="form.terms_type" type="radio" id="upload_pdf" value="upload">
+                        <span>
+                            Upload PDF
+                        </span>
+                    </label>
+                    <label for="insert_link" class="flx gap-4 fs-09" data-type="input-wrapper">
+                        <input v-model="form.terms_type" type="radio" id="insert_link" value="link">
+                        <span>
+                            Insert link
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div v-if="form.terms_type === 'upload'" class="form-row column">
+                <doc-upload-input @add-to-formArr="addEventTerms" @del-file="delFile"  :id="'event_terms'" :formInput2="form.event_terms" :label="'Upload as PDF'" :validationError="validation.errors.event_terms"/>
+                <span class="input-error" v-if="validation.error && validation.errors.event_terms">
+                    {{ validation.errors.event_terms[0] }}
+                </span>
+            </div>
+            <div v-if="form.terms_type === 'link'" class="form-row column">
+                <div class="input-wrapper">
+                    <input v-model="form.terms_link" class="br-16 w-100" type="text" id="terms_link" name="terms_link"  :class="[{'error-border': validation.errors.terms_link }, input2 ? 'form-control2' : 'form-control']" placeholder="Insert link eg. https://www.example.com" />
+                </div>
+                <span class="input-error" v-if="validation.error && validation.errors.terms_link">
+                    {{ validation.errors.terms_link[0] }}
+                </span>
+            </div>
         </div>
         <div class="form-row column">
             <div class="flx jc-sb ai-c">
@@ -132,8 +158,10 @@ export default {
                 itinerary: '',
                 event_terms: {},
                 faqs: [],
-                color: ''
-            },
+                color: '',
+                terms_type: 'upload',
+                terms_link: ''
+            }
         }
     },
     methods: {
@@ -160,24 +188,32 @@ export default {
         addEventTerms(payload) {
             this.validation.error ? this.clearErrs() : ''
             this.form.event_terms = payload
-            this.$store.commit('updateEventTerms', payload)
+            if(this.editMode !== 'event_edit') {
+                this.$store.commit('updateEventTerms', payload)
+            }
+            console.log
         },
         delFile() {
             this.form.event_terms = {}
-            this.$store.commit('updateEventTerms', {})
+            if(this.editMode !== 'event_edit') {
+                this.$store.commit('updateEventTerms', {})
+            }
         },
         async saveForm4() {
             this.validation.error ? this.clearErrs() : ''
             let errors = {}
-            if(!this.form.event_terms.name || !this.validateQnA() || !this.form.experience_required.length) {
-                if(!this.form.event_terms.name) {
-                    errors.event_terms = ['The terms and conditions field is required.']
+            if((this.form.terms_type === 'upload' && !this.form.event_terms.name) || (this.form.terms_type === 'link' && this.form.terms_link === '') || !this.validateQnA() || !this.form.experience_required.length) {
+                if(this.form.terms_type === 'upload' && !this.form.event_terms.name) {
+                    errors.event_terms = ['Please upload a waiver file']
                 }
                 if(!this.validateQnA()) {
                     errors.faq = ['Please fill out all the Question & Answer fields.']
                 }
                 if(!this.form.experience_required.length) {
                     errors.experience_required = ['Select at least one experience required.']
+                }
+                if(this.form.terms_type === 'link' && this.form.terms_link === '') {
+                    errors.terms_link = ['Please enter a link to your waiver']
                 }
                 this.showErr(errors)
             }else {
@@ -267,11 +303,24 @@ export default {
                 }
                 if(this.newEvent.event_terms) {
                     if(this.editMode === 'event_edit') {
-                        this.form.event_terms = JSON.parse(this.newEvent.event_terms)
+                        this.form.terms_type = JSON.parse(this.newEvent.event_terms).type
+                        if(this.form.terms_type === 'upload') {
+                            this.form.event_terms = JSON.parse(this.newEvent.event_terms)
+                        }else {
+                            this.form.terms_link = JSON.parse(this.newEvent.event_terms).url
+                        }
+
                     }else {
-                        this.form.event_terms = this.newEvent.event_terms 
+                        this.form.terms_type = this.newEvent.terms_type
+                        if(this.form.terms_type === 'upload') {
+                            this.form.event_terms = this.newEvent.event_terms 
+                        }else {
+                            this.form.terms_link = this.newEvent.terms_link
+                        }
+                        
                     }
                 }
+                
             }
 
         }

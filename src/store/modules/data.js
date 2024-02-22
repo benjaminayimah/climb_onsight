@@ -171,12 +171,16 @@ export default {
             stored.experience_required = payload.experience_required
             stored.itinerary = payload.itinerary
             stored.event_terms = payload.event_terms
+            stored.terms_type = payload.terms_type
+            stored.terms_link = payload.terms_link
             localStorage.setItem('newEvent', JSON.stringify(stored))
             state.newEvent.faqs = payload.faqs
             state.newEvent.experience_required = payload.experience_required
             state.newEvent.itinerary = payload.itinerary
             state.newEvent.event_terms = payload.event_terms
             state.newEvent.color = payload.color
+            state.newEvent.terms_type = payload.terms_type
+            state.newEvent.terms_link = payload.terms_link
         },
         updateEventTerms(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newEvent'))

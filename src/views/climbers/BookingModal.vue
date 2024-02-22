@@ -57,7 +57,7 @@
                                 <div class="fs-09">
                                     Please sign and accept the waiver below to continue the process. If you have any questions please contact your Guide.<br />
                                     <li>
-                                        <a class="a-link ft-secondary" :href="s3bucket +'/'+ computedGuide" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
+                                        <a class="a-link ft-secondary" :href="computedTerms.type === 'upload' ? s3bucket +'/'+ computedTerms.url : computedTerms.url" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
                                             Guide Waiver
                                             <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 14.5 14.5">
                                                 <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)" fill="#d75e09"/>
@@ -108,7 +108,7 @@
                         <label for="guide_check" class="flx ai-fs gap-8" data-type="input-wapper">
                             <input v-model="guide_check_box" type="checkbox" class="mt-6 flx-shrink-0" id="guide_check">
                             <span>
-                                I have read and agreed to the Guides's <a :href="s3bucket +'/'+ computedGuide" class="ft-secondary a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
+                                I have read and agreed to the Guides's <a :href="s3bucket +'/'+ computedTerms" class="ft-secondary a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
                             </span>
                         </label>
                     </p> -->
@@ -204,8 +204,8 @@ export default {
                 return this.booking.data.price
             }
         },
-        computedGuide() {
-            return this.booking ? JSON.parse(this.booking.data.event_terms).url : ''
+        computedTerms() {
+            return this.booking ? JSON.parse(this.booking.data.event_terms) : ''
         }
     },
     data() {

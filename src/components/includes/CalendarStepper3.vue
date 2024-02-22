@@ -141,7 +141,7 @@ export default {
                     if(this.newEvent.event_type === 'private') {
                         this.form.price_range = JSON.parse(this.newEvent.price)
                     }else {
-                        this.form.price = this.newEvent.price
+                        this.form.price = JSON.parse(this.newEvent.price)
                     }
                 }else {
                     this.newEvent.price ? this.form.price = this.newEvent.price : ''
