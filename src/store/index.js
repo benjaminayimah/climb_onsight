@@ -106,10 +106,12 @@ export default createStore({
       if(stored) {
         stored.dob = payload.dob
         stored.gender = payload.gender
+        stored.otherGender = payload.otherGender
         stored.tempImage = payload.tempImage
         localStorage.setItem('newUser', JSON.stringify(stored))
         state.newUser.dob = payload.dob
         state.newUser.gender = payload.gender
+        state.newUser.otherGender = payload.otherGender
         state.newUser.tempImage = payload.tempImage
       }else {
           localStorage.setItem('newUser', JSON.stringify(payload))

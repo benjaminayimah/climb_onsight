@@ -35,12 +35,21 @@
                             <option value="female">Female</option>
                             <option value="non-binary">Non-binary</option>
                             <option value="transgender">Transgender</option>
+                            <option value="other">Other</option>
                             <option value="prefer not to say">Prefer not to say</option>
                         </select>
                     </div>
                     <span class="input-error" v-if="validation.error && validation.errors.gender">
                         {{ validation.errors.gender[0] }}
                     </span>
+                    <div v-if="form.gender.toLowerCase() === 'other'" class="form-row column">
+                        <div class="input-wrapper">
+                            <input v-model="form.otherGender" type="text" maxlength="16" class="form-control" name="other_gender" id="other_gender" placeholder="Enter your gender" :class="{'error-border': validation.errors.otherGender }">
+                        </div>
+                        <span class="input-error" v-if="validation.error && validation.errors.otherGender">
+                            {{ validation.errors.otherGender[0] }}
+                        </span>
+                    </div>
                 </div>
                 <button @click.prevent="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : status.spin }" :disabled="status.spin ? true : false">
                     Continue
@@ -69,7 +78,8 @@ export default {
             form: {
                 dob: '',
                 gender: '',
-                tempImage: ''
+                tempImage: '',
+                otherGender: ''
             },
             token: JSON.parse(localStorage.getItem('newToken'))
         }
@@ -78,12 +88,15 @@ export default {
         async updateNewUser() {
             this.validation.error ? this.clearErrs() : ''
             let errors = {}
-            if(this.form.dob == '' || this.form.gender == '') {
+            if(this.form.dob == '' || this.form.gender == '' || (this.form.gender.toLowerCase() === 'other' && this.form.otherGender == '')) {
                 if(this.form.dob == '') {
                     errors.dob = ['The date of birth field is required']
                 }
                 if(this.form.gender == '') {
                     errors.gender = ['The gender field is required']
+                }
+                if(this.form.gender.toLowerCase() === 'other' && this.form.otherGender == '') {
+                    errors.otherGender = ['Please enter your gender']
                 }
                 this.showErr(errors)
             }else {
@@ -98,6 +111,7 @@ export default {
         presetForm() {
             this.newUser && this.newUser.dob ? this.form.dob = this.newUser.dob : ''
             this.newUser && this.newUser.gender ? this.form.gender = this.newUser.gender : ''
+            this.newUser && this.newUser.otherGender ? this.form.otherGender = this.newUser.otherGender : ''
             if(this.newUser && this.newUser.tempImage) {
                 this.form.tempImage = this.newUser.tempImage
                 this.status.tempImage = this.newUser.tempImage
