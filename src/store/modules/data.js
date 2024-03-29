@@ -7,12 +7,12 @@ export default {
         newEvent: JSON.parse(localStorage.getItem('newEvent')) || {},
         signedUp: false,
         categories: [
-            {id: 1, name: 'Ice Climbing', value: 0, image: require('@/assets/images/ice_climbing.png')},
-            {id: 2, name: 'Rock Climbing', value: 0, image: require('@/assets/images/mountain_climbing.png')},
-            // {id: 3, name: 'Trad', value: 0, image: require('@/assets/images/trad.png')},
-            {id: 3, name: 'Mixed Climbing', value: 0, image: require('@/assets/images/lead.png')},
-            {id: 4, name: 'Mountaineering', value: 0, image: require('@/assets/images/mountaineering.png')},
-            {id: 5, name: 'Other', alias: '', value: 0, image: require('@/assets/images/trad.png')}
+            {id: 1, name: 'Ice Climbing', value: 0, description: '', image: require('@/assets/images/ice_climbing.png')},
+            {id: 2, name: 'Rock Climbing', value: 0, description: '', image: require('@/assets/images/mountain_climbing.png')},
+            // {id: 3, name: 'Trad', value: 0, description: '', image: require('@/assets/images/trad.png')},
+            {id: 3, name: 'Mixed Climbing', value: 0, description: '', image: require('@/assets/images/lead.png')},
+            {id: 4, name: 'Mountaineering', value: 0, description: '', image: require('@/assets/images/mountaineering.png')},
+            {id: 5, name: 'Other', alias: '', value: 0, description: '', image: require('@/assets/images/trad.png')}
         ],
         experience_required: ['Beginner', 'Intermediate', 'Advanced'],
         repeat_at: [
@@ -76,6 +76,10 @@ export default {
             }else {
                 state.categories[i].value = payload.value
             }
+        },
+        updateCategoryDescription(state, payload) {
+            const i = state.categories.findIndex(x => x.name === payload.name)
+            state.categories[i].description = payload.description
         },
         updateGuideExperience(state, payload) {
             let stored = JSON.parse(localStorage.getItem('newGuide'))

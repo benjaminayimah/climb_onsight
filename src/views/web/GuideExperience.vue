@@ -7,7 +7,7 @@
                     <category-list v-for="category in computedCateries" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#F1F1F1'"/>
                 </ul>
                 <div v-if="form.category.toLowerCase() === 'other'" class="form-row column">
-                    <label for="other_category">Description</label>
+                    <label for="other_category">Other</label>
                     <div class="input-wrapper">
                         <input v-model="otherCategory" type="text" maxlength="18" class="form-control" name="other_category" id="other_category" placeholder="Other experience" :class="{'error-border': validation.errors.category }">
                     </div>
@@ -15,14 +15,25 @@
                         {{ validation.errors.category[0] }}
                     </span>
                 </div>
-                <div v-if="form.category" class="form-row column">
-                    <label for="years">Years of experience</label>
-                    <div class="input-wrapper">
-                        <input v-model="form.input" @input="enterCategoryValue(form.category, form.input)" type="number" min="0" name="years" id="years" class="form-control" :placeholder="'Number of years of experience in '+ form.category" :class="{'error-border': validation.errors.experience_level }">
+                <div v-if="form.category">
+                    <div class="form-row column mb-16">
+                        <label for="years">Years of experience</label>
+                        <div class="input-wrapper">
+                            <input v-model="form.input" @input="enterCategoryValue(form.category, form.input)" type="number" min="0" name="years" id="years" class="form-control" :placeholder="'Number of years of experience in '+ form.category" :class="{'error-border': validation.errors.experience_level }">
+                        </div>
+                        <span class="input-error" v-if="validation.error && validation.errors.experience_level">
+                            {{ validation.errors.experience_level[0] }}
+                        </span>
                     </div>
-                    <span class="input-error" v-if="validation.error && validation.errors.experience_level">
-                        {{ validation.errors.experience_level[0] }}
-                    </span>
+                    <div class="form-row column">
+                        <label for="description">Describe your experience</label>
+                        <div class="input-wrapper">
+                            <textarea v-model="form.description" @input="enterDescriptionValue(form.category, form.description)" class="form-control" :class="{'error-border': validation.errors.description }" name="description" id="description" rows="3" placeholder="Include information on training, experience, mentors"></textarea>
+                        </div>
+                        <span class="input-error" v-if="validation.error && validation.errors.description">
+                            {{ validation.errors.description[0] }}
+                        </span>
+                    </div>
                 </div>
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
@@ -54,7 +65,8 @@ export default {
         return {
             form: {
                 category: '',
-                input: ''
+                input: '',
+                description: ''
             },
             otherCategory: ''
         }
@@ -64,11 +76,17 @@ export default {
             if(this.form.category && this.form.category === category) {
                 this.form.category = ''
                 this.form.input = ''
+                this.form.description = ''
             }else {
                 if(category.value > 0) {
                     this.form.input = category.value
                 }else {
                     this.form.input = ''
+                }
+                if(category.description) {
+                    this.form.description = category.description
+                }else {
+                    this.form.description = ''
                 }
                 this.form.category = category.name
             }
@@ -79,6 +97,10 @@ export default {
         enterCategoryValue(category, input) {
             let payload = { name: category, alias: this.otherCategory, value: input}
             this.$store.commit('updateCategoryValue', payload)
+        },
+        enterDescriptionValue(category, description) {
+            let payload = { name: category, alias: this.otherCategory, description: description}
+            this.$store.commit('updateCategoryDescription', payload)
         },
         async updateNewGuide() {
             this.validation.error ? this.clearErrs() : ''
