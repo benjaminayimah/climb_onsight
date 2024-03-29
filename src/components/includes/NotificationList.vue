@@ -32,7 +32,7 @@ export default {
         computedNotiType() {
             let data = { message: '', buttonText: 'View'}
             if(this.is_super) {
-                data.message = 'Theres a new guide sign up'
+                data.message = 'There is a new guide sign up'
             }else if(this.is_guide) {
                 data.message = 'You have a new booking request.'
             }else if(this.is_climber) {
