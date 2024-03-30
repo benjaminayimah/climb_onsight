@@ -3,6 +3,7 @@ export default {
         bannerImage: '/temp/banner_image.png',
         default_avatar: require('@/assets/svg/avatar.svg'),
         climberSkills: ['Top rope', 'Leading', 'Multi pitch'],
+        beginnerSkills: ['Belaying', 'Trad', 'Rapelling', 'Anchors'],
         newGuide: JSON.parse(localStorage.getItem('newGuide')) || '',
         newEvent: JSON.parse(localStorage.getItem('newEvent')) || {},
         signedUp: false,

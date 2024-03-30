@@ -2,23 +2,27 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Climbing Experiences</div>
         <div>
-            <div class="mb-8">Rate your proficiency in the following activities</div>
+            <div class="mb-8 fw-600">Rate your proficiency in the following activities</div>
             <ul class="list br-16">
                 <sign-up-activities-list v-for="activity in form.activities" :key="activity.id" :activity="activity" @change-val="changeVal" />
             </ul>
         </div>
         <div>
-            <div class="mb-8">Skills I know</div>
+            <div class="mb-8 fw-600">Skills I know</div>
             <ul class="mb-16 pill flx gap-16">
                 <sign-up-skills-list v-for="skill in skills" :key="skill" :skill="skill" :selectedSkills="form.skills" @select-skill="selectSkill"/>
             </ul>
             <div class="flx jc-sb ai-c mb-8">
-                <div class="label">Add more</div>
+                <div class="label fw-600">Add more</div>
                 <span class="gray fs-08">Seperated with a comma</span>
             </div>
-            <div class="input-wrapper">
+            <div class="input-wrapper mb-16">
                 <input v-model="form.type_yours" type="text" name="skills" id="skills" placeholder="Add more" class="form-control">
             </div>
+            <div class="fw-600">I'm a beginner</div>
+            <ul class="mb-16 pill flx gap-16">
+                <sign-up-skills-list v-for="skill in beginnerSkills" :key="skill" :skill="skill" :selectedSkills="form.beginner_skills" @select-skill="selectBeginnerSkill"/>
+            </ul>
         </div>
         <error-display-card v-if="validation.error" :errors="validation.errors"/>
         <button @click="updateNewUser" class="button-primary gap-8 w-100 btn-lg ai-c">
@@ -42,6 +46,7 @@ export default {
         ...mapState({
             hostname: (state) => state.hostname,
             skills: (state) => state.data.climberSkills,
+            beginnerSkills: (state) => state.data.beginnerSkills,
             newUser: (state) => state.newUser
         }),
     },
@@ -50,6 +55,7 @@ export default {
             form: {
                 skills: [],
                 activities: [],
+                beginner_skills: [],
                 type_yours: '',
             },
         }
@@ -74,12 +80,21 @@ export default {
                 this.form.skills.push(payload)
             }
         },
+        selectBeginnerSkill(payload) {
+            const i = this.form.beginner_skills.find(data => data === payload)
+            if (i) {
+                this.form.beginner_skills = this.form.beginner_skills.filter(x => x !== i)
+            } else {
+                this.form.beginner_skills.push(payload)
+            }
+        },
         changeVal(payload) {
             let activity = this.form.activities.find(data => data.name === payload.name)
             activity.level = payload.level
         },
         presetForm() {
             this.newUser && this.newUser.skills ? this.form.skills = this.newUser.skills : ''
+            this.newUser && this.newUser.beginner_skills ? this.form.beginner_skills = this.newUser.beginner_skills : ''
             this.newUser && this.newUser.type_yours ? this.form.type_yours = this.newUser.type_yours : ''
             if (this.newUser && this.newUser.activities) {
                 this.form.activities = this.newUser.activities

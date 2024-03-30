@@ -121,13 +121,14 @@ export default createStore({
     updateClimbingExp(state, payload) {
         let stored = JSON.parse(localStorage.getItem('newUser'))
         stored.skills = payload.skills
+        stored.beginner_skills = payload.beginner_skills
         stored.activities = payload.activities
         stored.type_yours = payload.type_yours
         localStorage.setItem('newUser', JSON.stringify(stored))
         state.newUser.skills = payload.skills
+        state.newUser.beginner_skills = payload.beginner_skills
         state.newUser.activities = payload.activities
         state.newUser.type_yours = payload.type_yours
-
     },
     updateBio(state, payload) {
         let stored = JSON.parse(localStorage.getItem('newUser'))
