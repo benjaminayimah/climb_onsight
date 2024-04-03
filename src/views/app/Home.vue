@@ -32,6 +32,7 @@
                     <div v-if="is_guide" class="flx-b-60 bg-white pd-24 br-16 flx column gap-8 flx-1">
                         <vue-cal
                             small
+                            :startWeekOnSunday="true"
                             :disable-views="['day', 'week', 'years', 'year']"
                             :active-view="'month'"
                             events-on-month-view="short"

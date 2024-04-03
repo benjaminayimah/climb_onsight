@@ -27,7 +27,8 @@
             hide-view-selector
             active-view="month"
             :time="false"
-            :selected-date="event.start_date"
+            :startWeekOnSunday="true"
+            :selected-date="new Date()"
             :disable-views="['week', 'day', 'year', 'years']"
             :disable-days="disableDays"
             :min-date="event.start_date"
@@ -65,34 +66,54 @@ export default {
         disableDays() {
             if(this.event.repeat_at) {
                 const dateArray = []
+                const today = new Date()
                 let currentDate = new Date(this.event.start_date);
                 let endDate = new Date(this.event.end_date)
                 if(this.event.repeat_at === 'weekly') {
                     while (currentDate <= endDate) {
+                        if (currentDate < today) {
+                            dateArray.push(currentDate.format());
+                        }
                         if (currentDate.getDay() !== new Date(this.event.start_date).getDay()) {
-                            dateArray.push(new Date(currentDate).format());
+                            dateArray.push(currentDate.format());
                         }
                         currentDate.setDate(currentDate.getDate() + 1);
                     }
                 }else if(this.event.repeat_at === 'weekdays') {
                     while (currentDate <= endDate) {
+                        if (currentDate < today) {
+                            dateArray.push(currentDate.format());
+                        }
                         if (this.isWeekend(currentDate)) {
-                            dateArray.push(new Date(currentDate).format()); // Add weekend date to the list
+                            dateArray.push(currentDate.format()); // Add weekend date to the list
                         }
                         currentDate.setDate(currentDate.getDate() + 1); // Increment the date by one day
                     }
                 }else if(this.event.repeat_at === 'weekends') {
                     while (currentDate <= endDate) {
+                        if (currentDate < today) {
+                            dateArray.push(currentDate.format());
+                        }
                         if (!this.isWeekend(currentDate)) {
-                            dateArray.push(new Date(currentDate).format()); // Add weekend date to the list
+                            dateArray.push(currentDate.format()); // Add weekend date to the list
                         }
                         currentDate.setDate(currentDate.getDate() + 1); 
                     }
                 }
                 else if(this.event.repeat_at === 'monthly') {
                     while (currentDate <= endDate) {
+                        if (currentDate < today) {
+                            dateArray.push(currentDate.format());
+                        }
                         if (currentDate.getDate() !== new Date(this.event.start_date).getDay()) {
                             dateArray.push(new Date(currentDate).format());
+                        }
+                        currentDate.setDate(currentDate.getDate() + 1); 
+                    }
+                }else if(this.event.repeat_at === 'daily') {
+                    while (currentDate <= endDate) {
+                        if (currentDate < today) {
+                            dateArray.push(currentDate.format());
                         }
                         currentDate.setDate(currentDate.getDate() + 1); 
                     }
@@ -111,6 +132,16 @@ export default {
             const day = date.getDay();
             return day === 0 || day === 6;
         },
+    },
+    mounted() {
+        const today = new Date()
+        const start = new Date(this.event.start_date)
+        console.log(start)
+        if(today > start) {
+            console.log('true')
+        }else {
+            console.log('false')
+        }
     }
 }
 </script>

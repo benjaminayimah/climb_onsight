@@ -20,7 +20,8 @@
                         </div>
                     </div>
                     <vue-cal
-                    small
+                        small
+                        :startWeekOnSunday="true"
                         :disable-views="['years', 'year']"
                         :selected-date="selectedDate"
                         :active-view="$route.query.status !== 'day' ? 'month': 'day'"
