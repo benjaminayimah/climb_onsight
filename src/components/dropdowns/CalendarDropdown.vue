@@ -122,7 +122,7 @@ export default {
             }
             else
             return []
-        },
+        }
     },
     methods: { 
         handleDate(date) {
@@ -132,16 +132,6 @@ export default {
             const day = date.getDay();
             return day === 0 || day === 6;
         },
-    },
-    mounted() {
-        const today = new Date()
-        const start = new Date(this.event.start_date)
-        console.log(start)
-        if(today > start) {
-            console.log('true')
-        }else {
-            console.log('false')
-        }
     }
 }
 </script>

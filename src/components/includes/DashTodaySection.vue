@@ -37,7 +37,7 @@
                 </div>
             </div>
             <ul>
-                <dash-today-list v-for="event in events.slice(0, 5)" :key="event.id" :event="event" :bookings="bookings" :is_climber="is_climber" />
+                <dash-today-list v-for="event in activeEvents.slice(0, 5)" :key="event.id" :event="event" :bookings="bookings" :is_climber="is_climber" />
             </ul>
             <button v-if="events.length > 5" @click="showAll" class="button-primary btn-md w-100">Show all</button>
         </div>
@@ -70,6 +70,15 @@ export default {
             climbers: (state) => state.climbers,
             guides: (state) => state.guides
         }),
+        activeEvents() {
+            let events = this.events
+            const today = new Date()
+            if(events.length) {
+                events =  this.events.filter(data => new Date(data.end_date) > today)
+
+            }
+            return events
+        },
         computedRegistered() {
             let data = ''
             if(this.is_guide) {
