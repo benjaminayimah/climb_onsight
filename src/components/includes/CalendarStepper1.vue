@@ -40,7 +40,7 @@
         <div class="form-row column">
             <label for="start_date">{{ form.repeat ? 'Start date' : 'Select date' }}</label>
             <div class="input-wrapper">
-                <input v-model="form.start_date" class="br-16 w-100" type="date" id="start_date" name="start_date" :class="[{'error-border': validation.errors.start_date }, input2 ? 'form-control2' : 'form-control']" />
+                <input v-model="form.start_date" class="br-16 w-100" type="datetime-local" id="start_date" name="start_date" :class="[{'error-border': validation.errors.start_date }, input2 ? 'form-control2' : 'form-control']" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.start_date">
                 {{ validation.errors.start_date[0] }}
@@ -49,7 +49,7 @@
         <div v-if="form.repeat" class="form-row column">
             <label for="end_date">End date</label>
             <div class="input-wrapper">
-                <input v-model="form.end_date" class="br-16 w-100" type="date" id="end_date" name="end_date" :class="[{'error-border': validation.errors.end_date }, input2 ? 'form-control2' : 'form-control']" />
+                <input v-model="form.end_date" class="br-16 w-100" type="datetime-local" id="end_date" name="end_date" :class="[{'error-border': validation.errors.end_date }, input2 ? 'form-control2' : 'form-control']" />
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.end_date">
                 {{ validation.errors.end_date[0] }}
@@ -99,17 +99,14 @@ export default {
             form: {
                 event_name: '',
                 event_duration: '',
-                start_date: new Date().toISOString().slice(0, 10),
-                end_date: new Date().toISOString().slice(0, 10),
+                start_date: '',
+                end_date: '',
                 repeat: false,
                 repeat_at: 'daily'
             }
         }
     },
     methods: {
-        dateInput(date) {
-            this.form.date = new Date(date).toISOString().slice(0, 10)
-        },
         sliceInput() {
             let input = this.form.event_duration
             if (input.length > 10) {
@@ -141,8 +138,8 @@ export default {
         presetForm() {
             this.newEvent && this.newEvent.event_name ? this.form.event_name = this.newEvent.event_name : ''
             this.newEvent && this.newEvent.event_duration ? this.form.event_duration = this.newEvent.event_duration : ''
-            this.newEvent && this.newEvent.start_date ? this.form.start_date = this.newEvent.start_date : new Date().toISOString().slice(0, 10)
-            this.newEvent && this.newEvent.end_date ? this.form.end_date = this.newEvent.end_date : new Date().toISOString().slice(0, 10)
+            this.newEvent && this.newEvent.start_date ? this.form.start_date = this.newEvent.start_date : ''
+            this.newEvent && this.newEvent.end_date ? this.form.end_date = this.newEvent.end_date : ''
             this.newEvent && this.newEvent.repeat ? this.form.repeat = this.newEvent.repeat : this.form.repeat = false
             this.newEvent && this.newEvent.repeat_at ? this.form.repeat_at = this.newEvent.repeat_at : ''
             if(this.editMode === 'event_edit' && this.newEvent.repeat_at) {
