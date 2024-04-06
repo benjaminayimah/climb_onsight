@@ -79,11 +79,11 @@ export default {
     computed: {
         ...mapGetters(['getDevice']),
         computedEvents() {
-            return this.events.map(element => {
+            return this.bookings.map(element => {
                 return {
                     id: element.id,
-                    start: element.start_date,
-                    end: element.end_date,
+                    start: new Date(element.date_selected).toISOString().slice(0, 10),
+                    end: new Date(element.date_selected).toISOString().slice(0, 10),
                     title: element.event_name,
                     color: element.color_class,
                     class: element.color_class

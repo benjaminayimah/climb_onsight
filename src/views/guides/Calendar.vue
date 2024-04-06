@@ -73,17 +73,18 @@ export default {
     mixins: [formatDateTime],
     computed: {
         ...mapState({
-            events: (state) => state.events
+            events: (state) => state.events,
+            bookings: (state) => state.bookings
         }),
         computeEmptyGal() {
             return 6 - this.form.gallery.length
         },
         computedEvents() {
-            return this.events.map(element => {
+            return this.bookings.map(element => {
                 return {
                     id: element.id,
-                    start: element.start_date,
-                    end: element.end_date,
+                    start: new Date(element.date_selected).toISOString().slice(0, 10),
+                    end: new Date(element.date_selected).toISOString().slice(0, 10),
                     duration: element.event_duration,
                     title: element.event_name,
                     color: element.color_class,
@@ -121,9 +122,6 @@ export default {
             this.previous_month = monthNames[previousMonth];
             this.next_month = monthNames[nextMonth];
         }
-    },
-    mounted() {
-        this.computeMonth(new Date())
     }
 }
 </script>
