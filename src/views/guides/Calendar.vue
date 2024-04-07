@@ -26,7 +26,7 @@
                         :selected-date="selectedDate"
                         :active-view="$route.query.status !== 'day' ? 'month': 'day'"
                         events-on-month-view="short"
-                        :events="computedEvents"
+                        :events="computedBookings"
                         hide-view-selector
                         hide-title-bar
                         @view-change="calChange"
@@ -79,7 +79,7 @@ export default {
         computeEmptyGal() {
             return 6 - this.form.gallery.length
         },
-        computedEvents() {
+        computedBookings() {
             return this.bookings.map(element => {
                 return {
                     id: element.id,
@@ -92,6 +92,19 @@ export default {
                 };
             });
         },
+        computedEvents() {
+            return this.events.map(element => {
+                return {
+                    id: element.id,
+                    start: new Date(element.start_date).toISOString().slice(0, 10),
+                    end: new Date(element.end_date).toISOString().slice(0, 10),
+                    duration: element.event_duration,
+                    title: element.event_name,
+                    color: element.color_class,
+                    class: element.color_class
+                };
+            });
+        }
     },
     data() {
         return {
