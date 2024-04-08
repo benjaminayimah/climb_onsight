@@ -28,7 +28,7 @@
             active-view="month"
             :time="false"
             :startWeekOnSunday="true"
-            :selected-date="new Date()"
+            :selected-date="computedSelectedDate"
             :disable-views="['week', 'day', 'year', 'years']"
             :disable-days="disableDays"
             :min-date="event.start_date"
@@ -122,6 +122,13 @@ export default {
             }
             else
             return []
+        },
+        computedSelectedDate() {
+            if(new Date(this.event.start_date) > new Date()) {
+                return this.event.start_date
+            }else {
+                return new Date()
+            }
         }
     },
     methods: { 

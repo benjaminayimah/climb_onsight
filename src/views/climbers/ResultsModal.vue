@@ -147,7 +147,7 @@ export default {
         },
         computedPrice() {
             if(this.result.event_type === 'private') {
-                const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1)
+                const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1 + Number(this.result.limit_count))
                 if(price)
                 return Number(price.price)
                 else
@@ -273,7 +273,6 @@ export default {
     mounted() {
         this.$store.commit('stopFormLoader')
         this.getThisGuide(this.result.user_id)
-
     }
 }
 </script>

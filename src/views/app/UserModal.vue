@@ -14,7 +14,6 @@
                 <img class="br-50 profile-img" :class="{'custom-color' : !user.profile_picture}" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
                 <send-message-button :user="user.role === 'climber' ? {id: user.user_id, name: user.name} : user" />
             </div>
-            {{ user.role }}
             <user-body :user="user" />
         </div>
     </teleport>

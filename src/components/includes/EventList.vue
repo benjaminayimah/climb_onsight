@@ -1,5 +1,8 @@
 <template>
-    <a href="#" @click.prevent="doClick" class="flx-1 evt-card bg-white br-16 flx column gap-16 transition-sm" :class=" $route.query.current == event.id || $route.query.current && $route.query.current == event.event_id ? 'list-is-active' : ''">
+    <a href="#" @click.prevent="doClick" class="flx-1 evt-card relative bg-white br-16 flx column gap-16 transition-sm" :class=" $route.query.current == event.id || $route.query.current && $route.query.current == event.event_id ? 'list-is-active' : ''">
+        <div v-if="computedFullyBooked && !event.repeat_at && event.attendance_limit === event.limit_count" class="absolute bked">
+            <event-type :eventType="'Fully booked'" />
+        </div>
         <div class="evt-card-wrapper flx column gap-4">
             <div class="bg-img relative" :style="{ backgroundImage: 'url('+s3bucket+'/'+JSON.parse(event.gallery)[0]+')'}">
                 <div v-if="bookingStatus && is_climber" class="absolute status-wrapper">
@@ -77,7 +80,6 @@ export default {
             const today = new Date()
             const eventDate = new Date(this.event.end_date)
             return today > eventDate ? 'past' : 'registered'
-
         },
         bookingStatus() {
             return this.bookings.find(event => event.event_id === this.event_id)
@@ -90,6 +92,10 @@ export default {
             else
             return null
         },
+        computedFullyBooked() {
+            const userBookedEvent = this.bookings.find(booked => booked.event_id === this.event.id || this.event.event_id )
+            return userBookedEvent ? false : true
+        }
     },
     methods: {
         doClick() {
@@ -141,5 +147,13 @@ export default {
 }
 .status-wrapper {
     inset: auto auto 8px 8px;
+}
+.bked {
+    z-index: 2;
+    inset: 8px 8px auto auto;
+    .evt-status{
+        background-color: var(--danger);
+        color: var(--white);
+    }
 }
 </style>
