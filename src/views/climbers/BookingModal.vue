@@ -195,7 +195,7 @@ export default {
         }),
         computedPrice() {
             if(this.booking.data.event_type === 'private') {
-                const price = JSON.parse(this.booking.data.price).find(item => item.id === this.booking.data.limit_count +1)
+                const price = JSON.parse(this.booking.data.price).find(item => item.id === this.booking.data.limit_count -1)
                 if(price)
                 return price.price
                 else
