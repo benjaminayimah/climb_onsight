@@ -137,7 +137,7 @@
                         <div class="flx column mb-8">
                             <div class="flx jc-sb ai-c bd-bt-dashed">
                                 <div class="gray">Price per person</div>
-                                <div>CA$ {{ computedPrice }}</div>
+                                <div>CA$ {{ Number(booking.data.total_price / booking.data.quantity) }}</div>
                             </div>
                             <div class="flx jc-sb ai-c bd-bt-dashed">
                                 <div class="gray">Quantity</div>
@@ -145,7 +145,7 @@
                             </div>
                             <div class="flx jc-sb ai-c bd-bt-dashed">
                                 <div class="gray">Total price</div>
-                                <div class="fs-102rem"><strong>CA$ {{ Number(computedPrice * booking.data.quantity) }}</strong> + tax</div>
+                                <div class="fs-102rem"><strong>CA$ {{ Number(booking.data.total_price) }}</strong> + tax</div>
                             </div>
                         </div>
                     </div>
@@ -255,11 +255,6 @@ export default {
                 this.stopSpinner()
             }
         }
-    },
-    mounted() {
-        console.log(this.booking.data)
-        console.log(this.booking.data.price)
-
     }
 }
 </script>

@@ -191,7 +191,6 @@ export default {
             if(this.editMode !== 'event_edit') {
                 this.$store.commit('updateEventTerms', payload)
             }
-            console.log
         },
         delFile() {
             this.form.event_terms = {}

@@ -1,6 +1,6 @@
 <template>
     <div class="input-wrapper">
-        <div :id="id" @click="openDropdown(id)" class="div-input flx jc-sb ai-c" :class="[{ 'error-border': validation.errors.date }, toggleMenu ? 'active' : '']">
+        <div :id="id" @click="!fetchingBookingDates ? openDropdown(id) : ''" class="div-input flx jc-sb ai-c" :class="[{ 'error-border': validation.errors.date }, toggleMenu ? 'active' : '', fetchingBookingDates ? 'disabled-input' : '']">
             <div class="flx gap-8 ai-c">
                 <span>{{ date || 'Pick a date' }}</span>
                 <span v-if="date" class="gray">|</span>
@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
 import Backdrop from '../includes/Backdrop.vue'
@@ -61,6 +62,8 @@ export default {
     },
     computed: {
         ...mapState({
+            hostname: (state) => state.hostname,
+            token: (state) => state.token,
             dynamicFloatingDiv: (state) => state.dropdown.dynamicFloatingDiv,
         }),
         disableDays() {
@@ -77,6 +80,9 @@ export default {
                         if (currentDate.getDay() !== new Date(this.event.start_date).getDay()) {
                             dateArray.push(currentDate.format());
                         }
+                        if(this.eventIsClosed(currentDate)) {
+                            dateArray.push(currentDate.format());
+                        }
                         currentDate.setDate(currentDate.getDate() + 1);
                     }
                 }else if(this.event.repeat_at === 'weekdays') {
@@ -87,6 +93,9 @@ export default {
                         if (this.isWeekend(currentDate)) {
                             dateArray.push(currentDate.format()); // Add weekend date to the list
                         }
+                        if(this.eventIsClosed(currentDate)) {
+                            dateArray.push(currentDate.format());
+                        }
                         currentDate.setDate(currentDate.getDate() + 1); // Increment the date by one day
                     }
                 }else if(this.event.repeat_at === 'weekends') {
@@ -96,6 +105,9 @@ export default {
                         }
                         if (!this.isWeekend(currentDate)) {
                             dateArray.push(currentDate.format()); // Add weekend date to the list
+                        }
+                        if(this.eventIsClosed(currentDate)) {
+                            dateArray.push(currentDate.format());
                         }
                         currentDate.setDate(currentDate.getDate() + 1); 
                     }
@@ -108,11 +120,17 @@ export default {
                         if (currentDate.getDate() !== new Date(this.event.start_date).getDay()) {
                             dateArray.push(new Date(currentDate).format());
                         }
+                        if(this.eventIsClosed(currentDate)) {
+                            dateArray.push(currentDate.format());
+                        }
                         currentDate.setDate(currentDate.getDate() + 1); 
                     }
                 }else if(this.event.repeat_at === 'daily') {
                     while (currentDate <= endDate) {
                         if (currentDate < today) {
+                            dateArray.push(currentDate.format());
+                        }
+                        if(this.eventIsClosed(currentDate)) {
                             dateArray.push(currentDate.format());
                         }
                         currentDate.setDate(currentDate.getDate() + 1); 
@@ -131,6 +149,12 @@ export default {
             }
         }
     },
+    data() {
+        return {
+            fetchingBookingDates: true,
+            bookingDates: []
+        }
+    },
     methods: { 
         handleDate(date) {
             this.$emit('cal-change', date)
@@ -138,22 +162,52 @@ export default {
         isWeekend(date) {
             const day = date.getDay();
             return day === 0 || day === 6;
+        },
+        eventIsClosed(date) {
+            const newDate = new Date(date).toISOString().slice(0, 10)
+            const isclosed = this.bookingDates.filter(booking => newDate == new Date(booking.date_selected).toISOString().slice(0, 10) && !booking.relist)
+            const bookedArr = this.bookingDates.filter(booking => newDate == new Date(booking.date_selected).toISOString().slice(0, 10))
+            const totalBooked = bookedArr.reduce((acc, item) => acc + Number(item.quantity), 0)
+            return totalBooked == this.event.attendance_limit || isclosed.length ? true : false
+        },
+        async getBookingDate() {
+            try {
+                const res = await axios.post(this.hostname+'/api/get-booking-dates/'+this.event.id+'?token='+this.token)
+                this.fetchingBookingDates = false
+                this.bookingDates = res.data
+            } catch (e) {
+                console.error(e)
+            }
         }
+    },
+    mounted() {
+        this.getBookingDate()
     }
+
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .vuecal-small {
     z-index: 501;
     inset: 85px 0 auto auto;
     padding: 18px 15px;
 }
 .div-input {
-    cursor: pointer;
     height: 58px;
+}
+.div-input:not(.disabled-input) {
+    cursor: pointer;
 }
 .active {
     border-color: var(--black);
+}
+.disabled-input {
+    background-color: var(--gray-light);
+    cursor: not-allowed;
+    color: var(--gray);
+    svg path {
+        fill: var(--gray);
+    }
 }
 </style>

@@ -147,11 +147,19 @@ export default {
         },
         computedPrice() {
             if(this.result.event_type === 'private') {
-                const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1 + Number(this.result.limit_count))
-                if(price)
-                return Number(price.price)
-                else
-                return 0
+                if(this.result.repeat_at === null) {
+                    const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1 + Number(this.result.limit_count))
+                    if(price)
+                    return Number(price.price)
+                    else
+                    return 0
+                }else {
+                    const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1 + Number(this.available_slot_count))
+                    if(price)
+                    return Number(price.price)
+                    else
+                    return 0
+                }
             }else {
                 return Number(this.result.price)
             }
@@ -177,16 +185,11 @@ export default {
             bookingSuccess: false,
             fetching_available_slots: false,
             available_slot_count: 0,
+            booked_count: 0,
             guide: {},
         }
     },
     methods: {
-        showCal() {
-            this.toggleCal = !this.toggleCal
-        },
-        closeCal() {
-            this.toggleCal ? this.toggleCal = false : ''
-        },
         async calChange(date) {
             // Make API call to fetch available slot count
             this.fetching_available_slots = true
@@ -194,6 +197,7 @@ export default {
                 const res = await axios.post(this.hostname+'/api/get-booking-count/'+ this.result.id + '?token='+ this.token, { date: date})
                 this.form.date = new Date(date).toISOString().slice(0, 10)
                 this.available_slot_count = res.data
+                this.form.quantity = this.computedBookingLimit
                 this.fetching_available_slots = false
                 if(Number(this.form.quantity > this.computedBookingLimit)) {
                     this.form.quantity = this.computedBookingLimit
