@@ -66,7 +66,7 @@
             <li v-for="(skill, index) in JSON.parse(user.skills)" :key="index">{{ skill }}</li>
         </div>
     </div>
-    <div v-if="user.new_skills && JSON.parse(user.beginner_skills).length" class="list-row-shading">
+    <div v-if="user.beginner_skills && JSON.parse(user.beginner_skills).length" class="list-row-shading">
         <div class="gray">I'm a beginner</div>
         <div>
             <li v-for="(skill, index) in JSON.parse(user.beginner_skills)" :key="index">{{ skill }}</li>
@@ -128,20 +128,6 @@
             </a>
         </div>
     </div>
-    <!-- <div v-if="user.guide_terms" class="flx column gap-4 list-row-shading">
-        <div class="gray">Guide Terms & Conditions</div>
-        <div>
-            <a class="a-link flx gap-4 ai-c" :href="s3bucket+'/'+JSON.parse(user.guide_terms).url" target="_blank" onclick="return !window.open(this.href, 'Terms & Conditions', 'width=700,height=800');">
-                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 15.5 19.5">
-                    <path d="M19.53,9.44l-7-7A.79.79,0,0,0,12,2.25H9A4.75,4.75,0,0,0,4.25,7V17A4.75,4.75,0,0,0,9,21.75h6A4.75,4.75,0,0,0,19.75,17V10A.79.79,0,0,0,19.53,9.44ZM12.75,4.79l4.46,4.46H14A1.25,1.25,0,0,1,12.75,8ZM5.75,17A3.26,3.26,0,0,0,9,20.25h6A3.26,3.26,0,0,0,18.25,17V10.75H14A2.75,2.75,0,0,1,11.25,8V3.75H9A3.26,3.26,0,0,0,5.75,7Z" transform="translate(-4.25 -2.25)" fill-rule="evenodd"/>
-                </svg>
-                {{ JSON.parse(user.guide_terms).key }}
-                <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 14.5 14.5">
-                    <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)"/>
-                </svg>
-            </a>
-        </div>
-    </div> -->
     <div v-if="user.guide_awards" class="flx column gap-4 list-row-shading">
         <div class="gray">Awards</div>
         <div class="flx gap-4 column">
