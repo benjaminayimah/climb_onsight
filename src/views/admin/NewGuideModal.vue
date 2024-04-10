@@ -159,12 +159,12 @@
     </teleport>
     <teleport to="#modal_footer">
         <div class="flx jc-fe gap-8">
-            <button @click="triggerAccept('accept')" class="button-primary btn-md" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
-                <span>Accept</span>
-            </button>
             <button @click="triggerAccept('decline')" class="btn-md btn-danger">
                 <span>Decline</span>
             </button> 
+            <button @click="triggerAccept('accept')" class="button-primary btn-md" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
+                <span>Accept</span>
+            </button>
         </div>
     </teleport>
 </template>
