@@ -53,6 +53,10 @@
                         <div class="gray fs-09">Phone number</div>
                         <div>{{ guide.phone_number }}</div>
                     </div>
+                    <div>
+                        <div class="gray fs-09">Country</div>
+                        <div>{{ computedCountry }}</div>
+                    </div>
                     <div class="flx gap-24 flx-1 flx-wrap">
                         <div v-if="computedInsurance.length">
                             <div class="gray fs-09">Guide Insurance</div>
@@ -185,8 +189,13 @@ export default {
             guide: (state) => state.forms.tempStorage,
             s3bucket: (state) => state.s3bucket,
             hostname: (state) => state.hostname,
-            token: (state) => state.token
+            token: (state) => state.token,
+            countries: (state) => state.country.countries
         }),
+        computedCountry() {
+            const thisCountry = this.countries.find(data => data.code === this.guide.country)
+            return thisCountry.country
+        },
         computedCertificate() {
             if(this.guide.guide_certificate && Array.isArray(JSON.parse(this.guide.guide_certificate))) {
                 return JSON.parse(this.guide.guide_certificate)
