@@ -29,7 +29,8 @@
                 <div class="list-row-shading" v-if="event.event_description">
                     <div class="gray">Event description</div>
                     <div>
-                        {{ event.event_description }}
+                        <div v-if="!showMore && event.event_description.length > limit">{{ event.event_description.slice(0, limit) }}... <span @click="toggleShow" class="fw-600 show-more">{{ showMore ? 'Show Less' : 'Show More' }}</span></div>
+                        <div v-else>{{ event.event_description }} <span @click="toggleShow" class="fw-600 show-more">{{ showMore ? 'Show Less' : 'Show More' }}</span></div>
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap column">
@@ -150,13 +151,14 @@ import UserList from '@/components/includes/UserList.vue'
 import BookingStatus from '@/components/includes/BookingStatus.vue'
 import EventAtendeesList from '@/components/includes/EventAtendeesList.vue'
 import EventType from '@/components/includes/EventType.vue'
+import textLimitMixin from '@/mixins/textLimitMixin'
 export default {
     components: { BookingTriggerButton, UserList, BookingStatus, EventAtendeesList, EventType },
     name: 'EventDetails',
     props: {
         event: Object
     },
-    mixins: [userRolesMixin, formatDateTime, amountFormatter],
+    mixins: [userRolesMixin, formatDateTime, amountFormatter, textLimitMixin],
     computed: {
         ...mapGetters(['getDevice']),
         ...mapState({

@@ -455,6 +455,12 @@ a.evt-card {
 .shadow-sm {
     box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
 }
+.show-more {
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
 .badge {
     padding: 4px 8px;
 }

@@ -12,7 +12,8 @@
                 <div v-if="event.event_description">
                     <div class="gray">Event description</div>
                     <div>
-                        {{ event.event_description }}
+                        <div v-if="!showMore && event.event_description.length > limit">{{ event.event_description.slice(0, limit) }}... <span @click="toggleShow" class="fw-600 show-more">{{ showMore ? 'Show Less' : 'Show More' }}</span></div>
+                        <div v-else>{{ event.event_description }} <span @click="toggleShow" class="fw-600 show-more">{{ showMore ? 'Show Less' : 'Show More' }}</span></div>
                     </div>
                 </div>
                 <div class="flx gap-24 collapsible">
@@ -100,6 +101,7 @@ import formatDateTime from '@/mixins/formatDateTime'
 import { mapState, mapGetters } from 'vuex'
 import UserList from '../includes/UserList.vue'
 import EventType from '../includes/EventType.vue'
+import textLimitMixin from '@/mixins/textLimitMixin'
 export default {
     components: { UserList, EventType },
     name: 'EventBody',
@@ -107,7 +109,7 @@ export default {
         event: Object,
         guide: Object
     },
-    mixins: [ formatDateTime, userRolesMixin],
+    mixins: [ formatDateTime, userRolesMixin, textLimitMixin],
     computed: {
         ...mapGetters(['getDevice']),
         ...mapState({
