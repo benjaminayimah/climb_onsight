@@ -29,8 +29,10 @@
                 <div class="list-row-shading" v-if="event.event_description">
                     <div class="gray">Event description</div>
                     <div>
-                        <div v-if="!showMore && event.event_description.length > limit">{{ event.event_description.slice(0, limit) }}... <span @click="toggleShow" class="fw-600 show-more">Show More</span></div>
-                        <div v-else>{{ event.event_description }} <span v-if="event.event_description.length > limit" @click="toggleShow" class="fw-600 show-more">Show Less</span></div>
+                        <div>
+                            {{ !showMore && event.event_description.length > limit ? event.event_description.slice(0, limit) + '...' : event.event_description  }}
+                            <span v-if="event.event_description.length > limit" @click="toggleShow" class="fw-600 show-more">{{ showMore ? 'Show Less' : 'Show More' }}</span>
+                        </div>
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap column">
