@@ -148,11 +148,11 @@
                             <div v-for="experience in computedExperience" :key="experience.id">
                                 <div v-if="experience.name.toLowerCase() !== 'other'">
                                     {{experience.value}} years in {{ experience.name }}
-                                    <span v-if="experience.description" class="gray fs-08"> - ({{ experience.description }})</span>
+                                    <span v-if="experience.description" class="gray fs-08"> - {{ experience.description }}</span>
                                 </div>
                                 <div v-else-if="experience.name.toLowerCase() === 'other'">
                                     {{experience.value}} years in {{ experience.alias }}
-                                    <span v-if="experience.description" class="gray fs-08"> - ({{ experience.description }})</span>
+                                    <span v-if="experience.description" class="gray fs-08"> - {{ experience.description }}</span>
                                 </div>
                             </div>
                         </div>
