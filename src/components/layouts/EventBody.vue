@@ -14,7 +14,7 @@
                     <div>
                         <div>
                             {{ !showMore && event.event_description.length > limit ? event.event_description.slice(0, limit) + '...' : event.event_description  }}
-                            <span v-if="event.event_description.length > limit" @click="toggleShow" class="fw-600 show-more">{{ showMore ? 'Show Less' : 'Show More' }}</span>
+                            <span v-if="event.event_description.length > limit" @click="toggleShow" class="show-more">{{ showMore ? 'Read less' : 'Read more' }}</span>
                         </div>
                     </div>
                 </div>
