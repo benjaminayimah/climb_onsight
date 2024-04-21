@@ -27,8 +27,11 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 a {
     padding: 12px 16px;
+    &:hover {
+        box-shadow: 0 2px 6px 0 rgba(15, 41, 77, 0.08);
+    }
 }
 </style>
