@@ -1,6 +1,6 @@
 <template>
     <li class="event-item">
-        <a href="#" class="br-16 block" @click.prevent="$emit('go-to-event', event.start)" :class="event.color">
+        <a href="#" class="br-16 block" @click.prevent="$emit('go-to-event', event)" :class="event.color">
             <div class="flx gap-8 ai-c">
                 <h1>{{ format_date_day(event.start) }}</h1>
                 <h5 class="uppercase wrap-text wrap-line-1">{{event.title}}</h5>

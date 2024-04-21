@@ -53,7 +53,7 @@
                         <span class="wrap-text wrap-line-1">Total events</span>
                         <div class="centered count br-50 flx-shrink-0 fs-09">{{ events.length }}</div>
                     </div>
-                    <event-vertical-items v-for="event in computedEvents" :key="event.title" :event="event" @go-to-event="goToEvent"/>
+                    <event-vertical-items v-for="event in computedEvents" :key="event.title" :event="event" @go-to-event="redirectToEvent"/>
                 </div>
             </div>
         </div>
@@ -122,6 +122,9 @@ export default {
         },
         goToEvent(date) {
             this.selectedDate = date
+        },
+        redirectToEvent(event) {
+            this.$router.push({ name: 'UpcomingEvents', query: { type: 'all', current: event.id, origin: this.$route.name } } )
         },
         computeMonth(today) {
             const currentMonth = new Date(today).getMonth()
