@@ -49,10 +49,10 @@
                     </div>
                 </div>
                 <div v-if="events.length" class="right-col-2 flx-1 flx column gap-16 overflow-y-scroll">
-                    <div class="bg-white pd-12 br-16 flx ai-c gap-16">
+                    <router-link :to="{ name: 'UpcomingEvents'}" class="bg-white pd-12 br-16 flx ai-c gap-16 hover-underline">
                         <span class="wrap-text wrap-line-1">Total events</span>
                         <div class="centered count br-50 flx-shrink-0 fs-09">{{ events.length }}</div>
-                    </div>
+                    </router-link>
                     <event-vertical-items v-for="event in computedEvents" :key="event.title" :event="event" @go-to-event="redirectToEvent"/>
                 </div>
             </div>

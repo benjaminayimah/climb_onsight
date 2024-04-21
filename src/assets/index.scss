@@ -420,6 +420,9 @@ button:not(.button-disabled, .absolute) {
         background-color: unset;
     }
 }
+.hover-underline:hover {
+    text-decoration: underline;
+}
 .transition-sm{
     transition: 0.2s all;
 }
