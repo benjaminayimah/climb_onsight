@@ -115,7 +115,7 @@ export default {
         width: 95vw;
     }
     .gallery-preview{
-        height: 50dvh;
+        height: 40dvh;
     }
     .gallery-footer {
         .gap-8 {
