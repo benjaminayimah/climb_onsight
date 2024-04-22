@@ -52,9 +52,8 @@ export default {
 .gallery-main {
     position: fixed;
     z-index: 601;
-    height: 80dvh;
-    width: calc(50vw + 200px);
-    top: 15%;
+    width: clamp(10vw + 100px, 50vw + 200px, 1040px);
+    top: clamp(55px, 25vh - 100px, 100px);
     left: 50%;
     translate: -50%;
     color: #fff;
@@ -63,7 +62,7 @@ export default {
     width: 100%;
 }
 .gallery-preview {
-    height: 85%;
+    height: 65dvh;
     background-color: #000;
     border-radius: 20px;
     img {
@@ -104,7 +103,7 @@ export default {
     right: 12px;
 }
 .btn-close {
-    inset: 50px 50px auto auto;
+    inset: 40px 40px auto auto;
     z-index: 601;
 }
 .isActive {
@@ -113,12 +112,10 @@ export default {
 }
 @media screen and (max-width: 570px){
     .gallery-main {
-        width: 100%;
+        width: 95vw;
     }
     .gallery-preview{
-        height: 70%;
-        border-radius: 0;
-
+        height: 50dvh;
     }
     .gallery-footer {
         .gap-8 {
@@ -127,6 +124,13 @@ export default {
         img {
             max-height: 50px;
         }
+    }
+    .gallery-controls {
+        top: 30%;
+    }
+    .btn-close {
+        inset: 20px auto auto 50%;
+        translate: -50%;
     }
 }
 </style>
