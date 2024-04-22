@@ -9,7 +9,7 @@
         <div class="flx jc-sb ai-c">
             <h3>{{ guide.name }}</h3>
             <div>
-                <a href="#" class="a-link">See all events</a>
+                <!-- <a href="#" class="a-link">See all events</a> -->
             </div>
         </div>
         <div class="flx column gap-4">
