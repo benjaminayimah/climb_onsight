@@ -286,7 +286,7 @@ body{
         transform: scale(0.9);
     }
 }
-button, .a-button{
+button:not(.div-input), .a-button{
     border-style: none;
     display: flex;
     justify-content: center;
@@ -302,7 +302,7 @@ button, .a-button{
         transition: var(--input-btn-transition);
     }
 }
-button:not(.button-disabled, .absolute) {
+button:not(.button-disabled, .absolute, .div-input) {
     &:active {
         transform: scale(0.98);
     }
@@ -415,7 +415,7 @@ button:not(.button-disabled, .absolute) {
 }
 .gallery img {
     cursor: pointer;
-    transition: 0.3s all;
+    transition: 0.2s all;
     &:hover {
         box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.08);
         opacity: 0.75;
@@ -1284,7 +1284,7 @@ $completionWidth: 440px;
     //     padding: 8px 24px;
     //     margin-left: 40px;
     // }
-    button {
+    button:not(.div-input) {
         height: 36px;
         min-width: 36px;
         border-radius: 30px;

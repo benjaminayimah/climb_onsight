@@ -1,6 +1,6 @@
 <template>
     <div class="input-wrapper">
-        <div :id="id" @click="!fetchingBookingDates ? openDropdown(id) : ''" class="div-input flx jc-sb ai-c" :class="[{ 'error-border': validation.errors.date }, toggleMenu ? 'active' : '', fetchingBookingDates ? 'disabled-input' : '']">
+        <button :id="id" @click.prevent="!fetchingBookingDates ? openDropdown(id) : ''" class="div-input flx jc-sb ai-c" :class="[{ 'error-border': validation.errors.date }, toggleMenu ? 'active' : '', fetchingBookingDates ? 'disabled-input' : '']">
             <div class="flx gap-8 ai-c">
                 <span>{{ date || 'Pick a date' }}</span>
                 <span v-if="date" class="gray">|</span>
@@ -14,7 +14,7 @@
                     <path d="M-3300-660c0-.707.011-1.372.035-2q.019-.516.051-1,.034-.518.083-1c.5-4.965,2.267-7.018,6.832-7.707V-673a1,1,0,0,1,1-1,1,1,0,0,1,1,1v1.085c.911-.059,1.908-.086,3-.086s2.09.026,3,.086V-673a1,1,0,0,1,1-1,1,1,0,0,1,1,1v1.293c4.566.688,6.327,2.741,6.832,7.707.033.321.06.654.083,1,.022.322.038.655.052,1,.023.629.034,1.3.034,2,0,9.882-2.118,12-12,12S-3300-650.118-3300-660Zm2,0a26.907,26.907,0,0,0,.438,5.61,5.206,5.206,0,0,0,1.271,2.681,5.214,5.214,0,0,0,2.681,1.271A26.852,26.852,0,0,0-3288-650a26.842,26.842,0,0,0,5.61-.438,5.214,5.214,0,0,0,2.682-1.271,5.214,5.214,0,0,0,1.27-2.681A26.831,26.831,0,0,0-3278-660c0-.716-.011-1.381-.036-2h-19.928C-3297.989-661.38-3298-660.715-3298-660Zm2.108-8.634c-.944.692-1.625,1.908-1.929,4.633h19.642c-.3-2.725-.985-3.941-1.93-4.633a6.7,6.7,0,0,0-2.892-1.048V-669a1,1,0,0,1-1,1,1,1,0,0,1-1-1v-.909c-.869-.061-1.861-.091-3-.091s-2.132.03-3,.091V-669a1,1,0,0,1-1,1,1,1,0,0,1-1-1v-.681A6.7,6.7,0,0,0-3295.892-668.633Zm10.5,14.27a1,1,0,0,1-1-1,1,1,0,0,1,1-1h3a1,1,0,0,1,1,1,1,1,0,0,1-1,1Zm-8.61,0a1,1,0,0,1-1-1,1,1,0,0,1,1-1h3a1,1,0,0,1,1,1,1,1,0,0,1-1,1Z" transform="translate(3300 674)" fill="#000"/>
                 </svg>
             </span>
-        </div>
+        </button>
     </div>
     <span class="input-error" v-if="validation.error && validation.errors.date">
         {{ validation.errors.date[0] }}
@@ -195,6 +195,7 @@ export default {
 }
 .div-input {
     height: 58px;
+    background-color: transparent;
 }
 .div-input:not(.disabled-input) {
     cursor: pointer;
