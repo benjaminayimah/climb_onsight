@@ -85,7 +85,7 @@
                 <div class="flx column gap-8">
                     <div class="gray">Gallery</div>
                     <div class="grid gap-16 gallery" v-if="event.gallery && event.gallery.length">
-                        <img v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
+                        <img @click="$store.commit('showGallery', {event: event, index: index})" v-for="(image, index) in JSON.parse(event.gallery)" :key="index" :src="image ? s3bucket+'/'+ image: ''" :alt="'Gallary image '+index" class="br-16" />
                     </div>
                 </div>
                 <div v-if="!is_guide" class="flx column gap-8">
@@ -163,9 +163,5 @@ export default {
 }
 .grid {
     grid-template-columns: 1fr 1fr 1fr;
-}
-.bg-img {
-    width: 180px;
-    height: 210px;
 }
 </style>

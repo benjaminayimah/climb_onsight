@@ -20,6 +20,7 @@ export default createStore({
     current_location: '',
     menu: false,
     pageLoader: false,
+    galleryContainer: { active: false, data: ''},
     bookingModal: { active: false, page: 1, data: {} },
     updateForm: {},
     forms: {
@@ -238,6 +239,42 @@ export default createStore({
     stopLoadingChats(state) {
       state.loadingChats = false
     },
+
+    //Gallery
+
+    showGallery(state, payload) {
+      state.galleryContainer.active = true
+      state.galleryContainer.data = payload
+      document.body.classList.add('fixed-body')
+    },
+    closeGallery(state) {
+      state.galleryContainer.active = false
+      state.galleryContainer.data = ''
+      document.body.classList.remove('fixed-body')
+
+    },
+    selectedGallery(state, payload) {
+      state.galleryContainer.data.index = payload
+    },
+    nextGallery(state) {
+      const current = state.galleryContainer.data.index + 1
+      const length = JSON.parse(state.galleryContainer.data.event.gallery).length
+      if(current !== length) {
+        state.galleryContainer.data.index = current
+      }else {
+        state.galleryContainer.data.index = 0
+      }
+    },
+    prevGallery(state) {
+      const index = state.galleryContainer.data.index 
+      const length = JSON.parse(state.galleryContainer.data.event.gallery).length
+      if(index !== 0) {
+        state.galleryContainer.data.index = index - 1
+      }else {
+        state.galleryContainer.data.index = length - 1
+      }
+    },
+
     // modals
     async openModal(state, payload) {
       state.forms.loader = true

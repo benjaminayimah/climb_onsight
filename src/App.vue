@@ -4,6 +4,7 @@
   <booking-modal v-if="booking" />
   <modal />
   <delete-modal v-if="deleteModal" />
+  <gallery-view v-if="showGallery.active" :gallery="showGallery.data" />
 </template>
 <script>
 import { mapState } from 'vuex'
@@ -11,14 +12,17 @@ import DeleteModal from './components/includes/DeleteModal.vue'
 import MainPageLoader from './components/includes/MainPageLoader.vue'
 import Modal from './components/layouts/Modal.vue'
 import BookingModal from './views/climbers/BookingModal.vue'
+import GalleryView from './components/layouts/GalleryView.vue'
+
 export default {
-  components: { Modal, BookingModal, DeleteModal, MainPageLoader },
+  components: { Modal, BookingModal, DeleteModal, MainPageLoader, GalleryView },
   name: 'App',
   computed: {
     ...mapState({
       booking: (state) => state.bookingModal.active,
       deleteModal: (state) => state.deleteModal.active,
-      pageLoader: (state) => state.pageLoader
+      pageLoader: (state) => state.pageLoader,
+      showGallery: (state) => state.galleryContainer
     })
   },
   created() {

@@ -413,6 +413,12 @@ button:not(.button-disabled, .absolute) {
         border-color: var(--gray);
     }
 }
+.gallery img {
+    cursor: pointer;
+    &:hover {
+        box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.08);
+    }
+}
 .a-link {
     cursor: pointer;
     &:hover {
