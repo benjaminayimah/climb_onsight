@@ -164,4 +164,8 @@ export default {
 .grid {
     grid-template-columns: 1fr 1fr 1fr;
 }
+.bg-img {
+    width: 180px;
+    height: 210px;
+}
 </style>
