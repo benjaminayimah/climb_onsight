@@ -286,7 +286,7 @@ body{
         transform: scale(0.9);
     }
 }
-button:not(.div-input), .a-button{
+button, .a-button{
     border-style: none;
     display: flex;
     justify-content: center;
@@ -1284,7 +1284,7 @@ $completionWidth: 440px;
     //     padding: 8px 24px;
     //     margin-left: 40px;
     // }
-    button:not(.div-input) {
+    button {
         height: 36px;
         min-width: 36px;
         border-radius: 30px;

@@ -1,6 +1,6 @@
 <template>
     <div class="input-wrapper">
-        <button :id="id" @click.prevent="!fetchingBookingDates ? openDropdown(id) : ''" class="div-input flx jc-sb ai-c" :class="[{ 'error-border': validation.errors.date }, toggleMenu ? 'active' : '', fetchingBookingDates ? 'disabled-input' : '']">
+        <button :id="id" @click.prevent="!fetchingBookingDates ? openDropdown(id) : ''" class="div-input flx jc-sb ai-c bg-transparent" :class="[{ 'error-border': validation.errors.date }, toggleMenu ? 'active' : '', fetchingBookingDates ? 'disabled-input' : '']">
             <div class="flx gap-8 ai-c">
                 <span>{{ date || 'Pick a date' }}</span>
                 <span v-if="date" class="gray">|</span>
@@ -195,7 +195,6 @@ export default {
 }
 .div-input {
     height: 58px;
-    background-color: transparent;
 }
 .div-input:not(.disabled-input) {
     cursor: pointer;
