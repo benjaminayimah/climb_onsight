@@ -145,7 +145,7 @@
                             </div>
                             <div class="flx jc-sb ai-c bd-bt-dashed">
                                 <div class="gray">Total price</div>
-                                <div class="fs-102rem"><strong>CA$ {{ Number(booking.data.total_price) }}</strong> + tax</div>
+                                <div class="fs-102rem"><strong>CA$ {{ Number(booking.data.total_price) }}</strong> (Includes applicable taxes)</div>
                             </div>
                         </div>
                     </div>

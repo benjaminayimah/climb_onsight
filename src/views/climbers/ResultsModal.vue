@@ -63,7 +63,7 @@
                             </div>
                             <div class="flx jc-sb ai-c bd-bt-dashed">
                                 <div>Total price</div>
-                                <div class="fs-102rem"><strong>{{ formatAmount(Number(computedPrice * form.quantity)) }}</strong> + tax</div>
+                                <div class="fs-102rem"><strong>{{ formatAmount(Number(computedPrice * form.quantity)) }}</strong> (Includes applicable taxes)</div>
                             </div>
                         </div>  
                     </div> 
