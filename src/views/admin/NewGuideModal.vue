@@ -100,7 +100,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div v-if="guide.guide_awards != '[null]'">
+                        <div v-if="guide.guide_awards && guide.guide_awards != '[null]'">
                             <div class="gray fs-09">Awards</div>
                             <div class="flx gap-4">
                                 <li v-for="award in JSON.parse(guide.guide_awards)" :key="award.id" >

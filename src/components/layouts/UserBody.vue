@@ -128,7 +128,7 @@
             </a>
         </div>
     </div>
-    <div v-if="user.guide_awards != '[null]'" class="flx column gap-4 list-row-shading">
+    <div v-if="user.guide_awards && user.guide_awards != '[null]'" class="flx column gap-4 list-row-shading">
         <div class="gray">Awards</div>
         <div class="flx gap-4 column">
             <li class="list-style" v-for="award in JSON.parse(user.guide_awards)" :key="award.id" >
