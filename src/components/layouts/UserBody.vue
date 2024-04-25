@@ -66,12 +66,12 @@
             <li v-for="(skill, index) in JSON.parse(user.skills)" :key="index">{{ skill }}</li>
         </div>
     </div>
-    <div v-if="user.beginner_skills && JSON.parse(user.beginner_skills).length" class="list-row-shading">
+    <!-- <div v-if="user.beginner_skills && JSON.parse(user.beginner_skills).length" class="list-row-shading">
         <div class="gray">I'm a beginner</div>
         <div>
             <li v-for="(skill, index) in JSON.parse(user.beginner_skills)" :key="index">{{ skill }}</li>
         </div>
-    </div>
+    </div> -->
     <div v-if="user.new_skills && JSON.parse(user.new_skills).length" class="list-row-shading">
         <div class="gray">Skills i want to learn</div>
         <div>
@@ -128,7 +128,7 @@
             </a>
         </div>
     </div>
-    <div v-if="user.guide_awards" class="flx column gap-4 list-row-shading">
+    <div v-if="user.guide_awards != '[null]'" class="flx column gap-4 list-row-shading">
         <div class="gray">Awards</div>
         <div class="flx gap-4 column">
             <li class="list-style" v-for="award in JSON.parse(user.guide_awards)" :key="award.id" >

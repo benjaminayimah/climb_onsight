@@ -18,7 +18,7 @@
                             </a>
                             <span>Company Information</span>
                         </li>
-                        <li :class="[{ 'active' : $route.path === '/guide-documents'},{ 'completed' : (newGUide.guide_awards != '' && (newGUide.guide_insurance || newGUide.guide_certificate)) } ]">
+                        <li :class="[{ 'active' : $route.path === '/guide-documents'},{ 'completed' : (newGUide.guide_awards != '' || (newGUide.guide_insurance || newGUide.guide_certificate)) } ]">
                             <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                                 <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                             </svg>
@@ -49,7 +49,7 @@
                                     <path d="M-1980.5,19c-4.222,0-6.376-.509-7.683-1.816S-1990,13.722-1990,9.5s.509-6.376,1.816-7.683S-1984.723,0-1980.5,0s6.377.509,7.684,1.816S-1971,5.277-1971,9.5s-.509,6.377-1.816,7.684S-1976.278,19-1980.5,19Zm-.85-7.147h1.7v1.6a.751.751,0,0,0,.751.75.751.751,0,0,0,.75-.75v-1.6h1.6a.751.751,0,0,0,.75-.751.751.751,0,0,0-.75-.75h-1.6v-1.7h1.6a.751.751,0,0,0,.75-.75.751.751,0,0,0-.75-.75h-1.6V5.548a.751.751,0,0,0-.75-.75.751.751,0,0,0-.751.75V7.153h-1.7V5.548a.751.751,0,0,0-.75-.75.751.751,0,0,0-.75.75V7.153h-1.606a.751.751,0,0,0-.75.75.751.751,0,0,0,.75.75h1.606v1.7h-1.606a.751.751,0,0,0-.75.75.751.751,0,0,0,.75.751h1.606v1.6a.751.751,0,0,0,.75.75.751.751,0,0,0,.75-.75v-1.6Zm1.7-1.5h-1.7v-1.7h1.7v1.7Z" transform="translate(1990)"/>
                                 </svg>
                             </a>
-                            <span>Experiences</span>
+                            <span>Experience</span>
                         </li>
                         <li :class="[{ 'active' : $route.path === '/guide-reference'}, {'completed' : (newGUide.referees && newGUide.referees[0].name != '' )}]">
                             <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">

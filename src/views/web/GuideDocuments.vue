@@ -9,20 +9,20 @@
                 </div>
                 <div class="form-row column">
                     <span class="gray fs-09">Optional</span>
-                    <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile" :id="'guide_certificate'" :formInput="form.guide_certificate" :label="'Guide certifications (i.e certificates from  PCGI, CMGE etc.)'" />
+                    <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile" :id="'guide_certificate'" :formInput="form.guide_certificate" :label="'Guide certifications (i.e certificates from  PCGI, ACMG etc.)'" />
                 </div>
                 <div class="form-row column">
                     <span class="gray fs-09">Optional</span>
                     <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile" :id="'guide_license'" :formInput="form.guide_license" :label="'Permit or license'" />
                 </div>
                 <div class="form-row column">
-                    <label for="award">Awards</label>
-                    <div class="input-wrapper">
-                        <input v-model="form.guide_awards" type="text" name="award" id="award" class="form-control" placeholder="List Awards (Add a comma to differentiate)" :class="{ 'error-border': validation.errors.guide_awards }">
+                    <div class="flx jc-sb">
+                        <label for="award">Awards</label>
+                        <span class="gray fs-08">Separate items with a comma ","</span>
                     </div>
-                    <span class="input-error" v-if="validation.error && validation.errors.guide_awards">
-                        {{ validation.errors.guide_awards[0] }}
-                    </span>
+                    <div class="input-wrapper">
+                        <input v-model="form.guide_awards" type="text" name="award" id="award" class="form-control" placeholder="List Awards (Add a comma to differentiate)">
+                    </div>
                 </div>
                 <button @click.prevent="updateNewGuide" class="button-primary gap-8 w-100 btn-lg ai-c">
                     <span>Continue</span>
@@ -58,16 +58,8 @@ export default {
     },
     methods: {
         async updateNewGuide() {
-            let errors = {}
-            if(this.form.guide_awards == '') {
-                if(this.form.guide_awards == '') {
-                    errors.guide_awards = ['The awards field is required']
-                }
-                this.showErr(errors)
-            }else {
-                await this.$store.commit('updateGuideDoc', this.form)
-                this.$router.push({ name: 'GuideReviews' })
-            }  
+            await this.$store.commit('updateGuideDoc', this.form)
+            this.$router.push({ name: 'GuideReviews' }) 
         },
         presetForm() {
             this.newGUide.guide_insurance ? this.form.guide_insurance = this.newGUide.guide_insurance : ''
