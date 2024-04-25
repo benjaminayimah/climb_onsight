@@ -18,7 +18,7 @@
                 <div class="form-row column">
                     <div class="flx jc-sb">
                         <label for="award">Awards</label>
-                        <span class="gray fs-08">Separate items with a comma ","</span>
+                        <span class="gray fs-08">Optional (Separate with comma ",")</span>
                     </div>
                     <div class="input-wrapper">
                         <input v-model="form.guide_awards" type="text" name="award" id="award" class="form-control" placeholder="List Awards (Add a comma to differentiate)">
