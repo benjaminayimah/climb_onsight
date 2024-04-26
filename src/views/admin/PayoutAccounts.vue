@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Payout accounts</h1>
-        <!-- <button @click.prevent="deleteAccount('')">Delete</button> -->
+        <!-- <button @click.prevent="deleteAccount('acct_1P9kZJQ5etNBV0lQ')">Delete</button> -->
         <ul>
             <li v-if="accounts.length">
                 <div></div>

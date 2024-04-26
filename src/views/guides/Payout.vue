@@ -1,6 +1,6 @@
 <template>
     <main-page-loader v-if="pageLoader" />
-    <div v-if="!user.stripe_account_id && !user.charges_enabled" class="empty-state flx column jc-c ai-c gap-16">
+    <div v-if="!user.stripe_account_id" class="empty-state flx column jc-c ai-c gap-16">
         <div class="centered text-center">
             <svg class="mb-16" xmlns="http://www.w3.org/2000/svg" height="70" viewBox="0 0 62.666 54.021">
                 <g transform="translate(-3656 -1134.129)">
@@ -16,7 +16,7 @@
             </button>
         </div>
     </div>
-    <div v-else-if="user.stripe_account_id && (!user.details_submitted || !user.payouts_enabled)" class="centered empty-state">
+    <div v-else-if="user.stripe_account_id && (!user.details_submitted || !user.payouts_enabled || !user.charges_enabled)" class="centered empty-state">
         <div class="flx column ai-c gap-24">
             <div class="pd-50 br-24 bg-white text-center">
                 <svg class="mb-8" xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 0 18.195 16.195">
