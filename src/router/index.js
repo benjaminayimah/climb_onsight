@@ -43,6 +43,9 @@ import BookingSuccess from '@/views/climbers/BookingSuccess.vue'
 import BookingCanceled from '@/views/climbers/BookingCanceled.vue'
 
 
+// import PayoutAccounts from '@/views/admin/PayoutAccounts.vue'
+
+
 // Guards
 const superGuard = (to, from, next) => {
   // Perform your checks here
@@ -193,7 +196,7 @@ const routes = [
       { path: '/access-denied', component: AccessDenied, name: 'AccessDenied'},
       { path: '/booking/success/:session_id', name: 'BookingSuccess', component: BookingSuccess },
       { path: '/booking/canceled/:session_id', name: 'BookingCanceled', component: BookingCanceled },
-
+      // { path: '/payout-accounts', component: PayoutAccounts, name: 'PayoutAccounts', beforeEnter: superGuard},
     ]
   },
   { 
