@@ -1495,14 +1495,21 @@ ul.tab {
         font-size: 1.2rem;
         font-weight: bold;
     }
-    .chat-middle-pane {
-        display: none;
-    }
     .chat-left-pane {
+        border-top-right-radius: 24px;
+        border-bottom-right-radius: 24px;
         flex: 1;
         .pd-32 {
             padding: 20px;
         }
+    }
+    .chat-middle-pane {
+        position: fixed;
+        border-top-left-radius: 24px;
+        border-bottom-left-radius: 24px;
+        width: 100%;
+        height: calc(100dvh - 75px);
+        top: 75px;
     }
     .section-main-right  {
         width: 100%;
@@ -1610,9 +1617,11 @@ ul.tab {
     .hide-filter {
         right: -100%;
     }
+    .chat-section-wrapper {
+        min-height: calc(100dvh - 90px);
+    }
     
 }
-
 
 
 //transitions
