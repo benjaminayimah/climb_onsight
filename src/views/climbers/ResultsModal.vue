@@ -76,9 +76,12 @@
                         <button @click="cancelPreBooking" class="ft-danger btn-md bg-transparent">Cancel</button>
                     </div>
                 </div>
-                <div v-else class="text-center fs-102rem pd-l-24 pd-r-24">
+                <div v-else class="fs-102rem pd-l-24 pd-r-24">
                     <p>
-                        <strong>{{ guide.name }}</strong> will review your request and will get back to you shortly. If approved, you will receive an email with a payment link to complete your booking. Please make the payment to secure your spot. We will hold your spot for <span class="inline-block fw-600">72 hours</span>.
+                        Climb Onsight will review your request and will get back to you shortly. Please be aware that the Guide may not be available on the day selected and may reach out to you to reschedule your trip on another day.
+                    </p>
+                    <p>
+                        If your trip is confirmed, you will receive an email with a payment link to complete your booking. Please make the payment to secure your spot. We will hold your spot for <span class="inline-block fw-600">72 hours</span>.
                     </p>
                     <p>
                         Climb Onsight is here to ensure a seamless experience for you. If you have any questions, feel free to contact us via the chat or by emailing <a class="a-link ft-secondary" href="mailto:support@climbonsight.ca">support@climbonsight.ca</a>.

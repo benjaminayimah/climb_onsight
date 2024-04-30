@@ -1,7 +1,7 @@
 export default {
     data() {
         return {
-            limit: 200,
+            limit: 600,
             showMore: false
         }
     },

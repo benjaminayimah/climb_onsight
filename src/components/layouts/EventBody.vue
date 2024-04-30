@@ -2,7 +2,10 @@
     <div class="br-16 bg-white main-details-wrapper details-padding">
         <div class="gap-24 flx col-row">
             <div class="flx gap-24 column w-50 flx-grow-1">
-                <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
+                <div class="relative">
+                    <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
+                    <gallery-button :event="event" />
+                </div>
                 <div class="flx gap-8">
                     <h3>{{ event.event_name }}</h3>
                     <div>
@@ -49,13 +52,13 @@
                         <div>{{ event.itinerary }}</div>
                     </div>
                     <div v-if="computedClimberGears.length">
-                        <div class="gray">Gears required for trip</div>
+                        <div class="gray">Gear required for trip</div>
                         <div>
                             <li class="list-style" v-for="(gear, index) in computedClimberGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
                     <div v-if="computedGuideGears.length">
-                        <div class="gray">Gears provided by Guide</div>
+                        <div class="gray">Gear provided by Guide</div>
                         <div>
                             <li class="list-style" v-for="(gear, index) in computedGuideGears" :key="index">{{ gear }}</li>
                         </div>
@@ -104,8 +107,9 @@ import { mapState, mapGetters } from 'vuex'
 import UserList from '../includes/UserList.vue'
 import EventType from '../includes/EventType.vue'
 import textLimitMixin from '@/mixins/textLimitMixin'
+import GalleryButton from '../includes/GalleryButton.vue'
 export default {
-    components: { UserList, EventType },
+    components: { UserList, EventType, GalleryButton },
     name: 'EventBody',
     props: {
         event: Object,

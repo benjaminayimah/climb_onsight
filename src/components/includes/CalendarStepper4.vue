@@ -55,16 +55,16 @@
                 <span class="gray fs-08">Separate with a comma</span>
             </div>
             <div class="input-wrapper">
-                <input v-model="form.climber_gears" class="br-16 w-100" type="text" id="climber_gears" name="climber_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Gears they are required to have..." />
+                <input v-model="form.climber_gears" class="br-16 w-100" type="text" id="climber_gears" name="climber_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Gear they are required to have..." />
             </div>
         </div>
         <div class="form-row column">
             <div class="flx jc-sb ai-c">
-                <div class="label">Gears you will provide</div>
+                <div class="label">Gear you will provide</div>
                 <span class="gray fs-08">Separate with a comma</span>
             </div>
             <div class="input-wrapper">
-                <input v-model="form.guide_gears" class="br-16 w-100" type="text" id="guide_gears" name="guide_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Enter Gears" />
+                <input v-model="form.guide_gears" class="br-16 w-100" type="text" id="guide_gears" name="guide_gears"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="Enter Gear" />
             </div>
         </div>
         <div class="form-row column">

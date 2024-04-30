@@ -14,7 +14,10 @@
         </div>
         <div class="gap-24 flx col-row">
             <div class="flx gap-16 column w-50 flx-grow-1">
-                <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
+                <div class="relative">
+                    <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
+                    <gallery-button :event="event" />
+                </div>
                 <div class="flx jc-sb">
                     <div class="flx gap-8">
                         <h3>{{ event.event_name }}</h3>
@@ -80,13 +83,13 @@
                         <div>{{ event.itinerary }}</div>
                     </div>
                     <div v-if="computedClimberGears.length" class="list-row-shading">
-                        <div class="gray">Gears required for trip</div>
+                        <div class="gray">Gear required for trip</div>
                         <div>
                             <li class="list-style" v-for="(gear, index) in computedClimberGears" :key="index">{{ gear }}</li>
                         </div>
                     </div>
                     <div v-if="computedGuideGears.length" class="list-row-shading">
-                        <div class="gray">Gears provided by Guide</div>
+                        <div class="gray">Gear provided by Guide</div>
                         <div>
                             <li class="list-style" v-for="(gear, index) in computedGuideGears" :key="index">{{ gear }}</li>
                         </div>
@@ -154,8 +157,9 @@ import BookingStatus from '@/components/includes/BookingStatus.vue'
 import EventAtendeesList from '@/components/includes/EventAtendeesList.vue'
 import EventType from '@/components/includes/EventType.vue'
 import textLimitMixin from '@/mixins/textLimitMixin'
+import GalleryButton from '@/components/includes/GalleryButton.vue'
 export default {
-    components: { BookingTriggerButton, UserList, BookingStatus, EventAtendeesList, EventType },
+    components: { BookingTriggerButton, UserList, BookingStatus, EventAtendeesList, EventType, GalleryButton },
     name: 'EventDetails',
     props: {
         event: Object
@@ -265,6 +269,6 @@ export default {
     bottom: 0px;
 }
 .dynamic-padding {
-    padding: 32px calc(12vw - 29px);
+    padding: 32px calc(8vw - 29px);
 }
 </style>
