@@ -46,4 +46,7 @@ export default {
 img.custom-color {
     background-color: v-bind(computedColor);
 }
+.profile-img {
+    height: 300px;
+}
 </style>

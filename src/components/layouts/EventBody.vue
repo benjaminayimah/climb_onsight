@@ -172,4 +172,7 @@ export default {
     width: 180px;
     height: 210px;
 }
+.profile-img {
+    height: calc(75dvh - 250px);
+}
 </style>

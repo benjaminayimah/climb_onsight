@@ -271,4 +271,7 @@ export default {
 .dynamic-padding {
     padding: 32px calc(8vw - 29px);
 }
+.profile-img {
+    height: 300px;
+}
 </style>
