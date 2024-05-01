@@ -11,12 +11,31 @@
             <div v-else-if="completed">
                 <completed-anime />
                 <div class="flx column ai-c gap-24">
-                    <h2>Successful!</h2>
-                    <div class="text-center comp-text">
-                        Thank you for booking this event.
-                    </div>
                     <div>
-                        <a href="/" class="button-primary a-button btn-md-lng">Done</a>
+                        <h2 class="text-center">Successful!</h2>
+                        <p>
+                            <strong>Thank you for booking this event with Climb Onsight.</strong>
+                        </p>
+                        <p>
+                            You will be receiving an email receipt for the trip. Please chat with your Guide on our platform for any questions about your trip.
+                        </p>
+                        <p>
+                            Climb Onsight is also here to support you as you get ready. We have a great and growing selection of <a href="https://climbonsight.ca/marketplace" target="_blank" class="a-link ft-warning">climbing merchandise that you should check out!</a>
+                        </p>
+                        <p>
+                            Before your trip, consider whether you want to purchase travel insurance. <a href="https://climbonsight.ca/blog" target="_blank" class="a-link ft-warning">We drafted a blog post to provide you with a few options.</a>
+                        </p>
+                        <p>
+                            Finally, please do not hesitate to reach out to us at <a class="a-link" href="mailto:srosenthal@climbonsight.ca">srosenthal@climbonsight.ca</a>
+                        </p>
+                        <p class="text-center">
+                            <i>
+                                On Belay? Belay On. Climbing!
+                            </i>
+                        </p>
+                        <div class="flx jc-c">
+                            <a href="/" class="button-primary a-button btn-md-lng">Done</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -55,7 +74,6 @@ export default {
                 this.completed = true
                 this.$store.commit('updateBooking', res.data.booking)
                 this.$store.commit('updateNotifications', res.data.booking.id)
-
             } catch (e) {
                 this.showAlert('danger', e.response.data.message)
             }
@@ -69,3 +87,8 @@ export default {
     }
 }
 </script>
+<style lang="css">
+p {
+    font-size: 1.14rem;
+}
+</style>
