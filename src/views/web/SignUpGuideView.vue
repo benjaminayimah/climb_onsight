@@ -18,7 +18,7 @@
                             </a>
                             <span>Company Information</span>
                         </li>
-                        <li :class="[{ 'active' : $route.path === '/guide-documents'},{ 'completed' : (newGUide.guide_awards != '' || (newGUide.guide_insurance || newGUide.guide_certificate)) } ]">
+                        <li :class="[{ 'active' : $route.path === '/guide-documents'},{ 'completed' : newGUide && ((newGUide.guide_awards && newGUide.guide_awards != '') || (newGUide.guide_insurance && newGUide.guide_insurance.length) || (newGUide.guide_certificate && newGUide.guide_certificate.length) || (newGUide.guide_license && newGUide.guide_license.length)) } ]">
                             <svg class="completed-check" xmlns="http://www.w3.org/2000/svg" height="11" viewBox="0 0 14.347 11.549">
                                 <path d="M5.872,10.427l6.936-6.936-.932-.916-6.02,6L3.091,5.8l-.932.932Zm0,1.849L.326,6.73,3.091,3.949,5.872,6.73l5.987-6,2.814,2.748Z" transform="translate(-0.326 -0.727)" fill="#7afc96"/>
                             </svg>
