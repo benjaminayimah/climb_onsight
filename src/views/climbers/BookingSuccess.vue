@@ -23,7 +23,7 @@
                             Climb Onsight is also here to support you as you get ready. We have a great and growing selection of <a href="https://climbonsight.ca/marketplace" target="_blank" class="a-link ft-warning">climbing merchandise that you should check out!</a>
                         </p>
                         <p>
-                            Before your trip, consider whether you want to purchase travel insurance. <a href="https://climbonsight.ca/blog" target="_blank" class="a-link ft-warning">We drafted a blog post to provide you with a few options.</a>
+                            Before your trip, consider whether you want to purchase travel insurance. <a href="https://climbonsight.ca/travel-insurance-for-climbing" target="_blank" class="a-link ft-warning">We drafted a blog post to provide you with a few options.</a>
                         </p>
                         <p>
                             Finally, please do not hesitate to reach out to us at <a class="a-link" href="mailto:srosenthal@climbonsight.ca">srosenthal@climbonsight.ca</a>
