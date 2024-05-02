@@ -172,6 +172,7 @@ export default {
                 stored.climber_gears = []
                 state.newEvent.climber_gears = []
             }
+            stored.guides_link = payload.guides_link
             stored.faqs = payload.faqs
             stored.experience_required = payload.experience_required
             stored.itinerary = payload.itinerary
@@ -179,6 +180,7 @@ export default {
             stored.terms_type = payload.terms_type
             stored.terms_link = payload.terms_link
             localStorage.setItem('newEvent', JSON.stringify(stored))
+            state.newEvent.guides_link = payload.guides_link
             state.newEvent.faqs = payload.faqs
             state.newEvent.experience_required = payload.experience_required
             state.newEvent.itinerary = payload.itinerary

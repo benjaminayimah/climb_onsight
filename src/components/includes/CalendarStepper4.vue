@@ -51,6 +51,15 @@
         </div>
         <div class="form-row column">
             <div class="flx jc-sb ai-c">
+                <div class="label">Guides link</div>
+                <span class="gray fs-08">For companies with multiple guides</span>
+            </div>
+            <div class="input-wrapper">
+                <input v-model="form.guides_link" class="br-16 w-100" type="text" id="guides_link" name="guides_link"  :class="input2 ? 'form-control2' : 'form-control'" placeholder="https://climbonsight.ca/your-guides-link" />
+            </div>
+        </div>
+        <div class="form-row column">
+            <div class="flx jc-sb ai-c">
                 <div class="label">Climber responsibilities</div>
                 <span class="gray fs-08">Separate with a comma</span>
             </div>
@@ -142,7 +151,8 @@ export default {
             hostname: (state) => state.hostname,
             updateForm: (state) => state.updateForm,
             colors: (state) => state.color.colors,
-            experience_required: (state) => state.data.experience_required
+            experience_required: (state) => state.data.experience_required,
+            user: (state) => state.user
         }),
         computedPriceRange() {
             let length = Number(this.form.attendance_limit)
@@ -155,6 +165,7 @@ export default {
                 experience_required: [],
                 guide_gears: '',
                 climber_gears: '',
+                guides_link: '',
                 itinerary: '',
                 event_terms: {},
                 faqs: [],
@@ -268,8 +279,10 @@ export default {
             this.$router.push({ query: { stepper: '3', current: this.$route.query.current, origin: this.$route.query.origin }})
         },
         presetForm() {
+            this.user.guides_link && !this.editMode ? this.form.guides_link = this.user.guides_link : ''
             if(this.newEvent) {
                 this.newEvent.itinerary ? this.form.itinerary = this.newEvent.itinerary : ''
+                this.newEvent.guides_link ? this.form.guides_link = this.newEvent.guides_link : ''
                 if(this.newEvent.climber_gears) {
                     if(this.editMode === 'event_edit') {
                         this.form.climber_gears = JSON.parse(this.newEvent.climber_gears).join(',')

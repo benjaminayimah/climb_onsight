@@ -24,9 +24,10 @@
                         <div>
                             <event-type :eventType="event.event_type" />
                         </div>
-                    </div>
-                    <div>
                         <span class="fs-09 badge badge-cyan br-24 wrap-text wrap-line-1">{{ event.category }}</span>
+                    </div>
+                    <div v-if="!is_guide && event.guides_link">
+                        <guides-link-button :link="event.guides_link" />
                     </div>
                 </div>
                 <div class="list-row-shading" v-if="event.event_description">
@@ -124,7 +125,24 @@
                 </div>
                 <div v-if="guide && !is_guide" class="flx column gap-8 guide">
                     <div class="gray">Guide for event</div>
-                    <user-list :user="guide" :climber="true" :redirect="false" />
+                    <div class="flx ai-c gap-16 collapsible">
+                        <div class="flx">
+                            <user-list :user="guide" :climber="true" :redirect="false" />
+                        </div>
+                        <div v-if="event.guides_link">
+                            <guides-link-button :link="event.guides_link" />
+                        </div>
+                    </div>
+
+                    <!-- <div class="flx ai-c gap-16 collapsible">
+                        <div class="flx">
+                            <user-list :user="guide" :climber="true" :redirect="false" />
+                        </div>
+                        <div v-if="event.guides_link">
+                            <guides-link-button :link="event.guides_link" />
+                        </div>
+                    </div> -->
+
                 </div>
                 <div v-if="is_climber" class="sticky booking-trigger-wrapper flx jc-fe">
                     <booking-trigger-button :eventStatus="event" :resultType="'event'" @booking-trigger="bookingTrigger" />
@@ -158,8 +176,9 @@ import EventAtendeesList from '@/components/includes/EventAtendeesList.vue'
 import EventType from '@/components/includes/EventType.vue'
 import textLimitMixin from '@/mixins/textLimitMixin'
 import GalleryButton from '@/components/includes/GalleryButton.vue'
+import GuidesLinkButton from '@/components/includes/GuidesLinkButton.vue'
 export default {
-    components: { BookingTriggerButton, UserList, BookingStatus, EventAtendeesList, EventType, GalleryButton },
+    components: { BookingTriggerButton, UserList, BookingStatus, EventAtendeesList, EventType, GalleryButton, GuidesLinkButton },
     name: 'EventDetails',
     props: {
         event: Object
@@ -273,5 +292,10 @@ export default {
 }
 .profile-img {
     height: 300px;
+}
+@media screen and (max-width: 599px){
+    .collapsible{
+        align-items: baseline;
+    }
 }
 </style>

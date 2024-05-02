@@ -12,6 +12,7 @@
         <div class="modal-width flx column gap-16 main-details-wrapper">
             <div class="flx jc-c column ai-c">
                 <img class="br-50 profile-img" :class="{'custom-color' : !user.profile_picture}" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
+                <guides-link-button class="guides-link" v-if="user.guides_link" :link="user.guides_link" />
                 <send-message-button :user="user.role === 'climber' ? {id: user.user_id, name: user.name} : user" />
             </div>
             <user-body :user="user" />
@@ -46,9 +47,10 @@ import Spinner from '@/components/includes/Spinner.vue'
 import alertMixin from '@/mixins/alertMixin';
 import inputValidation from '@/mixins/inputValidation';
 import SendMessageButton from '@/components/includes/SendMessageButton.vue'
+import GuidesLinkButton from '@/components/includes/GuidesLinkButton.vue'
 export default {
     name: 'UserModal',
-    components: { UserBody, BookingStatus, Spinner, SendMessageButton },
+    components: { UserBody, BookingStatus, Spinner, SendMessageButton, GuidesLinkButton },
     mixins: [userRolesMixin, inputValidation, alertMixin],
     computed: {
         ...mapState({
@@ -112,5 +114,8 @@ export default {
 }
 img.custom-color {
     background-color: v-bind(computedColor);
+}
+.guides-link {
+    margin-top: 16px;
 }
 </style>

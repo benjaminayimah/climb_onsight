@@ -407,7 +407,7 @@ export default createStore({
       state.updateForm.event_terms = payload.event_terms
       state.updateForm.terms_type = payload.terms_type
       state.updateForm.terms_link = payload.terms_link
-      
+      state.updateForm.guides_link = payload.guides_link
     },
     //set delete
     setDeleteModal(state, payload) {

@@ -6,10 +6,15 @@
                     <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
                     <gallery-button :event="event" />
                 </div>
-                <div class="flx gap-8">
-                    <h3>{{ event.event_name }}</h3>
-                    <div>
-                        <event-type :eventType="event.event_type" />
+                <div class="flx gap-8 jc-sb ai-c">
+                    <div class="flx gap-8">
+                        <h3>{{ event.event_name }}</h3>
+                        <div>
+                            <event-type :eventType="event.event_type" />
+                        </div>
+                    </div>
+                    <div v-if="event.guides_link">
+                        <guides-link-button :link="event.guides_link" />
                     </div>
                 </div>
                 <div v-if="event.event_description">
@@ -93,7 +98,14 @@
                 </div>
                 <div v-if="!is_guide" class="flx column gap-8">
                     <div class="gray">Guide for event</div>
-                    <user-list :user="guide" :climber="true" :redirect="false" />
+                    <div class="flx ai-c gap-16 collapsible">
+                        <div class="flx">
+                            <user-list :user="guide" :climber="true" :redirect="false" />
+                        </div>
+                        <div v-if="event.guides_link">
+                            <guides-link-button :link="event.guides_link" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,8 +120,9 @@ import UserList from '../includes/UserList.vue'
 import EventType from '../includes/EventType.vue'
 import textLimitMixin from '@/mixins/textLimitMixin'
 import GalleryButton from '../includes/GalleryButton.vue'
+import GuidesLinkButton from '../includes/GuidesLinkButton.vue'
 export default {
-    components: { UserList, EventType, GalleryButton },
+    components: { UserList, EventType, GalleryButton, GuidesLinkButton },
     name: 'EventBody',
     props: {
         event: Object,
@@ -174,5 +187,10 @@ export default {
 }
 .profile-img {
     height: calc(75dvh - 250px);
+}
+@media screen and (max-width: 599px){
+    .collapsible{
+        align-items: baseline;
+    }
 }
 </style>
