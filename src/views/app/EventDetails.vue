@@ -20,11 +20,11 @@
                 </div>
                 <div class="flx jc-sb">
                     <div class="flx gap-8">
-                        <h3>{{ event.event_name }}</h3>
+                        <h3 class="wrap-text wrap-line-1">{{ event.event_name }}</h3>
                         <div>
                             <event-type :eventType="event.event_type" />
                         </div>
-                        <span class="fs-09 badge badge-cyan br-24 wrap-text wrap-line-1">{{ event.category }}</span>
+                        <span class="fs-08 badge badge-cyan br-24 wrap-text wrap-line-1">{{ event.category }}</span>
                     </div>
                     <div v-if="!is_guide && event.guides_link">
                         <guides-link-button :link="event.guides_link" />
