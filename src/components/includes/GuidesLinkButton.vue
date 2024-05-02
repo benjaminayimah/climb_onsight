@@ -1,5 +1,5 @@
 <template>
-    <a :href="link " target="_blank" class="flx ai-c gap-16 block btn-rounded ">
+    <a :href="link " target="_blank" class="flx ai-c gap-16 btn-rounded ">
         <div class="flx ai-c gap-4">
             <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24.75 22">
                 <path d="M19.071,21.7V20.565a6.141,6.141,0,0,0,2.75-5.11c0-3.417,0-6.187-4.125-6.187s-4.125,2.77-4.125,6.188a6.141,6.141,0,0,0,2.75,5.11V21.7c-4.664.381-8.25,2.673-8.25,5.444h19.25c0-2.771-3.586-5.063-8.25-5.444ZM9.6,22.23A13.063,13.063,0,0,1,13.893,20.5a7.757,7.757,0,0,1-.87-1.268,7.873,7.873,0,0,1-1-3.779,12.208,12.208,0,0,1,.657-5.022A4.477,4.477,0,0,1,16.1,7.866c-.363-1.643-1.331-2.723-3.906-2.723-4.125,0-4.125,2.77-4.125,6.187a6.141,6.141,0,0,0,2.75,5.11v1.134c-4.664.381-8.25,2.673-8.25,5.444H8.566A8.807,8.807,0,0,1,9.6,22.23Z" transform="translate(-2.571 -5.143)"/>
@@ -25,5 +25,14 @@ export default {
 a {
     padding: 6px 14px;
     border: 1px solid #000;
+    &:hover {
+        border-color: var(--warning);
+        span {
+            color: var(--warning);
+        }
+        path {
+            fill: var(--warning);
+        }
+    }
 }
 </style>
