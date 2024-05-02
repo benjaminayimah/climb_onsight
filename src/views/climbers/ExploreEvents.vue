@@ -1,7 +1,7 @@
 <template>
     <section class="main">
         <div class="bg-white flx br-24 explore-section-wrapper pd-24 gap-24">
-            <div class="search-result-section overflow-y-scroll scroll-hidden">
+            <div class="search-result-section overflow-y-scroll scroll-hidden flx column">
                 <div class="top-row mb-16 flx jc-sb gap-16 flx-wrap">
                     <div class="flx gap-8 flx-1">
                         <div class="input-wrapper search flx-1">
@@ -341,4 +341,11 @@ section {
 .button-outline{
     padding: 10px 15px;
 }
+.mobile, .tablet {
+    .search-result-section {
+        min-height: calc(100dvh - 170px);
+    }
+}
+
+// height: calc(100dvh - 170px);
 </style>
