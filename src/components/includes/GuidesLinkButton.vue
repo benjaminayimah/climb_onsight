@@ -25,6 +25,7 @@ export default {
 a {
     padding: 6px 14px;
     border: 1px solid #000;
+    transition: var(--input-btn-transition);
     &:hover {
         border-color: var(--warning);
         span {
@@ -34,5 +35,8 @@ a {
             fill: var(--warning);
         }
     }
+}
+path, span {
+    transition: var(--input-btn-transition);
 }
 </style>
