@@ -12,6 +12,7 @@
                         <div>
                             <event-type :eventType="event.event_type" />
                         </div>
+                        <span class="fs-08 badge badge-cyan br-24 wrap-text wrap-line-1">{{ event.category }}</span>
                     </div>
                     <div v-if="event.guides_link">
                         <guides-link-button :link="event.guides_link" />
