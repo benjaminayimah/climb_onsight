@@ -4,7 +4,7 @@
             <div class="mb-32">
                 <logo />
             </div>
-            <div class="flx ai-c flx-1 pb-80">
+            <div class="flx ai-c flx-1 pb-20">
                 <div class="flx-1 flx column gap-24 ai-c">
                     <ul class="flx gap-8 logon-stepper mb-24">
                         <li :class="[{ 'active' : $route.path === '/company-info'}, { 'completed' : newGUide.name }]">
@@ -66,6 +66,7 @@
                     <router-view></router-view>
                 </div>
             </div>
+            <foot-note />
         </div>
     </div>
 </template>
@@ -73,8 +74,9 @@
 <script>
 import { mapState } from 'vuex';
 import Logo from '@/components/includes/Logo.vue'
+import FootNote from '@/components/includes/FootNote.vue';
 export default {
-    components: { Logo },
+    components: { Logo, FootNote },
     name: 'SignUpGuideView',
     computed: {
         ...mapState({

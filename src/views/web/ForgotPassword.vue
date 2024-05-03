@@ -44,6 +44,7 @@
                     </div>
                 </div>
             </div>
+            <foot-note />
         </div>
     </div>
 </template>
@@ -54,8 +55,9 @@ import { mapState } from 'vuex';
 import inputValidationMixin from '@/mixins/inputValidation';
 import Spinner from '@/components/includes/Spinner.vue'
 import Logo from '@/components/includes/Logo.vue';
+import FootNote from '@/components/includes/FootNote.vue';
 export default {
-    components: { Spinner, Logo },
+    components: { Spinner, Logo, FootNote },
     name: 'ForgotPassword',
     mixins: [inputValidationMixin],
     computed: {

@@ -4,7 +4,7 @@
             <div>
                 <logo />
             </div>
-            <div class="w-100 flx ai-c flx-1">
+            <div class="w-100 flx ai-c flx-1 pb-20">
                 <div class="flx-1 flx column gap-40">
                     <div class="text-center">
                         <div class="fw-700 fs-5rem">Welcome</div>
@@ -61,20 +61,7 @@
                     </div>
                 </div>
             </div>
-            <!-- <ul class="flx gap-8">
-                <li>
-                    <a href="" class="a-link">Terms</a>
-                </li>
-                <li>
-                    <a href="" class="a-link">Privacy</a>
-                </li>
-                <li>
-                    <a href="" class="a-link">Blog</a>
-                </li>
-                <li>
-                    <a href="" class="a-link">FAQ's</a>
-                </li>
-            </ul> -->
+            <foot-note />
         </div>
     </div>
 </template>
@@ -85,8 +72,9 @@ import passwordToggleMixin from '@/mixins/passwordToggle'
 import inputValidationMixin from '@/mixins/inputValidation'
 import Spinner from '@/components/includes/Spinner.vue'
 import Logo from '@/components/includes/Logo.vue'
+import FootNote from '@/components/includes/FootNote.vue'
 export default {
-    components: { Spinner, Logo },
+    components: { Spinner, Logo, FootNote },
     name: 'SignIn',
     mixins: [inputValidationMixin, passwordToggleMixin],
     computed: {

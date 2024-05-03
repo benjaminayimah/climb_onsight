@@ -4,7 +4,7 @@
             <div class="mb-32">
                 <logo />
             </div>
-            <div class="flx ai-c flx-1 pb-80">
+            <div class="flx ai-c flx-1 pb-20">
                 <div class="flx-1 flx column gap-24 ai-c">
                     <ul v-if="!signedUp" class="flx gap-8 logon-stepper mb-24">
                         <li :class="[{'active' : $route.path === '/signup-personal-info'}, {'completed' : newUser.dob}]">
@@ -56,6 +56,7 @@
                     <router-view></router-view>
                 </div>
             </div>
+            <foot-note />
         </div>
     </div>
 </template>
@@ -63,8 +64,9 @@
 <script>
 import Logo from '@/components/includes/Logo.vue'
 import { mapState } from 'vuex';
+import FootNote from '@/components/includes/FootNote.vue';
 export default {
-    components: { Logo },
+    components: { Logo, FootNote },
     name: 'SignUpClimberView',
     computed: {
         ...mapState({
