@@ -14,7 +14,7 @@
         </div>
         <div class="gap-24 flx col-row">
             <div class="flx gap-16 column w-50 flx-grow-1">
-                <div class="relative">
+                <div class="relative gallery-button-trigger">
                     <img class="br-16 profile-img" :src="event.gallery && event.gallery.length ? s3bucket+'/'+ JSON.parse(event.gallery)[0] : ''" :alt="event.event_name">
                     <gallery-button :event="event" />
                 </div>

@@ -1538,6 +1538,39 @@ ul.tab {
         padding-left: 3px;
     }
 }
+.gallery-button-trigger {
+    button {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        inset: auto 12px 12px auto;
+        padding: 0 10px;
+        height: 36px;
+        width: 36px;
+        transition: .3s ease-in-out all;
+        overflow: hidden;
+        span {
+            display: none;
+        }
+        
+    }
+    span {
+        color: #fff;
+    }
+    &:hover button {
+        background-color: rgba(0, 0, 0, .9);
+        width: 116px;
+    }
+    &:hover {
+        span {
+            display: block;
+            animation: fadeInSlide .4s ease-in-out;
+        }
+    }
+}
+@keyframes fadeInSlide {
+    from { opacity: 0; display: none; transform: translateX(10px);}
+    to { opacity: 1; display: block; transform: translateX(0)}
+}
 //tablet
 .tablet {
     .section-main-right {
