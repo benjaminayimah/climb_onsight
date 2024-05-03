@@ -61,6 +61,20 @@
                     </div>
                 </div>
             </div>
+            <!-- <ul class="flx gap-8">
+                <li>
+                    <a href="" class="a-link">Terms</a>
+                </li>
+                <li>
+                    <a href="" class="a-link">Privacy</a>
+                </li>
+                <li>
+                    <a href="" class="a-link">Blog</a>
+                </li>
+                <li>
+                    <a href="" class="a-link">FAQ's</a>
+                </li>
+            </ul> -->
         </div>
     </div>
 </template>

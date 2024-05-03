@@ -24,7 +24,7 @@ export default {
 <style lang="scss" scoped>
 a {
     padding: 6px 14px;
-    border: 1px solid #000;
+    border: 1px solid rgba(0, 0, 0, 0.2);
     transition: var(--input-btn-transition);
     &:hover {
         border-color: var(--warning);

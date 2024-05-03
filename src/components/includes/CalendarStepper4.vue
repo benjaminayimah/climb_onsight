@@ -82,7 +82,7 @@
                 <span class="gray fs-08">Optional</span>
             </div>
             <div class="input-wrapper">
-                <input v-model="form.itinerary" class="br-16 w-100" type="text" id="itinerary" name="itinerary"  :class="[{'error-border': validation.errors.itinerary }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter itinerary" />
+                <textarea v-model="form.itinerary" class="br-16 w-100" id="itinerary" name="itinerary"  :class="[{'error-border': validation.errors.itinerary }, input2 ? 'form-control2' : 'form-control']" placeholder="Enter itinerary" rows="2"></textarea>
             </div>
             <span class="input-error" v-if="validation.error && validation.errors.itinerary">
                 {{ validation.errors.itinerary[0] }}
