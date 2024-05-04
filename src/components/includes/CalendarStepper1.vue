@@ -69,7 +69,7 @@
                 Next
             </button>
             <div class="mt-8 fs-09 text-center" v-if="!user.details_submitted && !user.payouts_enabled">
-                In order to get started with listing events, accepting payment and receiving payouts, you will need to setup your payout account. <router-link class="a-link ft-secondary" :to="{ name: 'Payout'}">Setup account now.</router-link>
+                In order to get started with listing events, accepting payment and receiving payouts, you will need to setup your payout account. <a href="#" @click.prevent="goToPayout" class="a-link ft-secondary">Setup account now.</a>
             </div>
         </div>
     </form>
@@ -85,7 +85,8 @@ export default {
     mixins: [inputValidationMixin],
     computed: {
         ...mapState({
-            repeat_at: (state) => state.data.repeat_at
+            repeat_at: (state) => state.data.repeat_at,
+            updateModal: (state) => state.forms.active
         })
     },
     props: {
@@ -145,7 +146,11 @@ export default {
             if(this.editMode === 'event_edit' && this.newEvent.repeat_at) {
                 this.form.repeat = true
             }
-        }, 
+        },
+        goToPayout() {
+            this.updateModal ? this.$store.commit('closeModal') : ''
+            this.$router.push({ name: 'Payout' } )
+        }
     },
     mounted() {
         this.presetForm()
