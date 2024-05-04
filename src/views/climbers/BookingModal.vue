@@ -67,51 +67,11 @@
                                 </div>
                             </div>
                         </div>
-                        <form @submit.prevent="" class="flx column gap-16">
-                            <div class="form-row column">
-                                <div class="input-wrapper">
-                                    <input v-model="form.sign.signature" class="form-control" type="text" name="signature" id="signature" placeholder="Signature">
-                                </div>
-                                <span class="fs-09 gray">**Type your full name in place of the signature</span>
-                            </div>
-                            <div class="form-row column">
-                                <label for="name">Name</label>
-                                <div class="input-wrapper">
-                                    <input v-model="form.sign.name" class="form-control" type="text" name="name" id="name">
-                                </div>
-                            </div>
-                            <div class="form-row column">
-                                <label for="date">Date</label>
-                                <div class="input-wrapper">
-                                    <input v-model="form.sign.date" class="form-control" type="date" id="date" name="date"/>
-                                </div>
-                            </div>
-                        </form>
-                        <label for="guide_waiver_check" class="flx gap-8 mt-8" data-type="input-wrapper">
+                        <label for="guide_waiver_check" class="flx gap-8 mt-32" data-type="input-wrapper">
                             <input v-model="guide_waiver_check" type="checkbox" id="guide_waiver_check">
-                            I have read and accepted the Guide's waiver
+                            I have read and signed the Guide's waiver
                         </label>
                     </div>
-                    
-                    <!-- <p class="mt-24">
-                        All persons attending the trip must <strong>read</strong> and <strong>agree</strong> to the both Climb Onsight's terms and the Guide's terms.
-                    </p>
-                    <p>
-                        <label for="cos_check" class="flx gap-8 ai-fs" data-type="input-wapper">
-                            <input v-model="cos_check_box" type="checkbox" class="mt-6 flx-shrink-0" id="cos_check">
-                            <span>
-                                I have read and agreed to Climb Onsight's <a href="https://climbonsight.ca/terms-and-conditions" target="_blank" onclick="return !window.open(this.href, 'Climb Onsight Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
-                            </span>
-                        </label>
-                    </p>
-                    <p>
-                        <label for="guide_check" class="flx ai-fs gap-8" data-type="input-wapper">
-                            <input v-model="guide_check_box" type="checkbox" class="mt-6 flx-shrink-0" id="guide_check">
-                            <span>
-                                I have read and agreed to the Guides's <a :href="s3bucket +'/'+ computedTerms" class="ft-secondary a-link" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">Terms and Conditions</a>
-                            </span>
-                        </label>
-                    </p> -->
                 </div>
                 <div v-else-if="booking.page === 2" class="text-center">
                     <h3>Relist?</h3>
@@ -154,7 +114,7 @@
                     <button v-if="booking.page === 1 && !guide_waiver" @click="goToGuideWaiver" class="button-primary btn-md gap-8" :class="{ 'button-disabled2' : !form.sign.signature || !form.sign.name || !form.sign.date || !cos_waiver_check }" :disabled="!form.sign.signature || !form.sign.name || !form.sign.date || !cos_waiver_check ? true : false">
                         <span>Continue</span>
                     </button>
-                    <button v-else-if="booking.page === 1 && guide_waiver" @click="booking.data.event_type === 'private' ? nextPage(2) : nextPage(3)" class="button-primary btn-md gap-8" :class="{ 'button-disabled2' : !form.sign.signature || !form.sign.name || !form.sign.date || !guide_waiver_check }" :disabled="!form.sign.signature || !form.sign.name || !form.sign.date || !guide_waiver_check ? true : false">
+                    <button v-else-if="booking.page === 1 && guide_waiver" @click="booking.data.event_type === 'private' ? nextPage(2) : nextPage(3)" class="button-primary btn-md gap-8" :class="{ 'button-disabled2' : !guide_waiver_check }" :disabled="!guide_waiver_check ? true : false">
                         <span>Continue</span>
                     </button>
                     <button v-if="booking.page === 2" @click="relist(true)" class="button-primary w-100 btn-md gap-8">
@@ -238,10 +198,6 @@ export default {
         },
         goToGuideWaiver() {
             this.guide_waiver = true
-            this.form.sign.signature = ''
-            this.form.sign.name = ''
-            this.form.sign.date = new Date().toISOString().slice(0, 10)
-
         },
         async submitBooking() {
             this.startSpinner()
