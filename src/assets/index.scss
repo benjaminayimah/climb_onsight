@@ -2,8 +2,8 @@
 :root {
     --font: 'Helvetica', sans-serif;
     --primary-color: var(--black);
-    --secondary-color: #d99361;
-    --secondary-hover: #c3906b;
+    --secondary-color: #EBA33A;
+    --secondary-hover: #da9329;
     --secondary-light: #F4E8DF;
     --primary-hover: #212135;
     --bg-color: #FBF7F4;
@@ -1058,8 +1058,11 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-input {
 .forgot-pass{
     text-align: right;
     margin-top: 4px;
+    text-decoration: underline;
     a {
         font-size: 0.95rem;
+    }
+    &:hover {
         color: var(--secondary-color);
     }
 }
