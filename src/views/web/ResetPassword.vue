@@ -1,11 +1,11 @@
 <template>
     <div class="logon-column-wrapper flx column ai-c br-16 bg-white flx-grow-1">
-        <div class="flx column column-inner ai-c gap-80 h-100">
+        <div class="flx column column-inner ai-c gap-32 h-100">
             <div>
                 <logo />
             </div>
             <div class="w-100 flx ai-c flx-1">
-                <div class="flx-1 flx column gap-100">
+                <div class="flx-1 flx column gap-32">
                     <div class="text-center">
                         <div class="fw-700 fs-2rem">{{ successful ? 'Successful!' : 'Almost there!' }}</div>
                         <div v-if="!successful">Enter your new password</div>
@@ -50,6 +50,7 @@
                     </div>
                 </div>
             </div>
+            <foot-note />
         </div>
     </div>
 </template>
@@ -60,8 +61,9 @@ import { mapState } from 'vuex';
 import inputValidationMixin from '@/mixins/inputValidation';
 import Spinner from '@/components/includes/Spinner.vue'
 import Logo from '@/components/includes/Logo.vue';
+import FootNote from '@/components/includes/FootNote.vue';
 export default {
-    components: { Spinner, Logo },
+    components: { Spinner, Logo, FootNote },
     name: 'ResetPassword',
     mixins: [inputValidationMixin],
     computed: {

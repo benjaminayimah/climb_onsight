@@ -1,11 +1,11 @@
 <template>
     <div class="logon-column-wrapper flx column ai-c br-16 bg-white flx-grow-1">
-        <div class="flx column column-inner ai-c gap-80 h-100">
+        <div class="flx column column-inner ai-c gap-32 h-100">
             <div>
                 <logo />
             </div>
             <div class="w-100 flx ai-c flx-1">
-                <div class="flx-1 flx column gap-100">
+                <div class="flx-1 flx column gap-32">
                     <div class="text-center">
                         <div class="fw-700 fs-2rem">{{ emailSent ? 'Check your email' : 'Forgot password' }}</div>
                         <div v-if="!emailSent">Enter your email to continue</div>

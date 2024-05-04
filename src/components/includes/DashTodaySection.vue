@@ -107,8 +107,8 @@ export default {
 
 <style lang="scss" scoped>
 .right {
-    flex-grow: 1;
     padding: 32px 20px;
+    flex-basis: 30%;
 }
 img, .counter {
     height: 50px;
