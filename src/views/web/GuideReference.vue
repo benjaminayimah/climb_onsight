@@ -5,7 +5,7 @@
             <span>{{ systemErr.message }}</span>
         </div>
         <form @submit.prevent="" id="guide_ref_form">
-            <div class="form-wrapper flx column gap-24">
+            <div class="form-wrapper flx column gap-16">
                 <div>
                     <guide-referees-input-row v-for="(referee, index) in referees"
                         :key="referee.id"

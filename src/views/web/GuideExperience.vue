@@ -2,7 +2,7 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Please list all your experiences in the following</div>
         <form id="guide_exp_form" @submit.prevent="">
-            <div class="form-wrapper flx column gap-24">
+            <div class="form-wrapper flx column gap-16">
                 <ul class="flx gap-8 flx-wrap">
                     <category-list v-for="category in computedCateries" :key="category.id" :category="category" :selected="form.category" @select-category="selectCategory" :color="'#F1F1F1'"/>
                 </ul>
@@ -128,7 +128,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

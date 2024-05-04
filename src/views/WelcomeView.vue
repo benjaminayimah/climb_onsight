@@ -20,7 +20,7 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="css" scoped>
 section {
     min-height: 100dvh;
     background-color: var(--bg-color);

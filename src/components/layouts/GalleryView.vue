@@ -107,8 +107,7 @@ export default {
     z-index: 601;
 }
 .isActive {
-    border: 2px solid #fff;
-
+    outline: 2px solid #fff;
 }
 @media screen and (max-width: 570px){
     .gallery-main {

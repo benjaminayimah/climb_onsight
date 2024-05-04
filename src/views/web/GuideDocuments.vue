@@ -2,7 +2,7 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Guide insurance, Certificates & Awards.</div>
         <form @submit.prevent="" id="guide_doc_form">
-            <div class="form-wrapper flx column gap-24">
+            <div class="form-wrapper flx column gap-16">
                 <div class="form-row column">
                     <span class="gray fs-09">Optional</span>
                     <doc-upload-input @add-to-formArr="addToFormArr" @del-file="delFile"  :id="'guide_insurance'" :formInput="form.guide_insurance" :label="'Proof of guiding insurance'"/>
@@ -99,7 +99,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .upload {
     color: #e27a30;
 }

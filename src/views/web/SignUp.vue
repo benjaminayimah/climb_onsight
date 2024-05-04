@@ -14,7 +14,7 @@
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                             <span>{{ systemErr.message }}</span>
                         </div>
-                        <div class="form-wrapper flx column gap-24">
+                        <div class="form-wrapper flx column gap-16">
                             <div class="form-row column">
                                 <label for="email">Email</label>
                                 <div class="input-wrapper">
@@ -71,6 +71,9 @@
                                 <span class="input-error" v-if="validation.error && validation.errors.password">
                                     {{ validation.errors.password[0] }}
                                 </span>
+                            </div>
+                            <div class="fs-08">
+                                <span class="gray">By signing up, you have read and accepted Climb Onsight's <a href="https://climbonsight.ca/terms-and-conditions/" target="_blank" class="a-link ft-secondary ">Terms & Conditions</a> and <a href="https://climbonsight.ca/privacy-policy/" target="_blank" class="a-link ft-secondary ">Privacy Policy.</a></span>
                             </div>
                             <button class="button-primary gap-8 w-100 btn-lg ai-c" :class="{ 'button-disabled' : submiting }" :disabled="submiting ? true : false">
                                 <spinner v-if="submiting" :size="20" :color="'#fff'" />
@@ -145,7 +148,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 .input-wrapper .div-input{
     width: auto;
     padding: 16px 16px;

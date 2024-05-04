@@ -14,10 +14,9 @@
             <div>Add profile image</div>
             <span class="input-error" v-if="imageStatus.active">{{ imageStatus.msg }}</span>
         </div>
-        <!-- <button @click="deltmp('f3M2P63h1JqO5xPLbSz8cRTBEpaYXchfvOYWidMe.jpg')">delete</button> -->
         <form @submit.prevent="" id="climber_info_form">
             <input class="hide" @change="uploadTemp('avatar_img')" name="image" id="avatar_img" type="file" ref="img"> 
-            <div class="form-wrapper flx column gap-24">
+            <div class="form-wrapper flx column gap-16">
                 <div class="form-row column">
                     <div class="input-wrapper">
                         <input v-model="form.dob" type="date" name="dob" id="dob" class="form-control" :class="{ 'error-border': validation.errors.dob }">
@@ -27,7 +26,6 @@
                     </span>
                 </div>
                 <div class="form-row column">
-                    <!-- <label for="gender">Gender</label> -->
                     <div class="input-wrapper">
                         <select v-model="form.gender" name="gender" id="gender" class="form-control" :class="{ 'error-border': validation.errors.gender }">
                             <option value="" selected>Gender</option>
@@ -122,7 +120,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

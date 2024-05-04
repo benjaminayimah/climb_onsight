@@ -2,7 +2,7 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Link to reviews</div>
         <form @submit.prevent="" id="guide_rev_form">
-            <div class="form-wrapper flx column gap-24">
+            <div class="form-wrapper flx column gap-16">
                 <div class="form-row column">
                     <label for="reviews">Reviews</label>
                     <div class="input-wrapper">
@@ -48,7 +48,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

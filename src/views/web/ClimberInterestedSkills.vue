@@ -54,14 +54,6 @@ export default {
     },
     methods: {
         async updateNewUser() {
-            // this.validation.error ? this.clearErrs() : ''
-            // let errors = {}
-            // if(this.form.new_skills == '') {
-            //     errors.new_skills = ['The new skill field is required']
-            //     this.showErr(errors)
-            // }else {
-                
-            // }
             this.startSpinner()
             await this.$store.commit('updateNewSkills', this.form)
             this.submitUpdates()

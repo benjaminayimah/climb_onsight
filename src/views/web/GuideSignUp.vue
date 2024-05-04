@@ -14,7 +14,7 @@
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                             <span>{{ systemErr.message }}</span>
                         </div>
-                        <div class="form-wrapper flx column gap-24">
+                        <div class="form-wrapper flx column gap-16">
                             <div class="form-row column">
                                 <label for="email">Email</label>
                                 <div class="input-wrapper">
@@ -115,29 +115,7 @@ export default {
                 this.signingIn = false
                 this.errorResponse(e)
             }
-        },
-
-
-
-        // async signinSuccess(res) {
-        //     this.signedIn = true
-        //     await this.$store.commit('signInSuccess', res)
-        //     this.$router.push({ name: 'Home' })
-        //     this.$store.dispatch('getAuthUser', this.token)
-        // },
-        // startProgress() {
-        //     var interval = setInterval(() => {
-        //         if(!this.signedIn && this.progressFill < 180 ) {
-        //             this.progressFill++
-        //         }
-        //         if(this.signedIn) {
-        //             this.progressFill = 200
-        //             setTimeout(()=> {
-        //                 clearInterval(interval);
-        //             }, 200)
-        //         }
-        //     }, 20)
-        // }
+        }
     },
     mounted() {
         this.form.token = this.$route.params.payload

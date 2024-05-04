@@ -1,5 +1,5 @@
 <template>
-    <div class="flx column ai-c gap-8 fs-09">
+    <div class="flx column ai-c gap-8 fs-08">
         <ul class="flx flx-wrap jc-c gap-16">
             <li v-for="(list, index) in lists" :key="index">
                 <a :href="list.url" target="_blank" class="a-link">{{ list.name }}</a>

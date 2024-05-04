@@ -14,7 +14,7 @@
                         <div v-if="systemErr.error" class="invalid-credentials response-message text-center mb-32">
                             <span>{{ systemErr.message }}</span>
                         </div>
-                        <div class="form-wrapper flx column gap-24">
+                        <div class="form-wrapper flx column gap-16">
                             <div class="form-row column">
                                 <label for="password">New password</label>
                                 <div class="input-wrapper">
@@ -100,7 +100,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 section {
     height: 100dvh;
     background-color: #FFF1E7;

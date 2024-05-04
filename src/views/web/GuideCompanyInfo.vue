@@ -2,7 +2,7 @@
     <div class="stepper-wrapper w-100 flx column gap-32">
         <div class="stepper-title">Fill the forms below</div>
         <form @submit.prevent="" id="guide_com_form">
-            <div class="form-wrapper flx column gap-24">
+            <div class="form-wrapper flx column gap-16">
                 <div class="form-row column">
                     <label for="companyName">Company name</label>
                     <div class="input-wrapper">
@@ -127,7 +127,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 
 .input-wrapper .div-input{
     width: auto;
