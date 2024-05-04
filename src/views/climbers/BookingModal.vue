@@ -69,7 +69,7 @@
                         </div>
                         <label for="guide_waiver_check" class="flx gap-8 mt-32" data-type="input-wrapper">
                             <input v-model="guide_waiver_check" type="checkbox" id="guide_waiver_check">
-                            I have read and signed the Guide's waiver
+                            I have read and accepted the Guide's waiver
                         </label>
                     </div>
                 </div>
