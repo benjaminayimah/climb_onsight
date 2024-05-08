@@ -451,9 +451,7 @@ export default createStore({
       })
       .catch(e => {
         if(e.response) {
-          if(e.response.status === 400 || e.response.status === 404 ) {
-            state.commit('destroyToken')
-          }else if(e.response.status === 503) {
+          if(e.response.status === 400 || e.response.status === 404 || e.response.status === 503 ) {
             state.commit('destroyToken')
           }
           else {
