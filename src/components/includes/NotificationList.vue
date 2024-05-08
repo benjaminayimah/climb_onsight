@@ -18,6 +18,7 @@
 import userRolesMixin from '@/mixins/userRolesMixin';
 import { mapState } from 'vuex';
 export default {
+    inheritAttrs: false,
     name: 'NotificationList',
     mixins: [userRolesMixin],
     props: {
@@ -52,7 +53,7 @@ export default {
                 this.$store.commit('preSetTempData', { data: this.notification, modal: 'view_user'})
             }else if(this.is_climber) {
                 if (this.event) {
-                    this.$router.push({ name: 'MyEvents', query: { current: this.event.event_id, origin: this.$route.name } } )
+                    this.$router.push({ name: 'MyEvents', query: { current: this.event.event_id, origin: this.$route.name, status: this.notification.id } } )
                 } else {
                     const alertPayload = {
                         status: 'danger',

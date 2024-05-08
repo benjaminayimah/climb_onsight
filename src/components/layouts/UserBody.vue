@@ -14,6 +14,14 @@
         <div class="gray">Phone number</div>
         <div>{{ user.phone_number }}</div>
     </div>
+    <div class="list-row-shading" v-if="user.dob">
+        <div class="gray">Age</div>
+        <div>{{ calculateAge(user.dob) }}</div>
+    </div>
+    <div class="list-row-shading" v-if="user.gender">
+        <div class="gray">Gender</div>
+        <div class="capitalize">{{ user.gender }}</div>
+    </div>
     <div v-if="computedAttendees.length > 1 && is_guide">
         <div class="uppercase mb-8 mt-8 fs-09"><strong>All registered attendees</strong></div>
         <div class="list-row-shading">
@@ -33,26 +41,43 @@
             </div>
         </div>
     </div>
-    <div v-if="user.gender || user.dob" class="uppercase mt-8 fs-09"><strong>Other information</strong></div>
-    <div class="list-row-shading" v-if="user.event_name">
-        <div class="gray">Event name</div>
-        <div>{{ user.event_name }}</div>
-    </div>
-    <div class="list-row-shading" v-if="user.date_selected">
-        <div class="gray">Date chosen</div>
-        <div>{{ format_date(user.date_selected) }}</div>
-    </div>
-    <div class="list-row-shading" v-if="user.event_type">
-        <div class="gray">Event type</div>
-        <event-type :eventType="user.event_type" />
-    </div>
-    <div class="list-row-shading" v-if="user.dob">
-        <div class="gray">Age</div>
-        <div>{{ calculateAge(user.dob) }}</div>
-    </div>
-    <div class="list-row-shading" v-if="user.gender">
-        <div class="gray">Gender</div>
-        <div class="capitalize">{{ user.gender }}</div>
+    <div>
+        <div v-if="user.gender || user.dob" class="uppercase mt-8 fs-09"><strong>Event details</strong></div>
+        <div v-if="is_guide && user.event_id" class="list-row-link">
+            <a href="#" @click.prevent="goToEvent" class="flx jc-sb ai-c">
+                <div class="flx gap-8">
+                    <div>
+                        <img class="br-16 profile-img" :src="computedEvent.gallery && computedEvent.gallery.length ? s3bucket+'/'+ JSON.parse(computedEvent.gallery)[0] : ''" :alt="computedEvent.event_name">
+                    </div>
+                    <div class="flx column gap-4">
+                        <div class="name">{{ user.event_name }}</div>
+                        <div class="flx gap-8">
+                            <event-type :eventType="user.event_type" />
+                            <span class="fs-08 badge badge-cyan br-24 wrap-text wrap-line-1">{{ computedEvent.category }}</span>
+                        </div>
+                        <div class="flx gap-8">
+                            <span class="fs-08 flx gap-4 ai-c">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 26">
+                                    <path d="M-3300-660c0-.707.011-1.372.035-2q.019-.516.051-1,.034-.518.083-1c.5-4.965,2.267-7.018,6.832-7.707V-673a1,1,0,0,1,1-1,1,1,0,0,1,1,1v1.085c.911-.059,1.908-.086,3-.086s2.09.026,3,.086V-673a1,1,0,0,1,1-1,1,1,0,0,1,1,1v1.293c4.566.688,6.327,2.741,6.832,7.707.033.321.06.654.083,1,.022.322.038.655.052,1,.023.629.034,1.3.034,2,0,9.882-2.118,12-12,12S-3300-650.118-3300-660Zm2,0a26.907,26.907,0,0,0,.438,5.61,5.206,5.206,0,0,0,1.271,2.681,5.214,5.214,0,0,0,2.681,1.271A26.852,26.852,0,0,0-3288-650a26.842,26.842,0,0,0,5.61-.438,5.214,5.214,0,0,0,2.682-1.271,5.214,5.214,0,0,0,1.27-2.681A26.831,26.831,0,0,0-3278-660c0-.716-.011-1.381-.036-2h-19.928C-3297.989-661.38-3298-660.715-3298-660Zm2.108-8.634c-.944.692-1.625,1.908-1.929,4.633h19.642c-.3-2.725-.985-3.941-1.93-4.633a6.7,6.7,0,0,0-2.892-1.048V-669a1,1,0,0,1-1,1,1,1,0,0,1-1-1v-.909c-.869-.061-1.861-.091-3-.091s-2.132.03-3,.091V-669a1,1,0,0,1-1,1,1,1,0,0,1-1-1v-.681A6.7,6.7,0,0,0-3295.892-668.633Zm10.5,14.27a1,1,0,0,1-1-1,1,1,0,0,1,1-1h3a1,1,0,0,1,1,1,1,1,0,0,1-1,1Zm-8.61,0a1,1,0,0,1-1-1,1,1,0,0,1,1-1h3a1,1,0,0,1,1,1,1,1,0,0,1-1,1Z" transform="translate(3300 674)" fill="#a7a7a7"/>
+                                </svg>
+                                {{ format_date_short(user.date_selected) }}
+                            </span>
+                            <span class="fs-08 flx gap-4 ai-c">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 0 21.137 21.137">
+                                    <path d="M-3539.018-766.128a10.581,10.581,0,0,1,10.569-10.569,10.581,10.581,0,0,1,10.569,10.569,10.58,10.58,0,0,1-10.569,10.569A10.58,10.58,0,0,1-3539.018-766.128Zm2,0a8.579,8.579,0,0,0,8.569,8.569,8.578,8.578,0,0,0,8.569-8.569,8.578,8.578,0,0,0-8.569-8.569A8.579,8.579,0,0,0-3537.018-766.128Zm10.74,4.4-3.307-2.146a1,1,0,0,1-.455-.839v-5.869a1,1,0,0,1,1-1,1,1,0,0,1,1,1v5.325l2.852,1.85a1,1,0,0,1,.294,1.382,1,1,0,0,1-.84.456A1,1,0,0,1-3526.278-761.729Z" transform="translate(3539.018 776.696)" fill="#a7a7a7"/>
+                                </svg>
+                                {{ computedEvent.event_duration }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="12" viewBox="0 0 14.5 14.5">
+                        <path d="M-3437.481-683.708a2,2,0,0,1-2-2v-8.25a2,2,0,0,1,2-2h4.5a.5.5,0,0,1,.5.5.5.5,0,0,1-.5.5h-4.5a1,1,0,0,0-1,1v8.25a1,1,0,0,0,1,1h8.249a1,1,0,0,0,1-1v-4.5a.5.5,0,0,1,.5-.5.5.5,0,0,1,.5.5v4.5a2,2,0,0,1-2,2Zm3.4-5.4a.5.5,0,0,1,0-.707l7.4-7.4h-3.293a.5.5,0,0,1-.5-.5.5.5,0,0,1,.5-.5h4.5a.5.5,0,0,1,.243.063h0l.009.005,0,0,.006,0,.006,0,0,0,.008.005h0a.491.491,0,0,1,.074.061.5.5,0,0,1,.146.379v4.475a.5.5,0,0,1-.5.5.5.5,0,0,1-.5-.5V-696.5l-7.4,7.4a.5.5,0,0,1-.354.147A.5.5,0,0,1-3434.085-689.1Z" transform="translate(3439.481 698.208)" fill="#d75e09"/>
+                    </svg>
+                </span>
+            </a>
+        </div>
     </div>
     <div v-if="user.bio" class="flx column gap-4 list-row-shading">
         <div class="gray">Bio</div>
@@ -194,7 +219,8 @@ export default {
     },
     computed: {
         ...mapState({
-            s3bucket: (state) => state.s3bucket
+            s3bucket: (state) => state.s3bucket,
+            events: (state) => state.events
         }),
         computedCertificate() {
             if(this.user.guide_certificate && Array.isArray(JSON.parse(this.user.guide_certificate))) {
@@ -230,13 +256,39 @@ export default {
                 experiences = JSON.parse(this.user.guide_experience).filter(data => data.value > 0)
             }
             return experiences
+        },
+        computedEvent() {
+            return this.events && this.user.event_id ? this.events.find(data => data.id === this.user.event_id) : null
+        }
+    },
+    methods: {
+        goToEvent() {
+            this.$router.push({ name: 'UpcomingEvents', query: { current: this.computedEvent.id, origin: this.$route.name, status: 'event' } } )
+            this.$store.commit('closeModal')
         }
     }
 }
 </script>
-<style lang="css" scoped>
-.grid-col-attendees{
+<style lang="scss" scoped>
+.grid-col-attendees.grid-col-attendees{
     place-content: center;
     grid-template-columns: 1fr 1fr .4fr;
+}
+.profile-img {
+    height: 80px;
+    width: 80px
+}
+.list-row-link {
+    margin: 0 -12px;
+    a {
+        transition: .2s background-color;
+        border-radius: 14px;
+        padding: 12px;
+    }
+    &:hover {
+        a {
+            background-color: var(--list-hover);
+        }
+    }
 }
 </style>

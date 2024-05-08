@@ -40,8 +40,8 @@
                     </div>
                 </div>
                 <div class="flx gap-16 flx-wrap column">
-                    <div v-if="event.accepted" class="list-row-shading">
-                        <div class="gray">{{ event.paid ? 'Amount paid' : 'Amount to be paid'}}</div>
+                    <div v-if="event.receipt_no" class="list-row-shading">
+                        <div class="gray">{{ event.paid ? 'Amount paid' : 'Amount'}}</div>
                         <div><strong>{{ formatAmount(Number(this.event.total_price))   }}</strong></div>
                     </div>
                     <div v-else class="list-row-shading">
@@ -51,9 +51,9 @@
                     </div>
                     <div class="list-row-shading">
                         <div class="gray">Date</div>
-                        <div v-if="event.accepted">
-                            <span v-if="event.event_type === 'public'">{{ format_date(event.start_date) }}</span>
-                            <span v-else>{{ format_date(event.date_selected) }}</span>
+                        <div v-if="event.receipt_no">
+                            <span v-if="event.repeat_at">{{ format_date(event.date_selected) }} </span>
+                            <span v-else>{{ format_date(event.start_date) }}</span>
                         </div>
                         <div v-else>
                             <div v-if="event.start_date !== event.end_date">
@@ -142,7 +142,6 @@
                             <guides-link-button :link="event.guides_link" />
                         </div>
                     </div> -->
-
                 </div>
                 <div v-if="is_climber" class="sticky booking-trigger-wrapper flx jc-fe">
                     <booking-trigger-button :eventStatus="event" :resultType="'event'" @booking-trigger="bookingTrigger" />

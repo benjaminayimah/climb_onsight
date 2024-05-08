@@ -1,5 +1,5 @@
 <template>
-    <a href="#" @click.prevent="doClick" class="flx-1 evt-card relative bg-white br-16 flx column gap-16 transition-sm" :class=" $route.query.current == event.id || $route.query.current && $route.query.current == event.event_id ? 'list-is-active' : ''">
+    <a href="#" @click.prevent="doClick" class="flx-1 evt-card relative bg-white br-16 flx column gap-16 transition-sm" :class="isActive ? 'list-is-active' : ''">
         <div v-if="computedFullyBooked && !event.repeat_at && event.attendance_limit === event.limit_count" class="absolute bked">
             <event-type :eventType="'Fully booked'" />
         </div>
@@ -82,7 +82,7 @@ export default {
             return today > eventDate ? 'past' : 'registered'
         },
         bookingStatus() {
-            return this.bookings.find(event => event.event_id === this.event_id)
+            return this.is_climber && this.bookings ? this.bookings.find(data => data.id === this.event.id) : null
         },
         computedPriceRange() {
             if(this.event && this.event.price && JSON.parse(this.event.price).length) {
@@ -93,8 +93,15 @@ export default {
             return null
         },
         computedFullyBooked() {
-            const userBookedEvent = this.bookings.find(booked => booked.event_id === this.event.id || this.event.event_id )
+            const userBookedEvent = this.bookings ? this.bookings.find(booked => booked.event_id === this.event.id || this.event.event_id ) : null
             return userBookedEvent ? false : true
+        },
+        isActive() {
+            if(!this.is_climber) {
+                return this.$route.query.current && this.$route.query.current == this.event.id ? true : false
+            }else {
+                return this.bookingStatus && this.bookingStatus.id == this.$route.query.status ? true : false
+            }
         }
     },
     methods: {
@@ -102,16 +109,18 @@ export default {
             if(this.redirect) {
                 let route_name = 'UpcomingEvents'
                 let id = this.event.id
+                let status = 'event'
                 if(this.is_climber) {
                     route_name = 'MyEvents'
                     id = this.event.event_id
+                    status = this.bookingStatus.id
                 }else {
                     route_name = 'UpcomingEvents';
                 }
                 if (this.$route.name === route_name && this.$route.query.type !== 'all') {
-                    this.$router.push({ name: route_name, query: { type: this.eventType, current: id, origin: this.$route.name } } )
+                    this.$router.push({ name: route_name, query: { type: this.eventType, current: id, origin: this.$route.name, status: status  } } )
                 }else {
-                    this.$router.push({ name: route_name, query: { current:id, origin: this.$route.name } } )
+                    this.$router.push({ name: route_name, query: { current:id, origin: this.$route.name, status: status } } )
                 }
             }else {
                 this.$emit('open-modal', this.event)

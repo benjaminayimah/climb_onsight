@@ -1051,6 +1051,14 @@ input:not([type=checkbox],[type=radio]), select, textarea, .div-input {
         border: 1px solid var(--black);
     }
 }
+.disabled-input {
+    background-color: var(--gray-light);
+    cursor: not-allowed;
+    color: var(--gray);
+    svg path {
+        fill: var(--gray);
+    }
+}
 .input-error{
     color: var(--danger);
     font-size: 0.9rem;

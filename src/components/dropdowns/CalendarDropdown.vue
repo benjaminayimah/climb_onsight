@@ -5,7 +5,7 @@
                 <span>{{ date || 'Pick a date' }}</span>
                 <span v-if="date" class="gray">|</span>
                 <spinner v-if="fetching_slots" :size="16" :color="'#0c59ed'" />
-                <span v-else-if="date" :class="limit > 0 ? 'ft-vuecal' : 'ft-danger'">
+                <span v-else-if="date" :class="limit > 0 ? 'ft-vuecal' : 'ft-danger'" class="slots-pill">
                     <strong>{{ limit > 0 ? limit : 'No' }}</strong> slots available on this date
                 </span>
             </div>
@@ -202,12 +202,16 @@ export default {
 .active {
     border-color: var(--black);
 }
-.disabled-input {
-    background-color: var(--gray-light);
-    cursor: not-allowed;
-    color: var(--gray);
-    svg path {
-        fill: var(--gray);
-    }
+.slots-pill {
+    padding: 8px 14px;
+    border-radius: 24px;
+}
+.ft-vuecal {
+    background-color: #dfeaff;
+    border: #c5d6f4 1px solid;
+}
+.ft-danger {
+    background-color: #ffe0e0;
+    border: #ffcdcd 1px solid;
 }
 </style>

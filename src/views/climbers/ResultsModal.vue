@@ -27,10 +27,11 @@
                                 />
                             </div>
                             <div class="form-row column">
-                                <div v-if="!result.repeat_at" class="ft-warning fs-09">***Only <strong>{{ computedBookingLimit }}</strong> slots available***</div>
+                                <spinner v-if="!result.repeat_at && fetching_available_slots" :size="16" :color="'#7f7e7e'" />
+                                <div v-else-if="!result.repeat_at && !fetching_available_slots" class="fs-09" :class="computedBookingLimit > 0 ? 'ft-warning' : 'ft-danger'"><strong>{{ computedBookingLimit > 0 ? '***Only '+computedBookingLimit+ ' slots available***' : '***Sorry NO slot available***'}}</strong></div>
                                 <label for="quantity">Quantity</label>
                                 <div class="input-wrapper">
-                                    <input v-model="form.quantity" @input="sliceInput" class="br-16 w-100 form-control" type="number" min="1" :max="computedBookingLimit" id="quantity" name="quantity" :disabled="computedBookingLimit < 1"  :class="{ 'error-border': validation.errors.quantity }" />
+                                    <input v-model="form.quantity" @input="sliceInput" class="br-16 w-100 form-control" type="number" min="1" :max="computedBookingLimit" id="quantity" name="quantity" :disabled="computedBookingLimit < 1 || fetching_available_slots"  :class="[{ 'error-border': validation.errors.quantity }, fetching_available_slots ? 'disabled-input' : '']" />
                                 </div>
                                 <span class="input-error" v-if="validation.error && validation.errors.quantity">
                                     {{ validation.errors.quantity[0] }}
@@ -69,7 +70,7 @@
                     </div> 
                     <error-display-card v-if="validation.error" :errors="validation.errors"/>
                     <div class="centered gap-8">
-                        <button @click="submitPreBooking" class="button-primary btn-md gap-8" :class="{ 'button-disabled' : submiting || computedBookingLimit < 1 }" :disabled="submiting || computedBookingLimit < 1">
+                        <button @click="submitPreBooking" class="button-primary btn-md gap-8" :class="{ 'button-disabled' : submiting || fetching_available_slots || computedBookingLimit < 1 }" :disabled="submiting || fetching_available_slots || computedBookingLimit < 1">
                             <spinner v-if="submiting" :size="20" :color="'#fff'" />
                             <span>{{ submiting ? 'Submitting...' : 'Submit request' }}</span>
                         </button>
@@ -142,7 +143,7 @@ export default {
             bookings: (state) => state.bookings
         }),
         bookingStatus() {
-            return this.bookings.find(event => event.event_id === this.result.id)
+            return this.is_climber && this.bookings ? this.bookings.find(event => event.event_id === this.result.id) : null
         },
         computedAttendees() {
             let length = Number(this.form.quantity)
@@ -150,26 +151,18 @@ export default {
         },
         computedPrice() {
             if(this.result.event_type === 'private') {
-                if(this.result.repeat_at === null) {
-                    const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1 + Number(this.result.limit_count))
-                    if(price)
-                    return Number(price.price)
-                    else
-                    return 0
-                }else {
-                    const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1 + Number(this.available_slot_count))
-                    if(price)
-                    return Number(price.price)
-                    else
-                    return 0
-                }
+                const price = JSON.parse(this.result.price).find(item => item.id === this.form.quantity -1 + Number(this.available_slot_count))
+                if(price)
+                return Number(price.price)
+                else
+                return 0
             }else {
                 return Number(this.result.price)
             }
         },
         computedBookingLimit() {
             const limit = this.result.attendance_limit
-            let count = this.result.limit_count
+            let count = this.available_slot_count
             if (this.result.repeat_at) {
                 count = this.available_slot_count 
             }
@@ -200,7 +193,6 @@ export default {
                 const res = await axios.post(this.hostname+'/api/get-booking-count/'+ this.result.id + '?token='+ this.token, { date: date})
                 this.form.date = new Date(date).toISOString().slice(0, 10)
                 this.available_slot_count = res.data
-                this.form.quantity = this.computedBookingLimit
                 this.fetching_available_slots = false
                 if(Number(this.form.quantity > this.computedBookingLimit)) {
                     this.form.quantity = this.computedBookingLimit
@@ -229,11 +221,8 @@ export default {
             return this.form.attendees.every(item => item.name !== '' && item.name !== null && item.email !== '' && item.email !== null && item.dob !== '' && item.dob !== null)
         },
         bookingTrigger() {
-            if(this.bookingStatus && this.bookingStatus.accepted) {
-                this.$store.commit('triggerBooking', this.bookingStatus)
-            }else {
-                this.prebook = true
-            }
+            this.prebook = true
+            !this.result.repeat_at ? this.getBookingCount() : ''
         },
         cancelPreBooking() {
             this.prebook = false
@@ -267,14 +256,30 @@ export default {
                 try {
                     const res = await axios.post(this.hostname+'/api/prebook-event/'+ this.result.id + '?token='+ this.token, this.form)
                     this.stopSpinner()
-                    this.bookingSuccess = true
-                    this.$store.commit('updateBookings', res.data.bookings)
+                    if(res.status === 201) {
+                        this.$store.commit('showAlert', {status: 'danger', body: res.data.message})
+                        this.available_slot_count = res.data.slot_booked
+                    }else {
+                        this.bookingSuccess = true
+                        this.$store.commit('updateBookings', res.data.bookings)
+                    }
                 } catch (e) {
                     this.errorResponse(e)
                     this.stopSpinner()
+
                 }
             }
-            
+        },
+        async getBookingCount() {
+            this.fetching_available_slots = true
+            try {
+                const res = await axios.post(this.hostname+'/api/get-booking-count/'+ this.result.id + '?token='+ this.token, { date: null})
+                this.available_slot_count = res.data
+                this.fetching_available_slots = false
+            } catch (e) {
+                this.errorResponse(e)
+                this.fetching_available_slots = false
+            }
         }
     },
     mounted() {

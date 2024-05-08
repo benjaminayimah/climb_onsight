@@ -176,7 +176,6 @@ export default {
                     name: '',
                     date: new Date().toISOString().slice(0, 10),
                 },
-                event_id: '',
                 relist: true
             },
             guide_waiver: false,
@@ -201,7 +200,6 @@ export default {
         },
         async submitBooking() {
             this.startSpinner()
-            this.form.event_id = this.booking.data.event_id
             try {
                 const res = await axios.post(this.hostname+'/api/attempt-payment/'+ this.booking.data.id + '?token='+ this.token, this.form)
                 this.stopSpinner()

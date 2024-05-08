@@ -73,7 +73,7 @@ export default {
         },
         computedEvent() {
             if(this.bookings && this.bookings.length) {
-                const event = this.bookings.find(event => event.event_id == this.$route.query.current)
+                const event = this.bookings.find(event => event.id == this.$route.query.status)
                 if(event)
                 return event
                 else

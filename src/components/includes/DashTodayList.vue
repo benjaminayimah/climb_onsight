@@ -7,9 +7,9 @@
                     <span class="wrap-text wrap-line-1">
                         {{ event.event_name }}
                     </span>
-                    <span>
+                    <!-- <span>
                         <booking-status v-if="is_climber" :status="bookingStatus" />
-                    </span>
+                    </span> -->
                 </div>
                 <div class="fs-09 gray">{{ event.category }}</div>
             </div>
@@ -24,9 +24,9 @@
 <script>
 import formatDateTime from '@/mixins/formatDateTime';
 import ProfileAvatar from './ProfileAvatar.vue';
-import BookingStatus from './BookingStatus.vue';
+// import BookingStatus from './BookingStatus.vue';
 export default {
-    components: { ProfileAvatar, BookingStatus },
+    components: { ProfileAvatar },
     name: 'DashTodayList',
     mixins: [formatDateTime],
     props: {
