@@ -16,15 +16,12 @@
     </div>
 </template>
 <script>
-import { mapState } from 'vuex'
 import NotificationList from './NotificationList.vue'
 export default {
     components: { NotificationList },
     name: 'NotificationCard',
-    computed: {
-        ...mapState({
-            notifications: (state) => state.notifications
-        })
+    props: {
+        notifications: Array
     }
 }
 </script>

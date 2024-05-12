@@ -43,7 +43,7 @@
                             class="event-cal-theme ov-hidden br-16"
                         />
                     </div>
-                    <dash-notification-card v-if="getDevice !== 'mobile'" />
+                    <dash-notification-card v-if="getDevice !== 'mobile'" :notifications="notifications" />
                 </div>
                 <div v-if="getDevice !== 'mobile'" class="flx flx-grow-1 gap-24">
                     <div class="flx-b-60 gap-8 flx column">
@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import VueCal from 'vue-cal'
 import 'vue-cal/dist/vuecal.css'
 import statsMixin from '@/mixins/statsMixin'
@@ -78,6 +78,9 @@ export default {
     mixins: [statsMixin],
     computed: {
         ...mapGetters(['getDevice']),
+        ...mapState({
+            notifications: (state) => state.notifications
+        }),
         computedEvents() {
             return this.bookings.map(element => {
                 return {
