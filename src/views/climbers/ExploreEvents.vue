@@ -305,7 +305,7 @@ section {
 .evt-card {
     flex-basis: calc(33.33% - 16px);
     height: 250px;
-    padding: 20px;
+    padding: 14px;
 }
 .desktop, .tablet {
     .evt-card {

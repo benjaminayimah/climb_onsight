@@ -83,9 +83,10 @@
                 </div>
             </form>
         </div>
+        <foot-note />
     </div>
-    <div v-else class="flx gap-32 profile-body-wrapper overflow-y-scroll scroll-hidden" :class="is_guide ? 'column' : ''">
-        <div class="w-50 flx column gap-16">
+    <div v-else class="flx gap-32 profile-body-wrapper overflow-y-scroll scroll-hidden column">
+        <div class="flx w-100 column gap-16">
             <img class="bg-img br-16" :class="{'custom-color' : !user.profile_picture }" :src="user.profile_picture ? s3bucket+'/'+user.profile_picture : default_avatar" :alt="user.name">
             <div class="flx jc-sb">
                 <h3>{{ user.name }}</h3>
@@ -178,37 +179,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="guest" class="w-50">
-            <div class="flx jc-sb mb-32">
-                <ul class="flx bg-white br-32 tab">
-                    <li>
-                        <a @click="switchTab('gallery')" href="#" :class="{'active' : tab === 'gallery'}">Gallery</a>
-                    </li>
-                    <li>
-                        <a @click="switchTab('reviews')"  href="#" :class="{'active' : tab === 'reviews'}">Reviews</a>
-                    </li>
-                </ul>
-                <button v-if="!guest" class="button-primary btn-sm-lng">Add image to gallery</button>
-            </div>
-            <div v-if="tab === 'gallery'">
-                <div v-if="user.gallery" class="flx flx-wrap gap-16">
-                    <div class="grid-item bg-img"></div>
-                    <div class="grid-item bg-img"></div>
-                    <div class="grid-item bg-img"></div>
-                    <div class="grid-item bg-img"></div>
-                    <div class="grid-item bg-img"></div>
-                    <div class="grid-item bg-img"></div>
-                </div>
-                <div v-else>
-                    <h4>No gallery found</h4>
-                    <div>{{ guest ? 'Guide has' : 'You have'}} no gallery</div>
-                </div>
-            </div>
-            <div v-else>
-                <h4>No reviews found</h4>
-                <div>{{ guest ? 'This Guide has' : 'You have'}} no review at the moment</div>
-            </div>
-        </div>
+        <foot-note />
     </div>
 </template>
 
@@ -222,8 +193,9 @@ import formatDateTime from '@/mixins/formatDateTime'
 import AvatarUploader from '../includes/AvatarUploader.vue';
 import Spinner from '../includes/Spinner.vue';
 import alertMixin from '@/mixins/alertMixin';
+import FootNote from '../includes/FootNote.vue';
 export default {
-    components: { AvatarUploader, Spinner },
+    components: { AvatarUploader, Spinner, FootNote },
     name: 'ProfileBody',
     props: {
         user: Object,
@@ -292,9 +264,6 @@ export default {
         triggerEdit() {
             this.$emit('close-modal')
             this.$store.commit('preSetTempData', {data: this.user, modal: 'profile_edit' })
-        },
-        switchTab(tab) {
-            this.tab = tab
         }
         
     }

@@ -1,6 +1,6 @@
 <template>
     <section class="flx gap-24 column main event-section">
-        <h1 class="title">Events</h1>
+        <h1 class="title">My events</h1>
         <div class="flx section-main-wrapper">
             <div class="section-main-left">
                 <div class="flx tap-height pd-r-24">

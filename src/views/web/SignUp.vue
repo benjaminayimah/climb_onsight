@@ -54,7 +54,6 @@
                                     {{ validation.errors.phone_number[0] }}
                                 </span>
                             </div>
-                            
                             <div class="form-row column">
                                 <label for="password">Password</label>
                                 <div class="input-wrapper">

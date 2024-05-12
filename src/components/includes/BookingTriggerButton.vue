@@ -1,5 +1,5 @@
 <template>
-    <button v-if="$route.query.origin === 'MyEvents'" @click="$emit('booking-trigger')" class="button-primary btn-md" :class="{ 'button-disabled2' : eventStatus && (!eventStatus.accepted || eventStatus.paid) }" :disabled="eventStatus && (!eventStatus.accepted || eventStatus.paid) ? true : false">
+    <button v-if="$route.query.origin !== 'ExploreEvents' && $route.query.status" @click="$emit('booking-trigger')" class="button-primary btn-md" :class="{ 'button-disabled2' : eventStatus && (!eventStatus.accepted || eventStatus.paid) }" :disabled="eventStatus && (!eventStatus.accepted || eventStatus.paid) ? true : false">
         <span>Complete booking</span>
     </button>
     <button v-else class="button-primary btn-md" @click="$emit('booking-trigger')">

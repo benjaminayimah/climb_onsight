@@ -79,7 +79,7 @@
                 </div>
                 <div v-else class="fs-102rem pd-l-24 pd-r-24">
                     <p>
-                        Climb Onsight will review your request and will get back to you shortly. Please be aware that the Guide may not be available on the day selected and may reach out to you to reschedule your trip on another day.
+                        Climb Onsight will review your request and will get back to you shortly. Please be aware that <strong>{{ guide.name }}</strong> may not be available on the day selected and may reach out to you to reschedule your trip on another day.
                     </p>
                     <p>
                         If your trip is confirmed, you will receive an email with a payment link to complete your booking. Please make the payment to secure your spot. We will hold your spot for <span class="inline-block fw-600">72 hours</span>.
@@ -266,7 +266,6 @@ export default {
                 } catch (e) {
                     this.errorResponse(e)
                     this.stopSpinner()
-
                 }
             }
         },

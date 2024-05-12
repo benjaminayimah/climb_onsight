@@ -55,7 +55,7 @@
                             <div class="text-center">
                                 <h4>Guide Waiver</h4>
                                 <div class="fs-09">
-                                    Please sign and accept the waiver below to continue the process. If you have any questions please contact your Guide.<br />
+                                    Please follow the link below and sign the guide's waiver before you purchase your trip. Thank you!<br />
                                     <li>
                                         <a class="a-link ft-secondary" :href="computedTerms.type === 'upload' ? s3bucket +'/'+ computedTerms.url : computedTerms.url" target="_blank" onclick="return !window.open(this.href, 'Guide Terms & Conditions', 'width=700,height=800');">
                                             Guide Waiver

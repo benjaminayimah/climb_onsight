@@ -21,7 +21,7 @@
                     Are you sure you want to {{ acceptTrigger.type === 'accept' ? 'accept' : 'decline' }} this guide?
                 </p>
                 <div class="flx column gap-8">
-                    <button v-if="acceptTrigger.type === 'accept'" @click="acceptGuide" class="button-secondary btn-md gap-8 w-100 ">
+                    <button v-if="acceptTrigger.type === 'accept'" @click="acceptGuide" class="button-primary btn-md gap-8 w-100 ">
                         <spinner v-if="submiting" :size="20" :color="'#fff'" />
                         <span>{{ submiting ? 'Please wait...' : 'Yes, proceed' }}</span>
                     </button>

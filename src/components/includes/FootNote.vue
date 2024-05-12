@@ -1,5 +1,5 @@
 <template>
-    <div class="flx column ai-c gap-8 fs-08">
+    <div class="flx column ai-c gap-8 fs-08 ">
         <ul class="flx flx-wrap jc-c">
             <li v-for="(list, index) in lists" :key="index">
                 <a :href="list.url" target="_blank" class="a-link gray">{{ list.name }}</a>
@@ -33,5 +33,8 @@ li:not(li:last-child)::after {
     content: '\00B7';
     margin: 0 .3em 0 .3em;
     color: var(--gray);
+}
+div {
+    padding-bottom: 32px;
 }
 </style>

@@ -132,9 +132,9 @@ export default {
 
 <style lang="scss" scoped>
 .evt-card {
-    min-height: 190px;
+    min-height: 250px;
     .bg-img {
-        height: 60%;
+        height: 70%;
         border-radius: 8px;
     }
     .label, span {
