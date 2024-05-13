@@ -3,7 +3,7 @@
         <div>New Messages({{ messages.length }})</div>
         <router-link  to="/chats" class="fs-1rem a-link">See all</router-link>
     </h3>
-    <div v-if="messages.length" class="grid grid-col-2 bg-white br-16">
+    <div v-if="messages.length" class="grid grid-col-2 bg-white br-16 flx-1">
         <router-link :to="{ name: 'ChatDetails', params: { recipient_id: message.id, recipient_name: message.name}, replace: true}"  v-for="message in computedMessages.slice(0, 4)" :key="message.id" class="flx jc-sb msg-list gap-4">
             <div class="flx gap-8">
                 <div class="bg-img br-50"></div>
