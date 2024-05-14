@@ -5,9 +5,6 @@
     <teleport to="#modal_content">
         <div class="modal-width">
             <div class="br-16 flx column gap-16">
-                <!-- <div class="bg-img br-16 relative mb-16" :style="user.profile_picture ? { backgroundImage: 'url('+s3bucket+'/'+user.profile_picture+')'} : { backgroundImage: 'url('+default_avatar+')'} ">
-                    <button class="absolute fs-09">Change profile picture</button>
-                </div> -->
                 <div class="centered">
                     <avatar-uploader
                         :status="status"

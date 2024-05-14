@@ -29,11 +29,7 @@
                         <strong v-else-if="is_climber" class="fs-09">All booked guides</strong>
                         <div class="gray">{{ computedRegistered.length }}</div>
                     </div>
-                    <!-- <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 11.775 20">
-                            <path d="M8.228,22,6.453,20.225,14.678,12,6.453,3.775,8.228,2l10,10Z" transform="translate(-6.453 -2)" fill="#555555"/>
-                        </svg>
-                    </div> -->
+
                 </div>
             </div>
             <ul>

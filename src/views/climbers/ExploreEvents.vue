@@ -26,7 +26,6 @@
                         Nearby
                     </button>
                 </div>
-                <!-- {{ computedFilters }} -->
                 <div class="ft-danger" v-if="systemErr.error">{{ systemErr.message }}</div>
                 <div v-if="(completed && !submiting) || $route.query.filter_category || $route.query.filter_date" class="flx gap-50">
                     <div v-if="$route.query.filter_category || $route.query.filter_date">

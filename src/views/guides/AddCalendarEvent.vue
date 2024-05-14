@@ -4,12 +4,6 @@
     <calendar-stepper-3 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else-if="$route.query.stepper === '3'" @go-to-event="gotoEvent" />
     <calendar-stepper-4 :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else-if="$route.query.stepper === '4'" />
     <calendar-stepper-1 :user="user" :input2="input2" :newEvent="computedEvent" :editMode="editForm" v-else />
-    <!-- <div class="progress-indicator flx gap-4 absolute pd-16">
-        <span class="br-16 filled"></span>
-        <span class="br-16 not-filled"></span>
-        <span class="br-16 not-filled"></span>
-        <span class="br-16 not-filled"></span>
-    </div> -->
 </template>
 
 <script>

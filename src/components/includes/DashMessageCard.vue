@@ -17,20 +17,6 @@
                 <span class="count br-50 flx jc-c ai-c fs-09" v-if="message.unread > 0">{{ message.unread }}</span>
             </div>
         </router-link>
-
-        <!-- <router-link :to="{ name: 'ChatDetails', params: { recipient_id: user.id, recipient_name: user.name}, replace: true}" class="flx gap-8 br-16">
-            <profile-avatar :avatar="null" :color="user.color" :name="user.name"/>
-            <div class="flx flx-1" :class="{'column' : !contactOnly}">
-                <div class="flx jc-sb ai-c">
-                    <div class="wrap-text wrap-line-1 fw-600 fs-09 capitalize">{{ user.name }}</div>
-                    <span v-if="!contactOnly" class="gray fs-08 wrap-text wrap-line-1">{{ ago_time(user.time) }}</span>
-                </div>
-                <div v-if="!contactOnly" class="flx jc-sb">
-                    <span class="fs-09 wrap-text wrap-line-1 gray highlight">{{ user.preview }}</span>
-                    <span class="count flx-shrink-0 br-50 centered fs-08" v-if="user.unread > 0">{{ user.unread }}</span>
-                </div>
-            </div>
-        </router-link> -->
     </div>
     <div v-else class="bg-white flx-1 br-16 centered pd-16">
         <div class="text-center">

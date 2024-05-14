@@ -25,12 +25,6 @@
                         {{ validation.errors.new_password[0] }}
                     </span>
                 </div>
-                <!-- <div>
-                    <label for="send_email" class="flx gap-8" data-type="input-wrapper">
-                        <input v-model="form.sendEmail" type="checkbox" id="send_email">
-                        Automatically send login details to user's email?
-                    </label>
-                </div> -->
             </form>
         </div>
     </teleport>

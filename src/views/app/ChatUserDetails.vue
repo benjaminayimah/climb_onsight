@@ -9,22 +9,10 @@
             <div class="centered profile gap-4">
                 <profile-avatar :avatar="user.profile_picture" :color="user.color"/>
                 <div class="fw-600">{{ user.name }}</div>
+                <div>{{ user.email }}</div>
+                <div>{{ user.phone_number }}</div>
                 <span class="fs-09 gray capitalize">{{ user.role.replace(/_/g, " ") }}</span>
             </div>
-            <!-- <div>
-                <div class="mb-16">Event History</div>
-                <ul class="flx column gap-16">
-                    <li v-for="guide in climbers.slice(0, 3)" :key="guide.id">
-                        <a href="#" class="flx gap-8">
-                            <profile-avatar :avatar="null" :color="'#3b76e7'" />
-                            <div>
-                                <div>The Climber</div>
-                                <div class="fs-09 gray">June 12th</div>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div> -->
         </div>
     </div>
 </template>
