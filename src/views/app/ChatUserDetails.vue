@@ -21,7 +21,7 @@
                     </svg>
                     <a :href="'tel:'+user.phone_number">{{ user.phone_number }}</a>
                 </div>
-                <span class="capitalize fs-08 br-16 booking-status bg-light">{{ user.role.replace(/_/g, " ") }}</span>
+                <span v-if="user.role" class="capitalize fs-09 br-16 booking-status bg-light">{{ user.role.replace(/_/g, " ") }}</span>
             </div>
         </div>
     </div>
