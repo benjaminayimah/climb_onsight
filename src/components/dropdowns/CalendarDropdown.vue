@@ -6,7 +6,7 @@
                 <span v-if="date" class="gray">|</span>
                 <spinner v-if="fetching_slots" :size="16" :color="'#0c59ed'" />
                 <span v-else-if="date" :class="limit > 0 ? 'ft-vuecal' : 'ft-danger'" class="slots-pill">
-                    <strong>{{ limit > 0 ? limit : 'No' }}</strong> slots available on this date
+                    <strong>{{ limit > 0 ? limit : 'No' }}</strong> slots available
                 </span>
             </div>
             <span class="hide-show-pass absolute centered br-50">

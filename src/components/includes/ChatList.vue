@@ -45,4 +45,8 @@ a {
 .flx-1 {
     width: calc(100% - 70px);
 }
+.router-link-exact-active {
+    border-color: rgba(217, 217, 217, 0.49);
+    background-color: #eceff4;
+}
 </style>

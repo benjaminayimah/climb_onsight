@@ -139,4 +139,8 @@ export default {
 .send-btn {
     padding: 4px 16px;
 }
+// textarea {
+//     field-sizing: content;
+//     resize: none;
+// }
 </style>
